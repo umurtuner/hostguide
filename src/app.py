@@ -408,46 +408,71 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
 </section>
 
 <!-- ════════ PRICING ════════ -->
-<section id="pricing" class="max-w-3xl mx-auto px-6 mb-24">
+<section id="pricing" class="max-w-4xl mx-auto px-6 mb-24">
   <h2 class="text-2xl font-bold text-center mb-3">Simple Pricing</h2>
-  <p class="text-sm text-gray-500 text-center mb-10">Pay per guide, or save with Pro.</p>
-  <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-    <!-- Single Guide -->
-    <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 text-center">
-      <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Single Guide</h3>
-      <div class="text-4xl font-extrabold text-teal-700 mb-1"><span class="text-2xl line-through text-gray-400 mr-2">$4.99</span>$1.99</div>
-      <div class="text-sm text-gray-500 mb-1">one-time</div>
-      <div class="text-xs text-teal-600 font-medium mb-6">Launch pricing</div>
-      <ul class="text-left text-sm text-gray-600 space-y-2.5 mb-8">
-        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 1 neighborhood guide</li>
-        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 30+ nearby places</li>
-        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> PDF + digital version</li>
-        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Any city worldwide</li>
+  <p class="text-sm text-gray-500 text-center mb-10">One guide or many — pick what fits.</p>
+  <div class="grid md:grid-cols-3 gap-5 max-w-3xl mx-auto items-start">
+
+    <!-- Single -->
+    <div class="bg-white rounded-2xl shadow-md p-7 border border-gray-100 text-center">
+      <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">Single</h3>
+      <div class="text-3xl font-extrabold text-gray-800 mb-1"><span class="text-lg line-through text-gray-300 mr-1">$4.99</span>$1.99</div>
+      <div class="text-xs text-gray-500 mb-1">one-time</div>
+      <div class="text-xs text-teal-600 font-medium mb-5">Launch pricing</div>
+      <ul class="text-left text-sm text-gray-600 space-y-2 mb-7">
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 1 guide</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 30+ nearby places</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> PDF + web version</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-gray-300 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg><span class="text-gray-400"> Regeneration</span></li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-gray-300 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg><span class="text-gray-400"> Priority support</span></li>
       </ul>
       <a href="#" onclick="document.getElementById('airbnb_url').focus();window.scrollTo({top:0,behavior:'smooth'});return false;"
-         class="cta-btn block w-full py-3 bg-white border-2 border-teal-600 text-teal-700 rounded-xl font-semibold text-sm text-center hover:bg-teal-50 transition">
+         class="block w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold text-sm text-center hover:border-teal-400 transition">
         Get One Guide
       </a>
     </div>
-    <!-- Pro -->
-    <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-teal-500 text-center relative">
-      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-teal-600 text-white text-xs font-semibold px-4 py-1 rounded-full">Best Value</div>
-      <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Pro</h3>
-      <div class="text-4xl font-extrabold text-teal-700 mb-1">$9.99</div>
-      <div class="text-sm text-gray-500 mb-1">per month</div>
-      <div class="text-xs text-teal-600 font-medium mb-6">Up to 10 guides/month</div>
-      <ul class="text-left text-sm text-gray-600 space-y-2.5 mb-8">
-        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 10 guides per month</li>
-        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> All single guide features</li>
-        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Regenerate anytime</li>
-        <li class="flex items-start gap-2"><svg class="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Priority support</li>
+
+    <!-- Starter (decoy target) -->
+    <div class="bg-white rounded-2xl shadow-xl p-7 border-2 border-teal-500 text-center relative md:-mt-2 md:mb-0">
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-teal-600 text-white text-xs font-semibold px-4 py-1 rounded-full">Most Popular</div>
+      <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4 mt-1">Starter</h3>
+      <div class="text-3xl font-extrabold text-teal-700 mb-1">$4.99</div>
+      <div class="text-xs text-gray-500 mb-1">per month</div>
+      <div class="text-xs text-teal-600 font-medium mb-5">5 guides/month</div>
+      <ul class="text-left text-sm text-gray-600 space-y-2 mb-7">
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 5 guides per month</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 30+ nearby places</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> PDF + web version</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Regenerate anytime</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-gray-300 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg><span class="text-gray-400"> Priority support</span></li>
       </ul>
       <a href="#" onclick="document.getElementById('airbnb_url').focus();window.scrollTo({top:0,behavior:'smooth'});return false;"
-         class="cta-btn block w-full py-3 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-semibold text-sm text-center">
+         class="cta-btn block w-full py-2.5 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-semibold text-sm text-center">
+        Start Free Trial
+      </a>
+      <p class="text-xs text-gray-400 mt-2">Cancel anytime</p>
+    </div>
+
+    <!-- Pro -->
+    <div class="bg-white rounded-2xl shadow-md p-7 border border-gray-100 text-center">
+      <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">Pro</h3>
+      <div class="text-3xl font-extrabold text-gray-800 mb-1">$14.99</div>
+      <div class="text-xs text-gray-500 mb-1">per month</div>
+      <div class="text-xs text-teal-600 font-medium mb-5">25 guides/month</div>
+      <ul class="text-left text-sm text-gray-600 space-y-2 mb-7">
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 25 guides per month</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 30+ nearby places</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> PDF + web version</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Regenerate anytime</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Priority support</li>
+      </ul>
+      <a href="#" onclick="document.getElementById('airbnb_url').focus();window.scrollTo({top:0,behavior:'smooth'});return false;"
+         class="block w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold text-sm text-center hover:border-teal-400 transition">
         Go Pro
       </a>
-      <p class="text-xs text-gray-400 mt-3">Cancel anytime</p>
+      <p class="text-xs text-gray-400 mt-2">Cancel anytime</p>
     </div>
+
   </div>
 </section>
 
