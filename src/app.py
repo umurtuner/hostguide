@@ -886,35 +886,76 @@ tailwind.config = {
     </div>
   </div>
 
-  <!-- UNLOCK CTA — TIER SELECTION -->
-  <div class="mt-8 text-center">
-    <div class="inline-flex gap-3 flex-wrap justify-center mb-4">
-      <form action="/checkout" method="POST" class="inline">
+  <!-- UNLOCK CTA — TIER COMPARISON -->
+  <div class="mt-8 max-w-2xl mx-auto">
+    <h3 class="text-lg font-bold text-center mb-5">Unlock Your Full Guide</h3>
+    <div class="grid grid-cols-3 gap-3">
+
+      <!-- Single -->
+      <form action="/checkout" method="POST" class="text-center">
         <input type="hidden" name="token" value="{{ token }}">
         <input type="hidden" name="tier" value="single">
-        <button type="submit"
-                class="pulse-cta px-8 py-4 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-bold text-base shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5">
-          1 Guide &mdash; <span class="line-through opacity-60">$4.99</span> $1.99
-        </button>
+        <div class="bg-white rounded-xl border border-gray-200 p-4 hover:border-teal-400 transition h-full flex flex-col">
+          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Single</div>
+          <div class="text-2xl font-extrabold text-gray-800"><span class="text-sm line-through text-gray-300">$4.99</span> $1.99</div>
+          <div class="text-xs text-gray-400 mb-3">one-time</div>
+          <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
+            <li>&#10003; This guide only</li>
+            <li>&#10003; PDF + web link</li>
+            <li>&#10003; 30+ places</li>
+          </ul>
+          <button type="submit" class="w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-lg font-semibold text-sm hover:border-teal-400 transition">
+            Get This Guide
+          </button>
+        </div>
       </form>
-      <form action="/checkout" method="POST" class="inline">
+
+      <!-- Starter -->
+      <form action="/checkout" method="POST" class="text-center">
         <input type="hidden" name="token" value="{{ token }}">
         <input type="hidden" name="tier" value="starter">
-        <button type="submit"
-                class="px-8 py-4 bg-white border-2 border-teal-500 text-teal-700 rounded-xl font-bold text-base shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5">
-          5/mo &mdash; $4.99/mo
-        </button>
+        <div class="bg-white rounded-xl border-2 border-teal-500 p-4 relative h-full flex flex-col shadow-md">
+          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-teal-600 text-white text-xs font-semibold px-3 py-0.5 rounded-full">Best Value</div>
+          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 mt-1">Starter</div>
+          <div class="text-2xl font-extrabold text-teal-700">$4.99</div>
+          <div class="text-xs text-gray-400 mb-3">per month</div>
+          <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
+            <li>&#10003; <strong>5 guides/month</strong></li>
+            <li>&#10003; PDF + web link</li>
+            <li>&#10003; 30+ places each</li>
+            <li>&#10003; Regenerate anytime</li>
+          </ul>
+          <button type="submit" class="pulse-cta w-full py-2.5 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-lg font-semibold text-sm">
+            Get Starter
+          </button>
+          <p class="text-xs text-gray-400 mt-1">Cancel anytime</p>
+        </div>
       </form>
-      <form action="/checkout" method="POST" class="inline">
+
+      <!-- Pro -->
+      <form action="/checkout" method="POST" class="text-center">
         <input type="hidden" name="token" value="{{ token }}">
         <input type="hidden" name="tier" value="pro">
-        <button type="submit"
-                class="px-8 py-4 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-bold text-base shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 hover:border-teal-400">
-          25/mo &mdash; $14.99/mo
-        </button>
+        <div class="bg-white rounded-xl border border-gray-200 p-4 hover:border-teal-400 transition h-full flex flex-col">
+          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Pro</div>
+          <div class="text-2xl font-extrabold text-gray-800">$14.99</div>
+          <div class="text-xs text-gray-400 mb-3">per month</div>
+          <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
+            <li>&#10003; <strong>25 guides/month</strong></li>
+            <li>&#10003; PDF + web link</li>
+            <li>&#10003; 30+ places each</li>
+            <li>&#10003; Regenerate anytime</li>
+            <li>&#10003; Priority support</li>
+          </ul>
+          <button type="submit" class="w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-lg font-semibold text-sm hover:border-teal-400 transition">
+            Go Pro
+          </button>
+          <p class="text-xs text-gray-400 mt-1">Cancel anytime</p>
+        </div>
       </form>
+
     </div>
-    <p class="text-xs text-gray-400">Secure payment via Stripe &middot; Instant access &middot; PDF + digital version</p>
+    <p class="text-xs text-gray-400 text-center mt-4">Secure payment via Stripe &middot; Instant access &middot; PDF + digital version</p>
     <div class="flex items-center justify-center gap-4 mt-4 text-xs text-gray-400">
       <span class="flex items-center gap-1">
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
