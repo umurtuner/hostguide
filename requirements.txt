@@ -4,5 +4,4 @@ stripe==12.1.0
 gunicorn==23.0.0
 requests
 playwright
-python-bidi>=0.6.0
-xhtml2pdf
+fpdf2

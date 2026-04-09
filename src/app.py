@@ -323,16 +323,53 @@ def _generate_guide_for_order(token: str) -> bool:
         # Step 6: Generate PDF from HTML
         pdf_path = html_path.with_suffix(".pdf")
         try:
-            from xhtml2pdf import pisa
-            with open(pdf_path, "wb") as pdf_file:
-                pisa_status = pisa.CreatePDF(guide.content_html, dest=pdf_file)
-            if pisa_status.err:
-                print(f"PDF generation had errors, removing: {pisa_status.err}")
-                pdf_path.unlink(missing_ok=True)
-            else:
-                print(f"PDF generated: {pdf_path}")
+            from fpdf import FPDF
+            from html.parser import HTMLParser
+
+            class _HTMLStripper(HTMLParser):
+                """Extract text from HTML for PDF."""
+                def __init__(self):
+                    super().__init__()
+                    self.parts = []
+                    self._tag = None
+                def handle_starttag(self, tag, attrs):
+                    self._tag = tag
+                def handle_data(self, data):
+                    text = data.strip()
+                    if text:
+                        self.parts.append((self._tag or "p", text))
+                    self._tag = None
+
+            stripper = _HTMLStripper()
+            stripper.feed(guide.content_html)
+
+            pdf = FPDF()
+            pdf.set_auto_page_break(auto=True, margin=15)
+            pdf.add_page()
+            pdf.set_font("Helvetica", size=10)
+
+            for tag, text in stripper.parts:
+                if tag in ("h1", "title"):
+                    pdf.set_font("Helvetica", "B", 18)
+                    pdf.cell(0, 12, text, new_x="LMARGIN", new_y="NEXT")
+                elif tag == "h2":
+                    pdf.set_font("Helvetica", "B", 14)
+                    pdf.ln(4)
+                    pdf.cell(0, 10, text, new_x="LMARGIN", new_y="NEXT")
+                elif tag == "h3":
+                    pdf.set_font("Helvetica", "B", 12)
+                    pdf.cell(0, 8, text, new_x="LMARGIN", new_y="NEXT")
+                elif tag in ("strong", "b"):
+                    pdf.set_font("Helvetica", "B", 10)
+                    pdf.multi_cell(0, 6, text)
+                else:
+                    pdf.set_font("Helvetica", size=10)
+                    pdf.multi_cell(0, 6, text)
+
+            pdf.output(str(pdf_path))
+            print(f"PDF generated: {pdf_path}")
         except ImportError:
-            print("xhtml2pdf not installed — skipping PDF generation")
+            print("fpdf2 not installed — skipping PDF generation")
         except Exception as e:
             print(f"PDF generation failed: {e}")
             pdf_path.unlink(missing_ok=True)
