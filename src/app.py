@@ -97,6 +97,67 @@ def _update_order(token: str, **kwargs):
 
 
 # ═══════════════════════════════════════════════════════════════
+# CREDITS SYSTEM (email-based, JSON file)
+# ═══════════════════════════════════════════════════════════════
+
+CREDITS_FILE = BASE / "data" / "credits.json"
+
+
+def _load_credits() -> dict:
+    if CREDITS_FILE.exists():
+        return json.loads(CREDITS_FILE.read_text())
+    return {}
+
+
+def _save_credits(credits: dict):
+    CREDITS_FILE.write_text(json.dumps(credits, indent=2))
+
+
+def _get_user_credits(email: str) -> dict:
+    """Get or create a user's credit record."""
+    credits = _load_credits()
+    email = email.lower().strip()
+    if email not in credits:
+        credits[email] = {
+            "credits": 0,
+            "tier": "none",
+            "guides_generated": [],
+            "stripe_customer_id": None,
+        }
+        _save_credits(credits)
+    return credits[email]
+
+
+def _add_credits(email: str, amount: int, tier: str = "single"):
+    """Add guide credits to a user."""
+    credits = _load_credits()
+    email = email.lower().strip()
+    if email not in credits:
+        credits[email] = {
+            "credits": 0,
+            "tier": tier,
+            "guides_generated": [],
+            "stripe_customer_id": None,
+        }
+    credits[email]["credits"] += amount
+    credits[email]["tier"] = tier
+    _save_credits(credits)
+
+
+def _use_credit(email: str, token: str) -> bool:
+    """Use 1 credit for a guide. Returns False if no credits."""
+    credits = _load_credits()
+    email = email.lower().strip()
+    user = credits.get(email)
+    if not user or user["credits"] <= 0:
+        return False
+    user["credits"] -= 1
+    user["guides_generated"].append(token)
+    _save_credits(credits)
+    return True
+
+
+# ═══════════════════════════════════════════════════════════════
 # GUIDE GENERATION PIPELINE
 # ═══════════════════════════════════════════════════════════════
 
@@ -1032,6 +1093,188 @@ def preview():
     )
 
 
+@app.route("/preview/<token>")
+def preview_by_token(token: str):
+    """Show preview page for an existing order (e.g. after Stripe cancel)."""
+    order = _get_order(token)
+    if not order:
+        return redirect("/")
+
+    city = order.get("city", "")
+    restaurants = ["Popular Cafe Nearby", "Local Restaurant", "Bistro Around the Corner"]
+    distances = ["3 min walk", "5 min walk", "7 min walk"]
+    groceries = ["Supermarket", "Convenience Store"]
+    gdistances = ["4 min walk", "6 min walk"]
+
+    return render_template_string(PREVIEW_PAGE,
+        token=token,
+        listing_title=city or "Your Listing",
+        city=city,
+        restaurants=restaurants,
+        distances=distances,
+        groceries=groceries,
+        gdistances=gdistances,
+    )
+
+
+@app.route("/dashboard")
+def dashboard():
+    """User dashboard — shows credits, past guides, generate new guide."""
+    email = request.args.get("email", "").strip().lower()
+    welcome = request.args.get("welcome", "")
+    if not email:
+        return redirect("/")
+
+    user = _get_user_credits(email)
+    credits = user["credits"]
+    tier = user["tier"]
+
+    # Get past guides for this user
+    orders = _load_orders()
+    past_guides = []
+    for tok, order in orders.items():
+        if order.get("email", "").lower() == email and order.get("status") == "generated":
+            past_guides.append({"token": tok, "city": order.get("city", ""), "url": order.get("airbnb_url", "")})
+
+    return render_template_string(DASHBOARD_PAGE,
+        email=email,
+        credits=credits,
+        tier=tier,
+        past_guides=past_guides,
+        welcome=welcome,
+    )
+
+
+@app.route("/dashboard/generate", methods=["POST"])
+def dashboard_generate():
+    """Generate a new guide using credits."""
+    email = request.form.get("email", "").strip().lower()
+    airbnb_url = request.form.get("airbnb_url", "").strip()
+    city = request.form.get("city", "").strip()
+
+    if not email or not airbnb_url or not re.search(r'airbnb\.\w+/(rooms|h)/', airbnb_url):
+        return redirect(f"/dashboard?email={email}")
+
+    # Check credits
+    user = _get_user_credits(email)
+    if user["credits"] <= 0:
+        return redirect(f"/dashboard?email={email}&error=no_credits")
+
+    # Create order and use credit
+    token = _create_order(airbnb_url, email, city=city)
+    _update_order(token, status="paid", tier=user["tier"])
+    _use_credit(email, token)
+
+    return redirect(f"/generating/{token}")
+
+
+DASHBOARD_PAGE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — HostGuide</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: { teal: { 50:'#e0f2f1',100:'#b2dfdb',200:'#80cbc4',300:'#4db6ac',400:'#26a69a',500:'#009688',600:'#00897b',700:'#00796b',800:'#00695c',900:'#004d40' } },
+    fontFamily: { sans: ['Inter','system-ui','sans-serif'] }
+  }}
+}
+</script>
+<style>
+  .gradient-hero { background: linear-gradient(135deg, #00897b 0%, #004d40 100%); }
+</style>
+</head>
+<body class="font-sans text-gray-900 bg-gray-50 antialiased">
+
+<!-- Nav -->
+<nav class="gradient-hero">
+  <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="white" fill-opacity="0.15"/><path d="M10 8v16M22 8v16M10 16h12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="22" cy="10" r="3" fill="#4DB6AC"/></svg>
+      <span class="font-bold text-white text-lg">HostGuide</span>
+    </a>
+    <span class="text-white/70 text-sm">{{ email }}</span>
+  </div>
+</nav>
+
+<div class="max-w-3xl mx-auto px-6 py-10">
+
+  {% if welcome %}
+  <div class="bg-teal-50 border border-teal-200 rounded-xl px-6 py-4 mb-8 text-sm text-teal-800">
+    Welcome to your dashboard! You have <strong>{{ credits }} guide credits</strong> ready to use.
+  </div>
+  {% endif %}
+
+  <!-- Credits summary -->
+  <div class="flex items-center justify-between bg-white rounded-2xl shadow-sm p-6 mb-8 border border-gray-100">
+    <div>
+      <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold">Your Plan</p>
+      <p class="text-lg font-bold text-gray-900 capitalize">{{ tier }}</p>
+    </div>
+    <div class="text-right">
+      <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold">Credits Remaining</p>
+      <p class="text-3xl font-extrabold text-teal-600">{{ credits }}</p>
+    </div>
+  </div>
+
+  <!-- Generate new guide -->
+  <div class="bg-white rounded-2xl shadow-sm p-6 mb-8 border border-gray-100">
+    <h2 class="text-lg font-bold mb-4">Generate a New Guide</h2>
+    {% if credits > 0 %}
+    <form action="/dashboard/generate" method="POST">
+      <input type="hidden" name="email" value="{{ email }}">
+      <div class="grid sm:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Airbnb Listing URL</label>
+          <input type="url" name="airbnb_url" required placeholder="https://www.airbnb.com/rooms/123456..."
+                 class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">City</label>
+          <input type="text" name="city" required placeholder="e.g. Miami, Dublin..."
+                 class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500">
+        </div>
+      </div>
+      <button type="submit"
+              class="px-6 py-3 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-semibold text-sm hover:shadow-lg transition">
+        Generate Guide (1 credit)
+      </button>
+    </form>
+    {% else %}
+    <p class="text-sm text-gray-500 mb-4">You've used all your credits for this period.</p>
+    <a href="/#pricing" class="inline-block px-6 py-3 bg-teal-600 text-white rounded-xl font-semibold text-sm hover:bg-teal-700 transition">
+      Get More Credits
+    </a>
+    {% endif %}
+  </div>
+
+  <!-- Past guides -->
+  {% if past_guides %}
+  <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
+    <h2 class="text-lg font-bold mb-4">Your Guides</h2>
+    <div class="space-y-3">
+      {% for g in past_guides %}
+      <div class="flex items-center justify-between py-3 border-b border-gray-50 last:border-0">
+        <div>
+          <p class="font-medium text-sm">{{ g.city or 'Guide' }}</p>
+          <p class="text-xs text-gray-400 truncate max-w-xs">{{ g.url }}</p>
+        </div>
+        <a href="/download/{{ g.token }}" class="text-sm text-teal-600 font-semibold hover:underline">View</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+</body>
+</html>"""
+
+
 # Stripe pricing tiers
 TIERS = {
     "single": {
@@ -1086,7 +1329,11 @@ def checkout():
     _update_order(token, tier=tier)
 
     if not STRIPE_SECRET:
-        _update_order(token, status="paid")
+        _update_order(token, status="paid", tier=tier)
+        tier_credits = TIERS[tier]["guides"]
+        _add_credits(email, tier_credits, tier)
+        if tier in ("starter", "pro"):
+            return redirect(f"/dashboard?email={email}")
         return redirect(f"/generating/{token}")
 
     tier_config = TIERS[tier]
@@ -1110,8 +1357,8 @@ def checkout():
             line_items=[{"price_data": price_data, "quantity": 1}],
             mode=tier_config["mode"],
             customer_email=email,
-            success_url=f"{DOMAIN}/generating/{token}",
-            cancel_url=f"{DOMAIN}/?cancelled=1",
+            success_url=f"{DOMAIN}/dashboard?email={email}&welcome=1" if tier in ("starter", "pro") else f"{DOMAIN}/generating/{token}",
+            cancel_url=f"{DOMAIN}/preview/{token}",
             metadata={"order_token": token, "tier": tier},
         )
         _update_order(token, stripe_session_id=session.id)
@@ -1203,6 +1450,11 @@ def stripe_webhook():
         tier = session.get("metadata", {}).get("tier", "single")
         if token:
             _update_order(token, status="paid", tier=tier)
+            # Add credits based on tier
+            order = _get_order(token)
+            if order:
+                tier_config = TIERS.get(tier, TIERS["single"])
+                _add_credits(order["email"], tier_config["guides"], tier)
             # Generation triggers from the /generating page when user lands there
 
     return jsonify({"received": True})

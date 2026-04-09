@@ -7,6 +7,7 @@ chrome_profile_enrich/
 node_modules/
 .DS_Store
 data/orders.json
+data/credits.json
 output/*/guides/
 output/*/hosts.json
 output/*/host_profiles.json
