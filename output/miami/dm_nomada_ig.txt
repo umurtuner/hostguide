@@ -1,0 +1,5 @@
+Hey Nomada team — I saw your listings in Brickell. I built a tool that generates personalized neighborhood guides for Airbnb guests (nearby restaurants, transit, groceries, local tips based on exact GPS location).
+
+I made a sample for one of your Brickell listings — happy to send it over if you're interested. Free to try, takes 2 min to generate.
+
+Could save you time answering the same guest questions about the area.

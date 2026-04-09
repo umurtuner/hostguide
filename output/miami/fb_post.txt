@@ -1,0 +1,9 @@
+Hey everyone — I've been hosting in Brickell for a while and got tired of answering the same guest questions: "where's the nearest grocery store?", "best coffee nearby?", "how do I get to the beach?"
+
+So I built a little tool that generates a neighborhood guide specific to your apartment's exact location. It pulls nearby restaurants, transit, groceries, landmarks — and formats it into something you can actually send to guests.
+
+Here's what it looks like (screenshot attached).
+
+First one is free — just drop your Airbnb link below and I'll generate it for you. Takes about 2 minutes.
+
+Better guest experience → better reviews → more bookings. Figured it might save some of you the same headache.

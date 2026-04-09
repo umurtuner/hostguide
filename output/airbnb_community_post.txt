@@ -1,0 +1,15 @@
+Title: Tool for generating personalized guest guides — would this be useful?
+
+Hey hosts — I built a small tool that auto-generates a neighborhood guide for your guests based on your listing's exact GPS location. It includes:
+
+- Nearby restaurants and cafes (with walking/driving times)
+- Transit stops and ride-hailing tips
+- Grocery stores and pharmacies
+- Local tips specific to your city
+- Safety info and emergency numbers
+
+The guide is formatted as a clean HTML page you can share via link, print, or leave in the unit. I'm testing it across multiple cities right now.
+
+First guide is free — happy to generate one for anyone who wants to try it. Just share your listing link.
+
+Would love to hear what other hosts think — what would make this more useful for you?

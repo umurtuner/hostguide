@@ -1,0 +1,7 @@
+Dublin hosts — I built a tool that generates a personalized neighborhood guide for your Airbnb listing. It pulls nearby restaurants, pub recommendations, Luas stops, grocery shops, and local tips based on your property's exact location.
+
+Preview attached.
+
+First one is free — drop your Airbnb link below and I'll generate it for you.
+
+Works great for guests staying in Temple Bar, Portobello, or Rathmines who need the local rundown.

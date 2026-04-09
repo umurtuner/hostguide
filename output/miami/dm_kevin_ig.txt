@@ -1,0 +1,5 @@
+Hey Kevin — saw your Miami listings on Airbnb. I built a tool that auto-generates neighborhood guides for guests (restaurants, transit, groceries, local tips based on your listing's GPS location).
+
+Made a sample for one of your places — happy to send it if you want to check it out. Free to try.
+
+Saves you from answering the same "where should I eat?" and "how do I get around?" questions every time.

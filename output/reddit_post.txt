@@ -1,0 +1,11 @@
+Title: I built a tool that auto-generates neighborhood guides for Airbnb guests based on your listing's GPS location
+
+I got tired of answering the same guest questions — "where's the nearest grocery store?", "best coffee nearby?", "how do I get to the beach?" — so I built a tool that generates a personalized neighborhood guide based on your listing's exact GPS coordinates.
+
+It pulls nearby restaurants, transit stops, grocery stores, pharmacies, landmarks, and local tips, then formats it into a clean, printable guide you can share with guests or leave in the unit.
+
+Works for any city (currently generating for Miami, Orlando, Tampa, Destin, Lisbon, Dublin, Madrid, Medellin, Bogota, Rochester — but it works anywhere with map data).
+
+First one is free if you want to try it — just drop your Airbnb link in the comments.
+
+Would love feedback from other hosts. What would you add to something like this?

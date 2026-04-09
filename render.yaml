@@ -3,7 +3,7 @@ services:
     name: hostguide
     runtime: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn src.app:app --bind 0.0.0.0:$PORT --workers 2
+    startCommand: cd /opt/render/project/src && gunicorn src.app:app --bind 0.0.0.0:$PORT --workers 2
     envVars:
       - key: PYTHON_VERSION
         value: 3.13.2

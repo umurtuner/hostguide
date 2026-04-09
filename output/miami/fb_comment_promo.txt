@@ -1,0 +1,3 @@
+I built a tool that generates personalized neighborhood guides for Airbnb hosts — specific to your apartment's exact location. It pulls nearby restaurants, transit, groceries, bars, local tips and formats it into a clean guide you can send to guests (or print and laminate in the kitchen).
+
+Free for the first 5 hosts who drop their Airbnb link below. Takes 2 minutes to generate.

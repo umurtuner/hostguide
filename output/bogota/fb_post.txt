@@ -1,0 +1,9 @@
+Hosts de Bogota — hice una herramienta que genera guias de barrio personalizadas para tu Airbnb. Muestra restaurantes cercanos, transporte, supermercados, farmacias y tips locales segun la ubicacion exacta de tu apartamento.
+
+Preview adjunto.
+
+La primera es gratis — solo deja tu link de Airbnb abajo. Se genera en 2 minutos.
+
+Especialmente util si estas en Chapinero, Zona Rosa o Usaquen y tus huespedes siempre preguntan lo mismo.
+
+(English version available too)

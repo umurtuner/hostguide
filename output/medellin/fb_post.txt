@@ -1,0 +1,9 @@
+Hosts de Medellin — arme una herramienta que genera una guia personalizada del barrio para tu Airbnb. Incluye restaurantes cercanos, estaciones de metro, supermercados, tips locales y todo basado en la ubicacion exacta de tu apartamento.
+
+Aca un preview (screenshot adjunto).
+
+La primera es gratis — solo deja tu link de Airbnb abajo. Se genera en 2 minutos.
+
+Ideal si tenes huespedes que siempre preguntan "donde como?", "como llego al metro?", "hay supermercado cerca?"
+
+(English version available too)

@@ -1,0 +1,7 @@
+Destin hosts — I built a tool that generates a personalized neighborhood guide for your vacation rental. It pulls nearby seafood restaurants, beach access points, grocery stores, and local tips based on your property's exact location.
+
+Preview attached.
+
+First one is free — drop your Airbnb or VRBO link below and I'll generate it for you.
+
+Great for guests asking "where should we eat?" and "what's there to do around here?"

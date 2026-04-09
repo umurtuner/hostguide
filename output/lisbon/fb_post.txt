@@ -1,0 +1,7 @@
+Lisbon hosts — I built a tool that generates a personalized neighborhood guide for your Airbnb listing. It maps out nearby restaurants, tram stops, grocery stores, pharmacies, and local tips based on your apartment's exact location.
+
+Preview attached.
+
+First one is free — drop your Airbnb link below and I'll generate it for you.
+
+Especially useful for guests arriving in Alfama, Baixa, or Bairro Alto who need a quick orientation.

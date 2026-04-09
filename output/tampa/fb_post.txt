@@ -1,0 +1,7 @@
+Tampa Bay hosts — I built a tool that generates a personalized neighborhood guide for your Airbnb listing. It maps out nearby restaurants, the best Cuban sandwich spots, transit options, and local tips based on your apartment's exact GPS location.
+
+Here's a preview (screenshot attached).
+
+First one is free — just drop your Airbnb link below. Takes about 2 minutes.
+
+Especially useful if you're hosting in Ybor City, South Tampa, or Channelside.

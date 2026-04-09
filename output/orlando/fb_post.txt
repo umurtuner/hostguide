@@ -1,0 +1,7 @@
+Hey Orlando hosts — I built a tool that generates a personalized neighborhood guide for your Airbnb listing. It pulls nearby restaurants, theme park tips, groceries, transit, and local recommendations based on your apartment's exact location.
+
+Here's what it looks like (screenshot attached).
+
+First one is free — just drop your Airbnb link below and I'll generate it for you. Takes about 2 minutes.
+
+No more answering "where's the nearest Publix?" for the 100th time.
