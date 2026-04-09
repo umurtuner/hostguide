@@ -254,10 +254,10 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
       </div>
       <button type="submit" id="submitBtn"
               class="cta-btn w-full py-3.5 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-semibold text-base">
-        Get Your Guide &mdash; $4.99
+        Get Your Guide &mdash; <span class="line-through opacity-60">$4.99</span> $1.99
       </button>
       <p id="errorMsg" class="text-red-500 text-xs text-center mt-2 hidden"></p>
-      <p class="text-center text-xs text-gray-400 mt-3">One-time payment &middot; No subscription &middot; Delivered instantly</p>
+      <p class="text-center text-xs text-gray-400 mt-3">Launch pricing &middot; One-time payment &middot; Delivered instantly</p>
     </form>
   </div>
 </section>
@@ -412,8 +412,9 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
   <h2 class="text-2xl font-bold mb-3">Simple Pricing</h2>
   <p class="text-sm text-gray-500 mb-8">No subscriptions. No hidden fees. Pay per guide.</p>
   <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
-    <div class="text-4xl font-extrabold text-teal-700 mb-1">$4.99</div>
-    <div class="text-sm text-gray-500 mb-6">per guide</div>
+    <div class="text-4xl font-extrabold text-teal-700 mb-1"><span class="text-2xl line-through text-gray-400 mr-2">$4.99</span>$1.99</div>
+    <div class="text-sm text-gray-500 mb-1">per guide</div>
+    <div class="text-xs text-teal-600 font-medium mb-5">Launch pricing — limited time</div>
     <ul class="text-left text-sm text-gray-600 space-y-3 mb-8">
       <li class="flex items-start gap-2"><svg class="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Full neighborhood guide with 30+ places</li>
       <li class="flex items-start gap-2"><svg class="w-4 h-4 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Print-ready PDF + digital version</li>
@@ -465,7 +466,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         I have multiple listings. Is there a bulk discount?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Not yet, but we're working on multi-listing packages. For now, each guide is $4.99. Reach out if you have 10+ listings and we'll work something out.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Not yet, but we're working on multi-listing packages. For now, each guide is $1.99 during launch. Reach out if you have 10+ listings and we'll work something out.</p></div>
     </div>
   </div>
 </section>
@@ -548,7 +549,7 @@ def checkout():
                         "name": "HostGuide — Personalized Guest Guide",
                         "description": f"Neighborhood guide for your Airbnb listing",
                     },
-                    "unit_amount": 499,  # $4.99
+                    "unit_amount": 199,  # $1.99
                 },
                 "quantity": 1,
             }],
