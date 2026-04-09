@@ -2,7 +2,7 @@ services:
   - type: web
     name: hostguide
     runtime: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt && playwright install --with-deps chromium
     startCommand: cd /opt/render/project/src && gunicorn src.app:app --bind 0.0.0.0:$PORT --workers 2
     envVars:
       - key: PYTHON_VERSION

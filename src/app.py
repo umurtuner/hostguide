@@ -16,6 +16,7 @@ import json
 import os
 import re
 import secrets
+import threading
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -57,14 +58,15 @@ def _save_orders(orders: dict):
     ORDERS_FILE.write_text(json.dumps(orders, indent=2))
 
 
-def _create_order(airbnb_url: str, email: str) -> str:
+def _create_order(airbnb_url: str, email: str, city: str = "") -> str:
     """Create a pending order, return order token."""
     token = secrets.token_urlsafe(24)
     orders = _load_orders()
     orders[token] = {
         "airbnb_url": airbnb_url,
         "email": email,
-        "status": "pending",  # pending → paid → generated → expired
+        "city": city,
+        "status": "pending",  # pending → paid → generating → generated → expired
         "created": datetime.utcnow().isoformat(),
         "expires": (datetime.utcnow() + timedelta(hours=24)).isoformat(),
         "guide_path": None,
@@ -112,8 +114,54 @@ def _extract_listing_id(url: str) -> str:
     return ""
 
 
+def _geocode_city(city: str) -> tuple[float, float]:
+    """Geocode a city name to lat/lng using Nominatim (free, no key)."""
+    try:
+        resp = http_requests.get(
+            "https://nominatim.openstreetmap.org/search",
+            params={"q": city, "format": "json", "limit": 1},
+            headers={"User-Agent": "HostGuide/1.0 (hello@host-guide.net)"},
+            timeout=10,
+        )
+        results = resp.json()
+        if results:
+            return float(results[0]["lat"]), float(results[0]["lon"])
+    except Exception as e:
+        print(f"Geocode error for '{city}': {e}")
+    return 0.0, 0.0
+
+
+# Known city configs for the guide generator
+CITY_CONFIGS = {
+    "miami": {"name": "Miami", "country": "US"},
+    "dublin": {"name": "Dublin", "country": "IE"},
+    "lisbon": {"name": "Lisbon", "country": "PT"},
+    "madrid": {"name": "Madrid", "country": "ES"},
+    "medellin": {"name": "Medellín", "country": "CO"},
+    "bogota": {"name": "Bogotá", "country": "CO"},
+    "rochester": {"name": "Rochester", "country": "US"},
+    "orlando": {"name": "Orlando", "country": "US"},
+    "tampa": {"name": "Tampa", "country": "US"},
+    "destin": {"name": "Destin", "country": "US"},
+    "austin": {"name": "Austin", "country": "US"},
+    "nashville": {"name": "Nashville", "country": "US"},
+    "savannah": {"name": "Savannah", "country": "US"},
+    "scottsdale": {"name": "Scottsdale", "country": "US"},
+}
+
+
+def _get_city_config(city: str) -> dict:
+    """Get city config, or build a generic one."""
+    key = city.lower().strip()
+    if key in CITY_CONFIGS:
+        return CITY_CONFIGS[key]
+    # Generic config — works for any city
+    return {"name": city.strip(), "country": ""}
+
+
 def _generate_guide_for_order(token: str) -> bool:
-    """Run the full pipeline: scrape → enrich → generate HTML + PDF."""
+    """Run the full pipeline: Playwright scrape → OSM enrich → generate HTML guide.
+    Falls back to geocode-only if Playwright fails."""
     order = _get_order(token)
     if not order or order["status"] != "paid":
         return False
@@ -121,32 +169,93 @@ def _generate_guide_for_order(token: str) -> bool:
     airbnb_url = order["airbnb_url"]
     listing_id = _extract_listing_id(airbnb_url)
     if not listing_id:
+        print(f"Could not extract listing ID from {airbnb_url}")
         return False
 
     try:
-        from hostguide.src.scraper import Listing
-        from hostguide.src.enricher import enrich_without_api, enrich_activities
-        from hostguide.src.guide_generator import generate_guide
+        import sys
+        sys.path.insert(0, str(BASE))
+        from src.scraper import Listing, enrich_listing_from_detail
+        from src.enricher import enrich_without_api
+        from src.guide_generator import generate_guide
 
-        # For now: create a minimal listing from the URL
-        # Full scraping requires Playwright + browser — do async later
         listing = Listing(
             listing_id=listing_id,
             title="",
             url=airbnb_url,
-            city="",
+            city=order.get("city", ""),
             neighborhood="",
         )
 
-        # TODO: scrape listing details (lat/lng, host name, city)
-        # For MVP: return False and generate manually
-        # This will be wired up once we have the async pipeline
+        # Step 1: Try Playwright to get full listing details (lat/lng, host, title)
+        try:
+            from playwright.sync_api import sync_playwright
+            print(f"Launching Playwright for listing {listing_id}...")
+            with sync_playwright() as pw:
+                browser = pw.chromium.launch(headless=True)
+                page = browser.new_page()
+                listing = enrich_listing_from_detail(page, listing)
+                browser.close()
+            print(f"Playwright got: lat={listing.lat}, lng={listing.lng}, "
+                  f"city={listing.city}, host={listing.host_name}")
+        except Exception as e:
+            print(f"Playwright failed, falling back to geocode: {e}")
 
-        return False  # Manual generation for now
+        # Step 2: If Playwright didn't get coords, fall back to geocoding
+        if listing.lat == 0 and listing.lng == 0:
+            city = order.get("city", "") or listing.city
+            if city:
+                listing.lat, listing.lng = _geocode_city(city)
+                if not listing.city:
+                    listing.city = city
+                print(f"Geocoded {city} → {listing.lat},{listing.lng}")
+
+        if listing.lat == 0 and listing.lng == 0:
+            print(f"No coordinates for listing {listing_id}")
+            return False
+
+        # Step 3: Enrich with OSM Overpass (free, no API key)
+        city_config = _get_city_config(listing.city or order.get("city", ""))
+        if not listing.city:
+            listing.city = city_config["name"]
+
+        print(f"Enriching {listing.city} at {listing.lat},{listing.lng}...")
+        enriched = enrich_without_api(listing.lat, listing.lng, city_config)
+
+        # Step 4: Generate guide (HTML)
+        print(f"Generating guide for listing {listing_id}...")
+        guide = generate_guide(listing, enriched, city_config, use_claude=False)
+
+        # Step 5: Save guide HTML
+        guide_dir = OUTPUT / listing.city.lower() / "guides"
+        guide_dir.mkdir(parents=True, exist_ok=True)
+        html_path = guide_dir / f"{listing_id}_guide.html"
+        html_path.write_text(guide.content_html, encoding="utf-8")
+
+        # Update order
+        _update_order(token, status="generated", guide_path=str(html_path))
+        print(f"Guide ready for token {token}: {html_path}")
+        return True
 
     except Exception as e:
-        print(f"Generation error: {e}")
+        print(f"Generation error for token {token}: {e}")
+        import traceback
+        traceback.print_exc()
         return False
+
+
+def _generate_in_background(token: str):
+    """Run guide generation in a background thread."""
+    try:
+        # Set status back to paid so _generate_guide_for_order accepts it
+        _update_order(token, status="paid")
+        success = _generate_guide_for_order(token)
+        if not success:
+            _update_order(token, status="failed")
+            print(f"Guide generation failed for {token}")
+    except Exception as e:
+        _update_order(token, status="failed")
+        print(f"Background generation failed for {token}: {e}")
 
 
 def _fetch_listing_meta(airbnb_url: str) -> dict:
@@ -288,6 +397,12 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         <label for="airbnb_url" class="block text-xs font-semibold text-gray-600 mb-1.5">Airbnb Listing URL</label>
         <input type="url" id="airbnb_url" name="airbnb_url" required
                placeholder="https://www.airbnb.com/rooms/123456..."
+               class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition placeholder:text-gray-400">
+      </div>
+      <div class="mb-4">
+        <label for="city" class="block text-xs font-semibold text-gray-600 mb-1.5">City</label>
+        <input type="text" id="city" name="city" required
+               placeholder="e.g. Miami, Dublin, Lisbon..."
                class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition placeholder:text-gray-400">
       </div>
       <div class="mb-5">
@@ -527,7 +642,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         How long does it take to generate a guide?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Most guides are delivered within a few hours. We analyze your listing location, find all nearby points of interest, and format everything into a clean guide. You'll get an email when it's ready.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Most guides are ready in 1-2 minutes. We analyze your listing location, find all nearby points of interest, and format everything into a clean guide automatically.</p></div>
     </div>
     <div class="bg-white rounded-xl shadow-sm overflow-hidden">
       <button onclick="this.nextElementSibling.classList.toggle('open')" class="w-full text-left px-6 py-4 flex items-center justify-between text-sm font-semibold hover:bg-gray-50 transition">
@@ -820,19 +935,20 @@ def preview():
     """Fetch listing meta, show blurred personalized preview."""
     airbnb_url = request.form.get("airbnb_url", "").strip()
     email = request.form.get("email", "").strip()
+    city = request.form.get("city", "").strip()
 
     if not airbnb_url or not re.search(r'airbnb\.\w+/(rooms|h)/', airbnb_url):
         return redirect("/")
 
-    # Create order early (pending state)
-    token = _create_order(airbnb_url, email)
+    # Create order early (pending state) — includes city
+    token = _create_order(airbnb_url, email, city=city)
 
     # Quick meta fetch (OG tags — fast, no Playwright)
     meta = _fetch_listing_meta(airbnb_url)
 
-    # Sample real-ish preview data based on city
-    city = meta.get("city", "")
+    # Use form city if meta didn't get one
     listing_title = meta.get("title", "")
+    city = city or meta.get("city", "")
 
     # Provide a few real-looking (but generic) preview items
     # The blurred section uses placeholder data anyway
@@ -910,11 +1026,17 @@ def checkout():
 def generating(token: str):
     """Show 'generating your guide' page — polls for completion."""
     order = _get_order(token)
-    if not order or order["status"] not in ("paid", "generated"):
+    if not order or order["status"] not in ("paid", "generating", "generated"):
         abort(404)
 
     if order["status"] == "generated" and order.get("guide_path"):
         return redirect(f"/download/{token}")
+
+    # Kick off background generation if not already running
+    if order["status"] == "paid":
+        _update_order(token, status="generating")
+        t = threading.Thread(target=_generate_in_background, args=(token,), daemon=True)
+        t.start()
 
     return render_template_string(GENERATING_PAGE, token=token)
 
