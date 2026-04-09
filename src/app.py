@@ -557,7 +557,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         I have multiple listings. Is there a bulk discount?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Not yet, but we're working on multi-listing packages. For now, each guide is $1.99 during launch. Reach out if you have 10+ listings and we'll work something out.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Yes! Our Starter plan ($4.99/mo) includes 5 guides, and Pro ($14.99/mo) gives you 25 guides per month. Much cheaper than buying individually.</p></div>
     </div>
   </div>
 </section>
