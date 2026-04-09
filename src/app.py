@@ -14,10 +14,12 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import secrets
 from datetime import datetime, timedelta
 from pathlib import Path
 
+import requests as http_requests
 import stripe
 from flask import (Flask, abort, jsonify, redirect, render_template_string,
                    request, send_file)
@@ -147,6 +149,48 @@ def _generate_guide_for_order(token: str) -> bool:
         return False
 
 
+def _fetch_listing_meta(airbnb_url: str) -> dict:
+    """Quick fetch of Airbnb OG meta tags — no Playwright, just HTTP GET.
+    Returns dict with title, city, image, description."""
+    meta = {"title": "", "city": "", "image": "", "description": ""}
+    try:
+        resp = http_requests.get(airbnb_url, headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                          "AppleWebKit/537.36 (KHTML, like Gecko) "
+                          "Chrome/120.0.0.0 Safari/537.36",
+            "Accept-Language": "en-US,en;q=0.9",
+        }, timeout=10, allow_redirects=True)
+        html = resp.text
+
+        # Extract OG tags
+        og_title = re.search(r'<meta\s+property="og:title"\s+content="([^"]*)"', html)
+        og_desc = re.search(r'<meta\s+property="og:description"\s+content="([^"]*)"', html)
+        og_image = re.search(r'<meta\s+property="og:image"\s+content="([^"]*)"', html)
+
+        if og_title:
+            meta["title"] = og_title.group(1)
+        if og_desc:
+            meta["description"] = og_desc.group(1)
+        if og_image:
+            meta["image"] = og_image.group(1)
+
+        # Try to extract city from title (usually "Title · City, Country")
+        if meta["title"] and "·" in meta["title"]:
+            parts = meta["title"].split("·")
+            if len(parts) >= 2:
+                meta["city"] = parts[-1].strip().split(",")[0].strip()
+        # Fallback: try description
+        if not meta["city"] and meta["description"]:
+            # Often contains city name
+            desc_parts = meta["description"].split(" in ")
+            if len(desc_parts) >= 2:
+                meta["city"] = desc_parts[-1].split(",")[0].split(".")[0].strip()
+    except Exception as e:
+        print(f"Meta fetch error: {e}")
+
+    return meta
+
+
 # ═══════════════════════════════════════════════════════════════
 # LANDING PAGE
 # ═══════════════════════════════════════════════════════════════
@@ -239,7 +283,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
   <div class="glass-card rounded-2xl shadow-xl p-8 md:p-10 fade-in">
     <h2 class="text-xl font-bold text-center mb-1">Generate Your Guide</h2>
     <p class="text-sm text-gray-500 text-center mb-7">Paste your Airbnb link and we'll do the rest.</p>
-    <form id="guideForm" action="/checkout" method="POST">
+    <form id="guideForm" action="/preview" method="POST">
       <div class="mb-4">
         <label for="airbnb_url" class="block text-xs font-semibold text-gray-600 mb-1.5">Airbnb Listing URL</label>
         <input type="url" id="airbnb_url" name="airbnb_url" required
@@ -254,10 +298,10 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
       </div>
       <button type="submit" id="submitBtn"
               class="cta-btn w-full py-3.5 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-semibold text-base">
-        Get Your Guide &mdash; <span class="line-through opacity-60">$4.99</span> $1.99
+        Preview My Guide &mdash; Free
       </button>
       <p id="errorMsg" class="text-red-500 text-xs text-center mt-2 hidden"></p>
-      <p class="text-center text-xs text-gray-400 mt-3">Launch pricing &middot; One-time payment &middot; Delivered instantly</p>
+      <p class="text-center text-xs text-gray-400 mt-3">See your personalized guide instantly &middot; Pay only if you want the full version</p>
     </form>
   </div>
 </section>
@@ -546,11 +590,217 @@ document.getElementById('guideForm').addEventListener('submit', function(e) {
         err.classList.remove('hidden');
         return;
     }
-    btn.textContent = 'Redirecting to checkout...';
+    btn.textContent = 'Generating preview...';
     btn.style.opacity = '0.7';
     btn.style.pointerEvents = 'none';
     err.classList.add('hidden');
 });
+</script>
+
+</body>
+</html>"""
+
+
+# ═══════════════════════════════════════════════════════════════
+# PREVIEW PAGE (blurred, anti-screenshot)
+# ═══════════════════════════════════════════════════════════════
+
+PREVIEW_PAGE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Guide Preview — HostGuide</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: { teal: { 50:'#e0f2f1',100:'#b2dfdb',200:'#80cbc4',300:'#4db6ac',400:'#26a69a',500:'#009688',600:'#00897b',700:'#00796b',800:'#00695c',900:'#004d40' } },
+    fontFamily: { sans: ['Inter','system-ui','sans-serif'] }
+  }}
+}
+</script>
+<style>
+  /* Anti-screenshot: watermark overlay + selection block */
+  .preview-guard {
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+  .preview-guard::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 80px,
+      rgba(0,137,123,0.03) 80px,
+      rgba(0,137,123,0.03) 82px
+    );
+    z-index: 10;
+  }
+  .preview-watermark {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 3rem;
+    font-weight: 800;
+    color: rgba(0,137,123,0.06);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 11;
+    letter-spacing: 0.2em;
+  }
+  .blur-zone { filter: blur(6px); transition: filter 0.3s; }
+  .blur-light { filter: blur(3px); }
+  /* Block right-click */
+  .preview-guard img { pointer-events: none; }
+  /* Pulsing CTA */
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0,137,123,0.4); }
+    50% { box-shadow: 0 0 20px 6px rgba(0,137,123,0.25); }
+  }
+  .pulse-cta { animation: pulse-glow 2s ease-in-out infinite; }
+  .gradient-hero { background: linear-gradient(135deg, #00897b 0%, #004d40 100%); }
+</style>
+</head>
+<body class="font-sans text-gray-900 bg-gray-50 antialiased" oncontextmenu="return false;">
+
+<!-- Nav -->
+<nav class="gradient-hero">
+  <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="white" fill-opacity="0.15"/><path d="M10 8v16M22 8v16M10 16h12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="22" cy="10" r="3" fill="#4DB6AC"/></svg>
+      <span class="font-bold text-white text-lg">HostGuide</span>
+    </a>
+  </div>
+</nav>
+
+<!-- Header -->
+<div class="bg-gradient-to-b from-teal-50 to-gray-50 pt-10 pb-6 text-center">
+  <p class="text-xs uppercase tracking-widest text-teal-600 font-semibold mb-2">Your Personalized Guide</p>
+  <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-1">{{ listing_title or 'Your Neighborhood Guide' }}</h1>
+  {% if city %}<p class="text-sm text-gray-500">{{ city }}</p>{% endif %}
+</div>
+
+<!-- BLURRED PREVIEW -->
+<section class="max-w-3xl mx-auto px-6 py-10">
+  <div class="preview-guard bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 relative">
+    <div class="preview-watermark">PREVIEW</div>
+
+    <!-- Guide header (visible) -->
+    <div class="bg-gradient-to-r from-teal-600 to-teal-800 px-8 py-6 text-white">
+      <p class="text-xs uppercase tracking-widest opacity-70 mb-1">Neighborhood Guide</p>
+      <h2 class="text-xl font-bold">{{ city or 'Your Listing Area' }}</h2>
+      <p class="text-sm opacity-80 mt-1">Personalized for your listing</p>
+    </div>
+
+    <!-- Top section: CLEAR (tease value) -->
+    <div class="p-8 grid sm:grid-cols-2 gap-6 border-b border-gray-100">
+      <div>
+        <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+          Restaurants Nearby
+        </h4>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>{{ restaurants[0] if restaurants else 'Loading...' }} &mdash; <span class="text-gray-400">{{ distances[0] if distances else '' }}</span></li>
+          <li>{{ restaurants[1] if restaurants|length > 1 else '...' }} &mdash; <span class="text-gray-400">{{ distances[1] if distances|length > 1 else '' }}</span></li>
+          <li class="blur-light text-gray-400">{{ restaurants[2] if restaurants|length > 2 else '...' }} &mdash; <span>{{ distances[2] if distances|length > 2 else '' }}</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+          Groceries
+        </h4>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>{{ groceries[0] if groceries else 'Loading...' }} &mdash; <span class="text-gray-400">{{ gdistances[0] if gdistances else '' }}</span></li>
+          <li class="blur-light text-gray-400">{{ groceries[1] if groceries|length > 1 else '...' }} &mdash; <span>{{ gdistances[1] if gdistances|length > 1 else '' }}</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom section: HEAVILY BLURRED -->
+    <div class="p-8 blur-zone relative">
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div>
+          <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3">Transit & Transport</h4>
+          <ul class="space-y-2 text-sm text-gray-600">
+            <li>Metro Station Central &mdash; <span class="text-gray-400">4 min walk</span></li>
+            <li>Bus Line 42 Stop &mdash; <span class="text-gray-400">2 min walk</span></li>
+            <li>Taxi Rank &mdash; <span class="text-gray-400">6 min walk</span></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3">Landmarks & Parks</h4>
+          <ul class="space-y-2 text-sm text-gray-600">
+            <li>Central Park &mdash; <span class="text-gray-400">8 min walk</span></li>
+            <li>Art Museum &mdash; <span class="text-gray-400">12 min walk</span></li>
+            <li>Historic District &mdash; <span class="text-gray-400">5 min walk</span></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3">Nightlife</h4>
+          <ul class="space-y-2 text-sm text-gray-600">
+            <li>Rooftop Bar &mdash; <span class="text-gray-400">3 min walk</span></li>
+            <li>Jazz Club &mdash; <span class="text-gray-400">7 min walk</span></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3">Health & Safety</h4>
+          <ul class="space-y-2 text-sm text-gray-600">
+            <li>Pharmacy &mdash; <span class="text-gray-400">3 min walk</span></li>
+            <li>Hospital &mdash; <span class="text-gray-400">10 min drive</span></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Overlay on blurred section -->
+      <div class="absolute inset-0 flex items-center justify-center z-20">
+        <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg px-8 py-6 text-center max-w-sm">
+          <svg class="w-10 h-10 text-teal-600 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+          <p class="text-sm font-semibold text-gray-800 mb-1">6 more categories hidden</p>
+          <p class="text-xs text-gray-500">Transit, landmarks, nightlife, health &amp; more</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNLOCK CTA -->
+  <div class="mt-8 text-center">
+    <form action="/checkout" method="POST">
+      <input type="hidden" name="token" value="{{ token }}">
+      <button type="submit"
+              class="pulse-cta inline-block px-10 py-4 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5">
+        Unlock Full Guide &mdash; <span class="line-through opacity-60">$4.99</span> $1.99
+      </button>
+    </form>
+    <p class="text-xs text-gray-400 mt-3">One-time payment &middot; Instant access &middot; PDF + digital version</p>
+    <div class="flex items-center justify-center gap-4 mt-4 text-xs text-gray-400">
+      <span class="flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+        Secure payment via Stripe
+      </span>
+      <span class="flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5"/></svg>
+        30+ personalized places
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- Disable print/save -->
+<script>
+// Block Ctrl+P / Cmd+P (print)
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'p') { e.preventDefault(); }
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); }
+});
+// Block drag
+document.addEventListener('dragstart', function(e) { e.preventDefault(); });
 </script>
 
 </body>
@@ -567,18 +817,63 @@ def landing():
     return render_template_string(LANDING_PAGE)
 
 
-@app.route("/checkout", methods=["POST"])
-def checkout():
-    """Create Stripe Checkout session and redirect."""
+@app.route("/preview", methods=["POST"])
+def preview():
+    """Fetch listing meta, show blurred personalized preview."""
     airbnb_url = request.form.get("airbnb_url", "").strip()
     email = request.form.get("email", "").strip()
 
-    import re
     if not airbnb_url or not re.search(r'airbnb\.\w+/(rooms|h)/', airbnb_url):
         return redirect("/")
 
-    # Create order
+    # Create order early (pending state)
     token = _create_order(airbnb_url, email)
+
+    # Quick meta fetch (OG tags — fast, no Playwright)
+    meta = _fetch_listing_meta(airbnb_url)
+
+    # Sample real-ish preview data based on city
+    city = meta.get("city", "")
+    listing_title = meta.get("title", "")
+
+    # Provide a few real-looking (but generic) preview items
+    # The blurred section uses placeholder data anyway
+    restaurants = ["Popular Cafe Nearby", "Local Restaurant", "Bistro Around the Corner"]
+    distances = ["3 min walk", "5 min walk", "7 min walk"]
+    groceries = ["Supermarket", "Convenience Store"]
+    gdistances = ["4 min walk", "6 min walk"]
+
+    return render_template_string(PREVIEW_PAGE,
+        token=token,
+        listing_title=listing_title,
+        city=city,
+        restaurants=restaurants,
+        distances=distances,
+        groceries=groceries,
+        gdistances=gdistances,
+    )
+
+
+@app.route("/checkout", methods=["POST"])
+def checkout():
+    """Create Stripe Checkout session and redirect."""
+    # Support both direct form (legacy) and token-based (from preview)
+    token = request.form.get("token", "").strip()
+
+    if token:
+        # Coming from preview page — order already exists
+        order = _get_order(token)
+        if not order:
+            return redirect("/")
+        airbnb_url = order["airbnb_url"]
+        email = order["email"]
+    else:
+        # Legacy direct checkout
+        airbnb_url = request.form.get("airbnb_url", "").strip()
+        email = request.form.get("email", "").strip()
+        if not airbnb_url or not re.search(r'airbnb\.\w+/(rooms|h)/', airbnb_url):
+            return redirect("/")
+        token = _create_order(airbnb_url, email)
 
     if not STRIPE_SECRET:
         # Dev mode: skip payment, mark as paid
