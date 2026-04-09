@@ -283,9 +283,11 @@ def _fetch_listing_meta(airbnb_url: str) -> dict:
         if og_image:
             meta["image"] = og_image.group(1)
 
-        # Try to extract city from title (usually "Title · City, Country")
+        # Parse title: "Rental unit in Geneva · ★4.33 · 1 bedroom..." → clean it
         if meta["title"] and "·" in meta["title"]:
             parts = meta["title"].split("·")
+            # First part is the type + location, rest is metadata we don't need
+            meta["title"] = parts[0].strip()
             if len(parts) >= 2:
                 meta["city"] = parts[-1].strip().split(",")[0].strip()
         # Fallback: try description
