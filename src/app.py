@@ -529,7 +529,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         How long does it take to generate a guide?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Most guides are ready in 1-2 minutes. We scrape your listing, find all nearby points of interest, and format everything into a clean guide automatically.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Most guides are ready in 1-2 minutes. We analyze your listing location, find all nearby points of interest, and format everything into a clean guide automatically.</p></div>
     </div>
     <div class="bg-white rounded-xl shadow-sm overflow-hidden">
       <button onclick="this.nextElementSibling.classList.toggle('open')" class="w-full text-left px-6 py-4 flex items-center justify-between text-sm font-semibold hover:bg-gray-50 transition">
