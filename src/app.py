@@ -1463,13 +1463,33 @@ def checkout():
 def generating(token: str):
     """Show 'generating your guide' page — polls for completion."""
     order = _get_order(token)
-    if not order or order["status"] not in ("paid", "generating", "generated"):
+    if not order:
+        abort(404)
+
+    # If Stripe redirected here, payment succeeded even if webhook hasn't fired yet.
+    # Accept "pending" status — the page polls /api/status until generation completes.
+    if order["status"] not in ("pending", "paid", "generating", "generated"):
         abort(404)
 
     if order["status"] == "generated" and order.get("guide_path"):
         return redirect(f"/download/{token}")
 
-    # Kick off background generation if not already running
+    # If user arrives from Stripe success redirect and webhook hasn't fired yet,
+    # verify payment via Stripe API and mark as paid immediately.
+    if order["status"] == "pending" and order.get("stripe_session_id") and STRIPE_SECRET:
+        try:
+            session = stripe.checkout.Session.retrieve(order["stripe_session_id"])
+            if session.payment_status == "paid":
+                tier = order.get("tier", "single")
+                _update_order(token, status="paid", tier=tier)
+                tier_config = TIERS.get(tier, TIERS["single"])
+                _add_credits(order["email"], tier_config["guides"], tier,
+                             stripe_customer_id=session.get("customer"))
+                order["status"] = "paid"
+        except Exception as e:
+            print(f"Stripe session check failed: {e}")
+
+    # Kick off background generation if paid
     if order["status"] == "paid":
         _update_order(token, status="generating")
         t = threading.Thread(target=_generate_in_background, args=(token,), daemon=True)
@@ -1484,6 +1504,25 @@ def order_status(token: str):
     order = _get_order(token)
     if not order:
         return jsonify({"status": "not_found"}), 404
+
+    # If still pending, try to verify payment and kick off generation
+    if order["status"] == "pending" and order.get("stripe_session_id") and STRIPE_SECRET:
+        try:
+            session = stripe.checkout.Session.retrieve(order["stripe_session_id"])
+            if session.payment_status == "paid":
+                tier = order.get("tier", "single")
+                _update_order(token, status="paid", tier=tier)
+                tier_config = TIERS.get(tier, TIERS["single"])
+                _add_credits(order["email"], tier_config["guides"], tier,
+                             stripe_customer_id=session.get("customer"))
+                # Start generation immediately
+                _update_order(token, status="generating")
+                t = threading.Thread(target=_generate_in_background, args=(token,), daemon=True)
+                t.start()
+                return jsonify({"status": "generating", "ready": False})
+        except Exception as e:
+            print(f"Stripe status check failed: {e}")
+
     return jsonify({
         "status": order["status"],
         "ready": order["status"] == "generated" and order.get("guide_path") is not None,
