@@ -388,31 +388,22 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
 <!-- ════════ SOCIAL PROOF ════════ -->
 <section class="bg-white border-y border-gray-100 py-16 mb-24">
   <div class="max-w-4xl mx-auto px-6">
-    <h2 class="text-2xl font-bold text-center mb-10">Trusted by Hosts Worldwide</h2>
+    <h2 class="text-2xl font-bold text-center mb-10">Built for Hosts, Tested Across 10 Cities</h2>
     <div class="flex justify-center gap-12 md:gap-20 flex-wrap">
       <div class="text-center">
-        <div class="text-3xl font-extrabold text-teal-600">{{ total_guides }}+</div>
+        <div class="text-3xl font-extrabold text-teal-600">50+</div>
         <div class="text-xs text-gray-500 mt-1">Guides Generated</div>
       </div>
       <div class="text-center">
-        <div class="text-3xl font-extrabold text-teal-600">{{ total_cities }}</div>
-        <div class="text-xs text-gray-500 mt-1">Cities Covered</div>
+        <div class="text-3xl font-extrabold text-teal-600">10</div>
+        <div class="text-xs text-gray-500 mt-1">Cities Tested</div>
       </div>
       <div class="text-center">
         <div class="text-3xl font-extrabold text-teal-600">Any</div>
         <div class="text-xs text-gray-500 mt-1">City Worldwide</div>
       </div>
     </div>
-    <div class="mt-12 grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-      <div class="bg-gray-50 rounded-xl p-5">
-        <p class="text-sm text-gray-600 italic mb-3">"Finally stopped getting 'where's the grocery store?' messages at 11pm. The guide pays for itself after one booking."</p>
-        <p class="text-xs font-semibold text-gray-800">Miami Superhost</p>
-      </div>
-      <div class="bg-gray-50 rounded-xl p-5">
-        <p class="text-sm text-gray-600 italic mb-3">"My guests loved it. One of them said it was the most thoughtful touch they've seen in any Airbnb."</p>
-        <p class="text-xs font-semibold text-gray-800">Dublin Host</p>
-      </div>
-    </div>
+    <p class="text-center text-sm text-gray-500 mt-8 max-w-md mx-auto">Currently live in Miami, Dublin, Lisbon, Madrid, Medellin, Bogota, Rochester, Orlando, Tampa, and Destin. Works for any Airbnb listing worldwide.</p>
   </div>
 </section>
 
@@ -525,20 +516,7 @@ document.getElementById('guideForm').addEventListener('submit', function(e) {
 @app.route("/")
 def landing():
     """Landing page."""
-    cities = set()
-    guides = 0
-    if OUTPUT.exists():
-        for city_dir in OUTPUT.iterdir():
-            if city_dir.is_dir() and (city_dir / "guides").is_dir():
-                city_guides = list((city_dir / "guides").glob("*_guide.html"))
-                if city_guides:
-                    cities.add(city_dir.name)
-                    guides += len(city_guides)
-    return render_template_string(
-        LANDING_PAGE,
-        total_cities=len(cities),
-        total_guides=guides,
-    )
+    return render_template_string(LANDING_PAGE)
 
 
 @app.route("/checkout", methods=["POST"])
