@@ -607,10 +607,11 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Regenerate anytime</li>
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-gray-300 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg><span class="text-gray-400"> Priority support</span></li>
       </ul>
-      <span class="block w-full py-2.5 bg-gray-100 text-gray-400 rounded-xl font-semibold text-sm text-center cursor-not-allowed">
-        Coming Soon
-      </span>
-      <p class="text-xs text-gray-400 mt-2">Launching soon</p>
+      <a href="#" onclick="document.getElementById('airbnb_url').focus();window.scrollTo({top:0,behavior:'smooth'});return false;"
+         class="cta-btn block w-full py-2.5 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-semibold text-sm text-center">
+        Get Starter
+      </a>
+      <p class="text-xs text-gray-400 mt-2">Cancel anytime</p>
     </div>
 
     <!-- Pro -->
@@ -626,10 +627,11 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Regenerate anytime</li>
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Priority support</li>
       </ul>
-      <span class="block w-full py-2.5 bg-gray-100 text-gray-400 rounded-xl font-semibold text-sm text-center cursor-not-allowed">
-        Coming Soon
-      </span>
-      <p class="text-xs text-gray-400 mt-2">Launching soon</p>
+      <a href="#" onclick="document.getElementById('airbnb_url').focus();window.scrollTo({top:0,behavior:'smooth'});return false;"
+         class="block w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold text-sm text-center hover:border-teal-400 transition">
+        Go Pro
+      </a>
+      <p class="text-xs text-gray-400 mt-2">Cancel anytime</p>
     </div>
 
   </div>
@@ -672,7 +674,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         I have multiple listings. Is there a bulk discount?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">We're launching Starter and Pro plans soon with multi-guide pricing. For now, each guide is $1.99 during our launch period.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Yes! Our Starter plan ($4.99/mo) includes 5 guides, and Pro ($14.99/mo) gives you 25 guides per month — much cheaper than buying individually.</p></div>
     </div>
   </div>
 </section>
@@ -884,16 +886,35 @@ tailwind.config = {
     </div>
   </div>
 
-  <!-- UNLOCK CTA -->
+  <!-- UNLOCK CTA — TIER SELECTION -->
   <div class="mt-8 text-center">
-    <form action="/checkout" method="POST">
-      <input type="hidden" name="token" value="{{ token }}">
-      <button type="submit"
-              class="pulse-cta inline-block px-10 py-4 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5">
-        Unlock Full Guide &mdash; <span class="line-through opacity-60">$4.99</span> $1.99
-      </button>
-    </form>
-    <p class="text-xs text-gray-400 mt-3">One-time payment &middot; Instant access &middot; PDF + digital version</p>
+    <div class="inline-flex gap-3 flex-wrap justify-center mb-4">
+      <form action="/checkout" method="POST" class="inline">
+        <input type="hidden" name="token" value="{{ token }}">
+        <input type="hidden" name="tier" value="single">
+        <button type="submit"
+                class="pulse-cta px-8 py-4 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-bold text-base shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5">
+          1 Guide &mdash; <span class="line-through opacity-60">$4.99</span> $1.99
+        </button>
+      </form>
+      <form action="/checkout" method="POST" class="inline">
+        <input type="hidden" name="token" value="{{ token }}">
+        <input type="hidden" name="tier" value="starter">
+        <button type="submit"
+                class="px-8 py-4 bg-white border-2 border-teal-500 text-teal-700 rounded-xl font-bold text-base shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5">
+          5/mo &mdash; $4.99/mo
+        </button>
+      </form>
+      <form action="/checkout" method="POST" class="inline">
+        <input type="hidden" name="token" value="{{ token }}">
+        <input type="hidden" name="tier" value="pro">
+        <button type="submit"
+                class="px-8 py-4 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-bold text-base shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 hover:border-teal-400">
+          25/mo &mdash; $14.99/mo
+        </button>
+      </form>
+    </div>
+    <p class="text-xs text-gray-400">Secure payment via Stripe &middot; Instant access &middot; PDF + digital version</p>
     <div class="flex items-center justify-center gap-4 mt-4 text-xs text-gray-400">
       <span class="flex items-center gap-1">
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
@@ -970,52 +991,87 @@ def preview():
     )
 
 
+# Stripe pricing tiers
+TIERS = {
+    "single": {
+        "name": "HostGuide — Single Guide",
+        "description": "One personalized neighborhood guide for your Airbnb listing",
+        "amount": 199,  # $1.99
+        "mode": "payment",
+        "guides": 1,
+    },
+    "starter": {
+        "name": "HostGuide — Starter Plan",
+        "description": "5 neighborhood guides per month for your Airbnb listings",
+        "amount": 499,  # $4.99/mo
+        "mode": "subscription",
+        "interval": "month",
+        "guides": 5,
+    },
+    "pro": {
+        "name": "HostGuide — Pro Plan",
+        "description": "25 neighborhood guides per month for your Airbnb listings",
+        "amount": 1499,  # $14.99/mo
+        "mode": "subscription",
+        "interval": "month",
+        "guides": 25,
+    },
+}
+
+
 @app.route("/checkout", methods=["POST"])
 def checkout():
-    """Create Stripe Checkout session and redirect."""
-    # Support both direct form (legacy) and token-based (from preview)
+    """Create Stripe Checkout session for any tier."""
     token = request.form.get("token", "").strip()
+    tier = request.form.get("tier", "single").strip()
+
+    if tier not in TIERS:
+        tier = "single"
 
     if token:
-        # Coming from preview page — order already exists
         order = _get_order(token)
         if not order:
             return redirect("/")
-        airbnb_url = order["airbnb_url"]
         email = order["email"]
     else:
-        # Legacy direct checkout
         airbnb_url = request.form.get("airbnb_url", "").strip()
         email = request.form.get("email", "").strip()
+        city = request.form.get("city", "").strip()
         if not airbnb_url or not re.search(r'airbnb\.\w+/(rooms|h)/', airbnb_url):
             return redirect("/")
-        token = _create_order(airbnb_url, email)
+        token = _create_order(airbnb_url, email, city=city)
+
+    # Store tier on order
+    _update_order(token, tier=tier)
 
     if not STRIPE_SECRET:
-        # Dev mode: skip payment, mark as paid
         _update_order(token, status="paid")
         return redirect(f"/generating/{token}")
 
-    # Create Stripe Checkout session
+    tier_config = TIERS[tier]
+
     try:
+        # Build price_data based on tier
+        price_data = {
+            "currency": "usd",
+            "product_data": {
+                "name": tier_config["name"],
+                "description": tier_config["description"],
+            },
+            "unit_amount": tier_config["amount"],
+        }
+        # Subscriptions need recurring interval
+        if tier_config["mode"] == "subscription":
+            price_data["recurring"] = {"interval": tier_config["interval"]}
+
         session = stripe.checkout.Session.create(
             payment_method_types=["card"],
-            line_items=[{
-                "price_data": {
-                    "currency": "usd",
-                    "product_data": {
-                        "name": "HostGuide — Personalized Guest Guide",
-                        "description": f"Neighborhood guide for your Airbnb listing",
-                    },
-                    "unit_amount": 199,  # $1.99
-                },
-                "quantity": 1,
-            }],
-            mode="payment",
+            line_items=[{"price_data": price_data, "quantity": 1}],
+            mode=tier_config["mode"],
             customer_email=email,
             success_url=f"{DOMAIN}/generating/{token}",
             cancel_url=f"{DOMAIN}/?cancelled=1",
-            metadata={"order_token": token},
+            metadata={"order_token": token, "tier": tier},
         )
         _update_order(token, stripe_session_id=session.id)
         return redirect(session.url, code=303)
@@ -1103,10 +1159,10 @@ def stripe_webhook():
     if event["type"] == "checkout.session.completed":
         session = event["data"]["object"]
         token = session.get("metadata", {}).get("order_token")
+        tier = session.get("metadata", {}).get("tier", "single")
         if token:
-            _update_order(token, status="paid")
-            # Trigger async generation here
-            # For MVP: manual generation, update order when done
+            _update_order(token, status="paid", tier=tier)
+            # Generation triggers from the /generating page when user lands there
 
     return jsonify({"received": True})
 
