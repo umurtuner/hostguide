@@ -4,3 +4,4 @@ stripe==12.1.0
 gunicorn==23.0.0
 requests
 playwright
+xhtml2pdf

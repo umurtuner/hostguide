@@ -12,6 +12,8 @@ Run:
 """
 from __future__ import annotations
 
+import hashlib
+import hmac
 import json
 import os
 import re
@@ -44,6 +46,28 @@ app = Flask(__name__)
 CORS(app)
 
 
+# ── Dashboard auth (HMAC-signed email links) ──
+def _sign_email(email: str) -> str:
+    """Create HMAC signature for a dashboard email link."""
+    key = (ADMIN_SECRET or "fallback-key").encode()
+    return hmac.new(key, email.lower().strip().encode(), hashlib.sha256).hexdigest()[:16]
+
+
+def _dashboard_url(email: str, **params) -> str:
+    """Build a signed dashboard URL."""
+    email = email.lower().strip()
+    sig = _sign_email(email)
+    qs = f"email={email}&sig={sig}"
+    for k, v in params.items():
+        qs += f"&{k}={v}"
+    return f"/dashboard?{qs}"
+
+
+def _verify_dashboard_sig(email: str, sig: str) -> bool:
+    """Verify HMAC signature on dashboard access."""
+    return hmac.compare_digest(sig, _sign_email(email))
+
+
 # ═══════════════════════════════════════════════════════════════
 # ORDER STORAGE (JSON file — swap for DB later)
 # ═══════════════════════════════════════════════════════════════
@@ -68,7 +92,7 @@ def _create_order(airbnb_url: str, email: str, city: str = "") -> str:
         "city": city,
         "status": "pending",  # pending → paid → generating → generated → expired
         "created": datetime.utcnow().isoformat(),
-        "expires": (datetime.utcnow() + timedelta(hours=24)).isoformat(),
+        "expires": None,  # Set when guide is generated
         "guide_path": None,
         "stripe_session_id": None,
     }
@@ -81,8 +105,8 @@ def _get_order(token: str) -> dict | None:
     order = orders.get(token)
     if not order:
         return None
-    # Check expiry
-    if order["status"] == "generated":
+    # Check expiry (only for single-purchase guides, not subscription users)
+    if order["status"] == "generated" and order.get("expires"):
         if datetime.utcnow() > datetime.fromisoformat(order["expires"]):
             order["status"] = "expired"
             _save_orders(orders)
@@ -296,8 +320,27 @@ def _generate_guide_for_order(token: str) -> bool:
         html_path = guide_dir / f"{listing_id}_guide.html"
         html_path.write_text(guide.content_html, encoding="utf-8")
 
-        # Update order
-        _update_order(token, status="generated", guide_path=str(html_path))
+        # Step 6: Generate PDF from HTML
+        pdf_path = html_path.with_suffix(".pdf")
+        try:
+            from xhtml2pdf import pisa
+            with open(pdf_path, "wb") as pdf_file:
+                pisa_status = pisa.CreatePDF(guide.content_html, dest=pdf_file)
+            if pisa_status.err:
+                print(f"PDF generation had errors, removing: {pisa_status.err}")
+                pdf_path.unlink(missing_ok=True)
+            else:
+                print(f"PDF generated: {pdf_path}")
+        except ImportError:
+            print("xhtml2pdf not installed — skipping PDF generation")
+        except Exception as e:
+            print(f"PDF generation failed: {e}")
+            pdf_path.unlink(missing_ok=True)
+
+        # Update order — single purchases expire in 24h, subscriptions don't
+        tier = order.get("tier", "single")
+        expires = (datetime.utcnow() + timedelta(hours=24)).isoformat() if tier == "single" else None
+        _update_order(token, status="generated", guide_path=str(html_path), expires=expires)
         print(f"Guide ready for token {token}: {html_path}")
         return True
 
@@ -965,7 +1008,7 @@ tailwind.config = {
           <div class="text-xs text-gray-400 mb-3">one-time</div>
           <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
             <li>&#10003; This guide only</li>
-            <li>&#10003; PDF + web link</li>
+            <li>&#10003; PDF + web version</li>
             <li>&#10003; 30+ places</li>
           </ul>
           <button type="submit" class="w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-lg font-semibold text-sm hover:border-teal-400 transition">
@@ -985,7 +1028,7 @@ tailwind.config = {
           <div class="text-xs text-gray-400 mb-3">per month</div>
           <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
             <li>&#10003; <strong>5 guides/month</strong></li>
-            <li>&#10003; PDF + web link</li>
+            <li>&#10003; PDF + web version</li>
             <li>&#10003; 30+ places each</li>
             <li>&#10003; Regenerate anytime</li>
           </ul>
@@ -1006,7 +1049,7 @@ tailwind.config = {
           <div class="text-xs text-gray-400 mb-3">per month</div>
           <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
             <li>&#10003; <strong>25 guides/month</strong></li>
-            <li>&#10003; PDF + web link</li>
+            <li>&#10003; PDF + web version</li>
             <li>&#10003; 30+ places each</li>
             <li>&#10003; Regenerate anytime</li>
             <li>&#10003; Priority support</li>
@@ -1124,9 +1167,12 @@ def preview_by_token(token: str):
 def dashboard():
     """User dashboard — shows credits, past guides, generate new guide."""
     email = request.args.get("email", "").strip().lower()
+    sig = request.args.get("sig", "")
     welcome = request.args.get("welcome", "")
     if not email:
         return redirect("/")
+    if not sig or not _verify_dashboard_sig(email, sig):
+        abort(403, "Invalid or missing dashboard link. Please use the link from your payment confirmation.")
 
     user = _get_user_credits(email)
     credits = user["credits"]
@@ -1141,6 +1187,7 @@ def dashboard():
 
     return render_template_string(DASHBOARD_PAGE,
         email=email,
+        sig=sig,
         credits=credits,
         tier=tier,
         past_guides=past_guides,
@@ -1152,16 +1199,19 @@ def dashboard():
 def dashboard_generate():
     """Generate a new guide using credits."""
     email = request.form.get("email", "").strip().lower()
+    sig = request.form.get("sig", "")
     airbnb_url = request.form.get("airbnb_url", "").strip()
     city = request.form.get("city", "").strip()
 
-    if not email or not airbnb_url or not re.search(r'airbnb\.\w+/(rooms|h)/', airbnb_url):
-        return redirect(f"/dashboard?email={email}")
+    if not email or not sig or not _verify_dashboard_sig(email, sig):
+        abort(403, "Invalid dashboard session.")
+    if not airbnb_url or not re.search(r'airbnb\.\w+/(rooms|h)/', airbnb_url):
+        return redirect(_dashboard_url(email))
 
     # Check credits
     user = _get_user_credits(email)
     if user["credits"] <= 0:
-        return redirect(f"/dashboard?email={email}&error=no_credits")
+        return redirect(_dashboard_url(email, error="no_credits"))
 
     # Create order and use credit
     token = _create_order(airbnb_url, email, city=city)
@@ -1230,6 +1280,7 @@ tailwind.config = {
     {% if credits > 0 %}
     <form action="/dashboard/generate" method="POST">
       <input type="hidden" name="email" value="{{ email }}">
+      <input type="hidden" name="sig" value="{{ sig }}">
       <div class="grid sm:grid-cols-2 gap-4 mb-4">
         <div>
           <label class="block text-xs font-semibold text-gray-600 mb-1">Airbnb Listing URL</label>
@@ -1336,7 +1387,7 @@ def checkout():
         tier_credits = TIERS[tier]["guides"]
         _add_credits(email, tier_credits, tier)
         if tier in ("starter", "pro"):
-            return redirect(f"/dashboard?email={email}")
+            return redirect(_dashboard_url(email))
         return redirect(f"/generating/{token}")
 
     tier_config = TIERS[tier]
@@ -1360,7 +1411,7 @@ def checkout():
             line_items=[{"price_data": price_data, "quantity": 1}],
             mode=tier_config["mode"],
             customer_email=email,
-            success_url=f"{DOMAIN}/dashboard?email={email}&welcome=1" if tier in ("starter", "pro") else f"{DOMAIN}/generating/{token}",
+            success_url=f"{DOMAIN}{_dashboard_url(email, welcome='1')}" if tier in ("starter", "pro") else f"{DOMAIN}/generating/{token}",
             cancel_url=f"{DOMAIN}/preview/{token}",
             metadata={"order_token": token, "tier": tier},
         )
@@ -1483,6 +1534,20 @@ def stripe_webhook():
                 _add_credits(customer_email, tier_config["guides"], tier,
                              stripe_customer_id=customer_id)
                 print(f"[invoice.paid] Refilled {tier_config['guides']} credits for {customer_email} ({tier})")
+
+    elif event["type"] == "customer.subscription.deleted":
+        # Subscription cancelled — zero out credits and reset tier
+        sub = event["data"]["object"]
+        customer_id = sub.get("customer")
+        # Find user by customer ID
+        credits = _load_credits()
+        for em, rec in credits.items():
+            if rec.get("stripe_customer_id") == customer_id:
+                rec["credits"] = 0
+                rec["tier"] = "none"
+                _save_credits(credits)
+                print(f"[subscription.deleted] Cancelled subscription for {em}")
+                break
 
     return jsonify({"received": True})
 
