@@ -239,7 +239,7 @@ tailwind.config = {
   <button onclick="this.parentElement.classList.add('hidden')" class="ml-3 text-amber-600 hover:text-amber-800 font-semibold">&times;</button>
 </div>
 <div id="errorBanner" class="hidden bg-red-50 border-b border-red-200 px-6 py-3 text-center text-sm text-red-800">
-  Something went wrong with the payment. Please try again or contact hello@host-guide.net.
+  Something went wrong with the payment. Please try again.
   <button onclick="this.parentElement.classList.add('hidden')" class="ml-3 text-red-600 hover:text-red-800 font-semibold">&times;</button>
 </div>
 <script>
@@ -315,14 +315,14 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         <svg class="w-6 h-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"/></svg>
       </div>
       <h3 class="font-semibold mb-1">Paste your link</h3>
-      <p class="text-sm text-gray-500">Drop your Airbnb listing URL. We pull the exact GPS coordinates automatically.</p>
+      <p class="text-sm text-gray-500">Drop your Airbnb listing URL. We detect the location automatically.</p>
     </div>
     <div class="text-center">
       <div class="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
         <svg class="w-6 h-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
       </div>
-      <h3 class="font-semibold mb-1">We find everything nearby</h3>
-      <p class="text-sm text-gray-500">Restaurants, grocery stores, pharmacies, landmarks, transit — all within walking distance.</p>
+      <h3 class="font-semibold mb-1">Preview for free</h3>
+      <p class="text-sm text-gray-500">See a personalized preview with restaurants, groceries, landmarks, and more near your listing.</p>
     </div>
     <div class="text-center">
       <div class="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -344,7 +344,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         <svg class="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 8.25v-1.5m-6 1.5v-1.5m12 9.75l-1.5.75a3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0L3 16.5m15-3.379a48.474 48.474 0 00-6-.371c-2.032 0-4.034.126-6 .371m12 0c.39.049.777.102 1.163.16 1.07.16 1.837 1.094 1.837 2.175v5.17c0 .62-.504 1.124-1.125 1.124H4.125A1.125 1.125 0 013 20.625v-5.17c0-1.08.768-2.014 1.837-2.174A47.78 47.78 0 016 13.12M12.265 3.11a.375.375 0 11-.53 0L12 2.845l.265.265zm-3 0a.375.375 0 11-.53 0L9 2.845l.265.265zm6 0a.375.375 0 11-.53 0L15 2.845l.265.265z"/></svg>
       </div>
       <h3 class="font-semibold text-sm mb-1">Restaurants & Cafes</h3>
-      <p class="text-xs text-gray-500 leading-relaxed">Top-rated spots with cuisine types, ratings, and walking/driving times from your front door.</p>
+      <p class="text-xs text-gray-500 leading-relaxed">Nearby spots with walking and driving times from your front door.</p>
     </div>
     <div class="feature-card bg-white rounded-xl p-6 shadow-sm transition-all duration-200">
       <div class="w-10 h-10 bg-teal-50 rounded-xl flex items-center justify-center mb-3">
@@ -372,7 +372,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         <svg class="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg>
       </div>
       <h3 class="font-semibold text-sm mb-1">Local Tips</h3>
-      <p class="text-xs text-gray-500 leading-relaxed">Insider tips a local would share — hidden gems, transit hacks, neighborhood culture.</p>
+      <p class="text-xs text-gray-500 leading-relaxed">Insider tips like nearby transit, best coffee spots, and practical info every guest needs.</p>
     </div>
     <div class="feature-card bg-white rounded-xl p-6 shadow-sm transition-all duration-200">
       <div class="w-10 h-10 bg-teal-50 rounded-xl flex items-center justify-center mb-3">
@@ -490,11 +490,10 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Regenerate anytime</li>
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-gray-300 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg><span class="text-gray-400"> Priority support</span></li>
       </ul>
-      <a href="#" onclick="document.getElementById('airbnb_url').focus();window.scrollTo({top:0,behavior:'smooth'});return false;"
-         class="cta-btn block w-full py-2.5 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-semibold text-sm text-center">
-        Get Starter
-      </a>
-      <p class="text-xs text-gray-400 mt-2">Cancel anytime</p>
+      <span class="block w-full py-2.5 bg-gray-100 text-gray-400 rounded-xl font-semibold text-sm text-center cursor-not-allowed">
+        Coming Soon
+      </span>
+      <p class="text-xs text-gray-400 mt-2">Launching soon</p>
     </div>
 
     <!-- Pro -->
@@ -510,11 +509,10 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Regenerate anytime</li>
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Priority support</li>
       </ul>
-      <a href="#" onclick="document.getElementById('airbnb_url').focus();window.scrollTo({top:0,behavior:'smooth'});return false;"
-         class="block w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold text-sm text-center hover:border-teal-400 transition">
-        Go Pro
-      </a>
-      <p class="text-xs text-gray-400 mt-2">Cancel anytime</p>
+      <span class="block w-full py-2.5 bg-gray-100 text-gray-400 rounded-xl font-semibold text-sm text-center cursor-not-allowed">
+        Coming Soon
+      </span>
+      <p class="text-xs text-gray-400 mt-2">Launching soon</p>
     </div>
 
   </div>
@@ -529,7 +527,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         How long does it take to generate a guide?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Most guides are ready in 1-2 minutes. We analyze your listing location, find all nearby points of interest, and format everything into a clean guide automatically.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Most guides are delivered within a few hours. We analyze your listing location, find all nearby points of interest, and format everything into a clean guide. You'll get an email when it's ready.</p></div>
     </div>
     <div class="bg-white rounded-xl shadow-sm overflow-hidden">
       <button onclick="this.nextElementSibling.classList.toggle('open')" class="w-full text-left px-6 py-4 flex items-center justify-between text-sm font-semibold hover:bg-gray-50 transition">
@@ -557,7 +555,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         I have multiple listings. Is there a bulk discount?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Yes! Our Starter plan ($4.99/mo) includes 5 guides, and Pro ($14.99/mo) gives you 25 guides per month. Much cheaper than buying individually.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">We're launching Starter and Pro plans soon with multi-guide pricing. For now, each guide is $1.99 during our launch period.</p></div>
     </div>
   </div>
 </section>
@@ -575,7 +573,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
       <span class="font-semibold text-sm">HostGuide</span>
     </div>
     <p class="text-xs text-gray-400 mb-2">Made for Airbnb hosts, by an Airbnb host.</p>
-    <p class="text-xs text-gray-400">hello@host-guide.net</p>
+    <p class="text-xs text-gray-400">&copy; 2026 HostGuide</p>
   </div>
 </footer>
 
