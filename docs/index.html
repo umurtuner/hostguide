@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HostGuide — Guest Guides for Airbnb Hosts</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #f5f5f5; color: #1a1a1a; line-height: 1.5; }
+.header { background: linear-gradient(135deg, #00897B 0%, #00695C 100%); color: white; padding: 48px 24px; text-align: center; }
+.header h1 { font-size: 36px; font-weight: 700; }
+.header p { font-size: 16px; opacity: 0.9; margin-top: 8px; }
+.stats { display: flex; justify-content: center; gap: 32px; margin-top: 20px; font-size: 14px; opacity: 0.85; }
+.stats span { font-weight: 600; font-size: 20px; display: block; }
+.container { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+.city-card { background: white; border-radius: 12px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.city-header { padding: 20px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; }
+.city-header:hover { background: #fafafa; }
+.city-name { font-size: 20px; font-weight: 600; }
+.city-count { font-size: 13px; color: #888; background: #f0f0f0; padding: 4px 12px; border-radius: 12px; }
+.guide-list { display: none; padding: 0; }
+.city-card.open .guide-list { display: block; }
+.guide-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; border-bottom: 1px solid #f8f8f8; font-size: 14px; }
+.guide-item:last-child { border-bottom: none; }
+.guide-item:hover { background: #fafafa; }
+.guide-info { color: #555; }
+.guide-link { color: #00897B; text-decoration: none; font-weight: 500; padding: 6px 14px; border: 1px solid #00897B; border-radius: 6px; font-size: 13px; }
+.guide-link:hover { background: #00897B; color: white; }
+.cta { text-align: center; margin-top: 40px; padding: 32px; background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.cta h2 { font-size: 20px; margin-bottom: 8px; }
+.cta p { color: #666; font-size: 14px; }
+.footer { text-align: center; padding: 24px; font-size: 12px; color: #999; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>HostGuide</h1>
+    <p>Personalized neighborhood guides for Airbnb guests</p>
+    <div class="stats">
+        <div>10<span>Cities</span></div>
+        <div>56<span>Guides</span></div>
+    </div>
+</div>
+<div class="container">
+    <div class="city-card" onclick="this.classList.toggle('open')">
+            <div class="city-header">
+                <span class="city-name">Bogota</span>
+                <span class="city-count">7 guides</span>
+            </div>
+            <div class="guide-list"><div class="guide-item">
+                <div><strong>La Candelaria</strong><span class="guide-info"> — hosted by Pablo</span></div>
+                <a class="guide-link" href="bogota/1548849428183932969.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Chapinero</strong><span class="guide-info"></span></div>
+                <a class="guide-link" href="bogota/1588546940680577425.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Chapinero</strong><span class="guide-info"> — hosted by Marcela</span></div>
+                <a class="guide-link" href="bogota/1629767066381760535.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>La Candelaria</strong><span class="guide-info"> — hosted by Wendy</span></div>
+                <a class="guide-link" href="bogota/1630018184223705080.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Chapinero</strong><span class="guide-info"> — hosted by Marcela</span></div>
+                <a class="guide-link" href="bogota/1653088772551667741.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>La Candelaria</strong><span class="guide-info"> — hosted by Ale</span></div>
+                <a class="guide-link" href="bogota/28134373.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>La Candelaria</strong><span class="guide-info"> — hosted by Yael</span></div>
+                <a class="guide-link" href="bogota/42049912.html">View Guide</a>
+            </div>
+</div>
+        </div>
+<div class="city-card" onclick="this.classList.toggle('open')">
+            <div class="city-header">
+                <span class="city-name">Destin</span>
+                <span class="city-count">7 guides</span>
+            </div>
+            <div class="guide-list"><div class="guide-item">
+                <div><strong>Miramar Beach</strong><span class="guide-info"> — hosted by Epiqhost</span></div>
+                <a class="guide-link" href="destin/1388482905748362408.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Beach</span></div>
+                <a class="guide-link" href="destin/1430497668346633755.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Henderson Park</strong><span class="guide-info"> — hosted by Mitch</span></div>
+                <a class="guide-link" href="destin/1606556798344112679.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Miramar Beach</strong><span class="guide-info"> — hosted by Stanton</span></div>
+                <a class="guide-link" href="destin/1637166653644528251.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Clint</span></div>
+                <a class="guide-link" href="destin/1637261367469584690.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Henderson Park</strong><span class="guide-info"> — hosted by Aaron</span></div>
+                <a class="guide-link" href="destin/1644309171599181566.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Courtney</span></div>
+                <a class="guide-link" href="destin/43715142.html">View Guide</a>
+            </div>
+</div>
+        </div>
+<div class="city-card" onclick="this.classList.toggle('open')">
+            <div class="city-header">
+                <span class="city-name">Dublin</span>
+                <span class="city-count">5 guides</span>
+            </div>
+            <div class="guide-list"><div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Joseph</span></div>
+                <a class="guide-link" href="dublin/1132439200158885917.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Aoife</span></div>
+                <a class="guide-link" href="dublin/1183399579511492771.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Lauren</span></div>
+                <a class="guide-link" href="dublin/1202019078633043459.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Niamh</span></div>
+                <a class="guide-link" href="dublin/1521731927171903672.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Zanzibar</span></div>
+                <a class="guide-link" href="dublin/46256758.html">View Guide</a>
+            </div>
+</div>
+        </div>
+<div class="city-card" onclick="this.classList.toggle('open')">
+            <div class="city-header">
+                <span class="city-name">Lisbon</span>
+                <span class="city-count">5 guides</span>
+            </div>
+            <div class="guide-list"><div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by The</span></div>
+                <a class="guide-link" href="lisbon/1004109635656602002.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"></span></div>
+                <a class="guide-link" href="lisbon/1573421331214642095.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Ricardo</span></div>
+                <a class="guide-link" href="lisbon/1638670687794051090.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Alexandra</span></div>
+                <a class="guide-link" href="lisbon/1645637269072758098.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Tagus</span></div>
+                <a class="guide-link" href="lisbon/37698787.html">View Guide</a>
+            </div>
+</div>
+        </div>
+<div class="city-card" onclick="this.classList.toggle('open')">
+            <div class="city-header">
+                <span class="city-name">Madrid</span>
+                <span class="city-count">5 guides</span>
+            </div>
+            <div class="guide-list"><div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Aspasios</span></div>
+                <a class="guide-link" href="madrid/1617261973664297835.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Alberto</span></div>
+                <a class="guide-link" href="madrid/1630976554397449690.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Nawal</span></div>
+                <a class="guide-link" href="madrid/1647800749393701637.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Carlos</span></div>
+                <a class="guide-link" href="madrid/36399333.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Tobias</span></div>
+                <a class="guide-link" href="madrid/670228195238281392.html">View Guide</a>
+            </div>
+</div>
+        </div>
+<div class="city-card" onclick="this.classList.toggle('open')">
+            <div class="city-header">
+                <span class="city-name">Medellin</span>
+                <span class="city-count">7 guides</span>
+            </div>
+            <div class="guide-list"><div class="guide-item">
+                <div><strong>El Poblado</strong><span class="guide-info"> — hosted by Angela</span></div>
+                <a class="guide-link" href="medellin/1125618171502358691.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>El Poblado</strong><span class="guide-info"> — hosted by Vibra</span></div>
+                <a class="guide-link" href="medellin/1223879329973806264.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>El Poblado</strong><span class="guide-info"> — hosted by Maria</span></div>
+                <a class="guide-link" href="medellin/1508952007924469704.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Belén</strong><span class="guide-info"> — hosted by David</span></div>
+                <a class="guide-link" href="medellin/1626384058700002495.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>El Poblado</strong><span class="guide-info"> — hosted by Valentina</span></div>
+                <a class="guide-link" href="medellin/1628442384969861317.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>El Poblado</strong><span class="guide-info"> — hosted by Camila</span></div>
+                <a class="guide-link" href="medellin/1638546690917871253.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>El Poblado</strong><span class="guide-info"> — hosted by Jalo</span></div>
+                <a class="guide-link" href="medellin/51978429.html">View Guide</a>
+            </div>
+</div>
+        </div>
+<div class="city-card" onclick="this.classList.toggle('open')">
+            <div class="city-header">
+                <span class="city-name">Miami</span>
+                <span class="city-count">5 guides</span>
+            </div>
+            <div class="guide-list"><div class="guide-item">
+                <div><strong>Downtown</strong><span class="guide-info"> — hosted by Miami</span></div>
+                <a class="guide-link" href="miami/1486407707332155573.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Downtown</strong><span class="guide-info"> — hosted by Kevin</span></div>
+                <a class="guide-link" href="miami/1608193290112444326.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Brickell</strong><span class="guide-info"> — hosted by Domus</span></div>
+                <a class="guide-link" href="miami/1624363205028471293.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Downtown</strong><span class="guide-info"> — hosted by Nomada</span></div>
+                <a class="guide-link" href="miami/1632798515044844835.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Allan</span></div>
+                <a class="guide-link" href="miami/1648259625375753169.html">View Guide</a>
+            </div>
+</div>
+        </div>
+<div class="city-card" onclick="this.classList.toggle('open')">
+            <div class="city-header">
+                <span class="city-name">Orlando</span>
+                <span class="city-count">9 guides</span>
+            </div>
+            <div class="guide-list"><div class="guide-item">
+                <div><strong>International Drive</strong><span class="guide-info"> — hosted by Yay</span></div>
+                <a class="guide-link" href="orlando/1156532842478226707.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"></span></div>
+                <a class="guide-link" href="orlando/1508025591272990112.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Vitor</span></div>
+                <a class="guide-link" href="orlando/1628408166014561104.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Best</span></div>
+                <a class="guide-link" href="orlando/1630720729080500560.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Vi</span></div>
+                <a class="guide-link" href="orlando/1632710833313724013.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Peter</span></div>
+                <a class="guide-link" href="orlando/1634290463701094839.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Rennata</span></div>
+                <a class="guide-link" href="orlando/1638500854640656071.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Diogo</span></div>
+                <a class="guide-link" href="orlando/1640322407754756900.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Sunset</span></div>
+                <a class="guide-link" href="orlando/1644393760605075678.html">View Guide</a>
+            </div>
+</div>
+        </div>
+<div class="city-card" onclick="this.classList.toggle('open')">
+            <div class="city-header">
+                <span class="city-name">Rochester</span>
+                <span class="city-count">1 guides</span>
+            </div>
+            <div class="guide-list"><div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"></span></div>
+                <a class="guide-link" href="rochester/864611842669011463.html">View Guide</a>
+            </div>
+</div>
+        </div>
+<div class="city-card" onclick="this.classList.toggle('open')">
+            <div class="city-header">
+                <span class="city-name">Tampa</span>
+                <span class="city-count">5 guides</span>
+            </div>
+            <div class="guide-list"><div class="guide-item">
+                <div><strong>Seminole Heights</strong><span class="guide-info"> — hosted by Alex</span></div>
+                <a class="guide-link" href="tampa/1360899245027915426.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Lindsay</span></div>
+                <a class="guide-link" href="tampa/1476909671555981555.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Channelside</strong><span class="guide-info"> — hosted by Kasa</span></div>
+                <a class="guide-link" href="tampa/1508114073638070383.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Guide</strong><span class="guide-info"> — hosted by Monica</span></div>
+                <a class="guide-link" href="tampa/1562545254539423534.html">View Guide</a>
+            </div>
+<div class="guide-item">
+                <div><strong>Downtown Tampa</strong><span class="guide-info"> — hosted by Lindsey</span></div>
+                <a class="guide-link" href="tampa/985266834581697552.html">View Guide</a>
+            </div>
+</div>
+        </div>
+
+    <div class="cta">
+        <h2>Want a guide for your listing?</h2>
+        <p>Drop your Airbnb link and we'll generate a personalized neighborhood guide in 2 minutes.</p>
+    </div>
+</div>
+<div class="footer">Powered by HostGuide</div>
+</body>
+</html>

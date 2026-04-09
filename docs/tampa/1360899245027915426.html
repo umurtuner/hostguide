@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guest Guide — Seminole Heights, Tampa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --primary: #00838F;
+    --primary-dark: #006064;
+    --primary-bg: #E0F7FA;
+    --text: #1a1a1a;
+    --text-secondary: #555;
+    --border: #e0e0e0;
+    --surface: #f8f8f8;
+    --white: #fff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text);
+    background: #f0f0f0;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── Page container ── */
+.page {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--white);
+}
+
+/* ── Hero ── */
+.hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 44px 36px 36px;
+}
+.hero h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 6px;
+}
+.hero-sub {
+    font-size: 16px;
+    opacity: 0.92;
+}
+.hero-host {
+    margin-top: 18px;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* ── Essentials card (WiFi, address, emergency) ── */
+.essentials {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border-bottom: 2px solid var(--primary);
+}
+.essentials .cell {
+    background: var(--white);
+    padding: 16px 20px;
+}
+.essentials .cell.full {
+    grid-column: 1 / -1;
+}
+.essentials .label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+.essentials .value {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+}
+.essentials .blank {
+    font-size: 14px;
+    color: #999;
+    border-bottom: 1.5px dashed #ccc;
+    display: inline-block;
+    min-width: 180px;
+    height: 22px;
+}
+
+/* ── Content wrapper ── */
+.content {
+    padding: 28px 36px 40px;
+}
+
+/* ── Sections ── */
+.section {
+    margin-bottom: 28px;
+}
+.section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 12px;
+}
+.section h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 14px 0 6px;
+}
+
+/* ── Place tables ── */
+.place-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.place-row td {
+    padding: 9px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    vertical-align: top;
+}
+.place-row:last-child td {
+    border-bottom: none;
+}
+.place-name {
+    font-weight: 600;
+    white-space: nowrap;
+    padding-right: 16px;
+    width: 40%;
+}
+.place-name a.place-link {
+    color: var(--text);
+    text-decoration: none;
+}
+.place-name a.place-link:hover {
+    color: var(--primary);
+}
+.place-detail {
+    color: var(--text-secondary);
+}
+.place-addr {
+    font-size: 13px;
+}
+.place-dist {
+    font-size: 13px;
+    color: #888;
+}
+.rating {
+    font-size: 12px;
+    color: #e6a117;
+    margin-left: 6px;
+    font-weight: 500;
+}
+
+/* ── Notes and tips ── */
+.note {
+    background: var(--surface);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+.note p { margin-top: 6px; }
+/* ── Local tips section ── */
+.tips-section {
+    background: var(--primary-bg);
+    margin-left: -36px;
+    margin-right: -36px;
+    padding: 24px 36px;
+}
+.tips-section h2 {
+    border-bottom-color: var(--primary);
+    opacity: 0.9;
+}
+.tips-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+.tip-item {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    font-size: 14px;
+    line-height: 1.5;
+}
+.tip-item:last-child { border-bottom: none; }
+.tip-label {
+    font-weight: 700;
+    color: var(--primary-dark);
+    min-width: 90px;
+    flex-shrink: 0;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding-top: 1px;
+}
+
+/* ── Safety list ── */
+.safety-list {
+    list-style: none;
+    padding: 0;
+}
+.safety-list li {
+    padding: 7px 0 7px 24px;
+    font-size: 14px;
+    color: var(--text);
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+}
+.safety-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0.7;
+}
+.safety-list li:last-child { border-bottom: none; }
+
+/* ── Info table ── */
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.info-table td {
+    padding: 10px 12px;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+}
+.info-table tr:last-child td { border-bottom: none; }
+.info-label {
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    width: 90px;
+}
+
+/* ── Map ── */
+.map-container {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+.map-link {
+    text-align: center;
+    margin-top: 6px;
+    font-size: 13px;
+}
+.map-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* ── Footer ── */
+.footer {
+    text-align: center;
+    padding: 20px 36px 28px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: #999;
+}
+
+/* ── Print-only elements ── */
+.print-only { display: none; }
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+    .hero { padding: 32px 20px 28px; }
+    .hero h1 { font-size: 26px; }
+    .content { padding: 20px 20px 32px; }
+    .essentials { grid-template-columns: 1fr; }
+}
+
+/* ── Print stylesheet ── */
+@media print {
+    body { background: white; }
+    .page { max-width: none; box-shadow: none; }
+    .map-container iframe { display: none; }
+    .map-link { display: none; }
+    .print-only { display: block; }
+    .map-coords { font-size: 13px; color: #555; margin-top: 8px; }
+    .section { page-break-inside: avoid; }
+    .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    a { color: inherit; text-decoration: none; }
+    a.place-link::after { content: " (" attr(href) ")"; font-size: 10px; color: #888; word-break: break-all; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+    <!-- Hero -->
+    <div class="hero">
+        <h1>Your Guide to Seminole Heights</h1>
+        <p class="hero-sub">Tampa — prepared by your host</p>
+        <p class="hero-host">Hosted by Alex</p>
+    </div>
+
+    <!-- Essentials (above the fold, print-critical) -->
+    <div class="essentials">
+        <div class="cell">
+            <div class="label">WiFi Network</div>
+            <div class="blank"></div>
+        </div>
+        <div class="cell">
+            <div class="label">WiFi Password</div>
+            <div class="blank"></div>
+        </div>
+        <div class="cell">
+            <div class="label">Property Address</div>
+            <div class="value">Seminole Heights, Tampa</div>
+        </div>
+        <div class="cell">
+            <div class="label">Emergency</div>
+            <div class="value">911</div>
+        </div>
+        <div class="cell">
+            <div class="label">Check-in / Check-out</div>
+            <div class="blank"></div>
+        </div>
+        <div class="cell">
+            <div class="label">Host Contact</div>
+            <div class="blank"></div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+
+        <section class="section map-section">
+            <h2>Your Location</h2>
+            <div class="map-container">
+                <a href="https://www.google.com/maps/@27.9858,-82.46,16z" target="_blank" style="display: block;">
+                    <iframe
+                        width="100%" height="260" frameborder="0" scrolling="no"
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=-82.466%2C27.9818%2C-82.454%2C27.989800000000002&amp;layer=mapnik&amp;marker=27.9858%2C-82.46"
+                        style="border-radius: 8px; pointer-events: none;">
+                    </iframe>
+                </a>
+                <p class="map-link"><a href="https://www.google.com/maps/@27.9858,-82.46,16z" target="_blank">Open in Google Maps</a></p>
+            </div>
+            <p class="print-only map-coords">GPS: 27.9858, -82.46 — search in Google Maps or scan QR code on back page</p>
+        </section>
+        <section class="section">
+        <h2>Getting Around</h2>
+        
+        <div class="note"><strong>Ride apps:</strong> Uber and Lyft work everywhere in Tampa.<p>You'll probably want a rental car. Public transit is limited outside downtown.</p></div>
+    </section>
+        <section class="section">
+            <h2>Eating & Drinking</h2>
+            <table class="place-table"><tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=27.9846989,-82.4595292" target="_blank" class="place-link">The Lab Coffee - Seminole Heights</a></td>
+            <td class="place-detail"><span class="place-addr">4304 North Florida Avenue</span> &middot; <span class="place-dist">2 min walk (130m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=27.9872121,-82.4592302" target="_blank" class="place-link">Chanko</a></td>
+            <td class="place-detail"><span class="place-addr">4603 N Florida Avenue</span> &middot; <span class="place-dist">2 min walk (174m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=27.9912758,-82.459735" target="_blank" class="place-link">Cappy's Pizza</a></td>
+            <td class="place-detail"><span class="place-dist">7 min walk (609m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=27.9881571,-82.4509472" target="_blank" class="place-link">Old Heights Bistro</a></td>
+            <td class="place-detail"><span class="place-dist">11 min walk (926m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=27.994135,-82.459271" target="_blank" class="place-link">Mango's Southern Kitchen + Bar</a></td>
+            <td class="place-detail"><span class="place-addr">5137 North Florida Avenue</span> &middot; <span class="place-dist">11 min walk (929m)</span></td>
+        </tr></table>
+        </section>
+        <section class="section tips-section">
+            <h2>Local Tips from Tampa</h2>
+            <div class="tips-grid"><div class="tip-item"><span class="tip-label">Ybor City</span><span class="tip-text">Best nightlife and Cuban sandwiches. Columbia Restaurant is a must.</span></div>
+<div class="tip-item"><span class="tip-label">Bayshore</span><span class="tip-text">Bayshore Blvd is the world's longest continuous sidewalk. Great for a walk or run.</span></div>
+<div class="tip-item"><span class="tip-label">Beaches</span><span class="tip-text">Clearwater Beach is 30 min west. St. Pete Beach is less crowded and just as nice.</span></div>
+<div class="tip-item"><span class="tip-label">Cuban sandwich</span><span class="tip-text">Tampa invented it. Try La Segunda (oldest Cuban bakery in the US).</span></div></div>
+        </section>
+        <section class="section">
+            <h2>Groceries & Essentials</h2>
+            <table class="place-table"><tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=27.9807363,-82.4526041" target="_blank" class="place-link">Winn-Dixie</a></td>
+            <td class="place-detail"><span class="place-addr">805 East Drive M.L.K. Jr Boulevard</span> &middot; <span class="place-dist">11 min walk (918m)</span></td>
+        </tr></table>
+            
+        </section>
+        <section class="section">
+            <h2>Things to See & Do</h2>
+            <table class="place-table"><tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=27.9888205,-82.4675955" target="_blank" class="place-link">Rivercrest Park</a></td>
+            <td class="place-detail"><span class="place-dist">10 min walk (817m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=27.9788117,-82.4655972" target="_blank" class="place-link">Calvin Taylor Park</a></td>
+            <td class="place-detail"><span class="place-dist">11 min walk (951m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=27.993651,-82.4651491" target="_blank" class="place-link">Ignacio Haya Linear Park</a></td>
+            <td class="place-detail"><span class="place-dist">12 min walk (1008m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=27.9740215,-82.45501" target="_blank" class="place-link">Robles Park</a></td>
+            <td class="place-detail"><span class="place-dist">17 min walk (1398m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=27.9751152,-82.4518939" target="_blank" class="place-link">Borrell Park</a></td>
+            <td class="place-detail"><span class="place-dist">17 min walk (1430m)</span></td>
+        </tr></table>
+        </section>
+        
+
+        <!-- Safety -->
+        <section class="section">
+            <h2>Safety Tips</h2>
+            <ul class="safety-list">
+                <li>Seminole Heights is generally safe — use common sense</li>
+<li>Lock your car and don't leave valuables visible</li>
+<li>Use Uber/Lyft late at night, especially after drinking</li>
+<li>Afternoon thunderstorms are daily in summer — they pass quickly</li>
+<li>Use sunscreen — Florida sun is stronger than you think</li>
+<li>Dial 911 for any emergency</li>
+            </ul>
+        </section>
+
+        <!-- Useful Info -->
+        <section class="section">
+            <h2>Useful Info</h2>
+            <table class="info-table">
+                <tr><td class="info-label">Emergency</td><td>911 (police, fire, ambulance)</td></tr>
+<tr><td class="info-label">Tipping</td><td>18-20% at restaurants, $1-2 per drink at bars</td></tr>
+<tr><td class="info-label">Tax</td><td>Prices don't include sales tax (6-10% added at checkout)</td></tr>
+<tr><td class="info-label">Water</td><td>Tap water is safe everywhere</td></tr>
+<tr><td class="info-label">SIM card</td><td>T-Mobile, AT&T, or Mint Mobile at any Walmart/Target</td></tr>
+            </table>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Guide for Alex's guests &middot; April 07, 2026 &middot; Powered by HostGuide
+    </div>
+
+</div>
+
+</body>
+</html>

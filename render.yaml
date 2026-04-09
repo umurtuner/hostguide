@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: hostguide
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn src.app:app --bind 0.0.0.0:$PORT --workers 2
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.2
+      - key: HOSTGUIDE_DOMAIN
+        value: https://host-guide.net
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: HOSTGUIDE_ADMIN_SECRET
+        sync: false

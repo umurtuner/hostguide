@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guest Guide — Madrid, Madrid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --primary: #C62828;
+    --primary-dark: #B71C1C;
+    --primary-bg: #FFEBEE;
+    --text: #1a1a1a;
+    --text-secondary: #555;
+    --border: #e0e0e0;
+    --surface: #f8f8f8;
+    --white: #fff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text);
+    background: #f0f0f0;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── Page container ── */
+.page {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--white);
+}
+
+/* ── Hero ── */
+.hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 44px 36px 36px;
+}
+.hero h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 6px;
+}
+.hero-sub {
+    font-size: 16px;
+    opacity: 0.92;
+}
+.hero-host {
+    margin-top: 18px;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* ── Essentials card (WiFi, address, emergency) ── */
+.essentials {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border-bottom: 2px solid var(--primary);
+}
+.essentials .cell {
+    background: var(--white);
+    padding: 16px 20px;
+}
+.essentials .cell.full {
+    grid-column: 1 / -1;
+}
+.essentials .label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+.essentials .value {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+}
+.essentials .blank {
+    font-size: 14px;
+    color: #999;
+    border-bottom: 1.5px dashed #ccc;
+    display: inline-block;
+    min-width: 180px;
+    height: 22px;
+}
+
+/* ── Content wrapper ── */
+.content {
+    padding: 28px 36px 40px;
+}
+
+/* ── Sections ── */
+.section {
+    margin-bottom: 28px;
+}
+.section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 12px;
+}
+.section h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 14px 0 6px;
+}
+
+/* ── Place tables ── */
+.place-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.place-row td {
+    padding: 9px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    vertical-align: top;
+}
+.place-row:last-child td {
+    border-bottom: none;
+}
+.place-name {
+    font-weight: 600;
+    white-space: nowrap;
+    padding-right: 16px;
+    width: 40%;
+}
+.place-name a.place-link {
+    color: var(--text);
+    text-decoration: none;
+}
+.place-name a.place-link:hover {
+    color: var(--primary);
+}
+.place-detail {
+    color: var(--text-secondary);
+}
+.place-addr {
+    font-size: 13px;
+}
+.place-dist {
+    font-size: 13px;
+    color: #888;
+}
+.rating {
+    font-size: 12px;
+    color: #e6a117;
+    margin-left: 6px;
+    font-weight: 500;
+}
+
+/* ── Notes and tips ── */
+.note {
+    background: var(--surface);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+.note p { margin-top: 6px; }
+/* ── Local tips section ── */
+.tips-section {
+    background: var(--primary-bg);
+    margin-left: -36px;
+    margin-right: -36px;
+    padding: 24px 36px;
+}
+.tips-section h2 {
+    border-bottom-color: var(--primary);
+    opacity: 0.9;
+}
+.tips-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+.tip-item {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    font-size: 14px;
+    line-height: 1.5;
+}
+.tip-item:last-child { border-bottom: none; }
+.tip-label {
+    font-weight: 700;
+    color: var(--primary-dark);
+    min-width: 90px;
+    flex-shrink: 0;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding-top: 1px;
+}
+
+/* ── Safety list ── */
+.safety-list {
+    list-style: none;
+    padding: 0;
+}
+.safety-list li {
+    padding: 7px 0 7px 24px;
+    font-size: 14px;
+    color: var(--text);
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+}
+.safety-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0.7;
+}
+.safety-list li:last-child { border-bottom: none; }
+
+/* ── Info table ── */
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.info-table td {
+    padding: 10px 12px;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+}
+.info-table tr:last-child td { border-bottom: none; }
+.info-label {
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    width: 90px;
+}
+
+/* ── Map ── */
+.map-container {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+.map-link {
+    text-align: center;
+    margin-top: 6px;
+    font-size: 13px;
+}
+.map-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* ── Footer ── */
+.footer {
+    text-align: center;
+    padding: 20px 36px 28px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: #999;
+}
+
+/* ── Print-only elements ── */
+.print-only { display: none; }
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+    .hero { padding: 32px 20px 28px; }
+    .hero h1 { font-size: 26px; }
+    .content { padding: 20px 20px 32px; }
+    .essentials { grid-template-columns: 1fr; }
+}
+
+/* ── Print stylesheet ── */
+@media print {
+    body { background: white; }
+    .page { max-width: none; box-shadow: none; }
+    .map-container iframe { display: none; }
+    .map-link { display: none; }
+    .print-only { display: block; }
+    .map-coords { font-size: 13px; color: #555; margin-top: 8px; }
+    .section { page-break-inside: avoid; }
+    .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    a { color: inherit; text-decoration: none; }
+    a.place-link::after { content: " (" attr(href) ")"; font-size: 10px; color: #888; word-break: break-all; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+    <!-- Hero -->
+    <div class="hero">
+        <h1>Your Guide to Madrid</h1>
+        <p class="hero-sub">Madrid — prepared by your host</p>
+        <p class="hero-host">Hosted by Carlos</p>
+    </div>
+
+    <!-- Essentials (above the fold, print-critical) -->
+    <div class="essentials">
+        <div class="cell">
+            <div class="label">WiFi Network</div>
+            <div class="blank"></div>
+        </div>
+        <div class="cell">
+            <div class="label">WiFi Password</div>
+            <div class="blank"></div>
+        </div>
+        <div class="cell">
+            <div class="label">Property Address</div>
+            <div class="value">Madrid, Madrid</div>
+        </div>
+        <div class="cell">
+            <div class="label">Emergency</div>
+            <div class="value">123 (police) / 125 (fire)</div>
+        </div>
+        <div class="cell">
+            <div class="label">Check-in / Check-out</div>
+            <div class="blank"></div>
+        </div>
+        <div class="cell">
+            <div class="label">Host Contact</div>
+            <div class="blank"></div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+
+        <section class="section map-section">
+            <h2>Your Location</h2>
+            <div class="map-container">
+                <a href="https://www.google.com/maps/@40.4129,-3.69934,16z" target="_blank" style="display: block;">
+                    <iframe
+                        width="100%" height="260" frameborder="0" scrolling="no"
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=-3.7053399999999996%2C40.4089%2C-3.69334%2C40.4169&amp;layer=mapnik&amp;marker=40.4129%2C-3.69934"
+                        style="border-radius: 8px; pointer-events: none;">
+                    </iframe>
+                </a>
+                <p class="map-link"><a href="https://www.google.com/maps/@40.4129,-3.69934,16z" target="_blank">Open in Google Maps</a></p>
+            </div>
+            <p class="print-only map-coords">GPS: 40.4129, -3.69934 — search in Google Maps or scan QR code on back page</p>
+        </section>
+        <section class="section">
+        <h2>Getting Around</h2>
+        <table class="place-table"><tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=40.412291,-3.699089" target="_blank" class="place-link">Antón Martín</a></td>
+            <td class="place-detail"><span class="place-dist">1 min walk (70m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=40.4123608,-3.7045846" target="_blank" class="place-link">Tirso de Molina</a></td>
+            <td class="place-detail"><span class="place-dist">5 min walk (448m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=40.416938,-3.7033901" target="_blank" class="place-link">Sol</a></td>
+            <td class="place-detail"><span class="place-dist">7 min walk (564m)</span></td>
+        </tr></table>
+        <div class="note"><strong>Taxi apps:</strong> Uber and Lyft work in Madrid.</div>
+    </section>
+        
+        <section class="section tips-section">
+            <h2>Local Tips from Madrid</h2>
+            <div class="tips-grid"><div class="tip-item"><span class="tip-label">Meal times</span><span class="tip-text">Lunch 2-4pm, dinner 9-11pm. Restaurants are empty before these times.</span></div>
+<div class="tip-item"><span class="tip-label">Tapas</span><span class="tip-text">Free tapas with drinks in La Latina and Lavapies. Bar-hop — one tapa per bar.</span></div>
+<div class="tip-item"><span class="tip-label">Churros</span><span class="tip-text">Chocolateria San Gines (open since 1894) for churros con chocolate. Go after midnight.</span></div>
+<div class="tip-item"><span class="tip-label">Metro</span><span class="tip-text">10-trip Metrobus ticket saves money. Madrid metro is fast and covers everything.</span></div>
+<div class="tip-item"><span class="tip-label">Tipping</span><span class="tip-text">Not expected. Round up the bill or leave small change.</span></div></div>
+        </section>
+        <section class="section">
+            <h2>Groceries & Essentials</h2>
+            <table class="place-table"><tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=40.4110395,-3.6967784" target="_blank" class="place-link">Alcampo</a></td>
+            <td class="place-detail"><span class="place-dist">4 min walk (299m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=40.4125053,-3.695567" target="_blank" class="place-link">Alimentación Mantequería</a></td>
+            <td class="place-detail"><span class="place-addr">1 Calle de Fúcar</span> &middot; <span class="place-dist">4 min walk (322m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=40.4129173,-3.6953428" target="_blank" class="place-link">Dia</a></td>
+            <td class="place-detail"><span class="place-addr">Calle de las Huertas</span> &middot; <span class="place-dist">4 min walk (338m)</span></td>
+        </tr></table>
+            
+        </section>
+        <section class="section">
+            <h2>Things to See & Do</h2>
+            <table class="place-table"><tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=40.4168361,-3.6977743" target="_blank" class="place-link">Museo de Colecciones ICO</a></td>
+            <td class="place-detail"><span class="place-addr">3 Calle de Zorrilla</span> &middot; <span class="place-dist">6 min walk (457m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=40.4171984,-3.7054947" target="_blank" class="place-link">Casa Museo del Ratón Pérez</a></td>
+            <td class="place-detail"><span class="place-addr">8 Calle del Arenal</span> &middot; <span class="place-dist">9 min walk (707m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=40.4234289,-3.6888894" target="_blank" class="place-link">Museo Arqueológico Nacional</a></td>
+            <td class="place-detail"><span class="place-addr">13 Calle de Serrano</span> &middot; <span class="place-dist">18 min walk (1467m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=40.3993218,-3.6921489" target="_blank" class="place-link">Museo del Ferrocarril de Madrid</a></td>
+            <td class="place-detail"><span class="place-addr">61 Paseo de las Delicias</span> &middot; <span class="place-dist">20 min walk (1627m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=40.4276832,-3.7096739" target="_blank" class="place-link">Museo ABC</a></td>
+            <td class="place-detail"><span class="place-addr">29-31 Calle de Amaniel</span> &middot; <span class="place-dist">22 min walk (1862m)</span></td>
+        </tr></table>
+        </section>
+        <section class="section">
+            <h2>Nightlife</h2>
+            <table class="place-table"><tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=40.4116383,-3.6979403" target="_blank" class="place-link">Diego</a></td>
+            <td class="place-detail"><span class="place-dist">2 min walk (183m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=40.4124453,-3.6961583" target="_blank" class="place-link">Fever</a></td>
+            <td class="place-detail"><span class="place-dist">3 min walk (274m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=40.4128038,-3.695685" target="_blank" class="place-link">La Hidria</a></td>
+            <td class="place-detail"><span class="place-dist">4 min walk (309m)</span></td>
+        </tr></table>
+        </section>
+
+        <!-- Safety -->
+        <section class="section">
+            <h2>Safety Tips</h2>
+            <ul class="safety-list">
+                <li>Madrid is very safe — locals are out until 2-3am regularly</li>
+<li>Watch for pickpockets on Gran Via and in the metro</li>
+<li>Avoid Lavapies late at night if alone</li>
+<li>Dial 112 for any emergency</li>
+            </ul>
+        </section>
+
+        <!-- Useful Info -->
+        <section class="section">
+            <h2>Useful Info</h2>
+            <table class="info-table">
+                <tr><td class="info-label">Emergency</td><td>112 (all services)</td></tr>
+<tr><td class="info-label">Currency</td><td>Euro (EUR)</td></tr>
+<tr><td class="info-label">Tipping</td><td>Not expected. Round up or 5-10% for great service.</td></tr>
+<tr><td class="info-label">Water</td><td>Tap water is safe everywhere</td></tr>
+<tr><td class="info-label">Language</td><td>Spanish. English spoken in tourist areas, limited elsewhere.</td></tr>
+<tr><td class="info-label">SIM card</td><td>Vodafone or Orange. Buy at any phone shop or El Corte Ingles.</td></tr>
+            </table>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Guide for Carlos's guests &middot; April 07, 2026 &middot; Powered by HostGuide
+    </div>
+
+</div>
+
+</body>
+</html>

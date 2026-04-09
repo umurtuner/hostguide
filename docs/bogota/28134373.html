@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guest Guide — La Candelaria, Bogotá</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --primary: #37474F;
+    --primary-dark: #263238;
+    --primary-bg: #ECEFF1;
+    --text: #1a1a1a;
+    --text-secondary: #555;
+    --border: #e0e0e0;
+    --surface: #f8f8f8;
+    --white: #fff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text);
+    background: #f0f0f0;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── Page container ── */
+.page {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--white);
+}
+
+/* ── Hero ── */
+.hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 44px 36px 36px;
+}
+.hero h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 6px;
+}
+.hero-sub {
+    font-size: 16px;
+    opacity: 0.92;
+}
+.hero-host {
+    margin-top: 18px;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* ── Essentials card (WiFi, address, emergency) ── */
+.essentials {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border-bottom: 2px solid var(--primary);
+}
+.essentials .cell {
+    background: var(--white);
+    padding: 16px 20px;
+}
+.essentials .cell.full {
+    grid-column: 1 / -1;
+}
+.essentials .label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+.essentials .value {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+}
+.essentials .blank {
+    font-size: 14px;
+    color: #999;
+    border-bottom: 1.5px dashed #ccc;
+    display: inline-block;
+    min-width: 180px;
+    height: 22px;
+}
+
+/* ── Content wrapper ── */
+.content {
+    padding: 28px 36px 40px;
+}
+
+/* ── Sections ── */
+.section {
+    margin-bottom: 28px;
+}
+.section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 12px;
+}
+.section h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 14px 0 6px;
+}
+
+/* ── Place tables ── */
+.place-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.place-row td {
+    padding: 9px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    vertical-align: top;
+}
+.place-row:last-child td {
+    border-bottom: none;
+}
+.place-name {
+    font-weight: 600;
+    white-space: nowrap;
+    padding-right: 16px;
+    width: 40%;
+}
+.place-name a.place-link {
+    color: var(--text);
+    text-decoration: none;
+}
+.place-name a.place-link:hover {
+    color: var(--primary);
+}
+.place-detail {
+    color: var(--text-secondary);
+}
+.place-addr {
+    font-size: 13px;
+}
+.place-dist {
+    font-size: 13px;
+    color: #888;
+}
+.rating {
+    font-size: 12px;
+    color: #e6a117;
+    margin-left: 6px;
+    font-weight: 500;
+}
+
+/* ── Notes and tips ── */
+.note {
+    background: var(--surface);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+.note p { margin-top: 6px; }
+/* ── Local tips section ── */
+.tips-section {
+    background: var(--primary-bg);
+    margin-left: -36px;
+    margin-right: -36px;
+    padding: 24px 36px;
+}
+.tips-section h2 {
+    border-bottom-color: var(--primary);
+    opacity: 0.9;
+}
+.tips-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+.tip-item {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    font-size: 14px;
+    line-height: 1.5;
+}
+.tip-item:last-child { border-bottom: none; }
+.tip-label {
+    font-weight: 700;
+    color: var(--primary-dark);
+    min-width: 90px;
+    flex-shrink: 0;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding-top: 1px;
+}
+
+/* ── Safety list ── */
+.safety-list {
+    list-style: none;
+    padding: 0;
+}
+.safety-list li {
+    padding: 7px 0 7px 24px;
+    font-size: 14px;
+    color: var(--text);
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+}
+.safety-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0.7;
+}
+.safety-list li:last-child { border-bottom: none; }
+
+/* ── Info table ── */
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.info-table td {
+    padding: 10px 12px;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+}
+.info-table tr:last-child td { border-bottom: none; }
+.info-label {
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    width: 90px;
+}
+
+/* ── Map ── */
+.map-container {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+.map-link {
+    text-align: center;
+    margin-top: 6px;
+    font-size: 13px;
+}
+.map-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* ── Footer ── */
+.footer {
+    text-align: center;
+    padding: 20px 36px 28px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: #999;
+}
+
+/* ── Print-only elements ── */
+.print-only { display: none; }
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+    .hero { padding: 32px 20px 28px; }
+    .hero h1 { font-size: 26px; }
+    .content { padding: 20px 20px 32px; }
+    .essentials { grid-template-columns: 1fr; }
+}
+
+/* ── Print stylesheet ── */
+@media print {
+    body { background: white; }
+    .page { max-width: none; box-shadow: none; }
+    .map-container iframe { display: none; }
+    .map-link { display: none; }
+    .print-only { display: block; }
+    .map-coords { font-size: 13px; color: #555; margin-top: 8px; }
+    .section { page-break-inside: avoid; }
+    .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    a { color: inherit; text-decoration: none; }
+    a.place-link::after { content: " (" attr(href) ")"; font-size: 10px; color: #888; word-break: break-all; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+    <!-- Hero -->
+    <div class="hero">
+        <h1>Your Guide to La Candelaria</h1>
+        <p class="hero-sub">Bogotá — prepared by your host</p>
+        <p class="hero-host">Hosted by Ale</p>
+    </div>
+
+    <!-- Essentials (above the fold, print-critical) -->
+    <div class="essentials">
+        <div class="cell">
+            <div class="label">WiFi Network</div>
+            <div class="blank"></div>
+        </div>
+        <div class="cell">
+            <div class="label">WiFi Password</div>
+            <div class="blank"></div>
+        </div>
+        <div class="cell">
+            <div class="label">Property Address</div>
+            <div class="value">La Candelaria, Bogotá</div>
+        </div>
+        <div class="cell">
+            <div class="label">Emergency</div>
+            <div class="value">123 (police) / 125 (fire)</div>
+        </div>
+        <div class="cell">
+            <div class="label">Check-in / Check-out</div>
+            <div class="blank"></div>
+        </div>
+        <div class="cell">
+            <div class="label">Host Contact</div>
+            <div class="blank"></div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+
+        <section class="section map-section">
+            <h2>Your Location</h2>
+            <div class="map-container">
+                <a href="https://www.google.com/maps/@4.59256,-74.0722,16z" target="_blank" style="display: block;">
+                    <iframe
+                        width="100%" height="260" frameborder="0" scrolling="no"
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=-74.0782%2C4.58856%2C-74.0662%2C4.596559999999999&amp;layer=mapnik&amp;marker=4.59256%2C-74.0722"
+                        style="border-radius: 8px; pointer-events: none;">
+                    </iframe>
+                </a>
+                <p class="map-link"><a href="https://www.google.com/maps/@4.59256,-74.0722,16z" target="_blank">Open in Google Maps</a></p>
+            </div>
+            <p class="print-only map-coords">GPS: 4.59256, -74.0722 — search in Google Maps or scan QR code on back page</p>
+        </section>
+        <section class="section">
+        <h2>Getting Around</h2>
+        
+        <div class="note"><strong>Taxi apps:</strong> Uber, InDriver, DiDi all work in Bogotá. Always confirm the fare.<p>Taxis are cheap but use apps — avoid hailing on the street at night.</p></div>
+    </section>
+        <section class="section">
+            <h2>Eating & Drinking</h2>
+            <table class="place-table"><tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5958978,-74.0717175" target="_blank" class="place-link">Quinoa y Amaranto</a></td>
+            <td class="place-detail"><span class="place-dist">5 min walk (374m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5959409,-74.0718627" target="_blank" class="place-link">Andante Ma</a></td>
+            <td class="place-detail"><span class="place-addr">92 Carrera 3</span> &middot; <span class="place-dist">5 min walk (377m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5942772,-74.0754162" target="_blank" class="place-link">Aura</a></td>
+            <td class="place-detail"><span class="place-addr">5-12 Avenida Calle 7</span> &middot; <span class="place-dist">5 min walk (404m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5969907,-74.0738535" target="_blank" class="place-link">Capibara 4 Carnes</a></td>
+            <td class="place-detail"><span class="place-addr">87 Cra. 5 # 10</span> &middot; <span class="place-dist">6 min walk (525m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5973485,-74.073991" target="_blank" class="place-link">Mi Viejo</a></td>
+            <td class="place-detail"><span class="place-addr">5-41 Calle 11</span> &middot; <span class="place-dist">7 min walk (568m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5969062,-74.0749983" target="_blank" class="place-link">Restaurante Patagonia</a></td>
+            <td class="place-detail"><span class="place-addr">10-01 Carrera 6</span> &middot; <span class="place-dist">7 min walk (574m)</span></td>
+        </tr></table>
+        </section>
+        <section class="section tips-section">
+            <h2>Local Tips from Bogotá</h2>
+            <div class="tips-grid"><div class="tip-item"><span class="tip-label">Lunch deal</span><span class="tip-text">Try a corrientazo (set lunch) at any local restaurant — full meal for ~10,000 COP ($2.50).</span></div>
+<div class="tip-item"><span class="tip-label">Must-try</span><span class="tip-text">Bandeja paisa is the national dish. Arepas for breakfast.</span></div>
+<div class="tip-item"><span class="tip-label">Coffee</span><span class="tip-text">Colombia has the best coffee in the world. Order a tinto (black coffee) anywhere.</span></div>
+<div class="tip-item"><span class="tip-label">Bargaining</span><span class="tip-text">Fine in markets and with taxi drivers. Not appropriate in restaurants or stores.</span></div></div>
+        </section>
+        <section class="section">
+            <h2>Groceries & Essentials</h2>
+            <table class="place-table"><tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5946968,-74.0736654" target="_blank" class="place-link">Minipreço</a></td>
+            <td class="place-detail"><span class="place-addr">3-95 Calle 9</span> &middot; <span class="place-dist">3 min walk (287m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5958987,-74.0696015" target="_blank" class="place-link">Milenium</a></td>
+            <td class="place-detail"><span class="place-addr">Calle 12</span> &middot; <span class="place-dist">6 min walk (469m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5959379,-74.0696279" target="_blank" class="place-link">Candy Lu</a></td>
+            <td class="place-detail"><span class="place-addr">Calle 12</span> &middot; <span class="place-dist">6 min walk (471m)</span></td>
+        </tr></table>
+            <h3>Pharmacy / Health</h3><table class="place-table"><tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5913591,-74.0708034" target="_blank" class="place-link">Droguería Yalejo</a></td>
+            <td class="place-detail"><span class="place-addr">Carrera 3 Este</span> &middot; <span class="place-dist">2 min walk (204m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5994788,-74.0708245" target="_blank" class="place-link">Droguería</a></td>
+            <td class="place-detail"><span class="place-dist">9 min walk (784m)</span></td>
+        </tr></table>
+        </section>
+        <section class="section">
+            <h2>Things to See & Do</h2>
+            <table class="place-table"><tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5962128,-74.0728575" target="_blank" class="place-link">Museo de Bogotá</a></td>
+            <td class="place-detail"><span class="place-dist">5 min walk (412m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5974782,-74.0703092" target="_blank" class="place-link">Instituto Distrital de Patrimonio Cultural</a></td>
+            <td class="place-detail"><span class="place-addr">2-58 Calle 12B</span> &middot; <span class="place-dist">7 min walk (585m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5970452,-74.0750749" target="_blank" class="place-link">Casa Manuelita Saenz</a></td>
+            <td class="place-detail"><span class="place-dist">7 min walk (591m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.597038,-74.0751848" target="_blank" class="place-link">Museo de Trajes</a></td>
+            <td class="place-detail"><span class="place-addr">Calle 10 # 6 - 26</span> &middot; <span class="place-dist">7 min walk (597m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5968372,-74.0774643" target="_blank" class="place-link">Museo Iglesia Santa Clara</a></td>
+            <td class="place-detail"><span class="place-dist">9 min walk (752m)</span></td>
+        </tr></table>
+        </section>
+        <section class="section">
+            <h2>Nightlife</h2>
+            <table class="place-table"><tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.5970763,-74.0695796" target="_blank" class="place-link">Bolon de Verde</a></td>
+            <td class="place-detail"><span class="place-addr">Cra. 1a #12B 20</span> &middot; <span class="place-dist">7 min walk (580m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.6006022,-74.0717122" target="_blank" class="place-link">Jimenez</a></td>
+            <td class="place-detail"><span class="place-dist">11 min walk (895m)</span></td>
+        </tr>
+<tr class="place-row">
+            <td class="place-name"><a href="https://www.google.com/maps/dir/?api=1&destination=4.6004701,-74.0703501" target="_blank" class="place-link">Rosas</a></td>
+            <td class="place-detail"><span class="place-addr">Carrera 4</span> &middot; <span class="place-dist">11 min walk (903m)</span></td>
+        </tr></table>
+        </section>
+
+        <!-- Safety -->
+        <section class="section">
+            <h2>Safety Tips</h2>
+            <ul class="safety-list">
+                <li>Chapinero, Zona Rosa, Usaquen are safe neighborhoods</li>
+<li>Avoid La Candelaria after dark unless in a group</li>
+<li>Use Uber/InDriver, not street taxis</li>
+<li>Don't walk with headphones in quiet streets</li>
+<li>Altitude (2,640m) — take it easy the first day, drink lots of water</li>
+            </ul>
+        </section>
+
+        <!-- Useful Info -->
+        <section class="section">
+            <h2>Useful Info</h2>
+            <table class="info-table">
+                <tr><td class="info-label">Emergency</td><td>123 (police), 125 (fire), 132 (ambulance)</td></tr>
+<tr><td class="info-label">Currency</td><td>Colombian Peso (COP). ~4,000 COP = $1 USD</td></tr>
+<tr><td class="info-label">Tipping</td><td>10% at restaurants (often included as propina voluntaria)</td></tr>
+<tr><td class="info-label">Language</td><td>Spanish. English is limited outside tourist areas</td></tr>
+<tr><td class="info-label">Water</td><td>Tap water is safe in Medellin and Bogota</td></tr>
+<tr><td class="info-label">SIM card</td><td>Claro or Movistar. Buy at any Exito supermarket</td></tr>
+            </table>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Guide for Ale's guests &middot; April 07, 2026 &middot; Powered by HostGuide
+    </div>
+
+</div>
+
+</body>
+</html>

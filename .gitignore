@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.env
+*.log
+chrome_profile_fb/
+chrome_profile_enrich/
+node_modules/
+.DS_Store
+data/orders.json
+output/*/guides/
+output/*/hosts.json
+output/*/host_profiles.json
+output/*/listings.json

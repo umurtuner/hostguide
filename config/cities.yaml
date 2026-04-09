@@ -1,0 +1,408 @@
+# Target cities — unregulated or lightly regulated Airbnb markets
+# Each city needs: search bounds, language, currency, FB groups
+
+medellin:
+  name: Medellín
+  country: CO
+  currency: COP
+  language: es
+  airbnb_url: "https://www.airbnb.com/s/Medellin--Colombia/homes"
+  bounds:
+    lat_min: 6.18
+    lat_max: 6.32
+    lon_min: -75.62
+    lon_max: -75.52
+  neighborhoods:
+    - El Poblado
+    - Laureles
+    - Envigado
+    - Sabaneta
+    - Belén
+    - La Candelaria
+  fb_groups:
+    - "https://www.facebook.com/groups/airbnbmedellin/"
+    - "https://www.facebook.com/groups/1944228099202531/"
+    - "https://www.facebook.com/groups/airbnbcomunidadcolombia/"
+    - "https://www.facebook.com/groups/themedellinexpats/"
+  places_types:
+    transit: ["subway_station", "bus_station", "transit_station"]
+    grocery: ["supermarket", "grocery_or_supermarket"]
+    restaurant: ["restaurant", "cafe"]
+    landmark: ["tourist_attraction", "museum", "park"]
+    nightlife: ["bar", "night_club"]
+    health: ["pharmacy", "hospital"]
+
+bogota:
+  name: Bogotá
+  country: CO
+  currency: COP
+  language: es
+  airbnb_url: "https://www.airbnb.com/s/Bogota--Colombia/homes"
+  bounds:
+    lat_min: 4.55
+    lat_max: 4.75
+    lon_min: -74.12
+    lon_max: -74.02
+  neighborhoods:
+    - Chapinero
+    - Zona Rosa
+    - La Candelaria
+    - Usaquén
+    - Zona T
+    - Chicó
+  fb_groups:
+    - "https://www.facebook.com/groups/colombiasairbnb/"
+    - "https://www.facebook.com/groups/airbnbcomunidadcolombia/"
+    - "https://www.facebook.com/groups/270371291453054/"
+  places_types:
+    transit: ["subway_station", "bus_station", "transit_station"]
+    grocery: ["supermarket", "grocery_or_supermarket"]
+    restaurant: ["restaurant", "cafe"]
+    landmark: ["tourist_attraction", "museum", "park"]
+    nightlife: ["bar", "night_club"]
+    health: ["pharmacy", "hospital"]
+
+# ── US Cities (STR-friendly states: FL, TX, AZ) ──
+
+miami:
+  name: Miami
+  country: US
+  currency: USD
+  language: en
+  airbnb_url: "https://www.airbnb.com/s/Miami--Florida--United-States/homes"
+  bounds:
+    lat_min: 25.70
+    lat_max: 25.85
+    lon_min: -80.30
+    lon_max: -80.12
+  neighborhoods:
+    - South Beach
+    - Wynwood
+    - Brickell
+    - Downtown
+    - Little Havana
+    - Coconut Grove
+    - Design District
+    - Coral Gables
+  fb_groups:
+    - "https://www.facebook.com/groups/airbnbhostssfl/"
+    - "https://www.facebook.com/groups/644874232556787/"
+    - "https://www.facebook.com/groups/airbnbhostcommunity/"
+    - "https://www.facebook.com/groups/professionalhosts/"
+  places_types:
+    transit: ["subway_station", "bus_station", "transit_station"]
+    grocery: ["supermarket", "grocery_or_supermarket"]
+    restaurant: ["restaurant", "cafe"]
+    landmark: ["tourist_attraction", "museum", "park"]
+    nightlife: ["bar", "night_club"]
+    health: ["pharmacy", "hospital"]
+
+orlando:
+  name: Orlando
+  country: US
+  currency: USD
+  language: en
+  airbnb_url: "https://www.airbnb.com/s/Orlando--Florida--United-States/homes"
+  bounds:
+    lat_min: 28.40
+    lat_max: 28.60
+    lon_min: -81.50
+    lon_max: -81.30
+  neighborhoods:
+    - International Drive
+    - Kissimmee
+    - Lake Buena Vista
+    - Downtown Orlando
+    - Winter Park
+    - Dr. Phillips
+  fb_groups:
+    - "https://www.facebook.com/groups/1124616831709331/"
+    - "https://www.facebook.com/groups/strhostsofflorida/"
+    - "https://www.facebook.com/groups/164303047671351/"
+  places_types:
+    transit: ["subway_station", "bus_station", "transit_station"]
+    grocery: ["supermarket", "grocery_or_supermarket"]
+    restaurant: ["restaurant", "cafe"]
+    landmark: ["tourist_attraction", "museum", "park", "amusement_park"]
+    nightlife: ["bar", "night_club"]
+    health: ["pharmacy", "hospital"]
+
+austin:
+  name: Austin
+  country: US
+  currency: USD
+  language: en
+  airbnb_url: "https://www.airbnb.com/s/Austin--Texas--United-States/homes"
+  bounds:
+    lat_min: 30.20
+    lat_max: 30.40
+    lon_min: -97.82
+    lon_max: -97.65
+  neighborhoods:
+    - Downtown
+    - South Congress
+    - East Austin
+    - Zilker
+    - Rainey Street
+    - Domain
+    - South Lamar
+    - Barton Hills
+  fb_groups:
+    - "https://www.facebook.com/groups/atxstrs/"
+    - "https://www.facebook.com/groups/austinareaairbnbhostcommunity/"
+    - "https://www.facebook.com/groups/airbnb.austin/"
+    - "https://www.facebook.com/groups/atxairbnb/"
+  places_types:
+    transit: ["subway_station", "bus_station", "transit_station"]
+    grocery: ["supermarket", "grocery_or_supermarket"]
+    restaurant: ["restaurant", "cafe"]
+    landmark: ["tourist_attraction", "museum", "park"]
+    nightlife: ["bar", "night_club"]
+    health: ["pharmacy", "hospital"]
+
+scottsdale:
+  name: Scottsdale
+  country: US
+  currency: USD
+  language: en
+  airbnb_url: "https://www.airbnb.com/s/Scottsdale--Arizona--United-States/homes"
+  bounds:
+    lat_min: 33.45
+    lat_max: 33.70
+    lon_min: -111.95
+    lon_max: -111.80
+  neighborhoods:
+    - Old Town
+    - North Scottsdale
+    - South Scottsdale
+    - McCormick Ranch
+    - Gainey Ranch
+    - DC Ranch
+  fb_groups:
+    - "https://www.facebook.com/groups/3331117587132217/"
+    - "https://www.facebook.com/groups/professionalhosts/"
+  places_types:
+    transit: ["subway_station", "bus_station", "transit_station"]
+    grocery: ["supermarket", "grocery_or_supermarket"]
+    restaurant: ["restaurant", "cafe"]
+    landmark: ["tourist_attraction", "museum", "park"]
+    nightlife: ["bar", "night_club"]
+    health: ["pharmacy", "hospital"]
+
+tampa:
+  name: Tampa
+  country: US
+  currency: USD
+  language: en
+  airbnb_url: "https://www.airbnb.com/s/Tampa--Florida--United-States/homes"
+  bounds:
+    lat_min: 27.90
+    lat_max: 28.08
+    lon_min: -82.55
+    lon_max: -82.38
+  neighborhoods:
+    - Ybor City
+    - Downtown Tampa
+    - South Tampa
+    - Channelside
+    - Seminole Heights
+    - Hyde Park
+    - Westshore
+  fb_groups:
+    - "https://www.facebook.com/groups/airbnbhostsoftampa/"
+    - "https://www.facebook.com/groups/429778667838107/"
+    - "https://www.facebook.com/groups/strhostsofflorida/"
+  places_types:
+    transit: ["subway_station", "bus_station", "transit_station"]
+    grocery: ["supermarket", "grocery_or_supermarket"]
+    restaurant: ["restaurant", "cafe"]
+    landmark: ["tourist_attraction", "museum", "park"]
+    nightlife: ["bar", "night_club"]
+    health: ["pharmacy", "hospital"]
+
+nashville:
+  name: Nashville
+  country: US
+  currency: USD
+  language: en
+  airbnb_url: "https://www.airbnb.com/s/Nashville--Tennessee--United-States/homes"
+  bounds:
+    lat_min: 36.10
+    lat_max: 36.25
+    lon_min: -86.85
+    lon_max: -86.70
+  neighborhoods:
+    - Downtown / Broadway
+    - The Gulch
+    - East Nashville
+    - Germantown
+    - 12 South
+    - Music Row
+    - Midtown
+    - Hillsboro Village
+  fb_groups:
+    - "https://www.facebook.com/groups/815359406492285/"
+    - "https://www.facebook.com/groups/nashvilleareaairbnbhostcommunity/"
+    - "https://www.facebook.com/groups/203536114940988/"
+  places_types:
+    transit: ["subway_station", "bus_station", "transit_station"]
+    grocery: ["supermarket", "grocery_or_supermarket"]
+    restaurant: ["restaurant", "cafe"]
+    landmark: ["tourist_attraction", "museum", "park"]
+    nightlife: ["bar", "night_club"]
+    health: ["pharmacy", "hospital"]
+
+savannah:
+  name: Savannah
+  country: US
+  currency: USD
+  language: en
+  airbnb_url: "https://www.airbnb.com/s/Savannah--Georgia--United-States/homes"
+  bounds:
+    lat_min: 32.04
+    lat_max: 32.12
+    lon_min: -81.12
+    lon_max: -81.05
+  neighborhoods:
+    - Historic District
+    - Victorian District
+    - Forsyth Park
+    - Tybee Island
+    - Starland District
+    - Midtown
+  fb_groups:
+    - "https://www.facebook.com/groups/strhostsofflorida/"
+  places_types:
+    transit: ["subway_station", "bus_station", "transit_station"]
+    grocery: ["supermarket", "grocery_or_supermarket"]
+    restaurant: ["restaurant", "cafe"]
+    landmark: ["tourist_attraction", "museum", "park"]
+    nightlife: ["bar", "night_club"]
+    health: ["pharmacy", "hospital"]
+
+destin:
+  name: Destin
+  country: US
+  currency: USD
+  language: en
+  airbnb_url: "https://www.airbnb.com/s/Destin--Florida--United-States/homes"
+  bounds:
+    lat_min: 30.37
+    lat_max: 30.42
+    lon_min: -86.55
+    lon_max: -86.43
+  neighborhoods:
+    - Crystal Beach
+    - Holiday Isle
+    - Destin Harbor
+    - Miramar Beach
+    - Henderson Park
+  fb_groups:
+    - "https://www.facebook.com/groups/2074733176110867/"
+    - "https://www.facebook.com/groups/floridavacationhomerentals/"
+    - "https://www.facebook.com/groups/strhostsofflorida/"
+  places_types:
+    transit: ["subway_station", "bus_station", "transit_station"]
+    grocery: ["supermarket", "grocery_or_supermarket"]
+    restaurant: ["restaurant", "cafe"]
+    landmark: ["tourist_attraction", "museum", "park"]
+    nightlife: ["bar", "night_club"]
+    health: ["pharmacy", "hospital"]
+
+# ── European Cities ──
+
+lisbon:
+  name: Lisbon
+  country: PT
+  currency: EUR
+  language: pt
+  airbnb_url: "https://www.airbnb.com/s/Lisbon--Portugal/homes"
+  bounds:
+    lat_min: 38.70
+    lat_max: 38.78
+    lon_min: -9.20
+    lon_max: -9.10
+  neighborhoods:
+    - Alfama
+    - Baixa
+    - Bairro Alto
+    - Chiado
+    - Graça
+    - Príncipe Real
+    - Belém
+    - Santos
+  fb_groups:
+    - "https://www.facebook.com/groups/284633235055111/"
+    - "https://www.facebook.com/groups/airbnbportugal/"
+  places_types:
+    transit: ["subway_station", "bus_station", "transit_station"]
+    grocery: ["supermarket", "grocery_or_supermarket"]
+    restaurant: ["restaurant", "cafe"]
+    landmark: ["tourist_attraction", "museum", "park"]
+    nightlife: ["bar", "night_club"]
+    health: ["pharmacy", "hospital"]
+
+dublin:
+  name: Dublin
+  country: IE
+  currency: EUR
+  language: en
+  airbnb_url: "https://www.airbnb.com/s/Dublin--Ireland/homes"
+  bounds:
+    lat_min: 53.30
+    lat_max: 53.38
+    lon_min: -6.32
+    lon_max: -6.20
+  neighborhoods:
+    - Temple Bar
+    - St Stephen's Green
+    - Grafton Street
+    - Smithfield
+    - Portobello
+    - Rathmines
+    - Docklands
+  fb_groups:
+    - "https://www.facebook.com/groups/dublinairbnbhosts/"
+    - "https://www.facebook.com/groups/AirbnbHostDublin/"
+    - "https://www.facebook.com/groups/dublinirelandhostclub/"
+    - "https://www.facebook.com/groups/344462075758573/"
+    - "https://www.facebook.com/groups/1628846137292991/"
+  places_types:
+    transit: ["subway_station", "bus_station", "transit_station"]
+    grocery: ["supermarket", "grocery_or_supermarket"]
+    restaurant: ["restaurant", "cafe"]
+    landmark: ["tourist_attraction", "museum", "park"]
+    nightlife: ["bar", "night_club"]
+    health: ["pharmacy", "hospital"]
+
+madrid:
+  name: Madrid
+  country: ES
+  currency: EUR
+  language: es
+  airbnb_url: "https://www.airbnb.com/s/Madrid--Spain/homes"
+  bounds:
+    lat_min: 40.38
+    lat_max: 40.48
+    lon_min: -3.75
+    lon_max: -3.65
+  neighborhoods:
+    - Sol
+    - Malasaña
+    - Chueca
+    - La Latina
+    - Lavapiés
+    - Salamanca
+    - Retiro
+    - Chamberí
+  fb_groups:
+    - "https://www.facebook.com/groups/madridairbnbhosts/"
+    - "https://www.facebook.com/groups/1502976963797898/"
+    - "https://www.facebook.com/groups/anfitrionesbnboficial/"
+  places_types:
+    transit: ["subway_station", "bus_station", "transit_station"]
+    grocery: ["supermarket", "grocery_or_supermarket"]
+    restaurant: ["restaurant", "cafe"]
+    landmark: ["tourist_attraction", "museum", "park"]
+    nightlife: ["bar", "night_club"]
+    health: ["pharmacy", "hospital"]

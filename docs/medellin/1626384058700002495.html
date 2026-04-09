@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guest Guide &mdash; Belén, Medellín</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --coral: #FF5A5F;
+    --coral-light: #FF787C;
+    --coral-bg: #FFF1F1;
+    --dark: #222222;
+    --gray-900: #484848;
+    --gray-600: #767676;
+    --gray-400: #B0B0B0;
+    --gray-200: #EBEBEB;
+    --gray-100: #F7F7F7;
+    --white: #FFFFFF;
+    --green: #008A05;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+    --radius: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--dark);
+    background: var(--gray-100);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.guide-container {
+    max-width: 680px;
+    margin: 0 auto;
+    background: var(--white);
+    min-height: 100vh;
+}
+
+/* Hero */
+.hero {
+    background: linear-gradient(135deg, var(--coral) 0%, #E04347 100%);
+    color: white;
+    padding: 48px 32px 40px;
+    position: relative;
+    overflow: hidden;
+}
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0; right: 0;
+    height: 40px;
+    background: var(--white);
+    border-radius: 24px 24px 0 0;
+}
+.hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+}
+.hero h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+.hero-subtitle {
+    font-size: 17px;
+    opacity: 0.9;
+    font-weight: 400;
+}
+.hero-host {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.host-avatar {
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+.host-info {
+    font-size: 14px;
+    line-height: 1.4;
+}
+.host-info strong {
+    display: block;
+    font-size: 15px;
+}
+
+/* Content */
+.guide-content {
+    padding: 12px 28px 40px;
+}
+
+/* Sections */
+.guide-section {
+    margin-bottom: 32px;
+}
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--gray-200);
+}
+.section-icon {
+    font-size: 24px;
+    line-height: 1;
+}
+.section-header h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark);
+}
+.section-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gray-600);
+    margin: 16px 0 8px;
+}
+
+/* Place cards */
+.places-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.place-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: var(--gray-100);
+    border-radius: 10px;
+    transition: all 0.15s ease;
+}
+.place-card:hover {
+    background: var(--coral-bg);
+    transform: translateX(4px);
+}
+.place-icon {
+    font-size: 22px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    flex-shrink: 0;
+}
+.place-info {
+    flex: 1;
+    min-width: 0;
+}
+.place-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--dark);
+}
+.place-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+}
+.dist {
+    font-size: 13px;
+    color: var(--gray-600);
+}
+.badge {
+    font-size: 11px;
+    color: var(--gray-600);
+    background: var(--white);
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+.rating {
+    font-size: 12px;
+    color: #F5A623;
+    margin-left: 4px;
+}
+
+/* Info boxes */
+.info-box {
+    background: var(--gray-100);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--gray-900);
+    line-height: 1.7;
+}
+.info-box p {
+    margin-top: 8px;
+}
+.local-tip {
+    background: #FFF8E1;
+    border-left: 4px solid #FFC107;
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--gray-900);
+}
+
+/* Safety */
+.safety-list {
+    list-style: none;
+    padding: 0;
+}
+.safety-list li {
+    position: relative;
+    padding: 8px 0 8px 28px;
+    font-size: 14px;
+    color: var(--gray-900);
+    border-bottom: 1px solid var(--gray-200);
+}
+.safety-list li:last-child {
+    border-bottom: none;
+}
+.safety-list li::before {
+    content: '\26A0';
+    position: absolute;
+    left: 0;
+    font-size: 14px;
+}
+
+/* Info table */
+.info-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+.info-table tr {
+    border-bottom: 1px solid var(--gray-200);
+}
+.info-table tr:last-child {
+    border-bottom: none;
+}
+.info-table td {
+    padding: 12px 16px;
+    font-size: 14px;
+    vertical-align: top;
+}
+.info-label {
+    font-weight: 600;
+    color: var(--dark);
+    white-space: nowrap;
+    width: 100px;
+    background: var(--gray-100);
+}
+
+/* Map */
+.map-container {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+/* Footer */
+.guide-footer {
+    text-align: center;
+    padding: 24px 28px 32px;
+    border-top: 1px solid var(--gray-200);
+    color: var(--gray-600);
+    font-size: 13px;
+}
+.guide-footer .brand {
+    color: var(--coral);
+    font-weight: 600;
+    text-decoration: none;
+}
+.guide-footer .powered {
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--gray-400);
+}
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+    .hero { padding: 36px 20px 32px; }
+    .hero h1 { font-size: 28px; }
+    .guide-content { padding: 8px 20px 32px; }
+    .place-card { padding: 10px 12px; }
+}
+
+/* Print styles */
+@media print {
+    body { background: white; }
+    .guide-container { box-shadow: none; }
+    .hero::after { display: none; }
+    .map-container iframe { display: none; }
+    .place-card:hover { transform: none; background: var(--gray-100); }
+}
+</style>
+</head>
+<body>
+
+<div class="guide-container">
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-badge">GUEST GUIDE</div>
+        <h1>Welcome to Medellín!</h1>
+        <p class="hero-subtitle">Your neighborhood guide to <strong>Belén</strong></p>
+        <div class="hero-host">
+            <div class="host-avatar">Y</div>
+            <div class="host-info">
+                <strong>Hosted by Your Host</strong>
+                Prepared just for you
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="guide-content">
+
+        <section class="guide-section map-section">
+            <div class="section-header">
+                <span class="section-icon">&#128205;</span>
+                <h2>Your Location</h2>
+            </div>
+            <div class="map-container">
+                <iframe
+                    width="100%" height="300" frameborder="0" scrolling="no"
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=-75.61599%2C6.24087%2C-75.59999%2C6.25087&amp;layer=mapnik&amp;marker=6.24587%2C-75.60799"
+                    style="border-radius: 12px;">
+                </iframe>
+            </div>
+        </section>
+        <section class="guide-section">
+        <div class="section-header">
+            <span class="section-icon">&#128652;</span>
+            <h2>Getting Around</h2>
+        </div>
+        
+        <div class="info-box">
+            <strong>Taxi apps:</strong> Uber, InDriver, DiDi all work in Medellín. Always confirm the fare before getting in.
+            <p><strong>Tip:</strong> Taxis are cheap but use apps &mdash; avoid hailing on the street at night.</p>
+        </div>
+    </section>
+        
+        
+        <section class="guide-section">
+            <div class="section-header">
+                <span class="section-icon">&#128248;</span>
+                <h2>Things to See & Do</h2>
+            </div>
+            <div class="places-grid"><div class="place-card">
+            <div class="place-icon">&#128248;</div>
+            <div class="place-info">
+                <div class="place-name">Pueblito Paisa </div>
+                <div class="place-meta"><span class="dist">City highlight</span> </div>
+            </div>
+        </div>
+<div class="place-card">
+            <div class="place-icon">&#128248;</div>
+            <div class="place-info">
+                <div class="place-name">Los Alumbrados </div>
+                <div class="place-meta"><span class="dist">City highlight</span> </div>
+            </div>
+        </div>
+<div class="place-card">
+            <div class="place-icon">&#128248;</div>
+            <div class="place-info">
+                <div class="place-name">The Metropolitan Cathedral </div>
+                <div class="place-meta"><span class="dist">City highlight</span> </div>
+            </div>
+        </div>
+<div class="place-card">
+            <div class="place-icon">&#128248;</div>
+            <div class="place-info">
+                <div class="place-name">The Junin pedestrian street </div>
+                <div class="place-meta"><span class="dist">City highlight</span> </div>
+            </div>
+        </div>
+<div class="place-card">
+            <div class="place-icon">&#128248;</div>
+            <div class="place-info">
+                <div class="place-name">Plazuela de San Ignacio </div>
+                <div class="place-meta"><span class="dist">City highlight</span> </div>
+            </div>
+        </div></div>
+        </section>
+        
+
+        <!-- Safety -->
+        <section class="guide-section">
+            <div class="section-header">
+                <span class="section-icon">&#9888;</span>
+                <h2>Safety Tips</h2>
+            </div>
+            <ul class="safety-list">
+                <li>El Poblado and Laureles are very safe day and night</li>
+<li>Don&rsquo;t flash expensive phones/jewelry in crowded areas</li>
+<li>Use Uber/InDriver at night instead of walking</li>
+<li>Don&rsquo;t accept drinks from strangers (scopolamine risk)</li>
+<li>Keep a photocopy of your passport, leave the original at home</li>
+            </ul>
+        </section>
+
+        <!-- Useful Info -->
+        <section class="guide-section">
+            <div class="section-header">
+                <span class="section-icon">&#8505;</span>
+                <h2>Useful Info</h2>
+            </div>
+            <table class="info-table">
+                <tr><td class="info-label">Emergency</td><td>123 (police), 125 (fire), 132 (ambulance)</td></tr>
+<tr><td class="info-label">Currency</td><td>Colombian Peso (COP). ~4,000 COP = $1 USD</td></tr>
+<tr><td class="info-label">Tipping</td><td>10% at restaurants (often included as <em>propina voluntaria</em>)</td></tr>
+<tr><td class="info-label">Language</td><td>Spanish. English is limited outside tourist areas</td></tr>
+<tr><td class="info-label">Water</td><td>Tap water is safe in Medell&iacute;n and Bogot&aacute;</td></tr>
+<tr><td class="info-label">SIM card</td><td>Claro or Movistar. Buy at any <em>&Eacute;xito</em> supermarket</td></tr>
+<tr><td class="info-label">WiFi</td><td>Ask your host for the password</td></tr>
+            </table>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="guide-footer">
+        <p>Guide prepared for <strong>Your Host</strong>&rsquo;s guests &middot; April 04, 2026</p>
+        <p class="powered">Powered by <span class="brand">HostGuide</span></p>
+    </div>
+
+</div>
+
+</body>
+</html>
