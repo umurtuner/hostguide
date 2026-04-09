@@ -492,7 +492,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
       </ul>
       <a href="#" onclick="document.getElementById('airbnb_url').focus();window.scrollTo({top:0,behavior:'smooth'});return false;"
          class="cta-btn block w-full py-2.5 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-semibold text-sm text-center">
-        Start Free Trial
+        Get Starter
       </a>
       <p class="text-xs text-gray-400 mt-2">Cancel anytime</p>
     </div>
