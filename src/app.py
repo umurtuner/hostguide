@@ -128,7 +128,8 @@ def _get_user_credits(email: str) -> dict:
     return credits[email]
 
 
-def _add_credits(email: str, amount: int, tier: str = "single"):
+def _add_credits(email: str, amount: int, tier: str = "single",
+                  stripe_customer_id: str | None = None):
     """Add guide credits to a user."""
     credits = _load_credits()
     email = email.lower().strip()
@@ -141,6 +142,8 @@ def _add_credits(email: str, amount: int, tier: str = "single"):
         }
     credits[email]["credits"] += amount
     credits[email]["tier"] = tier
+    if stripe_customer_id:
+        credits[email]["stripe_customer_id"] = stripe_customer_id
     _save_credits(credits)
 
 
@@ -1448,14 +1451,38 @@ def stripe_webhook():
         session = event["data"]["object"]
         token = session.get("metadata", {}).get("order_token")
         tier = session.get("metadata", {}).get("tier", "single")
+        customer_id = session.get("customer")  # Stripe customer ID
         if token:
             _update_order(token, status="paid", tier=tier)
             # Add credits based on tier
             order = _get_order(token)
             if order:
                 tier_config = TIERS.get(tier, TIERS["single"])
-                _add_credits(order["email"], tier_config["guides"], tier)
+                _add_credits(order["email"], tier_config["guides"], tier,
+                             stripe_customer_id=customer_id)
             # Generation triggers from the /generating page when user lands there
+
+    elif event["type"] == "invoice.paid":
+        # Monthly subscription renewal — refill credits
+        invoice = event["data"]["object"]
+        customer_id = invoice.get("customer")
+        customer_email = invoice.get("customer_email", "").lower().strip()
+        # Skip the first invoice (credits already added via checkout.session.completed)
+        if invoice.get("billing_reason") == "subscription_cycle":
+            # Look up user by email or customer ID
+            if not customer_email and customer_id:
+                credits = _load_credits()
+                for em, rec in credits.items():
+                    if rec.get("stripe_customer_id") == customer_id:
+                        customer_email = em
+                        break
+            if customer_email:
+                user_rec = _get_user_credits(customer_email)
+                tier = user_rec.get("tier", "starter")
+                tier_config = TIERS.get(tier, TIERS["starter"])
+                _add_credits(customer_email, tier_config["guides"], tier,
+                             stripe_customer_id=customer_id)
+                print(f"[invoice.paid] Refilled {tier_config['guides']} credits for {customer_email} ({tier})")
 
     return jsonify({"received": True})
 
