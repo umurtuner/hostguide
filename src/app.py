@@ -821,11 +821,10 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
                class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition placeholder:text-gray-400">
       </div>
       <div class="mb-4">
-        <label for="city" class="block text-xs font-semibold text-gray-600 mb-1.5">Neighborhood &amp; City</label>
-        <input type="text" id="city" name="city" required
-               placeholder="e.g. Eaux-Vives, Geneva or Brickell, Miami"
+        <label for="city" class="block text-xs font-semibold text-gray-600 mb-1.5">City <span class="text-gray-400 font-normal">(optional)</span></label>
+        <input type="text" id="city" name="city"
+               placeholder="Auto-detected from your listing"
                class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition placeholder:text-gray-400">
-        <p class="text-xs text-gray-400 mt-1">Include your neighborhood for a more accurate guide</p>
       </div>
       <div class="mb-5">
         <label for="email" class="block text-xs font-semibold text-gray-600 mb-1.5">Your Email</label>
@@ -1690,8 +1689,8 @@ tailwind.config = {
                  class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500">
         </div>
         <div>
-          <label class="block text-xs font-semibold text-gray-600 mb-1">Neighborhood &amp; City</label>
-          <input type="text" name="city" required placeholder="e.g. Eaux-Vives, Geneva"
+          <label class="block text-xs font-semibold text-gray-600 mb-1">City <span class="text-gray-400 font-normal">(optional)</span></label>
+          <input type="text" name="city" placeholder="Auto-detected from your listing"
                  class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500">
         </div>
       </div>
