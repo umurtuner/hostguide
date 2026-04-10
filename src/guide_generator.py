@@ -336,7 +336,12 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
                 dist = f"{p.walking_min} min walk ({p.distance_m}m)"
         else:
             dist = ""
-        rating_html = f' <span class="rating">{p.rating}/5</span>' if p.rating else ""
+        if p.rating and p.total_ratings:
+            rating_html = f' <span class="rating">★ {p.rating} ({p.total_ratings:,})</span>'
+        elif p.rating:
+            rating_html = f' <span class="rating">★ {p.rating}</span>'
+        else:
+            rating_html = ""
         maps_url = f"https://www.google.com/maps/dir/?api=1&destination={p.lat},{p.lng}" if p.lat else ""
         # Show address as text (print-friendly), name as link (digital bonus)
         name_html = f'<a href="{maps_url}" target="_blank" class="place-link">{p.name}</a>' if maps_url else p.name

@@ -451,14 +451,14 @@ def enrich_without_api(lat: float, lng: float, city_config: dict) -> EnrichedLoc
 
 
 def _add_google_ratings(enriched: EnrichedLocation) -> EnrichedLocation:
-    """Look up Google ratings for places found via Overpass.
+    """Look up Google ratings for all places found via Overpass.
 
     Uses Find Place from Text ($17/1K calls) — cheapest option.
-    Only queries places that don't already have a rating.
+    Then filters: only keep places with 4.0+ stars and 100+ reviews.
     """
     FIND_PLACE_URL = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
     lookup_count = 0
-    max_lookups = 30  # Budget cap per guide generation
+    max_lookups = 50  # Budget cap per guide (~$0.85/guide)
 
     for category in ["restaurant", "grocery", "landmark", "nightlife", "health", "transit"]:
         places = getattr(enriched, category, [])
@@ -483,12 +483,25 @@ def _add_google_ratings(enriched: EnrichedLocation) -> EnrichedLocation:
             except Exception:
                 continue
 
-    # Filter out low-rated places (below 3.5) for restaurants/nightlife
-    for category in ["restaurant", "nightlife"]:
+    print(f"[ratings] Looked up {lookup_count} places via Google Find Place")
+
+    # Filter: keep only 4.0+ stars with 100+ reviews (or unrated transit/health)
+    for category in ["restaurant", "grocery", "landmark", "nightlife"]:
         places = getattr(enriched, category, [])
-        rated = [p for p in places if p.rating > 0]
-        if len(rated) >= 3:
-            filtered = [p for p in places if p.rating == 0 or p.rating >= 3.5]
-            setattr(enriched, category, filtered)
+        filtered = [p for p in places if p.rating >= 4.0 and p.total_ratings >= 100]
+        if len(filtered) < 2:
+            # Relax: keep 3.8+ with 50+ reviews if strict filter is too harsh
+            filtered = [p for p in places if p.rating >= 3.8 and p.total_ratings >= 50]
+        if len(filtered) < 2:
+            # Last resort: keep anything with a rating, sorted by rating
+            filtered = [p for p in places if p.rating > 0]
+            filtered.sort(key=lambda x: (-x.rating, -x.total_ratings))
+        setattr(enriched, category, filtered[:8])
+
+    # Health/transit: softer filter (keep 3.5+ or unrated — pharmacies often have few reviews)
+    for category in ["health", "transit"]:
+        places = getattr(enriched, category, [])
+        filtered = [p for p in places if p.rating == 0 or p.rating >= 3.5]
+        setattr(enriched, category, filtered[:8])
 
     return enriched
