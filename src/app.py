@@ -232,6 +232,31 @@ def _geocode_city(city: str) -> tuple[float, float]:
     return 0.0, 0.0
 
 
+def _reverse_geocode(lat: float, lng: float) -> dict:
+    """Reverse geocode lat/lng to city + neighborhood using Nominatim."""
+    result = {"city": "", "neighborhood": "", "country": "", "country_code": ""}
+    try:
+        resp = http_requests.get(
+            "https://nominatim.openstreetmap.org/reverse",
+            params={"lat": lat, "lon": lng, "format": "json", "zoom": 16},
+            headers={"User-Agent": "HostGuide/1.0 (hello@host-guide.net)"},
+            timeout=10,
+        )
+        data = resp.json()
+        addr = data.get("address", {})
+        result["city"] = (addr.get("city") or addr.get("town") or
+                         addr.get("village") or addr.get("municipality") or "")
+        result["neighborhood"] = (addr.get("suburb") or addr.get("neighbourhood") or
+                                  addr.get("quarter") or addr.get("city_district") or "")
+        result["country"] = addr.get("country", "")
+        result["country_code"] = addr.get("country_code", "").upper()
+        print(f"Reverse geocode {lat},{lng} → city={result['city']}, "
+              f"neighborhood={result['neighborhood']}, country={result['country_code']}")
+    except Exception as e:
+        print(f"Reverse geocode error: {e}")
+    return result
+
+
 # Known city configs for the guide generator
 CITY_CONFIGS = {
     "miami": {"name": "Miami", "country": "US"},
@@ -357,6 +382,14 @@ def _generate_guide_for_order(token: str) -> bool:
             print(f"No coordinates for listing {listing_id}")
             return False
 
+        # Step 2b: Reverse geocode to fill city/neighborhood if still missing
+        if not listing.city or not listing.neighborhood:
+            geo = _reverse_geocode(listing.lat, listing.lng)
+            if not listing.city and geo["city"]:
+                listing.city = geo["city"]
+            if not listing.neighborhood and geo["neighborhood"]:
+                listing.neighborhood = geo["neighborhood"]
+
         # Step 3: Enrich with OSM Overpass (free, no API key)
         city_name = listing.city or order.get("city", "").split(",")[-1].strip()
         city_config = _get_city_config(city_name)
@@ -387,14 +420,24 @@ def _generate_guide_for_order(token: str) -> bool:
                 return text.encode("latin-1", "ignore").decode("latin-1").strip()
 
             class _HTMLStripper(HTMLParser):
-                """Extract text from HTML for PDF."""
+                """Extract visible text from HTML for PDF — skips style/script."""
+                SKIP_TAGS = {"style", "script", "svg", "path", "meta", "link"}
                 def __init__(self):
                     super().__init__()
                     self.parts = []
                     self._tag = None
+                    self._skip = False
                 def handle_starttag(self, tag, attrs):
-                    self._tag = tag
+                    if tag in self.SKIP_TAGS:
+                        self._skip = True
+                    else:
+                        self._tag = tag
+                def handle_endtag(self, tag):
+                    if tag in self.SKIP_TAGS:
+                        self._skip = False
                 def handle_data(self, data):
+                    if self._skip:
+                        return
                     text = _strip_emoji(data.strip())
                     if text:
                         self.parts.append((self._tag or "p", text))
@@ -1912,7 +1955,7 @@ def order_status(token: str):
 
 @app.route("/download/<token>")
 def download(token: str):
-    """Serve the generated guide."""
+    """Serve the generated guide with navigation bar."""
     order = _get_order(token)
     if not order:
         abort(404, "Order not found")
@@ -1925,7 +1968,29 @@ def download(token: str):
     if not guide_path.exists():
         abort(404, "Guide file not found")
 
-    return send_file(guide_path, mimetype="text/html")
+    html = guide_path.read_text(encoding="utf-8")
+
+    # Build dashboard link if we have the email
+    email = order.get("email", "").lower().strip()
+    dash_link = _dashboard_url(email) if email else "/"
+
+    nav_bar = f'''<div id="hostguide-nav" style="position:fixed;top:0;left:0;right:0;z-index:9999;
+        background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-bottom:1px solid #e0e0e0;
+        padding:10px 20px;display:flex;align-items:center;justify-content:space-between;font-family:Inter,-apple-system,sans-serif;">
+      <a href="{dash_link}" style="font-size:13px;color:#00796b;text-decoration:none;font-weight:600;">
+        &larr; Dashboard
+      </a>
+      <div style="display:flex;gap:10px;">
+        <a href="/download/{token}/pdf" style="font-size:12px;padding:6px 14px;background:#00796b;color:#fff;
+           border-radius:6px;text-decoration:none;font-weight:500;">Download PDF</a>
+      </div>
+    </div>
+    <div style="height:48px;"></div>'''
+
+    # Inject nav bar after <body> tag
+    html = html.replace("<body>", f"<body>\n{nav_bar}", 1)
+
+    return html
 
 
 @app.route("/download/<token>/pdf")
@@ -1951,13 +2016,23 @@ def download_pdf(token: str):
                 return text.encode("latin-1", "ignore").decode("latin-1").strip()
 
             class _HTMLStripper(HTMLParser):
+                SKIP_TAGS = {"style", "script", "svg", "path", "meta", "link"}
                 def __init__(self):
                     super().__init__()
                     self.parts = []
                     self._tag = None
+                    self._skip = False
                 def handle_starttag(self, tag, attrs):
-                    self._tag = tag
+                    if tag in self.SKIP_TAGS:
+                        self._skip = True
+                    else:
+                        self._tag = tag
+                def handle_endtag(self, tag):
+                    if tag in self.SKIP_TAGS:
+                        self._skip = False
                 def handle_data(self, data):
+                    if self._skip:
+                        return
                     text = _strip_emoji(data.strip())
                     if text:
                         self.parts.append((self._tag or "p", text))
