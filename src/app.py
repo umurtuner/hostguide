@@ -965,15 +965,44 @@ tailwind.config = {
 }
 </script>
 <style>
-  .gradient-hero { background: linear-gradient(135deg, #00897b 0%, #004d40 100%); }
+  .gradient-hero {
+    background: linear-gradient(135deg, #004d40 0%, #00695c 40%, #00897b 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .gradient-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(77,182,172,0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .gradient-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0,105,92,0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
   .glass-card { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); }
   .fade-in { animation: fadeIn 0.6s ease-out; }
+  .fade-in-delay { animation: fadeIn 0.8s ease-out 0.2s both; }
   @keyframes fadeIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .float-card { animation: float 4s ease-in-out infinite; }
+  .float-card-delay { animation: float 4s ease-in-out 1s infinite; }
   .faq-answer { max-height:0; overflow:hidden; transition: max-height 0.3s ease; }
   .faq-answer.open { max-height: 200px; }
   .feature-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
   .cta-btn { transition: all 0.2s; }
   .cta-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,105,92,0.35); }
+  .stat-pill { background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15); }
 </style>
 </head>
 <body class="font-sans text-gray-900 bg-gray-50 antialiased">
@@ -993,7 +1022,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
 </script>
 
 <!-- ════════ NAV ════════ -->
-<nav class="gradient-hero">
+<nav class="gradient-hero" style="position:relative;z-index:10;">
   <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
     <div class="flex items-center gap-2.5">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1009,17 +1038,92 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
 </nav>
 
 <!-- ════════ HERO ════════ -->
-<section class="gradient-hero pb-32 pt-16 px-6 text-center text-white">
-  <div class="max-w-2xl mx-auto fade-in">
-    <div class="inline-block mb-6 px-4 py-1.5 bg-white/15 rounded-full text-sm font-medium">
-      Works for any city worldwide
+<section class="gradient-hero pb-36 pt-20 px-6 text-white">
+  <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12 relative" style="z-index:2;">
+    <!-- Left: Copy -->
+    <div class="flex-1 text-center md:text-left fade-in">
+      <div class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 stat-pill rounded-full text-sm font-medium">
+        <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+        Used by hosts in 10+ cities
+      </div>
+      <h1 class="text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.1] mb-5 tracking-tight">
+        Your guests deserve<br>better than a<br>
+        <span class="relative inline-block">
+          <span class="relative z-10">Google Doc</span>
+          <span class="absolute bottom-1 left-0 w-full h-3 bg-red-400/30 -rotate-1 rounded-sm"></span>
+        </span>
+      </h1>
+      <p class="text-lg md:text-xl text-white/80 max-w-lg leading-relaxed mb-8">
+        Paste your Airbnb link. Get a polished, printable neighborhood guide with real ratings, walking distances, and local tips - built for your exact location in 60 seconds.
+      </p>
+      <div class="flex flex-wrap items-center gap-4 justify-center md:justify-start text-sm text-white/70">
+        <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>No signup required</span>
+        <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Any city worldwide</span>
+        <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Print or share digitally</span>
+      </div>
     </div>
-    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-5">
-      Stop typing the same restaurant<br>list for every guest
-    </h1>
-    <p class="text-lg md:text-xl text-white/85 max-w-xl mx-auto leading-relaxed">
-      Paste your Airbnb link. Get a polished, printable neighborhood guide with real ratings, walking distances, and local tips - built for your exact location in under 60 seconds.
-    </p>
+    <!-- Right: Floating guide mockup -->
+    <div class="flex-1 hidden md:flex justify-center relative" style="min-height:320px;">
+      <!-- Background glow -->
+      <div class="absolute inset-0 bg-gradient-to-br from-teal-400/20 to-transparent rounded-full blur-3xl"></div>
+      <!-- Main card -->
+      <div class="float-card relative bg-white rounded-2xl shadow-2xl p-5 w-72 text-gray-900" style="transform-origin:center;">
+        <div class="bg-gradient-to-r from-teal-600 to-teal-800 rounded-xl p-4 mb-3">
+          <p class="text-white text-[10px] font-medium uppercase tracking-wider opacity-80">Neighborhood Guide</p>
+          <p class="text-white font-bold text-base mt-0.5">Eaux-Vives, Geneva</p>
+          <p class="text-white/70 text-[10px] mt-1">Prepared by your host</p>
+        </div>
+        <div class="space-y-2">
+          <div class="flex items-center gap-2 text-xs">
+            <span class="w-6 h-6 bg-teal-50 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513"/></svg>
+            </span>
+            <div class="flex-1">
+              <p class="font-semibold text-gray-800">Cafe du Soleil</p>
+              <p class="text-gray-400 text-[10px]">4.6 stars - 3 min walk</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <span class="w-6 h-6 bg-amber-50 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+            </span>
+            <div class="flex-1">
+              <p class="font-semibold text-gray-800">Migros Eaux-Vives</p>
+              <p class="text-gray-400 text-[10px]">Grocery - 4 min walk</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <span class="w-6 h-6 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+            </span>
+            <div class="flex-1">
+              <p class="font-semibold text-gray-800">Jet d'Eau</p>
+              <p class="text-gray-400 text-[10px]">Landmark - 8 min walk</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Floating accent card -->
+      <div class="float-card-delay absolute -bottom-2 -left-4 bg-white rounded-xl shadow-lg p-3 w-48" style="z-index:3;">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+            <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          </div>
+          <div>
+            <p class="text-[11px] font-bold text-gray-800">Ready in 60s</p>
+            <p class="text-[9px] text-gray-400">PDF + digital link</p>
+          </div>
+        </div>
+      </div>
+      <!-- Rating badge -->
+      <div class="float-card absolute -top-2 -right-2 bg-white rounded-xl shadow-lg p-2.5 w-36" style="z-index:3;animation-delay:0.5s;">
+        <div class="flex items-center gap-1.5">
+          <span class="text-amber-400 text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span class="text-[10px] font-bold text-gray-700">4.8 avg</span>
+        </div>
+        <p class="text-[9px] text-gray-400 mt-0.5">Real Google ratings</p>
+      </div>
+    </div>
   </div>
 </section>
 
