@@ -1212,6 +1212,31 @@ def dashboard():
         abort(403, "Invalid or missing dashboard link. Please use the link from your payment confirmation.")
 
     user = _get_user_credits(email)
+
+    # If arriving from Stripe (welcome=1) and credits are 0, verify payment directly
+    if welcome and user["credits"] == 0 and STRIPE_SECRET:
+        # Find the most recent order for this email with a stripe session
+        orders = _load_orders()
+        for tok, ord_data in sorted(orders.items(),
+                                     key=lambda x: x[1].get("created", ""), reverse=True):
+            if (ord_data.get("email", "").lower() == email
+                    and ord_data.get("stripe_session_id")
+                    and ord_data.get("status") in ("pending", "paid")):
+                try:
+                    session = stripe.checkout.Session.retrieve(ord_data["stripe_session_id"])
+                    if session.payment_status == "paid":
+                        tier_name = ord_data.get("tier", "single")
+                        tier_config = TIERS.get(tier_name, TIERS["single"])
+                        _add_credits(email, tier_config["guides"], tier_name,
+                                     stripe_customer_id=session.get("customer"))
+                        _update_order(tok, status="paid", tier=tier_name)
+                        user = _get_user_credits(email)  # Refresh
+                        print(f"[dashboard] Verified Stripe payment for {email}: "
+                              f"+{tier_config['guides']} credits ({tier_name})")
+                except Exception as e:
+                    print(f"[dashboard] Stripe verify failed: {e}")
+                break
+
     credits = user["credits"]
     tier = user["tier"]
 
