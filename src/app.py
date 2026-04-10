@@ -566,8 +566,14 @@ def _generate_guide_for_order(token: str) -> bool:
         geo_country = geo.get("country_code", "")
 
         # Step 3: Enrich with OSM Overpass (free, no API key)
-        city_name = listing.city or order.get("city", "").split(",")[-1].strip()
-        city_config = _get_city_config(city_name)
+        # Prefer reverse geocode city (reliable) over order city (may contain listing subtitle junk)
+        city_name = listing.city or geo.get("city", "") or ""
+        if not city_name:
+            # Last resort: try order city but filter out listing subtitles
+            raw = order.get("city", "")
+            if raw and not any(w in raw.lower() for w in ("bed", "bath", "entire", "private", "shared")):
+                city_name = raw.split(",")[-1].strip()
+        city_config = _get_city_config(city_name or "Unknown")
         # Set country from reverse geocode if not already in config
         if not city_config.get("country") and geo_country:
             city_config["country"] = geo_country
