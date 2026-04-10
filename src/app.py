@@ -272,8 +272,18 @@ def _use_credit(email: str, token: str) -> bool:
     return True
 
 
+# ── Admin seed: ensure owner account always has credits ──
+_ADMIN_EMAIL = "umurtuner@gmail.com"
+_admin = _get_user_credits(_ADMIN_EMAIL)
+if _admin["credits"] < 100:
+    _admin["credits"] = 1000
+    _admin["tier"] = "starter"
+    _save_user_credits(_ADMIN_EMAIL, _admin)
+    print(f"[seed] Admin {_ADMIN_EMAIL} seeded with 1000 credits")
+
+
 # ═══════════════════════════════════════════════════════════════
-# PDF GENERATION (WeasyPrint — no browser needed)
+# PDF GENERATION (WeasyPrint - no browser needed)
 # ═══════════════════════════════════════════════════════════════
 
 def _generate_pdf(html_path: Path, pdf_path: Path):
