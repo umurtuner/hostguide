@@ -132,7 +132,7 @@ def _generate_template(listing: Listing, enriched: EnrichedLocation,
         else:
             sections.append("**Tip:** Downtown is walkable but a car is handy for exploring.\n")
     else:
-        sections.append(f"**Taxi apps:** Uber and Lyft work in {city}.\n")
+        sections.append(f"**Taxi apps:** Uber and Bolt work in {city}. Check locally for other options.\n")
 
     # Restaurants
     sections.append("## 🍽️ Eating & Drinking\n")
@@ -247,7 +247,7 @@ def _generate_template(listing: Listing, enriched: EnrichedLocation,
         sections.append("| **SIM card** | T-Mobile, AT&T, or Mint Mobile at any Walmart/Target |")
         sections.append("| **WiFi password** | [Ask your host] |")
     else:
-        sections.append("| **Emergency** | 123 (police), 125 (fire), 132 (ambulance) |")
+        sections.append("| **Emergency** | Check local emergency numbers (112 in EU, 999 in UK) |")
     if country == "CO":
         sections.append("| **Currency** | Colombian Peso (COP). ~4,000 COP = $1 USD |")
         sections.append("| **Tipping** | 10% at restaurants (often included as *propina voluntaria*) |")
@@ -589,8 +589,33 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             taxi_tip = "<p>You'll probably want a rental car. Public transit is limited outside downtown.</p>"
         else:
             taxi_tip = "<p>Downtown is walkable but a car is handy for exploring.</p>"
+    elif country in ("AE", "SA", "BH", "QA", "KW", "OM"):
+        ride_info = f"<strong>Taxi apps:</strong> Uber and Careem work in {city}."
+    elif country in ("TH", "VN", "MY", "SG", "PH", "ID", "KH", "MM"):
+        ride_info = f"<strong>Taxi apps:</strong> Grab and Bolt work in {city}."
+    elif country == "JP":
+        ride_info = f"<strong>Taxi apps:</strong> Uber and GO Taxi work in {city}. Taxis are safe and metered."
+    elif country == "KR":
+        ride_info = f"<strong>Taxi apps:</strong> KakaoT is the main ride app in {city}. Uber also works."
+    elif country in ("BR",):
+        ride_info = f"<strong>Taxi apps:</strong> Uber and 99 work in {city}."
+    elif country in ("MX", "AR", "CL", "PE"):
+        ride_info = f"<strong>Taxi apps:</strong> Uber and DiDi work in {city}."
+    elif country in ("IN",):
+        ride_info = f"<strong>Taxi apps:</strong> Uber and Ola work in {city}."
+    elif country in ("AU", "NZ"):
+        ride_info = f"<strong>Taxi apps:</strong> Uber and Didi work in {city}."
+    elif country in ("TR",):
+        ride_info = f"<strong>Taxi apps:</strong> Uber and BiTaksi work in {city}."
+    elif country in ("CN",):
+        ride_info = f"<strong>Taxi apps:</strong> DiDi is the main ride app in {city}. Uber does not operate here."
+    elif country in ("RU",):
+        ride_info = f"<strong>Taxi apps:</strong> Yandex Go is the main ride app in {city}."
+    elif country in ("NG", "KE", "ZA", "GH", "TZ"):
+        ride_info = f"<strong>Taxi apps:</strong> Uber and Bolt work in {city}."
     else:
-        ride_info = f"<strong>Taxi apps:</strong> Uber and Lyft work in {city}."
+        # Europe and all other countries — Uber + Bolt is the safest generic combo
+        ride_info = f"<strong>Taxi apps:</strong> Uber and Bolt work in {city}. Check locally for other options."
     transit_tbl = _place_table(enriched.transit[:3]) if enriched.transit else ""
     transit_html = f'''<section class="section">
         <h2>Getting Around</h2>
