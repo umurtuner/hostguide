@@ -275,7 +275,12 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
     - Mobile-responsive for guests viewing on phone
     - Dual @media print stylesheet for clean A4/Letter output
     """
-    city = city_config["name"]
+    raw_city = city_config["name"]
+    # Filter out listing subtitle junk that leaked into city name
+    junk_words = ("bed", "bath", "entire", "private", "shared", "room", "guest")
+    if any(w in raw_city.lower() for w in junk_words):
+        raw_city = ""
+    city = raw_city or listing.city or "your neighborhood"
     country = city_config.get("country", "")
     neighborhood = listing.neighborhood or city
     host = listing.host_name or "Your Host"
@@ -1208,7 +1213,7 @@ body {{
     <!-- Hero -->
     <div class="hero">
         <h1>Your Guide to {neighborhood}</h1>
-        <p class="hero-sub">{city} -prepared by your host</p>
+        <p class="hero-sub">{city} - prepared by your host</p>
         <p class="hero-host">Hosted by {host}</p>
     </div>
 
