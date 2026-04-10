@@ -38,6 +38,26 @@ STRIPE_SECRET = os.environ.get("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 DOMAIN = os.environ.get("HOSTGUIDE_DOMAIN", "http://localhost:5555")
 ADMIN_SECRET = os.environ.get("HOSTGUIDE_ADMIN_SECRET", "dev-admin-secret")
+REDIS_URL = os.environ.get("REDIS_URL", "")
+
+# ── Redis (persistent storage for Render) ──
+_redis = None
+if REDIS_URL:
+    try:
+        import redis as _redis_lib
+        _pool_kwargs = dict(decode_responses=True, socket_timeout=5,
+                            socket_connect_timeout=3, retry_on_timeout=True,
+                            max_connections=5)
+        if REDIS_URL.startswith("rediss://"):
+            _pool_kwargs["ssl_cert_reqs"] = None
+        _redis = _redis_lib.Redis.from_url(REDIS_URL, **_pool_kwargs)
+        _redis.ping()
+        print("[storage] Redis connected — using persistent storage")
+    except Exception as e:
+        print(f"[storage] Redis unavailable ({e}) — falling back to JSON files")
+        _redis = None
+else:
+    print("[storage] No REDIS_URL — using JSON file storage (local dev)")
 
 if STRIPE_SECRET:
     stripe.api_key = STRIPE_SECRET
@@ -69,24 +89,38 @@ def _verify_dashboard_sig(email: str, sig: str) -> bool:
 
 
 # ═══════════════════════════════════════════════════════════════
-# ORDER STORAGE (JSON file — swap for DB later)
+# ORDER STORAGE (Redis if available, JSON file fallback)
 # ═══════════════════════════════════════════════════════════════
 
+def _redis_order_key(token: str) -> str:
+    return f"hg:order:{token}"
+
+
 def _load_orders() -> dict:
+    """Load all orders. Redis: scan keys. File: read JSON."""
+    if _redis:
+        orders = {}
+        for key in _redis.scan_iter("hg:order:*"):
+            token = key.replace("hg:order:", "")
+            raw = _redis.get(key)
+            if raw:
+                orders[token] = json.loads(raw)
+        return orders
     if ORDERS_FILE.exists():
         return json.loads(ORDERS_FILE.read_text())
     return {}
 
 
 def _save_orders(orders: dict):
-    ORDERS_FILE.write_text(json.dumps(orders, indent=2))
+    """Save all orders. Only used for JSON fallback."""
+    if not _redis:
+        ORDERS_FILE.write_text(json.dumps(orders, indent=2))
 
 
 def _create_order(airbnb_url: str, email: str, city: str = "") -> str:
     """Create a pending order, return order token."""
     token = secrets.token_urlsafe(24)
-    orders = _load_orders()
-    orders[token] = {
+    order = {
         "airbnb_url": airbnb_url,
         "email": email,
         "city": city,
@@ -96,51 +130,90 @@ def _create_order(airbnb_url: str, email: str, city: str = "") -> str:
         "guide_path": None,
         "stripe_session_id": None,
     }
-    _save_orders(orders)
+    if _redis:
+        _redis.set(_redis_order_key(token), json.dumps(order), ex=86400 * 7)  # 7 day TTL
+    else:
+        orders = _load_orders()
+        orders[token] = order
+        _save_orders(orders)
     return token
 
 
 def _get_order(token: str) -> dict | None:
-    orders = _load_orders()
-    order = orders.get(token)
-    if not order:
-        return None
+    if _redis:
+        raw = _redis.get(_redis_order_key(token))
+        if not raw:
+            return None
+        order = json.loads(raw)
+    else:
+        orders = _load_orders()
+        order = orders.get(token)
+        if not order:
+            return None
     # Check expiry (only for single-purchase guides, not subscription users)
     if order["status"] == "generated" and order.get("expires"):
         if datetime.utcnow() > datetime.fromisoformat(order["expires"]):
             order["status"] = "expired"
-            _save_orders(orders)
+            _update_order(token, status="expired")
     return order
 
 
 def _update_order(token: str, **kwargs):
-    orders = _load_orders()
-    if token in orders:
-        orders[token].update(kwargs)
-        _save_orders(orders)
+    if _redis:
+        raw = _redis.get(_redis_order_key(token))
+        if raw:
+            order = json.loads(raw)
+            order.update(kwargs)
+            _redis.set(_redis_order_key(token), json.dumps(order), ex=86400 * 7)
+    else:
+        orders = _load_orders()
+        if token in orders:
+            orders[token].update(kwargs)
+            _save_orders(orders)
 
 
 # ═══════════════════════════════════════════════════════════════
-# CREDITS SYSTEM (email-based, JSON file)
+# CREDITS SYSTEM (Redis if available, JSON file fallback)
 # ═══════════════════════════════════════════════════════════════
 
 CREDITS_FILE = BASE / "data" / "credits.json"
 
 
+def _redis_credits_key(email: str) -> str:
+    return f"hg:credits:{email.lower().strip()}"
+
+
 def _load_credits() -> dict:
+    if _redis:
+        credits = {}
+        for key in _redis.scan_iter("hg:credits:*"):
+            email = key.replace("hg:credits:", "")
+            raw = _redis.get(key)
+            if raw:
+                credits[email] = json.loads(raw)
+        return credits
     if CREDITS_FILE.exists():
         return json.loads(CREDITS_FILE.read_text())
     return {}
 
 
 def _save_credits(credits: dict):
-    CREDITS_FILE.write_text(json.dumps(credits, indent=2))
+    if not _redis:
+        CREDITS_FILE.write_text(json.dumps(credits, indent=2))
 
 
 def _get_user_credits(email: str) -> dict:
     """Get or create a user's credit record."""
-    credits = _load_credits()
     email = email.lower().strip()
+    if _redis:
+        raw = _redis.get(_redis_credits_key(email))
+        if raw:
+            return json.loads(raw)
+        user = {"credits": 0, "tier": "none", "guides_generated": [],
+                "stripe_customer_id": None}
+        _redis.set(_redis_credits_key(email), json.dumps(user))
+        return user
+    credits = _load_credits()
     if email not in credits:
         credits[email] = {
             "credits": 0,
@@ -152,48 +225,50 @@ def _get_user_credits(email: str) -> dict:
     return credits[email]
 
 
+def _save_user_credits(email: str, user: dict):
+    """Save a single user's credit record."""
+    email = email.lower().strip()
+    if _redis:
+        _redis.set(_redis_credits_key(email), json.dumps(user))
+    else:
+        credits = _load_credits()
+        credits[email] = user
+        _save_credits(credits)
+
+
 def _add_credits(email: str, amount: int, tier: str = "single",
                   stripe_customer_id: str | None = None,
                   dedup_key: str | None = None):
     """Add guide credits to a user. dedup_key prevents double-adding."""
-    credits = _load_credits()
     email = email.lower().strip()
-    if email not in credits:
-        credits[email] = {
-            "credits": 0,
-            "tier": tier,
-            "guides_generated": [],
-            "stripe_customer_id": None,
-            "processed_payments": [],
-        }
+    user = _get_user_credits(email)
+    if "processed_payments" not in user:
+        user["processed_payments"] = []
     # Dedup: skip if this payment was already processed
     if dedup_key:
-        processed = credits[email].get("processed_payments", [])
-        if dedup_key in processed:
-            return  # Already added credits for this payment
-        processed.append(dedup_key)
-        credits[email]["processed_payments"] = processed
-    credits[email]["credits"] += amount
+        if dedup_key in user.get("processed_payments", []):
+            return
+        user["processed_payments"].append(dedup_key)
+    user["credits"] += amount
     # Don't downgrade tier: single purchase shouldn't overwrite active subscription
-    current_tier = credits[email].get("tier", "none")
+    current_tier = user.get("tier", "none")
     tier_priority = {"none": 0, "single": 1, "starter": 2, "pro": 3}
     if tier_priority.get(tier, 0) >= tier_priority.get(current_tier, 0):
-        credits[email]["tier"] = tier
+        user["tier"] = tier
     if stripe_customer_id:
-        credits[email]["stripe_customer_id"] = stripe_customer_id
-    _save_credits(credits)
+        user["stripe_customer_id"] = stripe_customer_id
+    _save_user_credits(email, user)
 
 
 def _use_credit(email: str, token: str) -> bool:
     """Use 1 credit for a guide. Returns False if no credits."""
-    credits = _load_credits()
     email = email.lower().strip()
-    user = credits.get(email)
-    if not user or user["credits"] <= 0:
+    user = _get_user_credits(email)
+    if user["credits"] <= 0:
         return False
     user["credits"] -= 1
     user["guides_generated"].append(token)
-    _save_credits(credits)
+    _save_user_credits(email, user)
     return True
 
 
@@ -449,14 +524,13 @@ def _refund_credit(token: str):
     email = order.get("email", "").lower().strip()
     if not email:
         return
-    credits = _load_credits()
-    user = credits.get(email)
+    user = _get_user_credits(email)
     if user:
         user["credits"] += 1
         # Remove the token from guides_generated
         if token in user.get("guides_generated", []):
             user["guides_generated"].remove(token)
-        _save_credits(credits)
+        _save_user_credits(email, user)
         print(f"[refund] Restored 1 credit to {email} (failed generation {token})")
 
 
@@ -2021,8 +2095,8 @@ def stripe_webhook():
         if invoice.get("billing_reason") == "subscription_cycle":
             # Look up user by email or customer ID
             if not customer_email and customer_id:
-                credits = _load_credits()
-                for em, rec in credits.items():
+                all_credits = _load_credits()
+                for em, rec in all_credits.items():
                     if rec.get("stripe_customer_id") == customer_id:
                         customer_email = em
                         break
@@ -2040,12 +2114,12 @@ def stripe_webhook():
         sub = event["data"]["object"]
         customer_id = sub.get("customer")
         # Find user by customer ID
-        credits = _load_credits()
-        for em, rec in credits.items():
+        all_credits = _load_credits()
+        for em, rec in all_credits.items():
             if rec.get("stripe_customer_id") == customer_id:
                 rec["credits"] = 0
                 rec["tier"] = "none"
-                _save_credits(credits)
+                _save_user_credits(em, rec)
                 print(f"[subscription.deleted] Cancelled subscription for {em}")
                 break
 

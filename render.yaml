@@ -15,3 +15,7 @@ services:
         sync: false
       - key: HOSTGUIDE_ADMIN_SECRET
         sync: false
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: tuto-redis
