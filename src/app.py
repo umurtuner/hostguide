@@ -948,6 +948,7 @@ LANDING_PAGE = """<!DOCTYPE html>
 <title>HostGuide - Neighborhood Guides for Airbnb Hosts | Auto-Generated from Your Listing</title>
 <meta name="description" content="Generate personalized neighborhood guides for Airbnb guests in minutes. Real ratings, walking distances, local tips - just paste your listing URL.">
 <meta name="robots" content="index, follow">
+<meta name="google-site-verification" content="qg0cPYAQg0Zr4Ozt6sD4d4SU0_6l5cFbA1EsgVJxJvc">
 <meta name="theme-color" content="#004d40">
 <link rel="canonical" href="https://host-guide.net">
 <link rel="alternate" hreflang="en" href="https://host-guide.net">
