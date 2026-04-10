@@ -304,19 +304,27 @@ def _generate_guide_for_order(token: str) -> bool:
 
         # Step 2: If Playwright didn't get coords, fall back to geocoding
         if listing.lat == 0 and listing.lng == 0:
-            city = order.get("city", "") or listing.city
-            if city:
-                listing.lat, listing.lng = _geocode_city(city)
-                if not listing.city:
-                    listing.city = city
-                print(f"Geocoded {city} → {listing.lat},{listing.lng}")
+            city_input = order.get("city", "") or listing.city
+            if city_input:
+                # Geocode full input (e.g. "Eaux-Vives, Geneva") for precise location
+                listing.lat, listing.lng = _geocode_city(city_input)
+                # Parse neighborhood and city from input like "Eaux-Vives, Geneva"
+                parts = [p.strip() for p in city_input.split(",")]
+                if len(parts) >= 2:
+                    listing.neighborhood = parts[0]
+                    listing.city = parts[-1]
+                elif not listing.city:
+                    listing.city = city_input
+                print(f"Geocoded '{city_input}' → {listing.lat},{listing.lng} "
+                      f"(neighborhood={listing.neighborhood})")
 
         if listing.lat == 0 and listing.lng == 0:
             print(f"No coordinates for listing {listing_id}")
             return False
 
         # Step 3: Enrich with OSM Overpass (free, no API key)
-        city_config = _get_city_config(listing.city or order.get("city", ""))
+        city_name = listing.city or order.get("city", "").split(",")[-1].strip()
+        city_config = _get_city_config(city_name)
         if not listing.city:
             listing.city = city_config["name"]
 
@@ -339,6 +347,10 @@ def _generate_guide_for_order(token: str) -> bool:
             from fpdf import FPDF
             from html.parser import HTMLParser
 
+            def _strip_emoji(text: str) -> str:
+                """Remove emoji and non-Latin chars that Helvetica can't render."""
+                return text.encode("ascii", "ignore").decode("ascii").strip()
+
             class _HTMLStripper(HTMLParser):
                 """Extract text from HTML for PDF."""
                 def __init__(self):
@@ -348,7 +360,7 @@ def _generate_guide_for_order(token: str) -> bool:
                 def handle_starttag(self, tag, attrs):
                     self._tag = tag
                 def handle_data(self, data):
-                    text = data.strip()
+                    text = _strip_emoji(data.strip())
                     if text:
                         self.parts.append((self._tag or "p", text))
                     self._tag = None
@@ -362,22 +374,25 @@ def _generate_guide_for_order(token: str) -> bool:
             pdf.set_font("Helvetica", size=10)
 
             for tag, text in stripper.parts:
-                if tag in ("h1", "title"):
-                    pdf.set_font("Helvetica", "B", 18)
-                    pdf.cell(0, 12, text, new_x="LMARGIN", new_y="NEXT")
-                elif tag == "h2":
-                    pdf.set_font("Helvetica", "B", 14)
-                    pdf.ln(4)
-                    pdf.cell(0, 10, text, new_x="LMARGIN", new_y="NEXT")
-                elif tag == "h3":
-                    pdf.set_font("Helvetica", "B", 12)
-                    pdf.cell(0, 8, text, new_x="LMARGIN", new_y="NEXT")
-                elif tag in ("strong", "b"):
-                    pdf.set_font("Helvetica", "B", 10)
-                    pdf.multi_cell(0, 6, text)
-                else:
-                    pdf.set_font("Helvetica", size=10)
-                    pdf.multi_cell(0, 6, text)
+                try:
+                    if tag in ("h1", "title"):
+                        pdf.set_font("Helvetica", "B", 18)
+                        pdf.cell(0, 12, text, new_x="LMARGIN", new_y="NEXT")
+                    elif tag == "h2":
+                        pdf.set_font("Helvetica", "B", 14)
+                        pdf.ln(4)
+                        pdf.cell(0, 10, text, new_x="LMARGIN", new_y="NEXT")
+                    elif tag == "h3":
+                        pdf.set_font("Helvetica", "B", 12)
+                        pdf.cell(0, 8, text, new_x="LMARGIN", new_y="NEXT")
+                    elif tag in ("strong", "b"):
+                        pdf.set_font("Helvetica", "B", 10)
+                        pdf.multi_cell(0, 6, text)
+                    else:
+                        pdf.set_font("Helvetica", size=10)
+                        pdf.multi_cell(0, 6, text)
+                except Exception:
+                    continue  # Skip any problematic text chunks
 
             pdf.output(str(pdf_path))
             print(f"PDF generated: {pdf_path}")
@@ -578,10 +593,11 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
                class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition placeholder:text-gray-400">
       </div>
       <div class="mb-4">
-        <label for="city" class="block text-xs font-semibold text-gray-600 mb-1.5">City</label>
+        <label for="city" class="block text-xs font-semibold text-gray-600 mb-1.5">Neighborhood &amp; City</label>
         <input type="text" id="city" name="city" required
-               placeholder="e.g. Miami, Dublin, Lisbon..."
+               placeholder="e.g. Eaux-Vives, Geneva or Brickell, Miami"
                class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition placeholder:text-gray-400">
+        <p class="text-xs text-gray-400 mt-1">Include your neighborhood for a more accurate guide</p>
       </div>
       <div class="mb-5">
         <label for="email" class="block text-xs font-semibold text-gray-600 mb-1.5">Your Email</label>
@@ -1420,8 +1436,8 @@ tailwind.config = {
                  class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500">
         </div>
         <div>
-          <label class="block text-xs font-semibold text-gray-600 mb-1">City</label>
-          <input type="text" name="city" required placeholder="e.g. Miami, Dublin..."
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Neighborhood &amp; City</label>
+          <input type="text" name="city" required placeholder="e.g. Eaux-Vives, Geneva"
                  class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500">
         </div>
       </div>
@@ -1836,10 +1852,10 @@ p { font-size: 14px; color: #666; line-height: 1.6; }
         <p>Your personalized neighborhood guide has been generated.</p>
         <a href="/download/{{ token }}">View Your Guide</a>
         <br>
-        <a href="/download/{{ token }}/pdf" style="margin-top:8px; display:inline-block; font-size:13px; color:#00897B;">Download PDF</a>
+        <a href="/download/{{ token }}/pdf" style="margin-top:12px; display:inline-block; padding:10px 24px; font-size:14px; background:#e0f2f1; color:#004d40; border-radius:8px; font-weight:600; text-decoration:none;">Download PDF</a>
         {% if dashboard_link %}
         <br>
-        <a href="{{ dashboard_link }}" style="margin-top:12px; display:inline-block; font-size:13px; color:#666; text-decoration:underline;">Back to Dashboard (use remaining credits)</a>
+        <a href="{{ dashboard_link }}" style="margin-top:12px; display:inline-block; padding:8px 20px; font-size:13px; background:#f3f4f6; color:#374151; border-radius:8px; font-weight:500; text-decoration:none;">Back to Dashboard</a>
         {% endif %}
     </div>
 </div>
