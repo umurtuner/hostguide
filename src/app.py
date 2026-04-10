@@ -280,15 +280,50 @@ def _generate_guide_for_order(token: str) -> bool:
         from src.enricher import enrich_without_api
         from src.guide_generator import generate_guide
 
+        # Step 0: Use cached meta from preview, or fetch fresh
+        cached_meta = order.get("meta_cache")
+        if cached_meta:
+            try:
+                meta = json.loads(cached_meta)
+                meta.setdefault("lat", 0.0)
+                meta.setdefault("lng", 0.0)
+                meta.setdefault("host_name", "")
+                meta.setdefault("neighborhood", "")
+                meta.setdefault("bedrooms", 0)
+                meta.setdefault("bathrooms", 0)
+                meta.setdefault("guests", 0)
+                meta.setdefault("amenities", [])
+                meta.setdefault("photos", [])
+                print(f"Using cached meta for {listing_id}")
+            except Exception:
+                meta = _fetch_listing_meta(airbnb_url)
+        else:
+            meta = _fetch_listing_meta(airbnb_url)
+
         listing = Listing(
             listing_id=listing_id,
-            title="",
+            title=meta.get("title", ""),
             url=airbnb_url,
-            city=order.get("city", ""),
-            neighborhood="",
+            city=order.get("city", "") or meta.get("city", ""),
+            neighborhood=meta.get("neighborhood", ""),
+            lat=meta.get("lat", 0.0),
+            lng=meta.get("lng", 0.0),
+            host_name=meta.get("host_name", ""),
+            property_type=meta.get("property_type", ""),
+            bedrooms=meta.get("bedrooms", 0),
+            bathrooms=meta.get("bathrooms", 0),
+            guests=meta.get("guests", 0),
+            rating=meta.get("rating", 0.0),
+            reviews_count=meta.get("reviews_count", 0),
+            host_superhost=meta.get("host_superhost", False),
+            host_response_rate=meta.get("host_response_rate", ""),
+            amenities=meta.get("amenities", []),
+            photos=meta.get("photos", []),
         )
+        print(f"HTTP meta populated listing: lat={listing.lat}, lng={listing.lng}, "
+              f"host={listing.host_name}, neighborhood={listing.neighborhood}")
 
-        # Step 1: Try Playwright to get full listing details (lat/lng, host, title)
+        # Step 1: Try Playwright to enrich further (may get more precise coords)
         try:
             from playwright.sync_api import sync_playwright
             print(f"Launching Playwright for listing {listing_id}...")
@@ -348,8 +383,8 @@ def _generate_guide_for_order(token: str) -> bool:
             from html.parser import HTMLParser
 
             def _strip_emoji(text: str) -> str:
-                """Remove emoji and non-Latin chars that Helvetica can't render."""
-                return text.encode("ascii", "ignore").decode("ascii").strip()
+                """Remove emoji/non-Latin1 chars; keep accented chars (é, ñ, ü)."""
+                return text.encode("latin-1", "ignore").decode("latin-1").strip()
 
             class _HTMLStripper(HTMLParser):
                 """Extract text from HTML for PDF."""
@@ -450,19 +485,28 @@ def _generate_in_background(token: str):
 
 
 def _fetch_listing_meta(airbnb_url: str) -> dict:
-    """Quick fetch of Airbnb OG meta tags — no Playwright, just HTTP GET.
-    Returns dict with title, city, image, description."""
-    meta = {"title": "", "city": "", "image": "", "description": ""}
+    """Fetch rich listing data from Airbnb via HTTP — no Playwright needed.
+
+    Extracts OG tags + embedded JSON data for: lat/lng, host name, bedrooms,
+    bathrooms, guests, neighborhood, property type, rating, reviews, amenities, photos.
+    """
+    meta = {
+        "title": "", "city": "", "image": "", "description": "",
+        "lat": 0.0, "lng": 0.0, "host_name": "", "neighborhood": "",
+        "property_type": "", "bedrooms": 0, "bathrooms": 0, "guests": 0,
+        "rating": 0.0, "reviews_count": 0, "amenities": [], "photos": [],
+        "host_superhost": False, "host_response_rate": "",
+    }
     try:
         resp = http_requests.get(airbnb_url, headers={
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
                           "AppleWebKit/537.36 (KHTML, like Gecko) "
                           "Chrome/120.0.0.0 Safari/537.36",
             "Accept-Language": "en-US,en;q=0.9",
-        }, timeout=10, allow_redirects=True)
+        }, timeout=15, allow_redirects=True)
         html = resp.text
 
-        # Extract OG tags
+        # ── OG tags (always available) ──
         og_title = re.search(r'<meta\s+property="og:title"\s+content="([^"]*)"', html)
         og_desc = re.search(r'<meta\s+property="og:description"\s+content="([^"]*)"', html)
         og_image = re.search(r'<meta\s+property="og:image"\s+content="([^"]*)"', html)
@@ -474,23 +518,207 @@ def _fetch_listing_meta(airbnb_url: str) -> dict:
         if og_image:
             meta["image"] = og_image.group(1)
 
-        # Parse title: "Rental unit in Geneva · ★4.33 · 1 bedroom..." → clean it
+        # Parse title: "Rental unit in Geneva · ★4.33 · 1 bedroom..." → extract parts
         if meta["title"] and "·" in meta["title"]:
             parts = meta["title"].split("·")
-            # First part is the type + location, rest is metadata we don't need
             meta["title"] = parts[0].strip()
             if len(parts) >= 2:
                 meta["city"] = parts[-1].strip().split(",")[0].strip()
-        # Fallback: try description
+            # Extract property type from title like "Rental unit in Geneva"
+            type_match = re.match(r'([\w\s]+?)\s+in\s+', meta["title"])
+            if type_match:
+                meta["property_type"] = type_match.group(1).strip()
         if not meta["city"] and meta["description"]:
-            # Often contains city name
             desc_parts = meta["description"].split(" in ")
             if len(desc_parts) >= 2:
                 meta["city"] = desc_parts[-1].split(",")[0].split(".")[0].strip()
+
+        # ── Parse OG title metadata parts (bedrooms, guests, etc.) ──
+        if og_title:
+            full_title = og_title.group(1)
+            bed_m = re.search(r'(\d+)\s*bed(?:room)?s?', full_title, re.I)
+            bath_m = re.search(r'(\d+)\s*bath', full_title, re.I)
+            guest_m = re.search(r'(\d+)\s*guest', full_title, re.I)
+            rating_m = re.search(r'★\s*([\d.]+)', full_title)
+            if bed_m:
+                meta["bedrooms"] = int(bed_m.group(1))
+            if bath_m:
+                meta["bathrooms"] = int(bath_m.group(1))
+            if guest_m:
+                meta["guests"] = int(guest_m.group(1))
+            if rating_m:
+                meta["rating"] = float(rating_m.group(1))
+
+        # ── Extract embedded JSON data from page HTML ──
+        # Airbnb embeds rich listing data in script tags and deferred state
+
+        # Method 1: data-deferred-state (most common on Airbnb)
+        deferred_match = re.search(
+            r'<script\s+id="data-deferred-state(?:-\d+)?"\s+type="application/json"[^>]*>(.*?)</script>',
+            html, re.DOTALL)
+
+        # Method 2: bootstrapData or inline JSON with listing data
+        if not deferred_match:
+            deferred_match = re.search(
+                r'<script[^>]*>\s*window\.__NEXT_DATA__\s*=\s*(\{.*?\})\s*;?\s*</script>',
+                html, re.DOTALL)
+
+        if deferred_match:
+            try:
+                raw_json = deferred_match.group(1)
+                # Truncate at 500KB to avoid parsing massive payloads
+                if len(raw_json) < 500_000:
+                    data = json.loads(raw_json)
+                    _extract_deep_listing_data(data, meta)
+            except (json.JSONDecodeError, Exception) as e:
+                print(f"  JSON parse from deferred state failed: {e}")
+
+        # ── Regex fallback for key fields from raw HTML ──
+        if not meta["lat"]:
+            lat_m = re.search(r'"lat(?:itude)?":\s*([-\d.]+)', html)
+            lng_m = re.search(r'"l(?:on|ng|ongitude)":\s*([-\d.]+)', html)
+            if lat_m and lng_m:
+                meta["lat"] = float(lat_m.group(1))
+                meta["lng"] = float(lng_m.group(1))
+
+        if not meta["host_name"]:
+            host_m = (re.search(r'"firstName"\s*:\s*"([^"]+)"', html) or
+                      re.search(r'Hosted by\s+([A-Z][a-z]+)', html))
+            if host_m:
+                meta["host_name"] = host_m.group(1).strip()
+
+        if not meta["neighborhood"]:
+            loc_m = (re.search(r'"neighborhood"\s*:\s*\{[^}]*"name"\s*:\s*"([^"]+)"', html) or
+                     re.search(r'"locationTitle"\s*:\s*"([^"]+)"', html) or
+                     re.search(r'"publicAddress"\s*:\s*"([^"]+)"', html))
+            if loc_m:
+                meta["neighborhood"] = loc_m.group(1).strip()
+
+        if not meta["bedrooms"]:
+            bed_m = re.search(r'"bedrooms"\s*:\s*(\d+)', html)
+            if bed_m:
+                meta["bedrooms"] = int(bed_m.group(1))
+        if not meta["bathrooms"]:
+            bath_m = re.search(r'"bathrooms"\s*:\s*(\d+)', html)
+            if bath_m:
+                meta["bathrooms"] = int(bath_m.group(1))
+        if not meta["guests"]:
+            guest_m = re.search(r'"personCapacity"\s*:\s*(\d+)', html)
+            if guest_m:
+                meta["guests"] = int(guest_m.group(1))
+
+        if not meta["rating"]:
+            rat_m = re.search(r'"avgRating(?:Localized)?"\s*:\s*"?([\d.]+)"?', html)
+            if rat_m:
+                meta["rating"] = float(rat_m.group(1))
+        if not meta["reviews_count"]:
+            rev_m = re.search(r'"(?:visible)?[Rr]eview(?:s)?Count"\s*:\s*(\d+)', html)
+            if rev_m:
+                meta["reviews_count"] = int(rev_m.group(1))
+
+        if not meta["host_superhost"]:
+            if re.search(r'"isSuperhost"\s*:\s*true', html, re.I):
+                meta["host_superhost"] = True
+
+        if not meta["host_response_rate"]:
+            rr_m = re.search(r'"response(?:Rate|_rate)"\s*:\s*"?(\d+)%?"?', html)
+            if rr_m:
+                meta["host_response_rate"] = f"{rr_m.group(1)}%"
+
+        # Extract amenities
+        if not meta["amenities"]:
+            amenity_matches = re.findall(r'"localizedName"\s*:\s*"([^"]{2,50})"', html)
+            if amenity_matches:
+                # Deduplicate while preserving order
+                seen = set()
+                for a in amenity_matches:
+                    if a not in seen and not a.startswith('{'):
+                        seen.add(a)
+                        meta["amenities"].append(a)
+
+        # Extract photo URLs
+        if not meta["photos"] and meta["image"]:
+            meta["photos"].append(meta["image"])
+        photo_matches = re.findall(r'"baseUrl"\s*:\s*"(https://a0\.muscache\.com/[^"]+)"', html)
+        if photo_matches:
+            meta["photos"] = list(dict.fromkeys(photo_matches))[:10]  # Top 10 unique
+
+        print(f"  Meta extracted: lat={meta['lat']}, lng={meta['lng']}, "
+              f"host={meta['host_name']}, neighborhood={meta['neighborhood']}, "
+              f"beds={meta['bedrooms']}, baths={meta['bathrooms']}, "
+              f"guests={meta['guests']}, amenities={len(meta['amenities'])}, "
+              f"photos={len(meta['photos'])}")
+
     except Exception as e:
         print(f"Meta fetch error: {e}")
 
     return meta
+
+
+def _extract_deep_listing_data(data: dict, meta: dict, depth: int = 0):
+    """Walk Airbnb's embedded JSON tree to extract listing details."""
+    if depth > 12 or not isinstance(data, dict):
+        return
+
+    # Check if this dict looks like a listing object
+    lid = data.get("listingId") or data.get("id") or data.get("listing_id")
+    if lid and (data.get("name") or data.get("title") or data.get("roomTypeCategory")):
+        # Coordinates
+        coord = data.get("coordinate") or data.get("location") or {}
+        if isinstance(coord, dict):
+            lat = coord.get("latitude") or coord.get("lat")
+            lng = coord.get("longitude") or coord.get("lng") or coord.get("lon")
+            if lat and lng:
+                meta["lat"] = float(lat)
+                meta["lng"] = float(lng)
+
+        # Host
+        host_first = (data.get("user", {}).get("firstName") if isinstance(data.get("user"), dict) else None) or \
+                     (data.get("primaryHost", {}).get("firstName") if isinstance(data.get("primaryHost"), dict) else None)
+        if host_first and not meta["host_name"]:
+            meta["host_name"] = host_first
+
+        # Property details
+        if not meta["bedrooms"] and data.get("bedrooms"):
+            meta["bedrooms"] = int(data["bedrooms"])
+        if not meta["bathrooms"] and data.get("bathrooms"):
+            meta["bathrooms"] = int(data["bathrooms"])
+        if not meta["guests"] and (data.get("personCapacity") or data.get("guestCapacity")):
+            meta["guests"] = int(data.get("personCapacity") or data.get("guestCapacity"))
+        if not meta["property_type"] and (data.get("roomTypeCategory") or data.get("roomType")):
+            meta["property_type"] = data.get("roomTypeCategory") or data.get("roomType")
+
+        # Neighborhood
+        nb = data.get("neighborhood")
+        if isinstance(nb, dict) and nb.get("name") and not meta["neighborhood"]:
+            meta["neighborhood"] = nb["name"]
+        elif isinstance(nb, str) and nb and not meta["neighborhood"]:
+            meta["neighborhood"] = nb
+        if not meta["neighborhood"] and data.get("publicAddress"):
+            meta["neighborhood"] = data["publicAddress"]
+
+        # Rating & reviews
+        if not meta["rating"]:
+            r = data.get("avgRating") or data.get("avgRatingLocalized")
+            if r:
+                meta["rating"] = float(r)
+        if not meta["reviews_count"]:
+            rc = data.get("reviewsCount") or data.get("visibleReviewCount")
+            if rc:
+                meta["reviews_count"] = int(rc)
+
+        # Superhost
+        if data.get("isSuperhost"):
+            meta["host_superhost"] = True
+
+    # Recurse into values
+    for v in data.values():
+        if isinstance(v, dict):
+            _extract_deep_listing_data(v, meta, depth + 1)
+        elif isinstance(v, list):
+            for item in v:
+                if isinstance(item, dict):
+                    _extract_deep_listing_data(item, meta, depth + 1)
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -1014,8 +1242,9 @@ tailwind.config = {
     <!-- Guide header (visible) -->
     <div class="bg-gradient-to-r from-teal-600 to-teal-800 px-8 py-6 text-white">
       <p class="text-xs uppercase tracking-widest opacity-70 mb-1">Neighborhood Guide</p>
-      <h2 class="text-xl font-bold">{{ city or 'Your Listing Area' }}</h2>
-      <p class="text-sm opacity-80 mt-1">Personalized for your listing</p>
+      <h2 class="text-xl font-bold">{{ neighborhood or city or 'Your Listing Area' }}{% if neighborhood and city %}, {{ city }}{% endif %}</h2>
+      {% if preview_subtitle %}<p class="text-sm opacity-90 mt-1">{{ preview_subtitle }}</p>{% endif %}
+      {% if host_name %}<p class="text-xs opacity-70 mt-1">Hosted by {{ host_name }}</p>{% endif %}
     </div>
 
     <!-- Top section: CLEAR (tease value) -->
@@ -1209,15 +1438,37 @@ def preview():
     # Create order early (pending state) — includes city
     token = _create_order(airbnb_url, email, city=city)
 
-    # Quick meta fetch (OG tags — fast, no Playwright)
+    # Rich meta fetch (OG tags + embedded JSON — fast, no Playwright)
     meta = _fetch_listing_meta(airbnb_url)
 
     # Use form city if meta didn't get one
     listing_title = meta.get("title", "")
     city = city or meta.get("city", "")
+    neighborhood = meta.get("neighborhood", "")
+
+    # Store extracted meta in the order for generation (avoids double fetch)
+    _update_order(token, meta_cache=json.dumps({
+        k: v for k, v in meta.items()
+        if k in ("lat", "lng", "host_name", "neighborhood", "property_type",
+                 "bedrooms", "bathrooms", "guests", "rating", "reviews_count",
+                 "amenities", "photos", "host_superhost", "host_response_rate")
+    }))
+
+    # Build preview subtitle from extracted data
+    preview_details = []
+    if meta.get("property_type"):
+        preview_details.append(meta["property_type"])
+    if meta.get("bedrooms"):
+        preview_details.append(f"{meta['bedrooms']} bed{'s' if meta['bedrooms'] > 1 else ''}")
+    if meta.get("bathrooms"):
+        preview_details.append(f"{meta['bathrooms']} bath{'s' if meta['bathrooms'] > 1 else ''}")
+    if meta.get("guests"):
+        preview_details.append(f"up to {meta['guests']} guests")
+    if meta.get("rating"):
+        preview_details.append(f"★ {meta['rating']}")
+    preview_subtitle = " · ".join(preview_details) if preview_details else ""
 
     # Provide a few real-looking (but generic) preview items
-    # The blurred section uses placeholder data anyway
     restaurants = ["Popular Cafe Nearby", "Local Restaurant", "Bistro Around the Corner"]
     distances = ["3 min walk", "5 min walk", "7 min walk"]
     groceries = ["Supermarket", "Convenience Store"]
@@ -1227,6 +1478,9 @@ def preview():
         token=token,
         listing_title=listing_title,
         city=city,
+        neighborhood=neighborhood,
+        preview_subtitle=preview_subtitle,
+        host_name=meta.get("host_name", ""),
         restaurants=restaurants,
         distances=distances,
         groceries=groceries,
@@ -1677,18 +1931,76 @@ def download(token: str):
 
 @app.route("/download/<token>/pdf")
 def download_pdf(token: str):
-    """Serve the PDF version."""
+    """Serve the PDF version — regenerate on-demand if missing."""
     order = _get_order(token)
     if not order or order["status"] != "generated":
         abort(404)
 
     guide_path = Path(order.get("guide_path", ""))
-    pdf_path = guide_path.with_suffix(".pdf") if guide_path.exists() else None
-    if pdf_path and pdf_path.exists():
-        return send_file(pdf_path, mimetype="application/pdf",
-                        as_attachment=True,
-                        download_name="HostGuide_Guest_Guide.pdf")
-    abort(404, "PDF not found")
+    if not guide_path.exists():
+        abort(404, "Guide file not found")
+
+    pdf_path = guide_path.with_suffix(".pdf")
+
+    # Regenerate PDF on-demand if it's missing (e.g. old guide before PDF fix)
+    if not pdf_path.exists():
+        try:
+            from fpdf import FPDF
+            from html.parser import HTMLParser
+
+            def _strip_emoji(text: str) -> str:
+                return text.encode("latin-1", "ignore").decode("latin-1").strip()
+
+            class _HTMLStripper(HTMLParser):
+                def __init__(self):
+                    super().__init__()
+                    self.parts = []
+                    self._tag = None
+                def handle_starttag(self, tag, attrs):
+                    self._tag = tag
+                def handle_data(self, data):
+                    text = _strip_emoji(data.strip())
+                    if text:
+                        self.parts.append((self._tag or "p", text))
+                    self._tag = None
+
+            html_content = guide_path.read_text(encoding="utf-8")
+            stripper = _HTMLStripper()
+            stripper.feed(html_content)
+
+            pdf = FPDF()
+            pdf.set_auto_page_break(auto=True, margin=15)
+            pdf.add_page()
+            pdf.set_font("Helvetica", size=10)
+
+            for tag, text in stripper.parts:
+                try:
+                    if tag in ("h1", "title"):
+                        pdf.set_font("Helvetica", "B", 18)
+                        pdf.cell(0, 12, text, new_x="LMARGIN", new_y="NEXT")
+                    elif tag == "h2":
+                        pdf.set_font("Helvetica", "B", 14)
+                        pdf.ln(4)
+                        pdf.cell(0, 10, text, new_x="LMARGIN", new_y="NEXT")
+                    elif tag == "h3":
+                        pdf.set_font("Helvetica", "B", 12)
+                        pdf.cell(0, 8, text, new_x="LMARGIN", new_y="NEXT")
+                    elif tag in ("strong", "b"):
+                        pdf.set_font("Helvetica", "B", 10)
+                        pdf.multi_cell(0, 6, text)
+                    else:
+                        pdf.set_font("Helvetica", size=10)
+                        pdf.multi_cell(0, 6, text)
+                except Exception:
+                    continue
+            pdf.output(str(pdf_path))
+        except Exception as e:
+            print(f"On-demand PDF generation failed: {e}")
+            abort(500, "Could not generate PDF")
+
+    return send_file(pdf_path, mimetype="application/pdf",
+                    as_attachment=True,
+                    download_name="HostGuide_Guest_Guide.pdf")
 
 
 @app.route("/webhook/stripe", methods=["POST"])

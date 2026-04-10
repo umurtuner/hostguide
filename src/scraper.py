@@ -478,31 +478,68 @@ def enrich_listing_from_detail(page: Page, listing: Listing) -> Listing:
         # Extract dehydrated data from detail page
         data = extract_dehydrated_data(page)
         if data:
-            # Walk for this specific listing
+            # Walk the tree looking for listing data — new Airbnb format
+            # uses niobeClientData where listing ID is base64-encoded,
+            # so we also scan for any dict with lat/lng + listing-like fields
             def _find(obj, depth=0):
                 if depth > 15 or not isinstance(obj, dict):
                     return
                 lid = str(obj.get("id") or obj.get("listingId") or "")
-                if lid == listing.listing_id:
-                    coord = obj.get("coordinate") or obj.get("location") or {}
-                    if isinstance(coord, dict):
-                        listing.lat = float(coord.get("latitude") or coord.get("lat") or listing.lat)
-                        listing.lng = float(coord.get("longitude") or coord.get("lng") or listing.lng)
-                    listing.host_name = listing.host_name or _extract_nested(obj, ["user", "firstName"]) or ""
-                    listing.host_id = listing.host_id or str(_extract_nested(obj, ["user", "id"]) or "")
-                    listing.bedrooms = listing.bedrooms or int(obj.get("bedrooms") or 0)
-                    listing.bathrooms = listing.bathrooms or int(obj.get("bathrooms") or 0)
-                    listing.guests = listing.guests or int(obj.get("personCapacity") or 0)
-                    listing.neighborhood = listing.neighborhood or _extract_nested(obj, ["neighborhood", "name"]) or ""
-                    return
+
+                # Match by listing ID (classic format)
+                is_match = lid == listing.listing_id
+
+                # Also match if this dict has lat/lng (new niobeClientData format)
+                has_lat = "lat" in obj and isinstance(obj.get("lat"), (int, float)) and abs(obj.get("lat", 0)) > 1
+                has_coord = False
+                coord = obj.get("coordinate") or obj.get("location")
+                if isinstance(coord, dict) and (coord.get("latitude") or coord.get("lat")):
+                    has_coord = True
+
+                if is_match or has_lat or has_coord:
+                    if has_lat:
+                        if not listing.lat:
+                            listing.lat = float(obj["lat"])
+                        if not listing.lng and "lng" in obj:
+                            listing.lng = float(obj["lng"])
+                    if has_coord and isinstance(coord, dict):
+                        if not listing.lat:
+                            listing.lat = float(coord.get("latitude") or coord.get("lat") or 0)
+                        if not listing.lng:
+                            listing.lng = float(coord.get("longitude") or coord.get("lng") or 0)
+
+                    # Extract other fields if available
+                    if not listing.host_name:
+                        listing.host_name = (_extract_nested(obj, ["user", "firstName"]) or
+                                            _extract_nested(obj, ["primaryHost", "firstName"]) or
+                                            obj.get("hostName") or "")
+                    if not listing.host_id:
+                        listing.host_id = str(_extract_nested(obj, ["user", "id"]) or
+                                            _extract_nested(obj, ["primaryHost", "id"]) or "")
+                    if not listing.bedrooms and obj.get("bedrooms"):
+                        listing.bedrooms = int(obj["bedrooms"])
+                    if not listing.bathrooms and obj.get("bathrooms"):
+                        listing.bathrooms = int(obj["bathrooms"])
+                    if not listing.guests and (obj.get("personCapacity") or obj.get("guestCapacity")):
+                        listing.guests = int(obj.get("personCapacity") or obj.get("guestCapacity"))
+                    if not listing.neighborhood:
+                        nb = obj.get("neighborhood")
+                        if isinstance(nb, dict) and nb.get("name"):
+                            listing.neighborhood = nb["name"]
+                        elif isinstance(nb, str) and nb:
+                            listing.neighborhood = nb
+                        elif obj.get("publicAddress"):
+                            listing.neighborhood = obj["publicAddress"]
+                    if not listing.title and obj.get("name") and len(str(obj["name"])) > 5:
+                        listing.title = obj["name"]
+
                 for v in obj.values():
-                    if isinstance(v, (dict, list)):
-                        if isinstance(v, dict):
-                            _find(v, depth + 1)
-                        elif isinstance(v, list):
-                            for item in v:
-                                if isinstance(item, dict):
-                                    _find(item, depth + 1)
+                    if isinstance(v, dict):
+                        _find(v, depth + 1)
+                    elif isinstance(v, list):
+                        for item in v:
+                            if isinstance(item, dict):
+                                _find(item, depth + 1)
 
             _find(data)
 
@@ -569,6 +606,38 @@ def enrich_listing_from_detail(page: Page, listing: Listing) -> Listing:
                 guest_match = re.search(r'"personCapacity"\s*:\s*(\d+)', html)
                 if guest_match:
                     listing.guests = int(guest_match.group(1))
+
+            # Parse bedrooms/bathrooms/guests from title if not found in JSON
+            # Title format: "Rental unit in Geneva · ★4.86 · 1 bedroom · 2 beds · 1 bath"
+            if listing.title:
+                if not listing.bedrooms:
+                    t_bed = re.search(r'(\d+)\s+bedroom', listing.title, re.I)
+                    if t_bed:
+                        listing.bedrooms = int(t_bed.group(1))
+                if not listing.bathrooms:
+                    t_bath = re.search(r'(\d+)\s+bath', listing.title, re.I)
+                    if t_bath:
+                        listing.bathrooms = int(t_bath.group(1))
+                if not listing.guests:
+                    t_guest = re.search(r'(\d+)\s+guest', listing.title, re.I)
+                    if t_guest:
+                        listing.guests = int(t_guest.group(1))
+                if not listing.rating:
+                    t_rat = re.search(r'★\s*([\d.]+)', listing.title)
+                    if t_rat:
+                        listing.rating = float(t_rat.group(1))
+                # Extract property type from title: "Rental unit in Geneva"
+                if not listing.property_type:
+                    t_prop = re.match(r'([A-Za-z\s]+?)\s+in\s+', listing.title)
+                    if t_prop:
+                        listing.property_type = t_prop.group(1).strip()
+
+                # Clean title: strip metadata parts ("· ★4.86 · 1 bedroom · 2 beds · 1 bath")
+                # Keep only the descriptive name, not the stats
+                if "·" in listing.title:
+                    listing.title = listing.title.split("·")[0].strip()
+                # Remove " - Airbnb" suffix
+                listing.title = listing.title.split(" - Airbnb")[0].strip()
 
             # Rating
             if not listing.rating:

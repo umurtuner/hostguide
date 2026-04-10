@@ -436,6 +436,35 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
         rows = "\n".join(place_row(p) for p in places)
         return f'<table class="place-table">{rows}</table>'
 
+    # ── Apartment details section (guest-relevant info only) ──
+    apartment_details_html = ""
+    detail_items = []
+    # Only show property type if it's specific (not generic Airbnb labels)
+    generic_types = {"rental unit", "entire home", "entire place", "room", "place"}
+    if listing.property_type and listing.property_type.lower() not in generic_types:
+        detail_items.append(f'<span class="apt-tag">{listing.property_type}</span>')
+    if listing.bedrooms:
+        detail_items.append(f'<span class="apt-tag">{listing.bedrooms} bedroom{"s" if listing.bedrooms > 1 else ""}</span>')
+    if listing.bathrooms:
+        detail_items.append(f'<span class="apt-tag">{listing.bathrooms} bathroom{"s" if listing.bathrooms > 1 else ""}</span>')
+    if listing.guests:
+        detail_items.append(f'<span class="apt-tag">Up to {listing.guests} guests</span>')
+
+    # Only show amenities that are useful for a guest staying at the apartment
+    amenity_tags = ""
+    if listing.amenities:
+        top_amenities = listing.amenities[:12]
+        amenity_tags = '<div class="amenity-list">' + \
+            " ".join(f'<span class="amenity-tag">{a}</span>' for a in top_amenities) + \
+            '</div>'
+
+    if detail_items:
+        apartment_details_html = f'''<div class="apartment-details">
+            <h3 class="apt-heading">Your Apartment</h3>
+            <div class="apt-tags">{"".join(detail_items)}</div>
+            {amenity_tags}
+        </div>'''
+
     # ── Section HTML builders (table-based, no emoji headers) ──
     restaurants_html = ""
     if enriched.restaurant:
@@ -714,6 +743,50 @@ body {{
     gap: 1px;
     background: var(--border);
     border-bottom: 2px solid var(--primary);
+}}
+.apartment-details {{
+    padding: 20px 24px;
+    background: #f0faf9;
+    border-bottom: 1px solid var(--border);
+}}
+.apt-heading {{
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}}
+.apt-tags {{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+}}
+.apt-tag {{
+    display: inline-block;
+    padding: 4px 12px;
+    background: white;
+    border: 1px solid #b2dfdb;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #004d40;
+    font-weight: 500;
+}}
+.amenity-list {{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}}
+.amenity-tag {{
+    display: inline-block;
+    padding: 3px 10px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 11px;
+    color: #555;
 }}
 .essentials .cell {{
     background: var(--white);
@@ -1001,6 +1074,9 @@ body {{
             <div class="blank"></div>
         </div>
     </div>
+
+    <!-- Apartment details (if available) -->
+    {apartment_details_html}
 
     <!-- Main content -->
     <div class="content">
