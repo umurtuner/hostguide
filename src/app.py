@@ -409,75 +409,22 @@ def _generate_guide_for_order(token: str) -> bool:
         html_path = guide_dir / f"{listing_id}_guide.html"
         html_path.write_text(guide.content_html, encoding="utf-8")
 
-        # Step 6: Generate PDF from HTML
+        # Step 6: Generate PDF using Playwright (renders full styled HTML)
         pdf_path = html_path.with_suffix(".pdf")
         try:
-            from fpdf import FPDF
-            from html.parser import HTMLParser
-
-            def _strip_emoji(text: str) -> str:
-                """Remove emoji/non-Latin1 chars; keep accented chars (é, ñ, ü)."""
-                return text.encode("latin-1", "ignore").decode("latin-1").strip()
-
-            class _HTMLStripper(HTMLParser):
-                """Extract visible text from HTML for PDF — skips style/script."""
-                SKIP_TAGS = {"style", "script", "svg", "path", "meta", "link"}
-                def __init__(self):
-                    super().__init__()
-                    self.parts = []
-                    self._tag = None
-                    self._skip = False
-                def handle_starttag(self, tag, attrs):
-                    if tag in self.SKIP_TAGS:
-                        self._skip = True
-                    else:
-                        self._tag = tag
-                def handle_endtag(self, tag):
-                    if tag in self.SKIP_TAGS:
-                        self._skip = False
-                def handle_data(self, data):
-                    if self._skip:
-                        return
-                    text = _strip_emoji(data.strip())
-                    if text:
-                        self.parts.append((self._tag or "p", text))
-                    self._tag = None
-
-            stripper = _HTMLStripper()
-            stripper.feed(guide.content_html)
-
-            pdf = FPDF()
-            pdf.set_auto_page_break(auto=True, margin=15)
-            pdf.add_page()
-            pdf.set_font("Helvetica", size=10)
-
-            for tag, text in stripper.parts:
-                try:
-                    if tag in ("h1", "title"):
-                        pdf.set_font("Helvetica", "B", 18)
-                        pdf.cell(0, 12, text, new_x="LMARGIN", new_y="NEXT")
-                    elif tag == "h2":
-                        pdf.set_font("Helvetica", "B", 14)
-                        pdf.ln(4)
-                        pdf.cell(0, 10, text, new_x="LMARGIN", new_y="NEXT")
-                    elif tag == "h3":
-                        pdf.set_font("Helvetica", "B", 12)
-                        pdf.cell(0, 8, text, new_x="LMARGIN", new_y="NEXT")
-                    elif tag in ("strong", "b"):
-                        pdf.set_font("Helvetica", "B", 10)
-                        pdf.multi_cell(0, 6, text)
-                    else:
-                        pdf.set_font("Helvetica", size=10)
-                        pdf.multi_cell(0, 6, text)
-                except Exception:
-                    continue  # Skip any problematic text chunks
-
-            pdf.output(str(pdf_path))
-            print(f"PDF generated: {pdf_path}")
-        except ImportError:
-            print("fpdf2 not installed — skipping PDF generation")
+            from playwright.sync_api import sync_playwright
+            with sync_playwright() as pw:
+                browser = pw.chromium.launch(headless=True)
+                page = browser.new_page()
+                page.goto(f"file://{html_path.resolve()}", wait_until="networkidle", timeout=15000)
+                page.pdf(path=str(pdf_path), format="A4",
+                         margin={"top": "15mm", "bottom": "15mm",
+                                 "left": "12mm", "right": "12mm"},
+                         print_background=True)
+                browser.close()
+            print(f"PDF generated via Playwright: {pdf_path}")
         except Exception as e:
-            print(f"PDF generation failed: {e}")
+            print(f"Playwright PDF failed: {e}")
             pdf_path.unlink(missing_ok=True)
 
         # Update order — single purchases expire in 24h, subscriptions don't
@@ -2006,68 +1953,19 @@ def download_pdf(token: str):
 
     pdf_path = guide_path.with_suffix(".pdf")
 
-    # Regenerate PDF on-demand if it's missing (e.g. old guide before PDF fix)
+    # Regenerate PDF on-demand if it's missing
     if not pdf_path.exists():
         try:
-            from fpdf import FPDF
-            from html.parser import HTMLParser
-
-            def _strip_emoji(text: str) -> str:
-                return text.encode("latin-1", "ignore").decode("latin-1").strip()
-
-            class _HTMLStripper(HTMLParser):
-                SKIP_TAGS = {"style", "script", "svg", "path", "meta", "link"}
-                def __init__(self):
-                    super().__init__()
-                    self.parts = []
-                    self._tag = None
-                    self._skip = False
-                def handle_starttag(self, tag, attrs):
-                    if tag in self.SKIP_TAGS:
-                        self._skip = True
-                    else:
-                        self._tag = tag
-                def handle_endtag(self, tag):
-                    if tag in self.SKIP_TAGS:
-                        self._skip = False
-                def handle_data(self, data):
-                    if self._skip:
-                        return
-                    text = _strip_emoji(data.strip())
-                    if text:
-                        self.parts.append((self._tag or "p", text))
-                    self._tag = None
-
-            html_content = guide_path.read_text(encoding="utf-8")
-            stripper = _HTMLStripper()
-            stripper.feed(html_content)
-
-            pdf = FPDF()
-            pdf.set_auto_page_break(auto=True, margin=15)
-            pdf.add_page()
-            pdf.set_font("Helvetica", size=10)
-
-            for tag, text in stripper.parts:
-                try:
-                    if tag in ("h1", "title"):
-                        pdf.set_font("Helvetica", "B", 18)
-                        pdf.cell(0, 12, text, new_x="LMARGIN", new_y="NEXT")
-                    elif tag == "h2":
-                        pdf.set_font("Helvetica", "B", 14)
-                        pdf.ln(4)
-                        pdf.cell(0, 10, text, new_x="LMARGIN", new_y="NEXT")
-                    elif tag == "h3":
-                        pdf.set_font("Helvetica", "B", 12)
-                        pdf.cell(0, 8, text, new_x="LMARGIN", new_y="NEXT")
-                    elif tag in ("strong", "b"):
-                        pdf.set_font("Helvetica", "B", 10)
-                        pdf.multi_cell(0, 6, text)
-                    else:
-                        pdf.set_font("Helvetica", size=10)
-                        pdf.multi_cell(0, 6, text)
-                except Exception:
-                    continue
-            pdf.output(str(pdf_path))
+            from playwright.sync_api import sync_playwright
+            with sync_playwright() as pw:
+                browser = pw.chromium.launch(headless=True)
+                page = browser.new_page()
+                page.goto(f"file://{guide_path.resolve()}", wait_until="networkidle", timeout=15000)
+                page.pdf(path=str(pdf_path), format="A4",
+                         margin={"top": "15mm", "bottom": "15mm",
+                                 "left": "12mm", "right": "12mm"},
+                         print_background=True)
+                browser.close()
         except Exception as e:
             print(f"On-demand PDF generation failed: {e}")
             abort(500, "Could not generate PDF")
