@@ -19,3 +19,5 @@ services:
         fromService:
           type: redis
           name: tuto-redis
+      - key: GOOGLE_MAPS_API_KEY
+        sync: false

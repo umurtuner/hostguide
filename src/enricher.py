@@ -443,4 +443,52 @@ def enrich_without_api(lat: float, lng: float, city_config: dict) -> EnrichedLoc
                 except Exception:
                     pass
 
+    # Post-enrichment: fetch Google ratings for top places if API key available
+    if GOOGLE_API_KEY:
+        enriched = _add_google_ratings(enriched)
+
+    return enriched
+
+
+def _add_google_ratings(enriched: EnrichedLocation) -> EnrichedLocation:
+    """Look up Google ratings for places found via Overpass.
+
+    Uses Find Place from Text ($17/1K calls) — cheapest option.
+    Only queries places that don't already have a rating.
+    """
+    FIND_PLACE_URL = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
+    lookup_count = 0
+    max_lookups = 30  # Budget cap per guide generation
+
+    for category in ["restaurant", "grocery", "landmark", "nightlife", "health", "transit"]:
+        places = getattr(enriched, category, [])
+        for place in places:
+            if place.rating > 0 or lookup_count >= max_lookups:
+                continue
+            try:
+                resp = requests.get(FIND_PLACE_URL, params={
+                    "input": place.name,
+                    "inputtype": "textquery",
+                    "locationbias": f"circle:500@{place.lat},{place.lng}",
+                    "fields": "rating,user_ratings_total",
+                    "key": GOOGLE_API_KEY,
+                }, timeout=5)
+                lookup_count += 1
+                data = resp.json()
+                candidates = data.get("candidates", [])
+                if candidates:
+                    place.rating = candidates[0].get("rating", 0)
+                    place.total_ratings = candidates[0].get("user_ratings_total", 0)
+                time.sleep(0.1)
+            except Exception:
+                continue
+
+    # Filter out low-rated places (below 3.5) for restaurants/nightlife
+    for category in ["restaurant", "nightlife"]:
+        places = getattr(enriched, category, [])
+        rated = [p for p in places if p.rating > 0]
+        if len(rated) >= 3:
+            filtered = [p for p in places if p.rating == 0 or p.rating >= 3.5]
+            setattr(enriched, category, filtered)
+
     return enriched

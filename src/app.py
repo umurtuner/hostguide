@@ -273,6 +273,46 @@ def _use_credit(email: str, token: str) -> bool:
 
 
 # ═══════════════════════════════════════════════════════════════
+# EMAIL SUBSCRIBERS (CRM list)
+# ═══════════════════════════════════════════════════════════════
+
+SUBSCRIBERS_FILE = BASE / "data" / "subscribers.json"
+
+
+def _save_email_subscriber(email: str):
+    """Save consenting email to subscriber list (Redis or JSON)."""
+    email = email.lower().strip()
+    if not email:
+        return
+    if _redis:
+        _redis.hset("hg:subscribers", email, json.dumps({
+            "email": email,
+            "subscribed_at": datetime.utcnow().isoformat(),
+            "source": "guide_form",
+        }))
+    else:
+        subs = {}
+        if SUBSCRIBERS_FILE.exists():
+            subs = json.loads(SUBSCRIBERS_FILE.read_text())
+        if email not in subs:
+            subs[email] = {
+                "subscribed_at": datetime.utcnow().isoformat(),
+                "source": "guide_form",
+            }
+            SUBSCRIBERS_FILE.write_text(json.dumps(subs, indent=2))
+
+
+def _get_all_subscribers() -> dict:
+    """Get all subscribers for export."""
+    if _redis:
+        raw = _redis.hgetall("hg:subscribers")
+        return {k: json.loads(v) for k, v in raw.items()}
+    if SUBSCRIBERS_FILE.exists():
+        return json.loads(SUBSCRIBERS_FILE.read_text())
+    return {}
+
+
+# ═══════════════════════════════════════════════════════════════
 # GUIDE GENERATION PIPELINE
 # ═══════════════════════════════════════════════════════════════
 
@@ -489,9 +529,12 @@ def _generate_guide_for_order(token: str) -> bool:
         try:
             from playwright.sync_api import sync_playwright
             with sync_playwright() as pw:
-                browser = pw.chromium.launch(headless=True)
+                browser = pw.chromium.launch(
+                    headless=True,
+                    args=["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"],
+                )
                 page = browser.new_page()
-                page.goto(f"file://{html_path.resolve()}", wait_until="networkidle", timeout=15000)
+                page.goto(f"file://{html_path.resolve()}", wait_until="networkidle", timeout=30000)
                 page.pdf(path=str(pdf_path), format="A4",
                          margin={"top": "15mm", "bottom": "15mm",
                                  "left": "12mm", "right": "12mm"},
@@ -499,7 +542,8 @@ def _generate_guide_for_order(token: str) -> bool:
                 browser.close()
             print(f"PDF generated via Playwright: {pdf_path}")
         except Exception as e:
-            print(f"Playwright PDF failed: {e}")
+            import traceback
+            print(f"Playwright PDF failed: {e}\n{traceback.format_exc()}")
             pdf_path.unlink(missing_ok=True)
 
         # Update order — single purchases expire in 24h, subscriptions don't
@@ -895,6 +939,13 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         <input type="email" id="email" name="email" required
                placeholder="you@example.com"
                class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition placeholder:text-gray-400">
+      </div>
+      <div class="mb-5">
+        <label class="flex items-start gap-2 cursor-pointer">
+          <input type="checkbox" name="email_consent" value="yes" checked
+                 class="mt-0.5 accent-teal-600 w-4 h-4 rounded">
+          <span class="text-xs text-gray-500 leading-relaxed">Send me hosting tips, feature updates &amp; exclusive offers. Unsubscribe anytime.</span>
+        </label>
       </div>
       <button type="submit" id="submitBtn"
               class="cta-btn w-full py-3.5 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-semibold text-base">
@@ -1382,6 +1433,18 @@ tailwind.config = {
 
   <!-- UNLOCK CTA — TIER COMPARISON -->
   <div class="mt-8 max-w-2xl mx-auto">
+    {% if has_credits %}
+    <div class="bg-teal-50 border border-teal-200 rounded-xl p-5 mb-5 text-center">
+      <p class="text-sm font-semibold text-teal-800">You have {{ user_credits }} credit{{ 's' if user_credits != 1 else '' }} remaining{% if user_tier not in ('none', 'single') %} ({{ user_tier | capitalize }} plan){% endif %}</p>
+      <form action="/use-credit" method="POST" class="mt-3">
+        <input type="hidden" name="token" value="{{ token }}">
+        <button type="submit" class="px-6 py-3 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-semibold text-sm hover:shadow-lg transition">
+          Generate Guide — Use 1 Credit
+        </button>
+      </form>
+    </div>
+    <p class="text-xs text-gray-400 text-center mb-4">— or upgrade your plan —</p>
+    {% endif %}
     <h3 class="text-lg font-bold text-center mb-5">Unlock Your Full Guide</h3>
     <div class="grid grid-cols-3 gap-3">
 
@@ -1501,6 +1564,22 @@ def preview():
     # Create order early (pending state) — includes city
     token = _create_order(airbnb_url, email, city=city)
 
+    # Store email consent for CRM
+    email_consent = request.form.get("email_consent", "") == "yes"
+    if email_consent and email:
+        _save_email_subscriber(email)
+
+    # If user already has credits, skip preview — go straight to generation
+    if email:
+        user_rec = _get_user_credits(email)
+        if user_rec["credits"] > 0:
+            if _use_credit(email, token):
+                _update_order(token, status="paid", tier=user_rec.get("tier", "single"))
+                _update_order(token, status="generating")
+                t = threading.Thread(target=_generate_in_background, args=(token,), daemon=True)
+                t.start()
+                return redirect(f"/generating/{token}")
+
     # Rich meta fetch (OG tags + embedded JSON — fast, no Playwright)
     meta = _fetch_listing_meta(airbnb_url)
 
@@ -1537,6 +1616,11 @@ def preview():
     groceries = ["Supermarket", "Convenience Store"]
     gdistances = ["4 min walk", "6 min walk"]
 
+    # Check existing credits for this email
+    user_rec = _get_user_credits(email) if email else {"credits": 0, "tier": "none"}
+    has_credits = user_rec["credits"] > 0
+    user_tier = user_rec.get("tier", "none")
+
     return render_template_string(PREVIEW_PAGE,
         token=token,
         listing_title=listing_title,
@@ -1548,6 +1632,10 @@ def preview():
         distances=distances,
         groceries=groceries,
         gdistances=gdistances,
+        has_credits=has_credits,
+        user_credits=user_rec["credits"],
+        user_tier=user_tier,
+        email=email,
     )
 
 
@@ -1829,6 +1917,25 @@ TIERS = {
 }
 
 
+@app.route("/use-credit", methods=["POST"])
+def use_credit():
+    """Use an existing credit to generate a guide (skips Stripe)."""
+    token = request.form.get("token", "").strip()
+    if not token:
+        return redirect("/")
+    order = _get_order(token)
+    if not order:
+        return redirect("/")
+    email = order["email"]
+    if _use_credit(email, token):
+        _update_order(token, status="paid", tier=order.get("tier", "single"))
+        _update_order(token, status="generating")
+        t = threading.Thread(target=_generate_in_background, args=(token,), daemon=True)
+        t.start()
+        return redirect(f"/generating/{token}")
+    return redirect(f"/preview/{token}")
+
+
 @app.route("/checkout", methods=["POST"])
 def checkout():
     """Create Stripe Checkout session for any tier."""
@@ -2042,16 +2149,21 @@ def download_pdf(token: str):
         try:
             from playwright.sync_api import sync_playwright
             with sync_playwright() as pw:
-                browser = pw.chromium.launch(headless=True)
+                browser = pw.chromium.launch(
+                    headless=True,
+                    args=["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"],
+                )
                 page = browser.new_page()
-                page.goto(f"file://{guide_path.resolve()}", wait_until="networkidle", timeout=15000)
+                page.goto(f"file://{guide_path.resolve()}", wait_until="networkidle", timeout=30000)
                 page.pdf(path=str(pdf_path), format="A4",
                          margin={"top": "15mm", "bottom": "15mm",
                                  "left": "12mm", "right": "12mm"},
                          print_background=True)
                 browser.close()
+            print(f"On-demand PDF generated: {pdf_path}")
         except Exception as e:
-            print(f"On-demand PDF generation failed: {e}")
+            import traceback
+            print(f"On-demand PDF generation failed: {e}\n{traceback.format_exc()}")
             abort(500, "Could not generate PDF")
 
     return send_file(pdf_path, mimetype="application/pdf",
@@ -2142,6 +2254,16 @@ def admin_complete(token: str):
         return jsonify({"error": "guide_path required"}), 400
     _update_order(token, status="generated", guide_path=guide_path)
     return jsonify({"ok": True, "download_url": f"/download/{token}"})
+
+
+@app.route("/admin/subscribers")
+def admin_subscribers():
+    """Export subscriber list as JSON. Requires admin auth."""
+    auth = request.headers.get("Authorization", "")
+    if auth != f"Bearer {ADMIN_SECRET}":
+        abort(401, "Unauthorized")
+    subs = _get_all_subscribers()
+    return jsonify({"count": len(subs), "subscribers": subs})
 
 
 # Static files (preview image)
