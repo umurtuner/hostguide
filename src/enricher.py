@@ -338,31 +338,37 @@ def enrich_without_api(lat: float, lng: float, city_config: dict) -> EnrichedLoc
         r_pharmacy, r_hospital = 8000, 15000
         max_restaurant, max_places = 30, 15
     else:
-        r_restaurant, r_cafe = 1000, 800
-        r_grocery, r_conv = 1200, 600
-        r_transit, r_bus = 1500, 1000
-        r_landmark, r_park = 2500, 1500
-        r_nightlife, r_club = 1200, 1500
-        r_pharmacy, r_hospital = 1200, 2500
-        max_restaurant, max_places = 20, 10
+        r_restaurant, r_cafe = 1500, 1200
+        r_grocery, r_conv = 1500, 1000
+        r_transit, r_bus = 2000, 1500
+        r_landmark, r_park = 3500, 2500
+        r_nightlife, r_club = 2000, 2500
+        r_pharmacy, r_hospital = 1500, 3000
+        max_restaurant, max_places = 25, 12
 
+    # Use node + way (not nwr which includes relations and is too heavy)
+    # way with 'out center' gives centroid coords for building-mapped places
     osm_mapping = {
-        "transit": f'[out:json];(node["railway"="station"](around:{r_transit},{{lat}},{{lng}});node["railway"="halt"](around:{r_transit},{{lat}},{{lng}});node["public_transport"="station"](around:{r_transit},{{lat}},{{lng}});node["amenity"="bus_station"](around:{r_bus},{{lat}},{{lng}}););out body {max_places};',
-        "grocery": f'[out:json];(node["shop"="supermarket"](around:{r_grocery},{{lat}},{{lng}});node["shop"="convenience"](around:{r_conv},{{lat}},{{lng}}););out body {max_places};',
-        "restaurant": f'[out:json];(node["amenity"="restaurant"](around:{r_restaurant},{{lat}},{{lng}});node["amenity"="cafe"](around:{r_cafe},{{lat}},{{lng}});node["amenity"="fast_food"](around:{r_restaurant},{{lat}},{{lng}}););out body {max_restaurant};',
-        "landmark": f'[out:json];(node["tourism"="attraction"](around:{r_landmark},{{lat}},{{lng}});node["tourism"="museum"](around:{r_landmark},{{lat}},{{lng}});way["leisure"="park"](around:{r_park},{{lat}},{{lng}});node["tourism"="viewpoint"](around:{r_landmark},{{lat}},{{lng}}););out body center {max_places};',
-        "nightlife": f'[out:json];(node["amenity"="bar"](around:{r_nightlife},{{lat}},{{lng}});node["amenity"="nightclub"](around:{r_club},{{lat}},{{lng}}););out body {max_places};',
-        "health": f'[out:json];(node["amenity"="pharmacy"](around:{r_pharmacy},{{lat}},{{lng}});node["amenity"="hospital"](around:{r_hospital},{{lat}},{{lng}}););out body 8;',
+        "transit": f'[out:json][timeout:15];(node["railway"="station"](around:{r_transit},{{lat}},{{lng}});node["railway"="halt"](around:{r_transit},{{lat}},{{lng}});node["public_transport"="station"](around:{r_transit},{{lat}},{{lng}});node["highway"="bus_stop"](around:{r_bus},{{lat}},{{lng}});node["railway"="tram_stop"](around:{r_transit},{{lat}},{{lng}}););out body {max_places};',
+        "grocery": f'[out:json][timeout:15];(node["shop"="supermarket"](around:{r_grocery},{{lat}},{{lng}});way["shop"="supermarket"](around:{r_grocery},{{lat}},{{lng}});node["shop"="convenience"](around:{r_conv},{{lat}},{{lng}});node["shop"="bakery"](around:{r_conv},{{lat}},{{lng}}););out body center {max_places};',
+        "restaurant": f'[out:json][timeout:15];(node["amenity"="restaurant"](around:{r_restaurant},{{lat}},{{lng}});way["amenity"="restaurant"](around:{r_restaurant},{{lat}},{{lng}});node["amenity"="cafe"](around:{r_cafe},{{lat}},{{lng}});way["amenity"="cafe"](around:{r_cafe},{{lat}},{{lng}});node["amenity"="fast_food"](around:{r_restaurant},{{lat}},{{lng}}););out body center {max_restaurant};',
+        "landmark": f'[out:json][timeout:15];(node["tourism"="attraction"](around:{r_landmark},{{lat}},{{lng}});node["tourism"="museum"](around:{r_landmark},{{lat}},{{lng}});way["leisure"="park"](around:{r_park},{{lat}},{{lng}});node["tourism"="viewpoint"](around:{r_landmark},{{lat}},{{lng}});node["tourism"="gallery"](around:{r_landmark},{{lat}},{{lng}}););out body center {max_places};',
+        "nightlife": f'[out:json][timeout:15];(node["amenity"="bar"](around:{r_nightlife},{{lat}},{{lng}});node["amenity"="pub"](around:{r_nightlife},{{lat}},{{lng}});node["amenity"="nightclub"](around:{r_club},{{lat}},{{lng}}););out body {max_places};',
+        "health": f'[out:json][timeout:15];(node["amenity"="pharmacy"](around:{r_pharmacy},{{lat}},{{lng}});node["amenity"="hospital"](around:{r_hospital},{{lat}},{{lng}});way["amenity"="hospital"](around:{r_hospital},{{lat}},{{lng}}););out body center 10;',
     }
 
-    overpass_url = "https://overpass-api.de/api/interpreter"
+    overpass_urls = [
+        "https://overpass-api.de/api/interpreter",
+        "https://overpass.kumi.systems/api/interpreter",
+    ]
 
     for category, query_template in osm_mapping.items():
         query = query_template.format(lat=lat, lng=lng)
         places = []
         for attempt in range(3):
             try:
-                resp = requests.post(overpass_url, data={"data": query}, timeout=20)
+                url = overpass_urls[0] if attempt < 2 else overpass_urls[1]
+                resp = requests.post(url, data={"data": query}, timeout=20)
                 if resp.status_code == 429 or resp.status_code >= 500:
                     time.sleep(3 * (attempt + 1))
                     continue
