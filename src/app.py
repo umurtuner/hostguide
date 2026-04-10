@@ -557,17 +557,20 @@ def _generate_guide_for_order(token: str) -> bool:
             print(f"No coordinates for listing {listing_id}")
             return False
 
-        # Step 2b: Reverse geocode to fill city/neighborhood if still missing
-        if not listing.city or not listing.neighborhood:
-            geo = _reverse_geocode(listing.lat, listing.lng)
-            if not listing.city and geo["city"]:
-                listing.city = geo["city"]
-            if not listing.neighborhood and geo["neighborhood"]:
-                listing.neighborhood = geo["neighborhood"]
+        # Step 2b: Reverse geocode to fill city/neighborhood/country
+        geo = _reverse_geocode(listing.lat, listing.lng)
+        if not listing.city and geo["city"]:
+            listing.city = geo["city"]
+        if not listing.neighborhood and geo["neighborhood"]:
+            listing.neighborhood = geo["neighborhood"]
+        geo_country = geo.get("country_code", "")
 
         # Step 3: Enrich with OSM Overpass (free, no API key)
         city_name = listing.city or order.get("city", "").split(",")[-1].strip()
         city_config = _get_city_config(city_name)
+        # Set country from reverse geocode if not already in config
+        if not city_config.get("country") and geo_country:
+            city_config["country"] = geo_country
         if not listing.city:
             listing.city = city_config["name"]
 

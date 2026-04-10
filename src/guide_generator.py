@@ -433,8 +433,95 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             ("Metro", "10-trip Metrobus ticket saves money. Madrid metro is fast and covers everything."),
             ("Tipping", "Not expected. Round up the bill or leave small change."),
         ],
+        "Geneva": [
+            ("Fondue", "Cafe du Soleil in Petit-Saconnex serves the best fondue in Geneva. Reservation essential."),
+            ("Lake", "Bains des Paquis is the local beach — swim in the lake, sauna in winter, fondue in their cafe."),
+            ("Transit", "Get a TPG day pass (CHF 10) for unlimited trams, buses, and boats. Tap your card."),
+            ("Sunday", "Almost everything is closed on Sundays. Stock up on Saturday. Gare Cornavin shops stay open."),
+            ("Tipping", "Not expected — service is included. Round up the bill for good service."),
+            ("Water", "Geneva tap water is excellent. The free fountains everywhere are safe to drink."),
+        ],
+        "Zürich": [
+            ("Swimming", "Locals swim in the Limmat river and Lake Zürich in summer. Seebad Utoquai is the spot."),
+            ("Transit", "ZVV day pass covers trains, trams, buses, boats. Buy at any machine or use SBB app."),
+            ("Sunday", "Shops closed on Sunday. Main station (HB) and airport shops are the exception."),
+            ("Tipping", "Not expected — service included. Round up for good service."),
+            ("Cheap eats", "Coop and Migros hot food counters are the local hack for cheap meals (CHF 8-12)."),
+        ],
+        "CH": [
+            ("Supermarkets", "Migros and Coop are the main chains. Denner and Aldi for budget shopping."),
+            ("Transit", "Swiss public transport is world-class. SBB app for all trains, buses, and boats."),
+            ("Sunday", "Most shops closed on Sunday. Gas station shops and train station shops are the exception."),
+            ("Tipping", "Service is included in prices. Rounding up the bill is a nice gesture but not expected."),
+            ("Water", "Tap water is safe and excellent everywhere. Fountains in cities are drinkable."),
+        ],
+        "PT": [
+            ("Pastel de nata", "The national pastry — find it at any pastelaria. Best warm from the oven."),
+            ("Transit", "Get a Viva Viagem card for metro/bus/tram. Costs EUR 0.50 and load rides on it."),
+            ("Lunch menu", "Menu do dia at local tascas: soup + main + drink for EUR 8-12. Best value."),
+            ("Tipping", "Not expected. Leave 5-10% for great service, or just round up."),
+            ("Coffee", "Order a 'bica' (espresso) or 'meia de leite' (latte). Coffee culture is strong."),
+        ],
+        "ES": [
+            ("Meal times", "Lunch 2-4pm, dinner 9-11pm. Restaurants are empty outside these hours."),
+            ("Tapas", "Many bars serve free tapas with drinks. Bar-hop for variety — one tapa per stop."),
+            ("Siesta", "Small shops close 2-5pm. Plan errands for morning or evening."),
+            ("Tipping", "Not expected. Round up or leave small change at restaurants."),
+        ],
+        "FR": [
+            ("Boulangerie", "Fresh bread twice daily. Go before 8am for the best croissants."),
+            ("Lunch", "Formule/menu du jour at restaurants: starter + main or main + dessert for EUR 12-18."),
+            ("Sunday", "Most shops closed. Boulangeries open Sunday morning. Markets are great on Sundays."),
+            ("Tipping", "Service included (service compris). Leave small change for exceptional service."),
+        ],
+        "IT": [
+            ("Coffee", "Stand at the bar for cheaper coffee. A cappuccino after 11am marks you as a tourist."),
+            ("Coperto", "Cover charge (EUR 1-3) at restaurants is normal, not a scam."),
+            ("Lunch", "Pranzo (lunch) menus are much cheaper than dinner. Eat your big meal at lunch."),
+            ("Tipping", "Not expected. Round up the bill or leave EUR 1-2 for good service."),
+        ],
+        "DE": [
+            ("Cash", "Germany is surprisingly cash-heavy. Many restaurants don't take cards. ATMs everywhere."),
+            ("Pfand", "Bottle deposit system — return bottles at supermarkets for EUR 0.08-0.25 back."),
+            ("Sunday", "Everything closed on Sunday except bakeries, gas stations, and restaurants."),
+            ("Tipping", "5-10% at restaurants. Say the total you want to pay when handing cash."),
+        ],
+        "GB": [
+            ("Pub culture", "Order at the bar, not at your table. No tipping at pubs."),
+            ("Transit", "Get an Oyster card or use contactless for Tube/bus. Always tap in AND out."),
+            ("Tipping", "10-12.5% at restaurants if service isn't included. Check the bill first."),
+            ("Queuing", "The British queue for everything. Cutting the line is a serious social offense."),
+        ],
+        "AE": [
+            ("Metro", "Dubai Metro is cheap (AED 3-7.5) and covers most tourist areas. Get a Nol card."),
+            ("Dress code", "Cover shoulders and knees in malls and public areas. Beachwear only at the beach."),
+            ("Tipping", "10-15% at restaurants. Round up taxi fares."),
+            ("Alcohol", "Only at licensed restaurants, hotels, and bars. Not in public."),
+            ("Friday", "Friday is the weekend. Friday brunch is a Dubai institution — book ahead."),
+        ],
+        "TH": [
+            ("Street food", "Safe and delicious. Follow the crowds — busy stalls have the freshest food."),
+            ("Temples", "Cover knees and shoulders. Remove shoes before entering. Don't point feet at Buddha."),
+            ("Tipping", "Not expected but appreciated. Round up or leave 20-50 THB at restaurants."),
+            ("Bargaining", "Expected at markets and tuk-tuks. Not at malls, 7-Elevens, or restaurants."),
+        ],
+        "JP": [
+            ("Cash", "Japan is cash-heavy. 7-Eleven ATMs accept foreign cards. Carry cash always."),
+            ("Tipping", "Never tip — it can be considered rude."),
+            ("Transit", "Get a Suica/Pasmo IC card for trains, buses, and convenience store purchases."),
+            ("Shoes", "Remove shoes when entering homes, temples, and many restaurants (look for shoe racks)."),
+        ],
     }
     city_tips = local_tips.get(city, local_tips.get(country, []))
+
+    # Generic fallback tips if no city/country match
+    if not city_tips:
+        city_tips = [
+            ("Transit", f"Check local transit apps for {city}. Ride-hailing (Uber/Bolt/local apps) usually works."),
+            ("Tipping", "Check local customs — tipping norms vary widely by country."),
+            ("Cash vs card", "Carry some local cash. Not all small shops and restaurants accept cards."),
+            ("Water", "Check if tap water is safe to drink. When in doubt, buy bottled."),
+        ]
 
     # ── Helper: build a place table from a list of places ──
     def _place_table(places: list) -> str:
@@ -599,6 +686,33 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             "Avoid Lavapies late at night if alone",
             "Dial 112 for any emergency",
         ]
+    elif country == "CH":
+        safety_items = [
+            f"{city} is extremely safe — one of the safest cities in the world",
+            "Pickpockets are rare but be aware at train stations and tourist spots",
+            "Swiss police are helpful and most speak English",
+            "Dial 112 for any emergency, 117 for police, 144 for ambulance",
+        ]
+    elif country in ("FR", "DE", "IT", "GB", "NL", "AT", "BE"):
+        safety_items = [
+            f"{city} is generally very safe",
+            "Watch for pickpockets in tourist areas and on public transport",
+            "Dial 112 for any emergency",
+            "Keep a copy of your passport — leave the original at your accommodation",
+        ]
+    elif country == "AE":
+        safety_items = [
+            f"{city} is extremely safe — very low crime rate",
+            "Public displays of affection are frowned upon",
+            "Photographing government buildings or people without consent is not allowed",
+            "Dial 999 for police, 998 for ambulance",
+        ]
+    elif country in ("TH", "JP", "SG", "KR"):
+        safety_items = [
+            f"{city} is very safe, even late at night",
+            "Respect local customs and dress codes at temples",
+            "Keep valuables secure on public transport",
+        ]
     else:
         safety_items = [
             "Use ride-hailing apps at night",
@@ -626,10 +740,19 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             ("Water", "Tap water is safe in Medellin and Bogota"),
             ("SIM card", "Claro or Movistar. Buy at any Exito supermarket"),
         ]
-    elif country in ("PT", "IE", "ES"):
+    elif country == "CH":
         info_rows = [
-            ("Emergency", "112 (all services)"),
-            ("Currency", "Euro (EUR)"),
+            ("Emergency", "112 (general), 117 (police), 144 (ambulance), 118 (fire)"),
+            ("Currency", "Swiss Franc (CHF). Cards accepted almost everywhere."),
+            ("Tipping", "Service is included. Rounding up is a nice gesture."),
+            ("Language", "Varies by region — French (Geneva), German (Zurich), Italian (Ticino). English widely spoken."),
+            ("Water", "Tap water is excellent. Public fountains are all drinkable."),
+            ("SIM card", "Swisscom, Sunrise, or Salt. Buy at any train station or electronics store."),
+        ]
+    elif country in ("PT", "IE", "ES", "FR", "IT", "DE", "NL", "AT", "BE", "GB"):
+        info_rows = [
+            ("Emergency", "112 (all services)" if country != "GB" else "999 or 112"),
+            ("Currency", "British Pound (GBP)" if country == "GB" else "Euro (EUR)"),
             ("Tipping", "Not expected. Round up or 5-10% for great service."),
             ("Water", "Tap water is safe everywhere"),
         ]
@@ -642,6 +765,18 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
         elif country == "ES":
             info_rows.append(("Language", "Spanish. English spoken in tourist areas, limited elsewhere."))
             info_rows.append(("SIM card", "Vodafone or Orange. Buy at any phone shop or El Corte Ingles."))
+        elif country == "FR":
+            info_rows.append(("Language", "French. English spoken in tourist areas and hotels."))
+            info_rows.append(("SIM card", "Free Mobile, Orange, or SFR. Buy at any tabac or phone shop."))
+        elif country == "IT":
+            info_rows.append(("Language", "Italian. English varies — better in tourist areas."))
+            info_rows.append(("SIM card", "TIM, Vodafone, or Wind. Buy at any tabacchi."))
+        elif country == "DE":
+            info_rows.append(("Language", "German. English widely spoken in cities."))
+            info_rows.append(("SIM card", "Aldi Talk or Lidl Connect — cheapest. Buy at any supermarket."))
+        elif country == "GB":
+            info_rows.append(("Language", "English"))
+            info_rows.append(("SIM card", "Three, EE, or Giffgaff. Buy at any convenience store."))
     info_table = "\n".join(f'<tr><td class="info-label">{k}</td><td>{v}</td></tr>' for k, v in info_rows)
 
     # Map section
