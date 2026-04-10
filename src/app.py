@@ -1027,9 +1027,13 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
     <div class="flex items-center gap-2.5">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="8" fill="white" fill-opacity="0.2"/>
-        <path d="M10 8v16M22 8v16M10 16h12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-        <circle cx="22" cy="10" r="3" fill="#4DB6AC"/>
-        <path d="M21 9.5l1 1 2-2" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Open book / guide -->
+        <path d="M7 10c3-1 5.5-.5 9 1v13c-3.5-1.5-6-2-9-1V10z" fill="white" fill-opacity="0.9"/>
+        <path d="M25 10c-3-1-5.5-.5-9 1v13c3.5-1.5 6-2 9-1V10z" fill="white" fill-opacity="0.7"/>
+        <!-- Map pin -->
+        <circle cx="20" cy="9" r="4" fill="#4DB6AC"/>
+        <circle cx="20" cy="8.5" r="1.5" fill="white"/>
+        <path d="M20 13l-1.5-2.5h3L20 13z" fill="#4DB6AC"/>
       </svg>
       <span class="text-white font-semibold text-lg tracking-tight">HostGuide</span>
     </div>
@@ -1425,9 +1429,11 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
     <div class="flex items-center justify-center gap-2 mb-3">
       <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="32" height="32" rx="8" fill="#00897b"/>
-        <path d="M10 8v16M22 8v16M10 16h12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-        <circle cx="22" cy="10" r="3" fill="#4DB6AC"/>
-        <path d="M21 9.5l1 1 2-2" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M7 10c3-1 5.5-.5 9 1v13c-3.5-1.5-6-2-9-1V10z" fill="white" fill-opacity="0.9"/>
+        <path d="M25 10c-3-1-5.5-.5-9 1v13c3.5-1.5 6-2 9-1V10z" fill="white" fill-opacity="0.7"/>
+        <circle cx="20" cy="9" r="4" fill="#4DB6AC"/>
+        <circle cx="20" cy="8.5" r="1.5" fill="white"/>
+        <path d="M20 13l-1.5-2.5h3L20 13z" fill="#4DB6AC"/>
       </svg>
       <span class="font-semibold text-sm">HostGuide</span>
     </div>
@@ -1531,7 +1537,7 @@ tailwind.config = {
 <nav class="gradient-hero">
   <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
     <a href="/" class="flex items-center gap-2">
-      <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="white" fill-opacity="0.15"/><path d="M10 8v16M22 8v16M10 16h12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="22" cy="10" r="3" fill="#4DB6AC"/></svg>
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="white" fill-opacity="0.15"/><path d="M7 10c3-1 5.5-.5 9 1v13c-3.5-1.5-6-2-9-1V10z" fill="white" fill-opacity="0.9"/><path d="M25 10c-3-1-5.5-.5-9 1v13c3.5-1.5 6-2 9-1V10z" fill="white" fill-opacity="0.7"/><circle cx="20" cy="9" r="4" fill="#4DB6AC"/><circle cx="20" cy="8.5" r="1.5" fill="white"/><path d="M20 13l-1.5-2.5h3L20 13z" fill="#4DB6AC"/></svg>
       <span class="font-bold text-white text-lg">HostGuide</span>
     </a>
   </div>
@@ -1977,7 +1983,7 @@ tailwind.config = {
 <nav class="gradient-hero">
   <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
     <a href="/" class="flex items-center gap-2">
-      <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="white" fill-opacity="0.15"/><path d="M10 8v16M22 8v16M10 16h12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="22" cy="10" r="3" fill="#4DB6AC"/></svg>
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="white" fill-opacity="0.15"/><path d="M7 10c3-1 5.5-.5 9 1v13c-3.5-1.5-6-2-9-1V10z" fill="white" fill-opacity="0.9"/><path d="M25 10c-3-1-5.5-.5-9 1v13c3.5-1.5 6-2 9-1V10z" fill="white" fill-opacity="0.7"/><circle cx="20" cy="9" r="4" fill="#4DB6AC"/><circle cx="20" cy="8.5" r="1.5" fill="white"/><path d="M20 13l-1.5-2.5h3L20 13z" fill="#4DB6AC"/></svg>
       <span class="font-bold text-white text-lg">HostGuide</span>
     </a>
     <span class="text-white/70 text-sm">{{ email }}</span>
