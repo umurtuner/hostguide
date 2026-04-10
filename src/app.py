@@ -1237,6 +1237,20 @@ def dashboard():
                     print(f"[dashboard] Stripe verify failed: {e}")
                 break
 
+    # If arriving from Stripe with credits, auto-generate the first guide
+    # using the Airbnb URL they already entered before payment
+    if welcome and user["credits"] > 0:
+        orders = _load_orders()
+        for tok, ord_data in sorted(orders.items(),
+                                     key=lambda x: x[1].get("created", ""), reverse=True):
+            if (ord_data.get("email", "").lower() == email
+                    and ord_data.get("airbnb_url")
+                    and ord_data.get("status") == "paid"):
+                # Use 1 credit and start generation
+                _use_credit(email, tok)
+                return redirect(f"/generating/{tok}")
+        # No matching order found — fall through to dashboard
+
     credits = user["credits"]
     tier = user["tier"]
 
