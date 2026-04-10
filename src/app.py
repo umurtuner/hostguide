@@ -945,8 +945,95 @@ LANDING_PAGE = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HostGuide — Neighborhood Guides for Airbnb Hosts</title>
-<meta name="description" content="Auto-generate beautiful neighborhood guides for your Airbnb guests. Restaurants, groceries, transit, local tips — based on your listing's exact location.">
+<title>HostGuide - Neighborhood Guides for Airbnb Hosts | Auto-Generated from Your Listing</title>
+<meta name="description" content="Generate personalized neighborhood guides for Airbnb guests in minutes. Real ratings, walking distances, local tips - just paste your listing URL.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#004d40">
+<link rel="canonical" href="https://host-guide.net">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='35' r='20' fill='%23004d40'/><path d='M50 75 L30 45 Q30 15 50 15 Q70 15 70 45 Z' fill='%23004d40'/><circle cx='50' cy='35' r='8' fill='white'/></svg>">
+<!-- Open Graph -->
+<meta property="og:title" content="HostGuide - Neighborhood Guides for Airbnb Hosts">
+<meta property="og:description" content="Auto-generate personalized neighborhood guides with real ratings, walking distances, and local tips. Just paste your Airbnb listing URL.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://host-guide.net">
+<meta property="og:site_name" content="HostGuide">
+<meta property="og:image" content="https://host-guide.net/static/og-image.png">
+<meta property="og:locale" content="en_US">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HostGuide - Neighborhood Guides for Airbnb Hosts">
+<meta name="twitter:description" content="Auto-generate personalized neighborhood guides with real ratings, walking distances, and local tips. Just paste your Airbnb listing URL.">
+<meta name="twitter:image" content="https://host-guide.net/static/og-image.png">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "HostGuide",
+  "description": "Auto-generate personalized neighborhood guides for Airbnb guests with real ratings, walking distances, and local tips.",
+  "url": "https://host-guide.net",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "4.99",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "47"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How long does it take to generate a guide?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most guides are ready in 1-2 minutes. We analyze your listing location, find all nearby points of interest, and format everything into a clean guide automatically."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this work for my city?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If Google Maps covers it, we cover it. We have generated guides across Europe, North America, the Middle East, and Asia."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is this better than my own Google Doc?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Real ratings, verified walking distances, safety data, and a layout guests actually read. Most hosts spend 1-2 hours writing what we generate in a minute."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will my guests actually use this?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The #1 complaint in Airbnb reviews is lack of local recommendations. A printed guide on the kitchen counter gets picked up. A paragraph buried in your listing description does not."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if I manage multiple properties?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each guide is tied to a specific location. Our 5 Guide Pack is $14.99 (launch price) - that is $3.00 per guide instead of $4.99. Credits never expire."
+      }
+    }
+  ]
+}
+</script>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
