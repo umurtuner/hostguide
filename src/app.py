@@ -1000,7 +1000,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
       </div>
       <button type="submit" id="submitBtn"
               class="cta-btn w-full py-3.5 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-semibold text-base">
-        Preview My Guide &mdash; Free
+        Preview My Guide - Free
       </button>
       <p id="errorMsg" class="text-red-500 text-xs text-center mt-2 hidden"></p>
       <p class="text-center text-xs text-gray-400 mt-3">See your personalized guide instantly &middot; Pay only if you want the full version</p>
@@ -1099,45 +1099,52 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
 <!-- ════════ PREVIEW ════════ -->
 <section class="max-w-3xl mx-auto px-6 mb-24 text-center">
   <h2 class="text-2xl font-bold mb-3">See What You Get</h2>
-  <p class="text-sm text-gray-500 mb-10">Here's a real guide generated for a Miami listing.</p>
-  <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 text-left">
+  <p class="text-sm text-gray-500 mb-10">A real guide generated for a Downtown Miami listing</p>
+  <div class="relative bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 text-left" style="max-height:420px;">
     <div class="bg-gradient-to-r from-teal-600 to-teal-800 px-8 py-6 text-white">
       <p class="text-xs uppercase tracking-widest opacity-70 mb-1">Neighborhood Guide</p>
       <h3 class="text-xl font-bold">Downtown Miami</h3>
-      <p class="text-sm opacity-80 mt-1">Hosted by Kevin</p>
+      <p class="text-sm opacity-80 mt-1">Hosted by Kevin &middot; 3-bedroom apartment</p>
     </div>
     <div class="p-8 grid sm:grid-cols-2 gap-6">
       <div>
-        <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3">Restaurants</h4>
+        <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3">Top Restaurants</h4>
         <ul class="space-y-2 text-sm text-gray-600">
-          <li>Zuma &mdash; <span class="text-gray-400">4 min walk</span></li>
-          <li>Cipriani &mdash; <span class="text-gray-400">6 min walk</span></li>
-          <li>La Mar by Gaston &mdash; <span class="text-gray-400">3 min walk</span></li>
+          <li>Zuma - <span class="text-yellow-500">&#9733;</span> 4.6 <span class="text-gray-400">&middot; 4 min walk</span></li>
+          <li>Cipriani - <span class="text-yellow-500">&#9733;</span> 4.4 <span class="text-gray-400">&middot; 6 min walk</span></li>
+          <li>La Mar by Gaston - <span class="text-yellow-500">&#9733;</span> 4.5 <span class="text-gray-400">&middot; 3 min walk</span></li>
         </ul>
       </div>
       <div>
-        <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3">Groceries</h4>
+        <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3">Groceries &amp; Essentials</h4>
         <ul class="space-y-2 text-sm text-gray-600">
-          <li>Whole Foods Brickell &mdash; <span class="text-gray-400">7 min walk</span></li>
-          <li>Publix Downtown &mdash; <span class="text-gray-400">5 min drive</span></li>
+          <li>Whole Foods Brickell - <span class="text-yellow-500">&#9733;</span> 4.3 <span class="text-gray-400">&middot; 7 min walk</span></li>
+          <li>Publix Downtown - <span class="text-yellow-500">&#9733;</span> 4.2 <span class="text-gray-400">&middot; 5 min drive</span></li>
         </ul>
       </div>
       <div>
         <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3">Landmarks</h4>
         <ul class="space-y-2 text-sm text-gray-600">
-          <li>Bayfront Park &mdash; <span class="text-gray-400">2 min walk</span></li>
-          <li>Perez Art Museum &mdash; <span class="text-gray-400">8 min walk</span></li>
+          <li>Bayfront Park - <span class="text-yellow-500">&#9733;</span> 4.7 <span class="text-gray-400">&middot; 2 min walk</span></li>
+          <li>Perez Art Museum - <span class="text-yellow-500">&#9733;</span> 4.6 <span class="text-gray-400">&middot; 8 min walk</span></li>
         </ul>
       </div>
       <div>
         <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3">Local Tips</h4>
         <ul class="space-y-2 text-sm text-gray-600">
-          <li>Free Metromover downtown</li>
-          <li>Best coffee: Per'La</li>
+          <li>Free Metromover covers downtown</li>
+          <li>Best coffee: Per'La on Brickell</li>
+          <li>Uber works everywhere - skip rental</li>
         </ul>
       </div>
     </div>
-    <div class="border-t border-gray-100 px-8 py-3 text-xs text-gray-400 text-center">This is a preview &mdash; your guide will be fully personalized to your listing</div>
+    <!-- Fade overlay to crop effect -->
+    <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-50 to-transparent pointer-events-none"></div>
+    <div class="absolute bottom-4 left-0 right-0 text-center pointer-events-none">
+      <span class="inline-block bg-white/90 backdrop-blur-sm text-teal-700 text-sm font-semibold px-5 py-2 rounded-full shadow-sm border border-teal-100 pointer-events-auto">
+        + Safety tips, transit, useful info &amp; more &darr;
+      </span>
+    </div>
   </div>
 </section>
 
@@ -1420,9 +1427,9 @@ tailwind.config = {
           Restaurants Nearby
         </h4>
         <ul class="space-y-2 text-sm text-gray-600">
-          <li>{{ restaurants[0] if restaurants else 'Loading...' }} &mdash; <span class="text-gray-400">{{ distances[0] if distances else '' }}</span></li>
-          <li>{{ restaurants[1] if restaurants|length > 1 else '...' }} &mdash; <span class="text-gray-400">{{ distances[1] if distances|length > 1 else '' }}</span></li>
-          <li class="blur-light text-gray-400">{{ restaurants[2] if restaurants|length > 2 else '...' }} &mdash; <span>{{ distances[2] if distances|length > 2 else '' }}</span></li>
+          <li>{{ restaurants[0] if restaurants else 'Loading...' }} - <span class="text-gray-400">{{ distances[0] if distances else '' }}</span></li>
+          <li>{{ restaurants[1] if restaurants|length > 1 else '...' }} - <span class="text-gray-400">{{ distances[1] if distances|length > 1 else '' }}</span></li>
+          <li class="blur-light text-gray-400">{{ restaurants[2] if restaurants|length > 2 else '...' }} - <span>{{ distances[2] if distances|length > 2 else '' }}</span></li>
         </ul>
       </div>
       <div>
@@ -1431,8 +1438,8 @@ tailwind.config = {
           Groceries
         </h4>
         <ul class="space-y-2 text-sm text-gray-600">
-          <li>{{ groceries[0] if groceries else 'Loading...' }} &mdash; <span class="text-gray-400">{{ gdistances[0] if gdistances else '' }}</span></li>
-          <li class="blur-light text-gray-400">{{ groceries[1] if groceries|length > 1 else '...' }} &mdash; <span>{{ gdistances[1] if gdistances|length > 1 else '' }}</span></li>
+          <li>{{ groceries[0] if groceries else 'Loading...' }} - <span class="text-gray-400">{{ gdistances[0] if gdistances else '' }}</span></li>
+          <li class="blur-light text-gray-400">{{ groceries[1] if groceries|length > 1 else '...' }} - <span>{{ gdistances[1] if gdistances|length > 1 else '' }}</span></li>
         </ul>
       </div>
     </div>
@@ -1443,31 +1450,31 @@ tailwind.config = {
         <div>
           <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3">Transit & Transport</h4>
           <ul class="space-y-2 text-sm text-gray-600">
-            <li>Metro Station Central &mdash; <span class="text-gray-400">4 min walk</span></li>
-            <li>Bus Line 42 Stop &mdash; <span class="text-gray-400">2 min walk</span></li>
-            <li>Taxi Rank &mdash; <span class="text-gray-400">6 min walk</span></li>
+            <li>Metro Station Central - <span class="text-gray-400">4 min walk</span></li>
+            <li>Bus Line 42 Stop - <span class="text-gray-400">2 min walk</span></li>
+            <li>Taxi Rank - <span class="text-gray-400">6 min walk</span></li>
           </ul>
         </div>
         <div>
           <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3">Landmarks & Parks</h4>
           <ul class="space-y-2 text-sm text-gray-600">
-            <li>Central Park &mdash; <span class="text-gray-400">8 min walk</span></li>
-            <li>Art Museum &mdash; <span class="text-gray-400">12 min walk</span></li>
-            <li>Historic District &mdash; <span class="text-gray-400">5 min walk</span></li>
+            <li>Central Park - <span class="text-gray-400">8 min walk</span></li>
+            <li>Art Museum - <span class="text-gray-400">12 min walk</span></li>
+            <li>Historic District - <span class="text-gray-400">5 min walk</span></li>
           </ul>
         </div>
         <div>
           <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3">Nightlife</h4>
           <ul class="space-y-2 text-sm text-gray-600">
-            <li>Rooftop Bar &mdash; <span class="text-gray-400">3 min walk</span></li>
-            <li>Jazz Club &mdash; <span class="text-gray-400">7 min walk</span></li>
+            <li>Rooftop Bar - <span class="text-gray-400">3 min walk</span></li>
+            <li>Jazz Club - <span class="text-gray-400">7 min walk</span></li>
           </ul>
         </div>
         <div>
           <h4 class="text-xs font-bold text-teal-700 uppercase tracking-wide mb-3">Health & Safety</h4>
           <ul class="space-y-2 text-sm text-gray-600">
-            <li>Pharmacy &mdash; <span class="text-gray-400">3 min walk</span></li>
-            <li>Hospital &mdash; <span class="text-gray-400">10 min drive</span></li>
+            <li>Pharmacy - <span class="text-gray-400">3 min walk</span></li>
+            <li>Hospital - <span class="text-gray-400">10 min drive</span></li>
           </ul>
         </div>
       </div>

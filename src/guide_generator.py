@@ -1,4 +1,4 @@
-"""Guest guide generator — creates personalized PDF/HTML guides per listing.
+"""Guest guide generator -creates personalized PDF/HTML guides per listing.
 
 Uses Claude API to write engaging, localized guide content.
 Falls back to template-based generation if no API key.
@@ -41,9 +41,9 @@ def _format_place(p: Place) -> str:
     stars = f" ({'★' * int(p.rating)}{'☆' * (5 - int(p.rating))} {p.rating})" if p.rating else ""
     price = " · " + "$" * p.price_level if p.price_level else ""
     if p.distance_m > 0:
-        return f"- **{p.name}**{stars}{price} — {p.walking_min} min walk ({p.distance_m}m)"
+        return f"- **{p.name}**{stars}{price} -{p.walking_min} min walk ({p.distance_m}m)"
     elif p.address:
-        return f"- **{p.name}**{stars}{price} — {p.address}"
+        return f"- **{p.name}**{stars}{price} -{p.address}"
     else:
         return f"- **{p.name}**{stars}{price}"
 
@@ -83,8 +83,8 @@ Write the guide in this structure:
 3. Eating & Drinking (top nearby restaurants + cafes, with walking times)
 4. Groceries & Essentials (nearest supermarket, pharmacy, ATM)
 5. Things to See & Do (landmarks, parks, museums nearby)
-6. Nightlife (if applicable — bars, clubs)
-7. Safety Tips (specific to {city_config['name']} — practical, not scary)
+6. Nightlife (if applicable -bars, clubs)
+7. Safety Tips (specific to {city_config['name']} -practical, not scary)
 8. Useful Info (emergency numbers, tipping customs, language basics)
 
 Style: Friendly, concise, useful. Like a friend who lives there.
@@ -124,7 +124,7 @@ def _generate_template(listing: Listing, enriched: EnrichedLocation,
     if country == "CO":
         sections.append(f"**Taxi apps:** Uber, InDriver, DiDi all work in {city}. "
                         f"Always confirm the fare before getting in.")
-        sections.append("**Tip:** Taxis are cheap but use apps — avoid hailing on the street at night.\n")
+        sections.append("**Tip:** Taxis are cheap but use apps -avoid hailing on the street at night.\n")
     elif country == "US":
         sections.append(f"**Ride apps:** Uber and Lyft work everywhere in {city}.")
         if city in ("Miami", "Orlando", "Tampa", "Destin", "Scottsdale", "Austin", "Nashville"):
@@ -142,16 +142,16 @@ def _generate_template(listing: Listing, enriched: EnrichedLocation,
             sections.append(_format_place(p))
         sections.append("")
     if country == "CO":
-        sections.append("**Local tip:** Try a *corrientazo* (set lunch) at any local restaurant — "
+        sections.append("**Local tip:** Try a *corrientazo* (set lunch) at any local restaurant -"
                         "full meal for ~10,000 COP ($2.50). *Bandeja paisa* is the must-try dish.\n")
     elif city == "Miami":
         sections.append("**Local tip:** Try Cuban coffee (*colada*) from a ventanita window. "
                         "Calle Ocho in Little Havana has the best. Tip 18-20% at restaurants.\n")
     elif city == "Austin":
-        sections.append("**Local tip:** BBQ is king — Franklin, la Barbecue, or Micklethwait. "
+        sections.append("**Local tip:** BBQ is king -Franklin, la Barbecue, or Micklethwait. "
                         "Lines can be 2+ hours so arrive early or use pickup. Tip 20%.\n")
     elif city == "Nashville":
-        sections.append("**Local tip:** Hot chicken is a must — try Hattie B's, Prince's, or Bolton's. "
+        sections.append("**Local tip:** Hot chicken is a must -try Hattie B's, Prince's, or Bolton's. "
                         "Start with 'medium' if you're not sure. Broadway honky-tonks are free to enter.\n")
     elif city == "Savannah":
         sections.append("**Local tip:** Open container is legal in the Historic District (in a plastic cup). "
@@ -161,13 +161,13 @@ def _generate_template(listing: Listing, enriched: EnrichedLocation,
                         "In summer it's 110°F+ so pool time is essential. Tip 20% at restaurants.\n")
     elif city == "Orlando":
         sections.append("**Local tip:** Theme park tickets are cheaper on reseller sites. "
-                        "Eat at Disney Springs — no park ticket needed. Tip 18-20%.\n")
+                        "Eat at Disney Springs -no park ticket needed. Tip 18-20%.\n")
     elif city == "Tampa":
         sections.append("**Local tip:** Ybor City has the best nightlife and Cuban sandwiches. "
                         "Bayshore Boulevard is great for a waterfront walk. Tip 18-20%.\n")
     elif city == "Destin":
         sections.append("**Local tip:** Harbor Boardwalk has great seafood restaurants. "
-                        "Rent a pontoon boat at Crab Island — the locals' favorite. Tip 18-20%.\n")
+                        "Rent a pontoon boat at Crab Island -the locals' favorite. Tip 18-20%.\n")
 
     # Groceries
     sections.append("## 🛒 Groceries & Essentials\n")
@@ -208,9 +208,9 @@ def _generate_template(listing: Listing, enriched: EnrichedLocation,
         sections.append("- Avoid La Candelaria after dark unless in a group")
         sections.append("- Use Uber/InDriver, not street taxis")
         sections.append("- Don't walk with headphones in quiet streets")
-        sections.append("- Altitude (2,640m) — take it easy the first day, drink lots of water\n")
+        sections.append("- Altitude (2,640m) -take it easy the first day, drink lots of water\n")
     elif country == "US":
-        sections.append(f"- {neighborhood} is generally safe — use common sense")
+        sections.append(f"- {neighborhood} is generally safe -use common sense")
         sections.append("- Lock your car and don't leave valuables visible")
         sections.append("- Use Uber/Lyft late at night, especially after drinking")
         if city == "Miami":
@@ -220,14 +220,14 @@ def _generate_template(listing: Listing, enriched: EnrichedLocation,
             sections.append("- Lower Broadway is safe but very crowded on weekends")
             sections.append("- Avoid walking alone in North Nashville late at night")
         elif city == "Austin":
-            sections.append("- 6th Street gets rowdy late on weekends — stick to Rainey or East Austin")
-            sections.append("- Drink lots of water — Texas heat is serious")
+            sections.append("- 6th Street gets rowdy late on weekends -stick to Rainey or East Austin")
+            sections.append("- Drink lots of water -Texas heat is serious")
         elif city == "Scottsdale":
-            sections.append("- Hydrate constantly in summer — heat stroke is a real risk")
+            sections.append("- Hydrate constantly in summer -heat stroke is a real risk")
             sections.append("- Watch for rattlesnakes on desert hiking trails")
         elif city in ("Orlando", "Tampa", "Destin"):
-            sections.append("- Afternoon thunderstorms are daily in summer — they pass quickly")
-            sections.append("- Use sunscreen — Florida sun is stronger than you think")
+            sections.append("- Afternoon thunderstorms are daily in summer -they pass quickly")
+            sections.append("- Use sunscreen -Florida sun is stronger than you think")
         sections.append("- Dial 911 for any emergency\n")
     else:
         sections.append("- Use ride-hailing apps at night")
@@ -318,7 +318,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             places = [p for p in places if p.name.strip().lower() not in ZOO_ANIMAL_FILTER]
         setattr(enriched, attr, places)
 
-    # Build place rows — print-friendly with real addresses
+    # Build place rows -print-friendly with real addresses
     # US = driving distances for anything > 1km, walkable cities = walking
     is_driving_city = country == "US"
 
@@ -363,7 +363,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             ("Tipping", "18-20% at sit-down restaurants. $1-2 per drink at bars. Valet is $2-5."),
         ],
         "Austin": [
-            ("BBQ", "Franklin, la Barbecue, or Micklethwait. Lines can be 2+ hours — arrive early or order pickup."),
+            ("BBQ", "Franklin, la Barbecue, or Micklethwait. Lines can be 2+ hours -arrive early or order pickup."),
             ("Live music", "6th Street for tourists, Rainey Street for locals. Most venues have no cover."),
             ("Tacos", "Breakfast tacos are religion here. Veracruz All Natural and Torchy's are top picks."),
             ("Swimming", "Barton Springs Pool ($5) stays 68F year-round. Best on a hot afternoon."),
@@ -377,7 +377,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             ("Tipping", "20% at restaurants. Tip the bands on Broadway ($5-10 per song request)."),
         ],
         "Savannah": [
-            ("Open container", "Legal in the Historic District — but must be in a plastic cup (16oz max)."),
+            ("Open container", "Legal in the Historic District -but must be in a plastic cup (16oz max)."),
             ("Food", "River Street and City Market have the best restaurants. Try Mrs. Wilkes for family-style."),
             ("Squares", "Walk the 22 historic squares. Each one is different. Forsyth Park is the best."),
             ("Ghost tours", "Savannah is 'America's most haunted city'. Tours run nightly from City Market."),
@@ -390,9 +390,9 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
         ],
         "Orlando": [
             ("Theme parks", "Tickets are cheaper on reseller sites (Undercover Tourist, Park Savers)."),
-            ("Food", "Eat at Disney Springs or Universal CityWalk — no park ticket needed."),
+            ("Food", "Eat at Disney Springs or Universal CityWalk -no park ticket needed."),
             ("Outlets", "Orlando Premium Outlets (Vineland) has the best deals. Go on weekdays."),
-            ("Weather", "Afternoon thunderstorms daily in summer. They pass in 30 min — just wait it out."),
+            ("Weather", "Afternoon thunderstorms daily in summer. They pass in 30 min -just wait it out."),
         ],
         "Tampa": [
             ("Ybor City", "Best nightlife and Cuban sandwiches. Columbia Restaurant is a must."),
@@ -402,18 +402,18 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
         ],
         "Destin": [
             ("Seafood", "Harbor Boardwalk has the best restaurants. AJ's is the classic."),
-            ("Crab Island", "Rent a pontoon boat and anchor at Crab Island — the locals' #1 thing to do."),
+            ("Crab Island", "Rent a pontoon boat and anchor at Crab Island -the locals' #1 thing to do."),
             ("Beaches", "Crystal Beach and Henderson Park are less crowded than the main strip."),
             ("Fishing", "Book a charter from Destin Harbor. It's called 'the world's luckiest fishing village'."),
         ],
         "CO": [
-            ("Lunch deal", "Try a corrientazo (set lunch) at any local restaurant — full meal for ~10,000 COP ($2.50)."),
+            ("Lunch deal", "Try a corrientazo (set lunch) at any local restaurant -full meal for ~10,000 COP ($2.50)."),
             ("Must-try", "Bandeja paisa is the national dish. Arepas for breakfast."),
             ("Coffee", "Colombia has the best coffee in the world. Order a tinto (black coffee) anywhere."),
             ("Bargaining", "Fine in markets and with taxi drivers. Not appropriate in restaurants or stores."),
         ],
         "Lisbon": [
-            ("Pasteis", "Pasteis de nata from Manteigaria or Time Out Market. Skip Pasteis de Belem — same recipe, longer line."),
+            ("Pasteis", "Pasteis de nata from Manteigaria or Time Out Market. Skip Pasteis de Belem -same recipe, longer line."),
             ("Transit", "Get a Viva Viagem card at any metro station. Works on trams, buses, ferries, and metro."),
             ("Tram 28", "Iconic but packed with tourists and pickpockets. Take it early morning or skip for the 12E."),
             ("Food", "Lunch menus (menu do dia) at local tascas are 8-12 EUR for soup + main + drink."),
@@ -428,24 +428,24 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
         ],
         "Madrid": [
             ("Meal times", "Lunch 2-4pm, dinner 9-11pm. Restaurants are empty before these times."),
-            ("Tapas", "Free tapas with drinks in La Latina and Lavapies. Bar-hop — one tapa per bar."),
+            ("Tapas", "Free tapas with drinks in La Latina and Lavapies. Bar-hop -one tapa per bar."),
             ("Churros", "Chocolateria San Gines (open since 1894) for churros con chocolate. Go after midnight."),
             ("Metro", "10-trip Metrobus ticket saves money. Madrid metro is fast and covers everything."),
             ("Tipping", "Not expected. Round up the bill or leave small change."),
         ],
         "Geneva": [
             ("Fondue", "Cafe du Soleil in Petit-Saconnex serves the best fondue in Geneva. Reservation essential."),
-            ("Lake", "Bains des Paquis is the local beach — swim in the lake, sauna in winter, fondue in their cafe."),
+            ("Lake", "Bains des Paquis is the local beach -swim in the lake, sauna in winter, fondue in their cafe."),
             ("Transit", "Get a TPG day pass (CHF 10) for unlimited trams, buses, and boats. Tap your card."),
             ("Sunday", "Almost everything is closed on Sundays. Stock up on Saturday. Gare Cornavin shops stay open."),
-            ("Tipping", "Not expected — service is included. Round up the bill for good service."),
+            ("Tipping", "Not expected -service is included. Round up the bill for good service."),
             ("Water", "Geneva tap water is excellent. The free fountains everywhere are safe to drink."),
         ],
         "Zürich": [
             ("Swimming", "Locals swim in the Limmat river and Lake Zürich in summer. Seebad Utoquai is the spot."),
             ("Transit", "ZVV day pass covers trains, trams, buses, boats. Buy at any machine or use SBB app."),
             ("Sunday", "Shops closed on Sunday. Main station (HB) and airport shops are the exception."),
-            ("Tipping", "Not expected — service included. Round up for good service."),
+            ("Tipping", "Not expected -service included. Round up for good service."),
             ("Cheap eats", "Coop and Migros hot food counters are the local hack for cheap meals (CHF 8-12)."),
         ],
         "CH": [
@@ -456,7 +456,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             ("Water", "Tap water is safe and excellent everywhere. Fountains in cities are drinkable."),
         ],
         "PT": [
-            ("Pastel de nata", "The national pastry — find it at any pastelaria. Best warm from the oven."),
+            ("Pastel de nata", "The national pastry -find it at any pastelaria. Best warm from the oven."),
             ("Transit", "Get a Viva Viagem card for metro/bus/tram. Costs EUR 0.50 and load rides on it."),
             ("Lunch menu", "Menu do dia at local tascas: soup + main + drink for EUR 8-12. Best value."),
             ("Tipping", "Not expected. Leave 5-10% for great service, or just round up."),
@@ -464,7 +464,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
         ],
         "ES": [
             ("Meal times", "Lunch 2-4pm, dinner 9-11pm. Restaurants are empty outside these hours."),
-            ("Tapas", "Many bars serve free tapas with drinks. Bar-hop for variety — one tapa per stop."),
+            ("Tapas", "Many bars serve free tapas with drinks. Bar-hop for variety -one tapa per stop."),
             ("Siesta", "Small shops close 2-5pm. Plan errands for morning or evening."),
             ("Tipping", "Not expected. Round up or leave small change at restaurants."),
         ],
@@ -482,7 +482,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
         ],
         "DE": [
             ("Cash", "Germany is surprisingly cash-heavy. Many restaurants don't take cards. ATMs everywhere."),
-            ("Pfand", "Bottle deposit system — return bottles at supermarkets for EUR 0.08-0.25 back."),
+            ("Pfand", "Bottle deposit system -return bottles at supermarkets for EUR 0.08-0.25 back."),
             ("Sunday", "Everything closed on Sunday except bakeries, gas stations, and restaurants."),
             ("Tipping", "5-10% at restaurants. Say the total you want to pay when handing cash."),
         ],
@@ -497,17 +497,17 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             ("Dress code", "Cover shoulders and knees in malls and public areas. Beachwear only at the beach."),
             ("Tipping", "10-15% at restaurants. Round up taxi fares."),
             ("Alcohol", "Only at licensed restaurants, hotels, and bars. Not in public."),
-            ("Friday", "Friday is the weekend. Friday brunch is a Dubai institution — book ahead."),
+            ("Friday", "Friday is the weekend. Friday brunch is a Dubai institution -book ahead."),
         ],
         "TH": [
-            ("Street food", "Safe and delicious. Follow the crowds — busy stalls have the freshest food."),
+            ("Street food", "Safe and delicious. Follow the crowds -busy stalls have the freshest food."),
             ("Temples", "Cover knees and shoulders. Remove shoes before entering. Don't point feet at Buddha."),
             ("Tipping", "Not expected but appreciated. Round up or leave 20-50 THB at restaurants."),
             ("Bargaining", "Expected at markets and tuk-tuks. Not at malls, 7-Elevens, or restaurants."),
         ],
         "JP": [
             ("Cash", "Japan is cash-heavy. 7-Eleven ATMs accept foreign cards. Carry cash always."),
-            ("Tipping", "Never tip — it can be considered rude."),
+            ("Tipping", "Never tip -it can be considered rude."),
             ("Transit", "Get a Suica/Pasmo IC card for trains, buses, and convenience store purchases."),
             ("Shoes", "Remove shoes when entering homes, temples, and many restaurants (look for shoe racks)."),
         ],
@@ -518,7 +518,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
     if not city_tips:
         city_tips = [
             ("Transit", f"Check local transit apps for {city}. Ride-hailing (Uber/Bolt/local apps) usually works."),
-            ("Tipping", "Check local customs — tipping norms vary widely by country."),
+            ("Tipping", "Check local customs -tipping norms vary widely by country."),
             ("Cash vs card", "Carry some local cash. Not all small shops and restaurants accept cards."),
             ("Water", "Check if tap water is safe to drink. When in doubt, buy bottled."),
         ]
@@ -582,7 +582,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
     taxi_tip = ""
     if country == "CO":
         ride_info = f"<strong>Taxi apps:</strong> Uber, InDriver, DiDi all work in {city}. Always confirm the fare."
-        taxi_tip = "<p>Taxis are cheap but use apps — avoid hailing on the street at night.</p>"
+        taxi_tip = "<p>Taxis are cheap but use apps -avoid hailing on the street at night.</p>"
     elif country == "US":
         ride_info = f"<strong>Ride apps:</strong> Uber and Lyft work everywhere in {city}."
         if city in ("Miami", "Orlando", "Tampa", "Destin", "Scottsdale", "Austin", "Nashville"):
@@ -614,7 +614,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
     elif country in ("NG", "KE", "ZA", "GH", "TZ"):
         ride_info = f"<strong>Taxi apps:</strong> Uber and Bolt work in {city}."
     else:
-        # Europe and all other countries — Uber + Bolt is the safest generic combo
+        # Europe and all other countries -Uber + Bolt is the safest generic combo
         ride_info = f"<strong>Taxi apps:</strong> Uber and Bolt work in {city}. Check locally for other options."
     transit_tbl = _place_table(enriched.transit[:3]) if enriched.transit else ""
     transit_html = f'''<section class="section">
@@ -666,11 +666,11 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             "Avoid La Candelaria after dark unless in a group",
             "Use Uber/InDriver, not street taxis",
             "Don't walk with headphones in quiet streets",
-            "Altitude (2,640m) — take it easy the first day, drink lots of water",
+            "Altitude (2,640m) -take it easy the first day, drink lots of water",
         ]
     elif country == "US":
         safety_items = [
-            f"{neighborhood} is generally safe — use common sense",
+            f"{neighborhood} is generally safe -use common sense",
             "Lock your car and don't leave valuables visible",
             "Use Uber/Lyft late at night, especially after drinking",
         ]
@@ -681,39 +681,39 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             safety_items += ["Lower Broadway is safe but very crowded on weekends",
                              "Avoid walking alone in North Nashville late at night"]
         elif city == "Austin":
-            safety_items += ["6th Street gets rowdy late on weekends — try Rainey or East Austin",
-                             "Drink lots of water — Texas heat is serious"]
+            safety_items += ["6th Street gets rowdy late on weekends -try Rainey or East Austin",
+                             "Drink lots of water -Texas heat is serious"]
         elif city == "Scottsdale":
-            safety_items += ["Hydrate constantly in summer — heat stroke is a real risk",
+            safety_items += ["Hydrate constantly in summer -heat stroke is a real risk",
                              "Watch for rattlesnakes on desert hiking trails"]
         elif city in ("Orlando", "Tampa", "Destin"):
-            safety_items += ["Afternoon thunderstorms are daily in summer — they pass quickly",
-                             "Use sunscreen — Florida sun is stronger than you think"]
+            safety_items += ["Afternoon thunderstorms are daily in summer -they pass quickly",
+                             "Use sunscreen -Florida sun is stronger than you think"]
         safety_items.append("Dial 911 for any emergency")
     elif city == "Lisbon":
         safety_items = [
-            "Lisbon is very safe — one of the safest capitals in Europe",
+            "Lisbon is very safe -one of the safest capitals in Europe",
             "Watch for pickpockets on Tram 28 and in Baixa/Rossio",
-            "Cobblestone streets are slippery — wear flat shoes",
+            "Cobblestone streets are slippery -wear flat shoes",
             "Dial 112 for any emergency",
         ]
     elif city == "Dublin":
         safety_items = [
-            "Dublin is generally safe — use common sense at night",
+            "Dublin is generally safe -use common sense at night",
             "Avoid walking alone through Phoenix Park after dark",
             "O'Connell Street can be rowdy late on weekends",
             "Dial 112 or 999 for any emergency",
         ]
     elif city == "Madrid":
         safety_items = [
-            "Madrid is very safe — locals are out until 2-3am regularly",
+            "Madrid is very safe -locals are out until 2-3am regularly",
             "Watch for pickpockets on Gran Via and in the metro",
             "Avoid Lavapies late at night if alone",
             "Dial 112 for any emergency",
         ]
     elif country == "CH":
         safety_items = [
-            f"{city} is extremely safe — one of the safest cities in the world",
+            f"{city} is extremely safe -one of the safest cities in the world",
             "Pickpockets are rare but be aware at train stations and tourist spots",
             "Swiss police are helpful and most speak English",
             "Dial 112 for any emergency, 117 for police, 144 for ambulance",
@@ -723,11 +723,11 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             f"{city} is generally very safe",
             "Watch for pickpockets in tourist areas and on public transport",
             "Dial 112 for any emergency",
-            "Keep a copy of your passport — leave the original at your accommodation",
+            "Keep a copy of your passport -leave the original at your accommodation",
         ]
     elif country == "AE":
         safety_items = [
-            f"{city} is extremely safe — very low crime rate",
+            f"{city} is extremely safe -very low crime rate",
             "Public displays of affection are frowned upon",
             "Photographing government buildings or people without consent is not allowed",
             "Dial 999 for police, 998 for ambulance",
@@ -770,7 +770,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             ("Emergency", "112 (general), 117 (police), 144 (ambulance), 118 (fire)"),
             ("Currency", "Swiss Franc (CHF). Cards accepted almost everywhere."),
             ("Tipping", "Service is included. Rounding up is a nice gesture."),
-            ("Language", "Varies by region — French (Geneva), German (Zurich), Italian (Ticino). English widely spoken."),
+            ("Language", "Varies by region -French (Geneva), German (Zurich), Italian (Ticino). English widely spoken."),
             ("Water", "Tap water is excellent. Public fountains are all drinkable."),
             ("SIM card", "Swisscom, Sunrise, or Salt. Buy at any train station or electronics store."),
         ]
@@ -794,11 +794,11 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             info_rows.append(("Language", "French. English spoken in tourist areas and hotels."))
             info_rows.append(("SIM card", "Free Mobile, Orange, or SFR. Buy at any tabac or phone shop."))
         elif country == "IT":
-            info_rows.append(("Language", "Italian. English varies — better in tourist areas."))
+            info_rows.append(("Language", "Italian. English varies -better in tourist areas."))
             info_rows.append(("SIM card", "TIM, Vodafone, or Wind. Buy at any tabacchi."))
         elif country == "DE":
             info_rows.append(("Language", "German. English widely spoken in cities."))
-            info_rows.append(("SIM card", "Aldi Talk or Lidl Connect — cheapest. Buy at any supermarket."))
+            info_rows.append(("SIM card", "Aldi Talk or Lidl Connect -cheapest. Buy at any supermarket."))
         elif country == "GB":
             info_rows.append(("Language", "English"))
             info_rows.append(("SIM card", "Three, EE, or Giffgaff. Buy at any convenience store."))
@@ -820,7 +820,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
                 </a>
                 <p class="map-link"><a href="{gmaps_link}" target="_blank">Open in Google Maps</a></p>
             </div>
-            <p class="print-only map-coords">GPS: {lat}, {lng} — search in Google Maps or scan QR code on back page</p>
+            <p class="print-only map-coords">GPS: {lat}, {lng} -search in Google Maps or scan QR code on back page</p>
         </section>'''
 
     # ── City color themes (primary, dark, light bg) ──
@@ -846,7 +846,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guest Guide — {neighborhood}, {city}</title>
+<title>Guest Guide -{neighborhood}, {city}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
@@ -1208,7 +1208,7 @@ body {{
     <!-- Hero -->
     <div class="hero">
         <h1>Your Guide to {neighborhood}</h1>
-        <p class="hero-sub">{city} — prepared by your host</p>
+        <p class="hero-sub">{city} -prepared by your host</p>
         <p class="hero-host">Hosted by {host}</p>
     </div>
 
