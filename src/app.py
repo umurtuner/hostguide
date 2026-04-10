@@ -1817,6 +1817,7 @@ def dashboard():
         tier=tier,
         past_guides=past_guides,
         welcome=welcome,
+        domain=DOMAIN,
     )
 
 
@@ -1949,7 +1950,11 @@ tailwind.config = {
           <p class="font-medium text-sm">{{ g.city or 'Guide' }}</p>
           <p class="text-xs text-gray-400 truncate max-w-xs">{{ g.url }}</p>
         </div>
-        <a href="/download/{{ g.token }}" class="text-sm text-teal-600 font-semibold hover:underline">View</a>
+        <div class="flex items-center gap-3">
+          <button onclick="navigator.clipboard.writeText('{{ domain }}/download/{{ g.token }}');this.textContent='Copied!';setTimeout(()=>this.textContent='Share',1500)"
+            class="text-sm text-gray-500 hover:text-teal-600 font-medium cursor-pointer bg-transparent border-0">Share</button>
+          <a href="/download/{{ g.token }}" class="text-sm text-teal-600 font-semibold hover:underline">View</a>
+        </div>
       </div>
       {% endfor %}
     </div>
@@ -2172,7 +2177,10 @@ def download(token: str):
       <a href="{dash_link}" style="font-size:13px;color:#00796b;text-decoration:none;font-weight:600;">
         &larr; Dashboard
       </a>
-      <div style="display:flex;gap:10px;">
+      <div style="display:flex;gap:10px;align-items:center;">
+        <button onclick="navigator.clipboard.writeText(window.location.href);this.textContent='Copied!';setTimeout(()=>this.textContent='Share Link',1500)"
+           style="font-size:12px;padding:6px 14px;background:#e0f2f1;color:#00796b;border:1px solid #b2dfdb;
+           border-radius:6px;cursor:pointer;font-weight:500;">Share Link</button>
         <a href="/download/{token}/pdf" style="font-size:12px;padding:6px 14px;background:#00796b;color:#fff;
            border-radius:6px;text-decoration:none;font-weight:500;">Download PDF</a>
       </div>
