@@ -150,7 +150,7 @@ def _get_order(token: str) -> dict | None:
         order = orders.get(token)
         if not order:
             return None
-    # Check expiry (only for single-purchase guides, not subscription users)
+    # Check expiry (single guides expire in 24h, pack credits don't)
     if order["status"] == "generated" and order.get("expires"):
         if datetime.utcnow() > datetime.fromisoformat(order["expires"]):
             order["status"] = "expired"
@@ -250,7 +250,7 @@ def _add_credits(email: str, amount: int, tier: str = "single",
             return
         user["processed_payments"].append(dedup_key)
     user["credits"] += amount
-    # Don't downgrade tier: single purchase shouldn't overwrite active subscription
+    # Don't downgrade tier: single purchase shouldn't overwrite active pack
     current_tier = user.get("tier", "none")
     tier_priority = {"none": 0, "single": 1, "starter": 2, "pro": 3}
     if tier_priority.get(tier, 0) >= tier_priority.get(current_tier, 0):
@@ -597,7 +597,7 @@ def _generate_guide_for_order(token: str) -> bool:
             print(f"WeasyPrint PDF failed: {e}\n{traceback.format_exc()}")
             pdf_path.unlink(missing_ok=True)
 
-        # Update order — single purchases expire in 24h, subscriptions don't
+        # Update order — single purchases expire in 24h, pack credits don't
         tier = order.get("tier", "single")
         expires = (datetime.utcnow() + timedelta(hours=24)).isoformat() if tier == "single" else None
         _update_order(token, status="generated", guide_path=str(html_path), expires=expires)
@@ -1171,23 +1171,22 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
 </section>
 
 <!-- ════════ PRICING ════════ -->
-<section id="pricing" class="max-w-4xl mx-auto px-6 mb-24">
+<section id="pricing" class="max-w-3xl mx-auto px-6 mb-24">
   <h2 class="text-2xl font-bold text-center mb-3">Simple Pricing</h2>
-  <p class="text-sm text-gray-500 text-center mb-10">One guide or many — pick what fits.</p>
-  <div class="grid md:grid-cols-3 gap-5 max-w-3xl mx-auto items-start">
+  <p class="text-sm text-gray-500 text-center mb-10">One guide or a pack - pick what fits. One-time payment, no subscription.</p>
+  <div class="grid md:grid-cols-2 gap-5 max-w-2xl mx-auto items-start">
 
     <!-- Single -->
     <div class="bg-white rounded-2xl shadow-md p-7 border border-gray-100 text-center">
-      <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">Single</h3>
-      <div class="text-3xl font-extrabold text-gray-800 mb-1"><span class="text-lg line-through text-gray-300 mr-1">$4.99</span>$1.99</div>
+      <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">Single Guide</h3>
+      <div class="text-3xl font-extrabold text-gray-800 mb-1"><span class="text-lg line-through text-gray-300 mr-1">$19.99</span>$9.99</div>
       <div class="text-xs text-gray-500 mb-1">one-time</div>
-      <div class="text-xs text-teal-600 font-medium mb-5">Launch pricing</div>
+      <div class="text-xs text-teal-600 font-medium mb-5">Launch pricing - 50% off</div>
       <ul class="text-left text-sm text-gray-600 space-y-2 mb-7">
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 1 guide</li>
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 30+ nearby places</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 1 personalized guide</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 30+ nearby places with ratings</li>
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> PDF + web version</li>
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-gray-300 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg><span class="text-gray-400"> Regeneration</span></li>
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-gray-300 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg><span class="text-gray-400"> Priority support</span></li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Safety tips + local info</li>
       </ul>
       <a href="#" onclick="document.getElementById('airbnb_url').focus();window.scrollTo({top:0,behavior:'smooth'});return false;"
          class="block w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold text-sm text-center hover:border-teal-400 transition">
@@ -1195,45 +1194,24 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
       </a>
     </div>
 
-    <!-- Starter (decoy target) -->
+    <!-- 5 Guide Pack -->
     <div class="bg-white rounded-2xl shadow-xl p-7 border-2 border-teal-500 text-center relative md:-mt-2 md:mb-0">
-      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-teal-600 text-white text-xs font-semibold px-4 py-1 rounded-full">Most Popular</div>
-      <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4 mt-1">Starter</h3>
-      <div class="text-3xl font-extrabold text-teal-700 mb-1">$4.99</div>
-      <div class="text-xs text-gray-500 mb-1">per month</div>
-      <div class="text-xs text-teal-600 font-medium mb-5">5 guides/month</div>
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-teal-600 text-white text-xs font-semibold px-4 py-1 rounded-full">Save 20%</div>
+      <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4 mt-1">5 Guide Pack</h3>
+      <div class="text-3xl font-extrabold text-teal-700 mb-1"><span class="text-lg line-through text-gray-300 mr-1">$89.99</span>$39.99</div>
+      <div class="text-xs text-gray-500 mb-1">one-time - $8.00/guide</div>
+      <div class="text-xs text-teal-600 font-medium mb-5">Launch pricing - 55% off</div>
       <ul class="text-left text-sm text-gray-600 space-y-2 mb-7">
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 5 guides per month</li>
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 30+ nearby places</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 5 personalized guides</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 30+ nearby places with ratings</li>
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> PDF + web version</li>
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Regenerate anytime</li>
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-gray-300 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg><span class="text-gray-400"> Priority support</span></li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Safety tips + local info</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Use anytime - credits never expire</li>
       </ul>
       <a href="#" onclick="document.getElementById('airbnb_url').focus();window.scrollTo({top:0,behavior:'smooth'});return false;"
          class="cta-btn block w-full py-2.5 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-semibold text-sm text-center">
-        Get Starter
+        Get 5 Guides
       </a>
-      <p class="text-xs text-gray-400 mt-2">Cancel anytime</p>
-    </div>
-
-    <!-- Pro -->
-    <div class="bg-white rounded-2xl shadow-md p-7 border border-gray-100 text-center">
-      <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">Pro</h3>
-      <div class="text-3xl font-extrabold text-gray-800 mb-1">$14.99</div>
-      <div class="text-xs text-gray-500 mb-1">per month</div>
-      <div class="text-xs text-teal-600 font-medium mb-5">25 guides/month</div>
-      <ul class="text-left text-sm text-gray-600 space-y-2 mb-7">
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 25 guides per month</li>
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 30+ nearby places</li>
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> PDF + web version</li>
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Regenerate anytime</li>
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Priority support</li>
-      </ul>
-      <a href="#" onclick="document.getElementById('airbnb_url').focus();window.scrollTo({top:0,behavior:'smooth'});return false;"
-         class="block w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold text-sm text-center hover:border-teal-400 transition">
-        Go Pro
-      </a>
-      <p class="text-xs text-gray-400 mt-2">Cancel anytime</p>
     </div>
 
   </div>
@@ -1276,7 +1254,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         I have multiple listings. Is there a bulk discount?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Yes! Our Starter plan ($4.99/mo) includes 5 guides, and Pro ($14.99/mo) gives you 25 guides per month — much cheaper than buying individually.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Yes! Our 5 Guide Pack is $39.99 (launch price) - that's $8.00 per guide instead of $9.99. Credits never expire, use them whenever you need.</p></div>
     </div>
   </div>
 </section>
@@ -1511,13 +1489,13 @@ tailwind.config = {
         <input type="hidden" name="token" value="{{ token }}">
         <input type="hidden" name="tier" value="single">
         <div class="bg-white rounded-xl border border-gray-200 p-4 hover:border-teal-400 transition h-full flex flex-col">
-          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Single</div>
-          <div class="text-2xl font-extrabold text-gray-800"><span class="text-sm line-through text-gray-300">$4.99</span> $1.99</div>
+          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Single Guide</div>
+          <div class="text-2xl font-extrabold text-gray-800"><span class="text-sm line-through text-gray-300">$19.99</span> $9.99</div>
           <div class="text-xs text-gray-400 mb-3">one-time</div>
           <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
             <li>&#10003; This guide only</li>
             <li>&#10003; PDF + web version</li>
-            <li>&#10003; 30+ places</li>
+            <li>&#10003; 30+ places with ratings</li>
           </ul>
           <button type="submit" class="w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-lg font-semibold text-sm hover:border-teal-400 transition">
             Get This Guide
@@ -1525,47 +1503,24 @@ tailwind.config = {
         </div>
       </form>
 
-      <!-- Starter -->
+      <!-- 5 Guide Pack -->
       <form action="/checkout" method="POST" class="text-center">
         <input type="hidden" name="token" value="{{ token }}">
         <input type="hidden" name="tier" value="starter">
         <div class="bg-white rounded-xl border-2 border-teal-500 p-4 relative h-full flex flex-col shadow-md">
-          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-teal-600 text-white text-xs font-semibold px-3 py-0.5 rounded-full">Best Value</div>
-          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 mt-1">Starter</div>
-          <div class="text-2xl font-extrabold text-teal-700">$4.99</div>
-          <div class="text-xs text-gray-400 mb-3">per month</div>
+          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-teal-600 text-white text-xs font-semibold px-3 py-0.5 rounded-full">Save 20%</div>
+          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 mt-1">5 Guide Pack</div>
+          <div class="text-2xl font-extrabold text-teal-700"><span class="text-sm line-through text-gray-300 mr-1">$89.99</span>$39.99</div>
+          <div class="text-xs text-gray-400 mb-3">one-time - $8.00/guide</div>
           <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
-            <li>&#10003; <strong>5 guides/month</strong></li>
+            <li>&#10003; <strong>5 personalized guides</strong></li>
             <li>&#10003; PDF + web version</li>
-            <li>&#10003; 30+ places each</li>
-            <li>&#10003; Regenerate anytime</li>
+            <li>&#10003; 30+ places with ratings</li>
+            <li>&#10003; Credits never expire</li>
           </ul>
           <button type="submit" class="pulse-cta w-full py-2.5 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-lg font-semibold text-sm">
-            Get Starter
+            Get 5 Guides
           </button>
-          <p class="text-xs text-gray-400 mt-1">Cancel anytime</p>
-        </div>
-      </form>
-
-      <!-- Pro -->
-      <form action="/checkout" method="POST" class="text-center">
-        <input type="hidden" name="token" value="{{ token }}">
-        <input type="hidden" name="tier" value="pro">
-        <div class="bg-white rounded-xl border border-gray-200 p-4 hover:border-teal-400 transition h-full flex flex-col">
-          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Pro</div>
-          <div class="text-2xl font-extrabold text-gray-800">$14.99</div>
-          <div class="text-xs text-gray-400 mb-3">per month</div>
-          <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
-            <li>&#10003; <strong>25 guides/month</strong></li>
-            <li>&#10003; PDF + web version</li>
-            <li>&#10003; 30+ places each</li>
-            <li>&#10003; Regenerate anytime</li>
-            <li>&#10003; Priority support</li>
-          </ul>
-          <button type="submit" class="w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-lg font-semibold text-sm hover:border-teal-400 transition">
-            Go Pro
-          </button>
-          <p class="text-xs text-gray-400 mt-1">Cancel anytime</p>
         </div>
       </form>
 
@@ -1949,27 +1904,18 @@ tailwind.config = {
 # Stripe pricing tiers
 TIERS = {
     "single": {
-        "name": "HostGuide — Single Guide",
+        "name": "HostGuide - Single Guide",
         "description": "One personalized neighborhood guide for your Airbnb listing",
-        "amount": 199,  # $1.99
+        "amount": 999,  # $9.99 (launch, normal $19.99)
         "mode": "payment",
         "guides": 1,
     },
     "starter": {
-        "name": "HostGuide — Starter Plan",
-        "description": "5 neighborhood guides per month for your Airbnb listings. Cancel anytime.",
-        "amount": 499,  # $4.99/mo
-        "mode": "subscription",
-        "interval": "month",
+        "name": "HostGuide - 5 Guide Pack",
+        "description": "5 personalized neighborhood guides for your Airbnb listings",
+        "amount": 3999,  # $39.99 (launch, normal $89.99)
+        "mode": "payment",
         "guides": 5,
-    },
-    "pro": {
-        "name": "HostGuide — Pro Plan",
-        "description": "25 neighborhood guides per month for your Airbnb listings. Cancel anytime.",
-        "amount": 1499,  # $14.99/mo
-        "mode": "subscription",
-        "interval": "month",
-        "guides": 25,
     },
 }
 
@@ -2037,23 +1983,15 @@ def checkout():
             },
             "unit_amount": tier_config["amount"],
         }
-        # Subscriptions need recurring interval
-        if tier_config["mode"] == "subscription":
-            price_data["recurring"] = {"interval": tier_config["interval"]}
-
         session_kwargs = dict(
             payment_method_types=["card"],
             line_items=[{"price_data": price_data, "quantity": 1}],
-            mode=tier_config["mode"],
+            mode="payment",
             customer_email=email,
             success_url=f"{DOMAIN}{_dashboard_url(email, welcome='1')}" if tier in ("starter", "pro") else f"{DOMAIN}/generating/{token}",
             cancel_url=f"{DOMAIN}/preview/{token}",
             metadata={"order_token": token, "tier": tier},
         )
-        if tier_config["mode"] == "subscription":
-            session_kwargs["custom_text"] = {
-                "submit": {"message": "You can cancel your subscription anytime from your dashboard — no questions asked."}
-            }
         session = stripe.checkout.Session.create(**session_kwargs)
         _update_order(token, stripe_session_id=session.id)
         return redirect(session.url, code=303)
@@ -2099,7 +2037,7 @@ def generating(token: str):
         t = threading.Thread(target=_generate_in_background, args=(token,), daemon=True)
         t.start()
 
-    # Build dashboard link for subscription users
+    # Build dashboard link for multi-guide pack users
     dashboard_link = ""
     email = order.get("email", "")
     tier = order.get("tier", "single")
@@ -2241,43 +2179,6 @@ def stripe_webhook():
                              stripe_customer_id=customer_id,
                              dedup_key=session.get("id", token))
             # Generation triggers from the /generating page when user lands there
-
-    elif event["type"] == "invoice.paid":
-        # Monthly subscription renewal — refill credits
-        invoice = event["data"]["object"]
-        customer_id = invoice.get("customer")
-        customer_email = invoice.get("customer_email", "").lower().strip()
-        # Skip the first invoice (credits already added via checkout.session.completed)
-        if invoice.get("billing_reason") == "subscription_cycle":
-            # Look up user by email or customer ID
-            if not customer_email and customer_id:
-                all_credits = _load_credits()
-                for em, rec in all_credits.items():
-                    if rec.get("stripe_customer_id") == customer_id:
-                        customer_email = em
-                        break
-            if customer_email:
-                user_rec = _get_user_credits(customer_email)
-                tier = user_rec.get("tier", "starter")
-                tier_config = TIERS.get(tier, TIERS["starter"])
-                _add_credits(customer_email, tier_config["guides"], tier,
-                             stripe_customer_id=customer_id,
-                             dedup_key=invoice.get("id"))
-                print(f"[invoice.paid] Refilled {tier_config['guides']} credits for {customer_email} ({tier})")
-
-    elif event["type"] == "customer.subscription.deleted":
-        # Subscription cancelled — zero out credits and reset tier
-        sub = event["data"]["object"]
-        customer_id = sub.get("customer")
-        # Find user by customer ID
-        all_credits = _load_credits()
-        for em, rec in all_credits.items():
-            if rec.get("stripe_customer_id") == customer_id:
-                rec["credits"] = 0
-                rec["tier"] = "none"
-                _save_user_credits(em, rec)
-                print(f"[subscription.deleted] Cancelled subscription for {em}")
-                break
 
     return jsonify({"received": True})
 
