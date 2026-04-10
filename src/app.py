@@ -468,7 +468,10 @@ def _generate_guide_for_order(token: str) -> bool:
             from playwright.sync_api import sync_playwright
             print(f"Launching Playwright for listing {listing_id}...")
             with sync_playwright() as pw:
-                browser = pw.chromium.launch(headless=True)
+                browser = pw.chromium.launch(
+                    headless=True,
+                    args=["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"],
+                )
                 page = browser.new_page()
                 listing = enrich_listing_from_detail(page, listing)
                 browser.close()
@@ -1574,8 +1577,7 @@ def preview():
         user_rec = _get_user_credits(email)
         if user_rec["credits"] > 0:
             if _use_credit(email, token):
-                _update_order(token, status="paid", tier=user_rec.get("tier", "single"))
-                _update_order(token, status="generating")
+                _update_order(token, status="generating", tier=user_rec.get("tier", "single"))
                 t = threading.Thread(target=_generate_in_background, args=(token,), daemon=True)
                 t.start()
                 return redirect(f"/generating/{token}")
@@ -1928,8 +1930,7 @@ def use_credit():
         return redirect("/")
     email = order["email"]
     if _use_credit(email, token):
-        _update_order(token, status="paid", tier=order.get("tier", "single"))
-        _update_order(token, status="generating")
+        _update_order(token, status="generating", tier=order.get("tier", "single"))
         t = threading.Thread(target=_generate_in_background, args=(token,), daemon=True)
         t.start()
         return redirect(f"/generating/{token}")
