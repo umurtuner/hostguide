@@ -283,6 +283,44 @@ if _admin["credits"] < 100:
 
 
 # ═══════════════════════════════════════════════════════════════
+# QR CODE INJECTION
+# ═══════════════════════════════════════════════════════════════
+
+def _inject_qr_code(html: str, url: str) -> str:
+    """Inject a QR code into the guide HTML linking to the digital version."""
+    try:
+        import qrcode
+        import qrcode.image.svg
+        import io
+        import base64
+
+        qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=2)
+        qr.add_data(url)
+        qr.make(fit=True)
+        img = qr.make_image(image_factory=qrcode.image.svg.SvgPathImage)
+        buf = io.BytesIO()
+        img.save(buf)
+        svg_b64 = base64.b64encode(buf.getvalue()).decode()
+
+        qr_block = f'''
+        <div style="text-align:center;margin:24px 0 12px;page-break-inside:avoid;">
+            <img src="data:image/svg+xml;base64,{svg_b64}" style="width:100px;height:100px;" alt="QR Code">
+            <p style="font-size:10px;color:#666;margin:6px 0 0;">Scan for the digital version of this guide</p>
+        </div>'''
+
+        # Insert before </body>
+        if "</body>" in html:
+            html = html.replace("</body>", f"{qr_block}\n</body>", 1)
+        return html
+    except ImportError:
+        print("[qr] qrcode library not installed, skipping QR injection")
+        return html
+    except Exception as e:
+        print(f"[qr] QR generation failed: {e}")
+        return html
+
+
+# ═══════════════════════════════════════════════════════════════
 # PDF GENERATION (WeasyPrint - no browser needed)
 # ═══════════════════════════════════════════════════════════════
 
@@ -597,11 +635,13 @@ def _generate_guide_for_order(token: str) -> bool:
         print(f"Generating guide for listing {listing_id}...")
         guide = generate_guide(listing, enriched, city_config, use_claude=False)
 
-        # Step 5: Save guide HTML
+        # Step 5: Inject QR code and save guide HTML
+        guide_url = f"{DOMAIN}/download/{token}"
+        html_with_qr = _inject_qr_code(guide.content_html, guide_url)
         guide_dir = OUTPUT / listing.city.lower() / "guides"
         guide_dir.mkdir(parents=True, exist_ok=True)
         html_path = guide_dir / f"{listing_id}_guide.html"
-        html_path.write_text(guide.content_html, encoding="utf-8")
+        html_path.write_text(html_with_qr, encoding="utf-8")
 
         # Step 6: Generate PDF using WeasyPrint (pure Python, no browser needed)
         pdf_path = html_path.with_suffix(".pdf")
@@ -975,10 +1015,10 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
       Works for any city worldwide
     </div>
     <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-5">
-      Stop answering the same<br>guest questions
+      Stop typing the same restaurant<br>list for every guest
     </h1>
     <p class="text-lg md:text-xl text-white/85 max-w-xl mx-auto leading-relaxed">
-      Paste your Airbnb link, get a printable neighborhood guide with restaurants, groceries, transit, and local tips — in minutes.
+      Paste your Airbnb link. Get a polished, printable neighborhood guide with real ratings, walking distances, and local tips - built for your exact location in under 60 seconds.
     </p>
   </div>
 </section>
@@ -1036,28 +1076,28 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
 
 <!-- ════════ HOW IT WORKS ════════ -->
 <section class="max-w-4xl mx-auto px-6 mb-24">
-  <h2 class="text-2xl font-bold text-center mb-12">How It Works</h2>
+  <h2 class="text-2xl font-bold text-center mb-12">Three steps. Done before your coffee gets cold.</h2>
   <div class="grid md:grid-cols-3 gap-8">
     <div class="text-center">
       <div class="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
         <svg class="w-6 h-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"/></svg>
       </div>
-      <h3 class="font-semibold mb-1">Paste your link</h3>
-      <p class="text-sm text-gray-500">Drop your Airbnb listing URL. We detect the location automatically.</p>
+      <h3 class="font-semibold mb-1">Paste your Airbnb link</h3>
+      <p class="text-sm text-gray-500">That's all we need. No signup wall, no address lookup.</p>
     </div>
     <div class="text-center">
       <div class="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
         <svg class="w-6 h-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
       </div>
-      <h3 class="font-semibold mb-1">Preview for free</h3>
-      <p class="text-sm text-gray-500">See a personalized preview with restaurants, groceries, landmarks, and more near your listing.</p>
+      <h3 class="font-semibold mb-1">We scan your neighborhood</h3>
+      <p class="text-sm text-gray-500">Real Google Maps data. Restaurants, groceries, pharmacies, transit - ranked by rating and distance from your door.</p>
     </div>
     <div class="text-center">
       <div class="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
         <svg class="w-6 h-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
       </div>
-      <h3 class="font-semibold mb-1">Get your guide</h3>
-      <p class="text-sm text-gray-500">Download a beautiful, print-ready PDF. Share digitally or leave a printed copy in your unit.</p>
+      <h3 class="font-semibold mb-1">Download your guide</h3>
+      <p class="text-sm text-gray-500">A clean, branded PDF your guests will actually use. Share digitally or leave a printed copy at the property.</p>
     </div>
   </div>
 </section>
@@ -1114,8 +1154,8 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
 
 <!-- ════════ PREVIEW ════════ -->
 <section class="max-w-3xl mx-auto px-6 mb-24 text-center">
-  <h2 class="text-2xl font-bold mb-3">See What You Get</h2>
-  <p class="text-sm text-gray-500 mb-10">A real guide generated for a Downtown Miami listing</p>
+  <h2 class="text-2xl font-bold mb-3">What your guests will see</h2>
+  <p class="text-sm text-gray-500 mb-10">Not a sloppy Google Doc. A guide that looks like you hired a local concierge.</p>
   <div class="relative bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 text-left" style="max-height:420px;">
     <div class="bg-gradient-to-r from-teal-600 to-teal-800 px-8 py-6 text-white">
       <p class="text-xs uppercase tracking-widest opacity-70 mb-1">Neighborhood Guide</p>
@@ -1167,7 +1207,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
 <!-- ════════ SOCIAL PROOF ════════ -->
 <section class="bg-white border-y border-gray-100 py-16 mb-24">
   <div class="max-w-4xl mx-auto px-6">
-    <h2 class="text-2xl font-bold text-center mb-10">Built for Hosts, Tested Across 10 Cities</h2>
+    <h2 class="text-2xl font-bold text-center mb-10">Hosts in 10 cities already stopped answering "where should we eat?"</h2>
     <div class="flex justify-center gap-12 md:gap-20 flex-wrap">
       <div class="text-center">
         <div class="text-3xl font-extrabold text-teal-600">50+</div>
@@ -1188,8 +1228,8 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
 
 <!-- ════════ PRICING ════════ -->
 <section id="pricing" class="max-w-3xl mx-auto px-6 mb-24">
-  <h2 class="text-2xl font-bold text-center mb-3">Simple Pricing</h2>
-  <p class="text-sm text-gray-500 text-center mb-10">One guide or a pack - pick what fits. One-time payment, no subscription.</p>
+  <h2 class="text-2xl font-bold text-center mb-3">Pay once per listing. Use it forever.</h2>
+  <p class="text-sm text-gray-500 text-center mb-10">No subscriptions. No per-guest fees. One guide, unlimited prints.</p>
   <div class="grid md:grid-cols-2 gap-5 max-w-2xl mx-auto items-start">
 
     <!-- Single -->
@@ -1246,31 +1286,31 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
     </div>
     <div class="bg-white rounded-xl shadow-sm overflow-hidden">
       <button onclick="this.nextElementSibling.classList.toggle('open')" class="w-full text-left px-6 py-4 flex items-center justify-between text-sm font-semibold hover:bg-gray-50 transition">
-        What cities do you cover?
+        Does this work for my city?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Any city worldwide. We use location data from your Airbnb listing, so as long as your listing has an address, we can generate a guide for it.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">If Google Maps covers it, we cover it. We have generated guides across Europe, North America, the Middle East, and Asia.</p></div>
     </div>
     <div class="bg-white rounded-xl shadow-sm overflow-hidden">
       <button onclick="this.nextElementSibling.classList.toggle('open')" class="w-full text-left px-6 py-4 flex items-center justify-between text-sm font-semibold hover:bg-gray-50 transition">
-        Can I customize the guide?
+        How is this better than my own Google Doc?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">The guide is auto-generated with your host name and listing location. Custom branding and editable sections are coming soon.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Real ratings, verified walking distances, safety data, and a layout guests actually read. Most hosts spend 1-2 hours writing what we generate in a minute.</p></div>
     </div>
     <div class="bg-white rounded-xl shadow-sm overflow-hidden">
       <button onclick="this.nextElementSibling.classList.toggle('open')" class="w-full text-left px-6 py-4 flex items-center justify-between text-sm font-semibold hover:bg-gray-50 transition">
-        What format is the guide?
+        Will my guests actually use this?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">You get both a web version (shareable link) and a print-ready PDF. Perfect for leaving a physical copy in your unit or sending to guests before check-in.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">The #1 complaint in Airbnb reviews is lack of local recommendations. A printed guide on the kitchen counter gets picked up. A paragraph buried in your listing description does not.</p></div>
     </div>
     <div class="bg-white rounded-xl shadow-sm overflow-hidden">
       <button onclick="this.nextElementSibling.classList.toggle('open')" class="w-full text-left px-6 py-4 flex items-center justify-between text-sm font-semibold hover:bg-gray-50 transition">
-        I have multiple listings. Is there a bulk discount?
+        What if I manage multiple properties?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Yes! Our 5 Guide Pack is $14.99 (launch price) - that's $3.00 per guide instead of $4.99. Credits never expire, use them whenever you need.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Each guide is tied to a specific location. Our 5 Guide Pack is $14.99 (launch price) - that's $3.00 per guide instead of $4.99. Credits never expire.</p></div>
     </div>
   </div>
 </section>

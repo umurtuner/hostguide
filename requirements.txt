@@ -6,3 +6,4 @@ redis==5.2.1
 weasyprint==68.1
 requests
 playwright
+qrcode[pil]
