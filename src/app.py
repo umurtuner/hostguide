@@ -1738,7 +1738,7 @@ TIERS = {
     },
     "starter": {
         "name": "HostGuide — Starter Plan",
-        "description": "5 neighborhood guides per month for your Airbnb listings",
+        "description": "5 neighborhood guides per month for your Airbnb listings. Cancel anytime.",
         "amount": 499,  # $4.99/mo
         "mode": "subscription",
         "interval": "month",
@@ -1746,7 +1746,7 @@ TIERS = {
     },
     "pro": {
         "name": "HostGuide — Pro Plan",
-        "description": "25 neighborhood guides per month for your Airbnb listings",
+        "description": "25 neighborhood guides per month for your Airbnb listings. Cancel anytime.",
         "amount": 1499,  # $14.99/mo
         "mode": "subscription",
         "interval": "month",
@@ -1804,7 +1804,7 @@ def checkout():
         if tier_config["mode"] == "subscription":
             price_data["recurring"] = {"interval": tier_config["interval"]}
 
-        session = stripe.checkout.Session.create(
+        session_kwargs = dict(
             payment_method_types=["card"],
             line_items=[{"price_data": price_data, "quantity": 1}],
             mode=tier_config["mode"],
@@ -1813,6 +1813,11 @@ def checkout():
             cancel_url=f"{DOMAIN}/preview/{token}",
             metadata={"order_token": token, "tier": tier},
         )
+        if tier_config["mode"] == "subscription":
+            session_kwargs["custom_text"] = {
+                "submit": {"message": "You can cancel your subscription anytime from your dashboard — no questions asked."}
+            }
+        session = stripe.checkout.Session.create(**session_kwargs)
         _update_order(token, stripe_session_id=session.id)
         return redirect(session.url, code=303)
     except Exception as e:
@@ -1872,7 +1877,12 @@ def order_status(token: str):
     """API endpoint for polling generation status."""
     order = _get_order(token)
     if not order:
-        return jsonify({"status": "not_found"}), 404
+        # Order not in memory — check if a guide was already generated on disk
+        # (handles Render redeploy wiping orders.json mid-generation)
+        guide_glob = list(OUTPUT.glob(f"*_{token[:8]}*/*.html")) if OUTPUT.exists() else []
+        if guide_glob:
+            return jsonify({"status": "generated", "ready": True, "recovered": True})
+        return jsonify({"status": "not_found", "ready": False, "failed": False}), 404
 
     # If still pending, try to verify payment and kick off generation
     if order["status"] == "pending" and order.get("stripe_session_id") and STRIPE_SECRET:
@@ -2128,8 +2138,11 @@ p { font-size: 14px; color: #666; line-height: 1.6; }
     <div class="generating">
         <div class="spinner"></div>
         <h1>Generating Your Guide</h1>
-        <p>We're building a personalized neighborhood guide for your listing. This usually takes 1-2 minutes.</p>
-        <p class="status">Scraping listing details...</p>
+        <p>We're building a personalized neighborhood guide for your listing. This usually takes 3-5 minutes.</p>
+        <p class="status">Analyzing your listing...</p>
+        <div class="progress-bar" style="margin-top:20px;background:#E0F2F1;border-radius:8px;height:6px;overflow:hidden;">
+          <div id="progressFill" style="width:5%;height:100%;background:linear-gradient(90deg,#00897B,#00695C);border-radius:8px;transition:width 1s ease;"></div>
+        </div>
     </div>
     <div class="ready" id="readySection">
         <h1>Your Guide is Ready!</h1>
@@ -2146,24 +2159,53 @@ p { font-size: 14px; color: #666; line-height: 1.6; }
 <script>
 const token = "{{ token }}";
 let checks = 0;
+let notFoundCount = 0;
+const steps = [
+    {msg: 'Analyzing your listing...', pct: 10, until: 3},
+    {msg: 'Launching browser to scrape details...', pct: 20, until: 6},
+    {msg: 'Extracting property information...', pct: 30, until: 9},
+    {msg: 'Detecting neighborhood & city...', pct: 40, until: 12},
+    {msg: 'Finding nearby restaurants & cafes...', pct: 50, until: 18},
+    {msg: 'Mapping transit & grocery stores...', pct: 60, until: 24},
+    {msg: 'Discovering landmarks & nightlife...', pct: 70, until: 30},
+    {msg: 'Building your neighborhood guide...', pct: 80, until: 40},
+    {msg: 'Generating PDF...', pct: 90, until: 50},
+    {msg: 'Almost there — finalizing...', pct: 95, until: 999}
+];
+function updateProgress() {
+    const step = steps.find(s => checks < s.until) || steps[steps.length - 1];
+    document.querySelector('.status').textContent = step.msg;
+    document.getElementById('progressFill').style.width = step.pct + '%';
+}
 function pollStatus() {
     fetch(`/api/status/${token}`)
-        .then(r => r.json())
+        .then(r => {
+            if (r.status === 404) { notFoundCount++; return r.json(); }
+            notFoundCount = 0;
+            return r.json();
+        })
         .then(data => {
             if (data.ready) {
-                document.querySelector('.generating').style.display = 'none';
-                document.getElementById('readySection').style.display = 'block';
+                document.getElementById('progressFill').style.width = '100%';
+                setTimeout(() => {
+                    document.querySelector('.generating').style.display = 'none';
+                    document.getElementById('readySection').style.display = 'block';
+                }, 500);
             } else if (data.failed) {
                 document.querySelector('.generating').innerHTML =
                     '<h1 style="font-size:22px;margin-bottom:8px;color:#dc2626;">Generation Failed</h1>' +
                     '<p style="font-size:14px;color:#666;line-height:1.6;">We couldn\\'t generate your guide. Please make sure the Airbnb URL is valid and the city is correct.</p>' +
                     '<p style="margin-top:16px;"><a href="/" style="color:#00897B;font-weight:600;">Try Again</a></p>' +
                     '<p style="margin-top:8px;font-size:13px;color:#888;">Your credit has been refunded. Questions? hello@host-guide.net</p>';
-            } else if (checks < 60) {
+            } else if (notFoundCount >= 8) {
+                document.querySelector('.generating').innerHTML =
+                    '<h1 style="font-size:22px;margin-bottom:8px;color:#dc2626;">Generation Interrupted</h1>' +
+                    '<p style="font-size:14px;color:#666;line-height:1.6;">Our server restarted during generation. Your credit has not been charged — please try again.</p>' +
+                    '<p style="margin-top:16px;"><a href="/" style="color:#00897B;font-weight:600;">Try Again</a></p>' +
+                    '<p style="margin-top:8px;font-size:13px;color:#888;">Questions? hello@host-guide.net</p>';
+            } else if (checks < 80) {
                 checks++;
-                const msgs = ['Scraping listing details...', 'Finding nearby places...',
-                              'Building your guide...', 'Almost there...'];
-                document.querySelector('.status').textContent = msgs[Math.min(checks, msgs.length-1)];
+                updateProgress();
                 setTimeout(pollStatus, 5000);
             } else {
                 document.querySelector('.generating').innerHTML =
@@ -2172,8 +2214,9 @@ function pollStatus() {
                     '<p style="margin-top:16px;font-size:13px;color:#888;">Questions? hello@host-guide.net</p>';
             }
         })
-        .catch(() => setTimeout(pollStatus, 5000));
+        .catch(() => { checks++; setTimeout(pollStatus, 5000); });
 }
+updateProgress();
 setTimeout(pollStatus, 3000);
 </script>
 </body>
