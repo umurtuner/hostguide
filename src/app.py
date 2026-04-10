@@ -1195,9 +1195,9 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
     <!-- Single -->
     <div class="bg-white rounded-2xl shadow-md p-7 border border-gray-100 text-center">
       <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">Single Guide</h3>
-      <div class="text-3xl font-extrabold text-gray-800 mb-1"><span class="text-lg line-through text-gray-300 mr-1">$19.99</span>$9.99</div>
+      <div class="text-3xl font-extrabold text-gray-800 mb-1"><span class="text-lg line-through text-gray-300 mr-1">$19.99</span>$4.99</div>
       <div class="text-xs text-gray-500 mb-1">one-time</div>
-      <div class="text-xs text-teal-600 font-medium mb-5">Launch pricing - 50% off</div>
+      <div class="text-xs text-teal-600 font-medium mb-5">Launch pricing - 75% off</div>
       <ul class="text-left text-sm text-gray-600 space-y-2 mb-7">
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 1 personalized guide</li>
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 30+ nearby places with ratings</li>
@@ -1212,10 +1212,10 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
 
     <!-- 5 Guide Pack -->
     <div class="bg-white rounded-2xl shadow-xl p-7 border-2 border-teal-500 text-center relative md:-mt-2 md:mb-0">
-      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-semibold px-4 py-1 rounded-full">55% off + save 20% per guide</div>
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-semibold px-4 py-1 rounded-full">83% off + save 40% per guide</div>
       <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4 mt-1">5 Guide Pack</h3>
-      <div class="text-3xl font-extrabold text-teal-700 mb-1"><span class="text-lg line-through text-gray-300 mr-1">$89.99</span>$39.99</div>
-      <div class="text-xs text-gray-500 mb-1">$8.00/guide instead of $9.99</div>
+      <div class="text-3xl font-extrabold text-teal-700 mb-1"><span class="text-lg line-through text-gray-300 mr-1">$89.99</span>$14.99</div>
+      <div class="text-xs text-gray-500 mb-1">$3.00/guide instead of $4.99</div>
       <div class="text-xs text-teal-600 font-medium mb-5">Launch pricing</div>
       <ul class="text-left text-sm text-gray-600 space-y-2 mb-7">
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 5 personalized guides</li>
@@ -1270,7 +1270,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         I have multiple listings. Is there a bulk discount?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Yes! Our 5 Guide Pack is $39.99 (launch price) - that's $8.00 per guide instead of $9.99. Credits never expire, use them whenever you need.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Yes! Our 5 Guide Pack is $14.99 (launch price) - that's $3.00 per guide instead of $4.99. Credits never expire, use them whenever you need.</p></div>
     </div>
   </div>
 </section>
@@ -1507,7 +1507,7 @@ tailwind.config = {
         <div class="bg-white rounded-xl border border-gray-200 p-4 hover:border-teal-400 transition h-full flex flex-col relative">
           <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-semibold px-3 py-0.5 rounded-full">50% off</div>
           <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 mt-1">Single Guide</div>
-          <div class="text-2xl font-extrabold text-gray-800"><span class="text-sm line-through text-gray-300">$19.99</span> $9.99</div>
+          <div class="text-2xl font-extrabold text-gray-800"><span class="text-sm line-through text-gray-300">$19.99</span> $4.99</div>
           <div class="text-xs text-teal-600 font-medium mb-3">Launch pricing</div>
           <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
             <li>&#10003; This guide only</li>
@@ -1525,10 +1525,10 @@ tailwind.config = {
         <input type="hidden" name="token" value="{{ token }}">
         <input type="hidden" name="tier" value="starter">
         <div class="bg-white rounded-xl border-2 border-teal-500 p-4 relative h-full flex flex-col shadow-md">
-          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-semibold px-3 py-0.5 rounded-full">55% off + save 20%/guide</div>
+          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-semibold px-3 py-0.5 rounded-full">83% off + save 40%/guide</div>
           <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 mt-1">5 Guide Pack</div>
-          <div class="text-2xl font-extrabold text-teal-700"><span class="text-sm line-through text-gray-300 mr-1">$89.99</span>$39.99</div>
-          <div class="text-xs text-teal-600 font-medium mb-3">$8.00/guide instead of $9.99</div>
+          <div class="text-2xl font-extrabold text-teal-700"><span class="text-sm line-through text-gray-300 mr-1">$89.99</span>$14.99</div>
+          <div class="text-xs text-teal-600 font-medium mb-3">$3.00/guide instead of $4.99</div>
           <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
             <li>&#10003; <strong>5 personalized guides</strong></li>
             <li>&#10003; PDF + web version</li>
@@ -1926,14 +1926,14 @@ TIERS = {
     "single": {
         "name": "HostGuide - Single Guide",
         "description": "One personalized neighborhood guide for your Airbnb listing",
-        "amount": 999,  # $9.99 (launch, normal $19.99)
+        "amount": 499,  # $4.99 (launch, normal $9.99)
         "mode": "payment",
         "guides": 1,
     },
     "starter": {
         "name": "HostGuide - 5 Guide Pack",
         "description": "5 personalized neighborhood guides for your Airbnb listings",
-        "amount": 3999,  # $39.99 (launch, normal $89.99)
+        "amount": 1499,  # $14.99 (launch, normal $29.99)
         "mode": "payment",
         "guides": 5,
     },
