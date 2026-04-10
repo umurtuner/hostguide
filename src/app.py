@@ -950,6 +950,8 @@ LANDING_PAGE = """<!DOCTYPE html>
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#004d40">
 <link rel="canonical" href="https://host-guide.net">
+<link rel="alternate" hreflang="en" href="https://host-guide.net">
+<link rel="alternate" hreflang="x-default" href="https://host-guide.net">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='35' r='20' fill='%23004d40'/><path d='M50 75 L30 45 Q30 15 50 15 Q70 15 70 45 Z' fill='%23004d40'/><circle cx='50' cy='35' r='8' fill='white'/></svg>">
 <!-- Open Graph -->
 <meta property="og:title" content="HostGuide - Neighborhood Guides for Airbnb Hosts">
@@ -1034,9 +1036,19 @@ LANDING_PAGE = """<!DOCTYPE html>
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://host-guide.net/"}
+  ]
+}
+</script>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap" as="style">
 <script>
 tailwind.config = {
   theme: {
@@ -1109,7 +1121,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
 </script>
 
 <!-- ════════ NAV ════════ -->
-<nav class="gradient-hero" style="position:relative;z-index:10;">
+<nav class="gradient-hero" style="position:relative;z-index:10;" role="navigation" aria-label="Main navigation">
   <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
     <div class="flex items-center gap-2.5">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1128,6 +1140,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
   </div>
 </nav>
 
+<main>
 <!-- ════════ HERO ════════ -->
 <section class="gradient-hero pb-36 pt-20 px-6 text-white">
   <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12 relative" style="z-index:2;">
@@ -1158,7 +1171,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
       <!-- Background glow -->
       <div class="absolute inset-0 bg-gradient-to-br from-teal-400/20 to-transparent rounded-full blur-3xl"></div>
       <!-- Main card -->
-      <div class="float-card relative bg-white rounded-2xl shadow-2xl p-5 w-72 text-gray-900" style="transform-origin:center;">
+      <div class="float-card relative bg-white rounded-2xl shadow-2xl p-5 w-72 text-gray-900" role="img" aria-label="Sample neighborhood guide showing nearby restaurants, groceries, and landmarks" style="transform-origin:center;">
         <div class="bg-gradient-to-r from-teal-600 to-teal-800 rounded-xl p-4 mb-3">
           <p class="text-white text-[10px] font-medium uppercase tracking-wider opacity-80">Neighborhood Guide</p>
           <p class="text-white font-bold text-base mt-0.5">Eaux-Vives, Geneva</p>
@@ -1491,14 +1504,14 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
         How is this better than my own Google Doc?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Real ratings, verified walking distances, safety data, and a layout guests actually read. Most hosts spend 1-2 hours writing what we generate in a minute.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Real ratings, verified walking distances, safety data, and a layout guests actually read. Most hosts spend 1-2 hours writing what we generate in a minute. Airbnb's own <a href="https://www.airbnb.com/resources/hosting-homes/a/how-to-write-a-great-guidebook-for-your-guests-21" target="_blank" rel="noopener" class="text-teal-600 hover:underline">guidebook tips</a> confirm that local recommendations are what guests value most.</p></div>
     </div>
     <div class="bg-white rounded-xl shadow-sm overflow-hidden">
       <button onclick="this.nextElementSibling.classList.toggle('open')" class="w-full text-left px-6 py-4 flex items-center justify-between text-sm font-semibold hover:bg-gray-50 transition">
         Will my guests actually use this?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">The #1 complaint in Airbnb reviews is lack of local recommendations. A printed guide on the kitchen counter gets picked up. A paragraph buried in your listing description does not.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">The #1 complaint in Airbnb reviews is lack of local recommendations. A printed guide on the kitchen counter gets picked up. A paragraph buried in your listing description does not. That's why Airbnb highlights <a href="https://www.airbnb.com/resources/hosting-homes/a/what-guests-really-want-43" target="_blank" rel="noopener" class="text-teal-600 hover:underline">guest communication</a> as a key factor for <a href="https://www.airbnb.com/d/superhost" target="_blank" rel="noopener" class="text-teal-600 hover:underline">Superhost status</a>.</p></div>
     </div>
     <div class="bg-white rounded-xl shadow-sm overflow-hidden">
       <button onclick="this.nextElementSibling.classList.toggle('open')" class="w-full text-left px-6 py-4 flex items-center justify-between text-sm font-semibold hover:bg-gray-50 transition">
@@ -1510,8 +1523,9 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
   </div>
 </section>
 
+</main>
 <!-- ════════ FOOTER ════════ -->
-<footer class="border-t border-gray-100 py-10 text-center">
+<footer class="border-t border-gray-100 py-10 text-center" role="contentinfo">
   <div class="max-w-4xl mx-auto px-6">
     <div class="flex items-center justify-center gap-2 mb-3">
       <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1524,7 +1538,25 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
       </svg>
       <span class="font-semibold text-sm">HostGuide</span>
     </div>
-    <p class="text-xs text-gray-400 mb-2">Made for Airbnb hosts, by an Airbnb host.</p>
+    <p class="text-xs text-gray-400 mb-4">Made for Airbnb hosts, by an Airbnb host.</p>
+    <div class="flex flex-wrap items-center justify-center gap-4 mb-4 text-xs text-gray-400">
+      <span class="font-medium text-gray-500">Hosting resources:</span>
+      <a href="https://www.airbnb.com/d/superhost" target="_blank" rel="noopener" class="hover:text-teal-600 transition">Superhost Program</a>
+      <a href="https://www.airbnb.com/resources/hosting-homes" target="_blank" rel="noopener" class="hover:text-teal-600 transition">Airbnb Host Resources</a>
+      <a href="https://www.airbnb.com/help/article/2895" target="_blank" rel="noopener" class="hover:text-teal-600 transition">Review Guidelines</a>
+    </div>
+    <div class="flex flex-wrap items-center justify-center gap-3 mb-4 text-xs text-gray-400">
+      <a href="/guides/geneva" class="hover:text-teal-600 transition">Geneva</a>
+      <a href="/guides/dubai" class="hover:text-teal-600 transition">Dubai</a>
+      <a href="/guides/miami" class="hover:text-teal-600 transition">Miami</a>
+      <a href="/guides/lisbon" class="hover:text-teal-600 transition">Lisbon</a>
+      <a href="/guides/barcelona" class="hover:text-teal-600 transition">Barcelona</a>
+      <a href="/guides/paris" class="hover:text-teal-600 transition">Paris</a>
+      <a href="/guides/london" class="hover:text-teal-600 transition">London</a>
+      <a href="/guides/new-york" class="hover:text-teal-600 transition">New York</a>
+      <a href="/guides/bali" class="hover:text-teal-600 transition">Bali</a>
+      <a href="/guides/bangkok" class="hover:text-teal-600 transition">Bangkok</a>
+    </div>
     <p class="text-xs text-gray-400">&copy; 2026 HostGuide</p>
   </div>
 </footer>
@@ -2627,6 +2659,115 @@ setTimeout(pollStatus, 3000);
 </script>
 </body>
 </html>"""
+
+# ---------------------------------------------------------------------------
+# SEO: City landing page data & template
+# ---------------------------------------------------------------------------
+
+CITY_SEO_DATA = {
+    "geneva": {"name": "Geneva", "country": "Switzerland", "transit": "TPG trams and buses", "currency": "CHF", "tip": "Most shops close on Sundays"},
+    "dubai": {"name": "Dubai", "country": "UAE", "transit": "Dubai Metro and Careem/Uber", "currency": "AED", "tip": "Friday is the weekend day off"},
+    "miami": {"name": "Miami", "country": "USA", "transit": "Uber and Metrorail", "currency": "USD", "tip": "Tipping 18-20% is expected at restaurants"},
+    "lisbon": {"name": "Lisbon", "country": "Portugal", "transit": "Metro, trams, and Bolt", "currency": "EUR", "tip": "Shops close between 1-3pm for lunch"},
+    "barcelona": {"name": "Barcelona", "country": "Spain", "transit": "Metro and Cabify/Uber", "currency": "EUR", "tip": "Dinner starts at 9pm, not 7pm"},
+    "paris": {"name": "Paris", "country": "France", "transit": "Metro and RER trains", "currency": "EUR", "tip": "Most bakeries close on Mondays"},
+    "london": {"name": "London", "country": "UK", "transit": "Tube, buses, and Bolt", "currency": "GBP", "tip": "Contactless payment works almost everywhere"},
+    "new-york": {"name": "New York", "country": "USA", "transit": "Subway and Uber/Lyft", "currency": "USD", "tip": "Tipping 18-20% is expected everywhere"},
+    "bali": {"name": "Bali", "country": "Indonesia", "transit": "Grab and GoJek", "currency": "IDR", "tip": "Always negotiate taxi prices before getting in"},
+    "bangkok": {"name": "Bangkok", "country": "Thailand", "transit": "BTS Skytrain and Grab", "currency": "THB", "tip": "Street food is safe and incredible"},
+}
+
+CITY_GUIDE_PAGE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airbnb Guest Guide for {name} - HostGuide</title>
+<meta name="description" content="Create a beautiful digital guest guide for your Airbnb in {name}, {country}. Local tips on transit, currency, dining and more.">
+<meta property="og:title" content="Airbnb Guest Guide for {name} - HostGuide">
+<meta property="og:description" content="Everything your guests need to know about staying in {name}. Transit, currency, local tips and more.">
+<meta property="og:url" content="https://host-guide.net/guides/{slug}">
+<link rel="canonical" href="https://host-guide.net/guides/{slug}">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>body{{font-family:'Inter',sans-serif}}</style>
+<script type="application/ld+json">
+{{"@context":"https://schema.org","@type":"TouristDestination","name":"{name}","description":"Airbnb guest guide for {name}, {country}","url":"https://host-guide.net/guides/{slug}"}}
+</script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+<nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+  <a href="/" class="text-xl font-bold" style="color:#00897B;">HostGuide</a>
+  <a href="/#pricing" class="text-sm font-semibold" style="color:#00897B;">Pricing</a>
+</nav>
+<section class="text-center py-20 px-4" style="background:linear-gradient(135deg,#00897B,#00695C);">
+  <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Airbnb Guest Guide for {name}</h1>
+  <p class="text-lg text-teal-100 max-w-2xl mx-auto">Your guests in {name} deserve a local's guide - not a generic PDF.</p>
+</section>
+<section class="max-w-3xl mx-auto py-16 px-6">
+  <h2 class="text-2xl font-bold mb-4">What your {name} guide includes</h2>
+  <p class="mb-4 leading-relaxed">A HostGuide for {name} gives your guests everything they need from the moment they land. It covers getting around with <strong>{transit}</strong>, paying in <strong>{currency}</strong>, and the kind of local knowledge that turns a good trip into a great one.</p>
+  <p class="mb-4 leading-relaxed">Your guide is auto-generated from your Airbnb listing and enriched with local data specific to {name}, {country}. It includes check-in instructions, neighbourhood highlights, restaurant recommendations, emergency contacts, and house rules - all in a beautiful mobile-friendly page.</p>
+  <p class="mb-4 leading-relaxed"><strong>Local tip:</strong> {tip}. Details like this are what separate a five-star review from a four-star one.</p>
+  <p class="mb-4 leading-relaxed text-sm text-gray-500">Want to learn more about hosting in {name}? Check out <a href="https://www.airbnb.com/s/{name}/homes" target="_blank" rel="noopener" style="color:#00897B;">Airbnb listings in {name}</a> and Airbnb's <a href="https://www.airbnb.com/resources/hosting-homes" target="_blank" rel="noopener" style="color:#00897B;">hosting resources</a> for tips on becoming a <a href="https://www.airbnb.com/d/superhost" target="_blank" rel="noopener" style="color:#00897B;">Superhost</a>.</p>
+  <div class="mt-10 text-center">
+    <a href="/#guideForm" class="inline-block px-8 py-4 text-white font-semibold rounded-lg text-lg" style="background:#00897B;">Generate Your {name} Guide Now</a>
+  </div>
+</section>
+<footer class="text-center py-8 text-sm text-gray-500 border-t">
+  <div class="flex flex-wrap justify-center gap-3 mb-4 text-xs text-gray-400">
+    <a href="/guides/geneva" style="color:#999;">Geneva</a>
+    <a href="/guides/dubai" style="color:#999;">Dubai</a>
+    <a href="/guides/miami" style="color:#999;">Miami</a>
+    <a href="/guides/lisbon" style="color:#999;">Lisbon</a>
+    <a href="/guides/barcelona" style="color:#999;">Barcelona</a>
+    <a href="/guides/paris" style="color:#999;">Paris</a>
+    <a href="/guides/london" style="color:#999;">London</a>
+    <a href="/guides/new-york" style="color:#999;">New York</a>
+    <a href="/guides/bali" style="color:#999;">Bali</a>
+    <a href="/guides/bangkok" style="color:#999;">Bangkok</a>
+  </div>
+  <p>&copy; 2026 HostGuide - <a href="mailto:hello@host-guide.net" style="color:#00897B;">hello@host-guide.net</a></p>
+</footer>
+</body>
+</html>"""
+
+# ---------------------------------------------------------------------------
+# SEO routes: robots.txt, sitemap.xml, city landing pages
+# ---------------------------------------------------------------------------
+
+@app.route("/robots.txt")
+def robots_txt():
+    txt = "User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /dashboard\nDisallow: /generating/\n\nSitemap: https://host-guide.net/sitemap.xml"
+    return app.response_class(txt, mimetype="text/plain")
+
+
+@app.route("/sitemap.xml")
+def sitemap_xml():
+    from datetime import date
+    today = date.today().isoformat()
+    cities = ["geneva", "dubai", "miami", "lisbon", "barcelona", "paris", "london", "new-york", "bali", "bangkok"]
+    urls = [f'<url><loc>https://host-guide.net/</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>']
+    for c in cities:
+        urls.append(f'<url><loc>https://host-guide.net/guides/{c}</loc><lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>')
+    xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + '\n'.join(urls) + '\n</urlset>'
+    return app.response_class(xml, mimetype="application/xml")
+
+
+@app.route("/guides/<city_slug>")
+def city_guide_page(city_slug):
+    city = CITY_SEO_DATA.get(city_slug)
+    if not city:
+        return redirect("/")
+    html = CITY_GUIDE_PAGE.format(
+        name=city["name"],
+        country=city["country"],
+        transit=city["transit"],
+        currency=city["currency"],
+        tip=city["tip"],
+        slug=city_slug,
+    )
+    return app.response_class(html, mimetype="text/html")
 
 
 if __name__ == "__main__":
