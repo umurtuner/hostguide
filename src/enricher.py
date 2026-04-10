@@ -453,12 +453,12 @@ def enrich_without_api(lat: float, lng: float, city_config: dict) -> EnrichedLoc
 def _add_google_ratings(enriched: EnrichedLocation) -> EnrichedLocation:
     """Look up Google ratings for all places found via Overpass.
 
-    Uses Find Place from Text ($17/1K calls) — cheapest option.
-    Then filters: only keep places with 4.0+ stars and 100+ reviews.
+    Uses Places API (New) - Text Search endpoint.
+    Requests only rating + userRatingCount fields (cheapest SKU).
     """
-    FIND_PLACE_URL = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
+    SEARCH_URL = "https://places.googleapis.com/v1/places:searchText"
     lookup_count = 0
-    max_lookups = 50  # Budget cap per guide (~$0.85/guide)
+    max_lookups = 50  # Budget cap per guide
 
     for category in ["restaurant", "grocery", "landmark", "nightlife", "health", "transit"]:
         places = getattr(enriched, category, [])
@@ -466,22 +466,28 @@ def _add_google_ratings(enriched: EnrichedLocation) -> EnrichedLocation:
             if place.rating > 0 or lookup_count >= max_lookups:
                 continue
             try:
-                resp = requests.get(FIND_PLACE_URL, params={
-                    "input": place.name,
-                    "inputtype": "textquery",
-                    "locationbias": f"circle:500@{place.lat},{place.lng}",
-                    "fields": "rating,user_ratings_total",
-                    "key": GOOGLE_API_KEY,
+                resp = requests.post(SEARCH_URL, json={
+                    "textQuery": place.name,
+                    "locationBias": {
+                        "circle": {
+                            "center": {"latitude": place.lat, "longitude": place.lng},
+                            "radius": 500.0,
+                        }
+                    },
+                    "maxResultCount": 1,
+                }, headers={
+                    "X-Goog-Api-Key": GOOGLE_API_KEY,
+                    "X-Goog-FieldMask": "places.rating,places.userRatingCount",
                 }, timeout=5)
                 lookup_count += 1
                 data = resp.json()
-                status = data.get("status", "UNKNOWN")
-                candidates = data.get("candidates", [])
-                if candidates:
-                    place.rating = candidates[0].get("rating", 0)
-                    place.total_ratings = candidates[0].get("user_ratings_total", 0)
-                elif status != "OK":
-                    print(f"[ratings] API error for '{place.name}': {status} - {data.get('error_message', '')}")
+                results = data.get("places", [])
+                if results:
+                    place.rating = results[0].get("rating", 0)
+                    place.total_ratings = results[0].get("userRatingCount", 0)
+                elif "error" in data:
+                    err = data["error"]
+                    print(f"[ratings] API error for '{place.name}': {err.get('status', '')} - {err.get('message', '')}")
                 time.sleep(0.1)
             except Exception as e:
                 print(f"[ratings] Exception for '{place.name}': {e}")

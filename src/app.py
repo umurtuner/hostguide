@@ -1488,7 +1488,7 @@ tailwind.config = {
     <p class="text-xs text-gray-400 text-center mb-4">— or upgrade your plan —</p>
     {% endif %}
     <h3 class="text-lg font-bold text-center mb-5">Unlock Your Full Guide</h3>
-    <div class="grid grid-cols-3 gap-3">
+    <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto">
 
       <!-- Single -->
       <form action="/checkout" method="POST" class="text-center">
@@ -1602,9 +1602,12 @@ def preview():
     # Rich meta fetch (OG tags + embedded JSON — fast, no Playwright)
     meta = _fetch_listing_meta(airbnb_url)
 
-    # Use form city if meta didn't get one
+    # Use form city if meta didn't get one — filter out listing subtitle junk
     listing_title = meta.get("title", "")
-    city = city or meta.get("city", "")
+    raw_city = city or meta.get("city", "")
+    if raw_city and any(w in raw_city.lower() for w in ("bed", "bath", "entire", "private", "shared", "room")):
+        raw_city = ""
+    city = raw_city
     neighborhood = meta.get("neighborhood", "")
 
     # Store extracted meta in the order for generation (avoids double fetch)
