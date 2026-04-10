@@ -475,15 +475,20 @@ def _add_google_ratings(enriched: EnrichedLocation) -> EnrichedLocation:
                 }, timeout=5)
                 lookup_count += 1
                 data = resp.json()
+                status = data.get("status", "UNKNOWN")
                 candidates = data.get("candidates", [])
                 if candidates:
                     place.rating = candidates[0].get("rating", 0)
                     place.total_ratings = candidates[0].get("user_ratings_total", 0)
+                elif status != "OK":
+                    print(f"[ratings] API error for '{place.name}': {status} - {data.get('error_message', '')}")
                 time.sleep(0.1)
-            except Exception:
+            except Exception as e:
+                print(f"[ratings] Exception for '{place.name}': {e}")
                 continue
 
-    print(f"[ratings] Looked up {lookup_count} places via Google Find Place")
+    rated = sum(1 for cat in ["restaurant", "grocery", "landmark", "nightlife"] for p in getattr(enriched, cat, []) if p.rating > 0)
+    print(f"[ratings] Looked up {lookup_count} places, {rated} got ratings")
 
     # Filter: keep only 4.0+ stars with 100+ reviews (or unrated transit/health)
     for category in ["restaurant", "grocery", "landmark", "nightlife"]:
