@@ -174,7 +174,11 @@ def _add_credits(email: str, amount: int, tier: str = "single",
         processed.append(dedup_key)
         credits[email]["processed_payments"] = processed
     credits[email]["credits"] += amount
-    credits[email]["tier"] = tier
+    # Don't downgrade tier: single purchase shouldn't overwrite active subscription
+    current_tier = credits[email].get("tier", "none")
+    tier_priority = {"none": 0, "single": 1, "starter": 2, "pro": 3}
+    if tier_priority.get(tier, 0) >= tier_priority.get(current_tier, 0):
+        credits[email]["tier"] = tier
     if stripe_customer_id:
         credits[email]["stripe_customer_id"] = stripe_customer_id
     _save_credits(credits)
@@ -1406,10 +1410,17 @@ tailwind.config = {
       </button>
     </form>
     {% else %}
-    <p class="text-sm text-gray-500 mb-4">You've used all your credits for this period.</p>
+      {% if tier in ('starter', 'pro') %}
+    <p class="text-sm text-gray-500 mb-4">You've used all your credits for this billing cycle. They'll automatically refill on your next billing date.</p>
+    <a href="/#pricing" class="inline-block px-4 py-2 text-teal-700 bg-teal-50 rounded-xl font-semibold text-sm hover:bg-teal-100 transition">
+      Upgrade Plan
+    </a>
+      {% else %}
+    <p class="text-sm text-gray-500 mb-4">You've used all your credits.</p>
     <a href="/#pricing" class="inline-block px-6 py-3 bg-teal-600 text-white rounded-xl font-semibold text-sm hover:bg-teal-700 transition">
       Get More Credits
     </a>
+      {% endif %}
     {% endif %}
   </div>
 
@@ -1566,7 +1577,14 @@ def generating(token: str):
         t = threading.Thread(target=_generate_in_background, args=(token,), daemon=True)
         t.start()
 
-    return render_template_string(GENERATING_PAGE, token=token)
+    # Build dashboard link for subscription users
+    dashboard_link = ""
+    email = order.get("email", "")
+    tier = order.get("tier", "single")
+    if tier in ("starter", "pro") and email:
+        dashboard_link = _dashboard_url(email)
+
+    return render_template_string(GENERATING_PAGE, token=token, dashboard_link=dashboard_link)
 
 
 @app.route("/api/status/<token>")
@@ -1798,6 +1816,10 @@ p { font-size: 14px; color: #666; line-height: 1.6; }
         <a href="/download/{{ token }}">View Your Guide</a>
         <br>
         <a href="/download/{{ token }}/pdf" style="margin-top:8px; display:inline-block; font-size:13px; color:#00897B;">Download PDF</a>
+        {% if dashboard_link %}
+        <br>
+        <a href="{{ dashboard_link }}" style="margin-top:12px; display:inline-block; font-size:13px; color:#666; text-decoration:underline;">Back to Dashboard (use remaining credits)</a>
+        {% endif %}
     </div>
 </div>
 <script>
