@@ -1196,7 +1196,7 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
 
     <!-- 5 Guide Pack -->
     <div class="bg-white rounded-2xl shadow-xl p-7 border-2 border-teal-500 text-center relative md:-mt-2 md:mb-0">
-      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-teal-600 text-white text-xs font-semibold px-4 py-1 rounded-full">Save 20%</div>
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-semibold px-4 py-1 rounded-full">55% off</div>
       <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4 mt-1">5 Guide Pack</h3>
       <div class="text-3xl font-extrabold text-teal-700 mb-1"><span class="text-lg line-through text-gray-300 mr-1">$89.99</span>$39.99</div>
       <div class="text-xs text-gray-500 mb-1">one-time - $8.00/guide</div>
@@ -1488,10 +1488,11 @@ tailwind.config = {
       <form action="/checkout" method="POST" class="text-center">
         <input type="hidden" name="token" value="{{ token }}">
         <input type="hidden" name="tier" value="single">
-        <div class="bg-white rounded-xl border border-gray-200 p-4 hover:border-teal-400 transition h-full flex flex-col">
-          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Single Guide</div>
+        <div class="bg-white rounded-xl border border-gray-200 p-4 hover:border-teal-400 transition h-full flex flex-col relative">
+          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-semibold px-3 py-0.5 rounded-full">50% off</div>
+          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 mt-1">Single Guide</div>
           <div class="text-2xl font-extrabold text-gray-800"><span class="text-sm line-through text-gray-300">$19.99</span> $9.99</div>
-          <div class="text-xs text-gray-400 mb-3">one-time</div>
+          <div class="text-xs text-teal-600 font-medium mb-3">Launch pricing</div>
           <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
             <li>&#10003; This guide only</li>
             <li>&#10003; PDF + web version</li>
@@ -1508,10 +1509,10 @@ tailwind.config = {
         <input type="hidden" name="token" value="{{ token }}">
         <input type="hidden" name="tier" value="starter">
         <div class="bg-white rounded-xl border-2 border-teal-500 p-4 relative h-full flex flex-col shadow-md">
-          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-teal-600 text-white text-xs font-semibold px-3 py-0.5 rounded-full">Save 20%</div>
+          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-semibold px-3 py-0.5 rounded-full">55% off</div>
           <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 mt-1">5 Guide Pack</div>
           <div class="text-2xl font-extrabold text-teal-700"><span class="text-sm line-through text-gray-300 mr-1">$89.99</span>$39.99</div>
-          <div class="text-xs text-gray-400 mb-3">one-time - $8.00/guide</div>
+          <div class="text-xs text-teal-600 font-medium mb-3">Launch pricing - $8.00/guide</div>
           <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
             <li>&#10003; <strong>5 personalized guides</strong></li>
             <li>&#10003; PDF + web version</li>
