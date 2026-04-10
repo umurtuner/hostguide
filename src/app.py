@@ -401,15 +401,36 @@ def _generate_guide_for_order(token: str) -> bool:
         return False
 
 
+def _refund_credit(token: str):
+    """Refund 1 credit if the guide generation failed."""
+    order = _get_order(token)
+    if not order:
+        return
+    email = order.get("email", "").lower().strip()
+    if not email:
+        return
+    credits = _load_credits()
+    user = credits.get(email)
+    if user:
+        user["credits"] += 1
+        # Remove the token from guides_generated
+        if token in user.get("guides_generated", []):
+            user["guides_generated"].remove(token)
+        _save_credits(credits)
+        print(f"[refund] Restored 1 credit to {email} (failed generation {token})")
+
+
 def _generate_in_background(token: str):
     """Run guide generation in a background thread."""
     try:
         success = _generate_guide_for_order(token)
         if not success:
             _update_order(token, status="failed")
+            _refund_credit(token)
             print(f"Guide generation failed for {token}")
     except Exception as e:
         _update_order(token, status="failed")
+        _refund_credit(token)
         print(f"Background generation failed for {token}: {e}")
 
 
@@ -1837,7 +1858,7 @@ function pollStatus() {
                     '<h1 style="font-size:22px;margin-bottom:8px;color:#dc2626;">Generation Failed</h1>' +
                     '<p style="font-size:14px;color:#666;line-height:1.6;">We couldn\\'t generate your guide. Please make sure the Airbnb URL is valid and the city is correct.</p>' +
                     '<p style="margin-top:16px;"><a href="/" style="color:#00897B;font-weight:600;">Try Again</a></p>' +
-                    '<p style="margin-top:8px;font-size:13px;color:#888;">Your credit has not been charged. Questions? hello@host-guide.net</p>';
+                    '<p style="margin-top:8px;font-size:13px;color:#888;">Your credit has been refunded. Questions? hello@host-guide.net</p>';
             } else if (checks < 60) {
                 checks++;
                 const msgs = ['Scraping listing details...', 'Finding nearby places...',

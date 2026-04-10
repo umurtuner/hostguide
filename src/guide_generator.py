@@ -15,8 +15,12 @@ from datetime import date
 from pathlib import Path
 from typing import Optional
 
-from hostguide.src.scraper import Listing
-from hostguide.src.enricher import EnrichedLocation, Place
+try:
+    from hostguide.src.scraper import Listing
+    from hostguide.src.enricher import EnrichedLocation, Place
+except ImportError:
+    from src.scraper import Listing
+    from src.enricher import EnrichedLocation, Place
 
 
 @dataclass

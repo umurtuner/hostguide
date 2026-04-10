@@ -8,8 +8,12 @@ Usage:
 """
 from __future__ import annotations
 
-from hostguide.src.scraper import Listing
-from hostguide.src.guide_generator import GuestGuide
+try:
+    from hostguide.src.scraper import Listing
+    from hostguide.src.guide_generator import GuestGuide
+except ImportError:
+    from src.scraper import Listing
+    from src.guide_generator import GuestGuide
 
 
 def generate_dm(listing: Listing, guide: GuestGuide, pricing: str = "$9.99/month") -> str:

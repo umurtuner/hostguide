@@ -27,7 +27,11 @@ from dataclasses import dataclass, field, asdict
 from typing import Optional, List
 from pathlib import Path
 
-from playwright.sync_api import sync_playwright, Page
+try:
+    from playwright.sync_api import sync_playwright, Page
+except ImportError:
+    sync_playwright = None
+    Page = None
 
 # ── Config (env vars, same pattern as Dubai scraper) ──
 HEADLESS = os.getenv("HEADLESS", "false").lower() == "true"  # Default HEADED for Airbnb
