@@ -153,8 +153,9 @@ def _get_user_credits(email: str) -> dict:
 
 
 def _add_credits(email: str, amount: int, tier: str = "single",
-                  stripe_customer_id: str | None = None):
-    """Add guide credits to a user."""
+                  stripe_customer_id: str | None = None,
+                  dedup_key: str | None = None):
+    """Add guide credits to a user. dedup_key prevents double-adding."""
     credits = _load_credits()
     email = email.lower().strip()
     if email not in credits:
@@ -163,7 +164,15 @@ def _add_credits(email: str, amount: int, tier: str = "single",
             "tier": tier,
             "guides_generated": [],
             "stripe_customer_id": None,
+            "processed_payments": [],
         }
+    # Dedup: skip if this payment was already processed
+    if dedup_key:
+        processed = credits[email].get("processed_payments", [])
+        if dedup_key in processed:
+            return  # Already added credits for this payment
+        processed.append(dedup_key)
+        credits[email]["processed_payments"] = processed
     credits[email]["credits"] += amount
     credits[email]["tier"] = tier
     if stripe_customer_id:
@@ -251,7 +260,7 @@ def _generate_guide_for_order(token: str) -> bool:
     """Run the full pipeline: Playwright scrape → OSM enrich → generate HTML guide.
     Falls back to geocode-only if Playwright fails."""
     order = _get_order(token)
-    if not order or order["status"] != "paid":
+    if not order or order["status"] not in ("paid", "generating"):
         return False
 
     airbnb_url = order["airbnb_url"]
@@ -391,8 +400,6 @@ def _generate_guide_for_order(token: str) -> bool:
 def _generate_in_background(token: str):
     """Run guide generation in a background thread."""
     try:
-        # Set status back to paid so _generate_guide_for_order accepts it
-        _update_order(token, status="paid")
         success = _generate_guide_for_order(token)
         if not success:
             _update_order(token, status="failed")
@@ -564,6 +571,16 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
       <p id="errorMsg" class="text-red-500 text-xs text-center mt-2 hidden"></p>
       <p class="text-center text-xs text-gray-400 mt-3">See your personalized guide instantly &middot; Pay only if you want the full version</p>
     </form>
+    <div class="text-center mt-4 pt-4 border-t border-gray-100">
+      <p class="text-xs text-gray-400 mb-2">Already have a plan?</p>
+      <form action="/dashboard/login" method="POST" class="inline">
+        <input type="email" name="email" required placeholder="Enter your email"
+               class="px-3 py-2 border border-gray-200 rounded-lg text-xs w-48 focus:outline-none focus:ring-2 focus:ring-teal-500/30">
+        <button type="submit" class="px-4 py-2 text-xs font-semibold text-teal-700 bg-teal-50 rounded-lg hover:bg-teal-100 transition">
+          Go to Dashboard
+        </button>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -1200,6 +1217,19 @@ def preview_by_token(token: str):
     )
 
 
+@app.route("/dashboard/login", methods=["POST"])
+def dashboard_login():
+    """Returning user enters email → redirect to signed dashboard URL."""
+    email = request.form.get("email", "").strip().lower()
+    if not email:
+        return redirect("/")
+    user = _get_user_credits(email)
+    if user["tier"] == "none" and user["credits"] == 0:
+        # No account — redirect back with message
+        return redirect("/?error=no_account")
+    return redirect(_dashboard_url(email))
+
+
 @app.route("/dashboard")
 def dashboard():
     """User dashboard — shows credits, past guides, generate new guide."""
@@ -1228,7 +1258,8 @@ def dashboard():
                         tier_name = ord_data.get("tier", "single")
                         tier_config = TIERS.get(tier_name, TIERS["single"])
                         _add_credits(email, tier_config["guides"], tier_name,
-                                     stripe_customer_id=session.get("customer"))
+                                     stripe_customer_id=session.get("customer"),
+                                     dedup_key=ord_data["stripe_session_id"])
                         _update_order(tok, status="paid", tier=tier_name)
                         user = _get_user_credits(email)  # Refresh
                         print(f"[dashboard] Verified Stripe payment for {email}: "
@@ -1461,7 +1492,7 @@ def checkout():
     if not STRIPE_SECRET:
         _update_order(token, status="paid", tier=tier)
         tier_credits = TIERS[tier]["guides"]
-        _add_credits(email, tier_credits, tier)
+        _add_credits(email, tier_credits, tier, dedup_key=f"dev-{token}")
         if tier in ("starter", "pro"):
             return redirect(_dashboard_url(email))
         return redirect(f"/generating/{token}")
@@ -1523,7 +1554,8 @@ def generating(token: str):
                 _update_order(token, status="paid", tier=tier)
                 tier_config = TIERS.get(tier, TIERS["single"])
                 _add_credits(order["email"], tier_config["guides"], tier,
-                             stripe_customer_id=session.get("customer"))
+                             stripe_customer_id=session.get("customer"),
+                             dedup_key=order["stripe_session_id"])
                 order["status"] = "paid"
         except Exception as e:
             print(f"Stripe session check failed: {e}")
@@ -1553,7 +1585,8 @@ def order_status(token: str):
                 _update_order(token, status="paid", tier=tier)
                 tier_config = TIERS.get(tier, TIERS["single"])
                 _add_credits(order["email"], tier_config["guides"], tier,
-                             stripe_customer_id=session.get("customer"))
+                             stripe_customer_id=session.get("customer"),
+                             dedup_key=order["stripe_session_id"])
                 # Start generation immediately
                 _update_order(token, status="generating")
                 t = threading.Thread(target=_generate_in_background, args=(token,), daemon=True)
@@ -1565,6 +1598,7 @@ def order_status(token: str):
     return jsonify({
         "status": order["status"],
         "ready": order["status"] == "generated" and order.get("guide_path") is not None,
+        "failed": order["status"] == "failed",
     })
 
 
@@ -1625,7 +1659,8 @@ def stripe_webhook():
             if order:
                 tier_config = TIERS.get(tier, TIERS["single"])
                 _add_credits(order["email"], tier_config["guides"], tier,
-                             stripe_customer_id=customer_id)
+                             stripe_customer_id=customer_id,
+                             dedup_key=session.get("id", token))
             # Generation triggers from the /generating page when user lands there
 
     elif event["type"] == "invoice.paid":
@@ -1647,7 +1682,8 @@ def stripe_webhook():
                 tier = user_rec.get("tier", "starter")
                 tier_config = TIERS.get(tier, TIERS["starter"])
                 _add_credits(customer_email, tier_config["guides"], tier,
-                             stripe_customer_id=customer_id)
+                             stripe_customer_id=customer_id,
+                             dedup_key=invoice.get("id"))
                 print(f"[invoice.paid] Refilled {tier_config['guides']} credits for {customer_email} ({tier})")
 
     elif event["type"] == "customer.subscription.deleted":
@@ -1774,6 +1810,12 @@ function pollStatus() {
             if (data.ready) {
                 document.querySelector('.generating').style.display = 'none';
                 document.getElementById('readySection').style.display = 'block';
+            } else if (data.failed) {
+                document.querySelector('.generating').innerHTML =
+                    '<h1 style="font-size:22px;margin-bottom:8px;color:#dc2626;">Generation Failed</h1>' +
+                    '<p style="font-size:14px;color:#666;line-height:1.6;">We couldn\\'t generate your guide. Please make sure the Airbnb URL is valid and the city is correct.</p>' +
+                    '<p style="margin-top:16px;"><a href="/" style="color:#00897B;font-weight:600;">Try Again</a></p>' +
+                    '<p style="margin-top:8px;font-size:13px;color:#888;">Your credit has not been charged. Questions? hello@host-guide.net</p>';
             } else if (checks < 60) {
                 checks++;
                 const msgs = ['Scraping listing details...', 'Finding nearby places...',
@@ -1783,7 +1825,7 @@ function pollStatus() {
             } else {
                 document.querySelector('.generating').innerHTML =
                     '<h1 style="font-size:22px;margin-bottom:8px;">Taking longer than expected</h1>' +
-                    '<p style="font-size:14px;color:#666;line-height:1.6;">Your guide is still being prepared. We\\'ll email it to you when it\\'s ready. You can close this page.</p>' +
+                    '<p style="font-size:14px;color:#666;line-height:1.6;">Your guide is still being prepared. Please refresh this page in a few minutes.</p>' +
                     '<p style="margin-top:16px;font-size:13px;color:#888;">Questions? hello@host-guide.net</p>';
             }
         })
