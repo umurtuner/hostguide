@@ -2,7 +2,7 @@ services:
   - type: web
     name: hostguide
     runtime: python
-    buildCommand: pip install -r requirements.txt && playwright install --with-deps chromium
+    buildCommand: apt-get update && apt-get install -y libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf2.0-0 libffi-dev libcairo2 && pip install -r requirements.txt && playwright install --with-deps chromium
     startCommand: cd /opt/render/project/src && gunicorn src.app:app --bind 0.0.0.0:$PORT --workers 2
     envVars:
       - key: PYTHON_VERSION

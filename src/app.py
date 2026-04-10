@@ -273,6 +273,63 @@ def _use_credit(email: str, token: str) -> bool:
 
 
 # ═══════════════════════════════════════════════════════════════
+# PDF GENERATION (WeasyPrint — no browser needed)
+# ═══════════════════════════════════════════════════════════════
+
+def _generate_pdf(html_path: Path, pdf_path: Path):
+    """Generate PDF from HTML file using WeasyPrint with print-optimized styles."""
+    from weasyprint import HTML
+
+    html_content = html_path.read_text(encoding="utf-8")
+
+    # Inject print-optimized CSS before </head>
+    print_css = """
+<style>
+@page { size: A4; margin: 15mm 12mm; }
+
+/* Hide raw link URLs that WeasyPrint exposes */
+a { text-decoration: none !important; color: #1a1a1a !important; }
+a::after { content: none !important; }
+a[href]::after { content: none !important; }
+
+/* Fix table layout — prevent column wrapping */
+table { width: 100% !important; table-layout: fixed !important; }
+.place-row td { vertical-align: top; padding: 8px 0; border-bottom: 1px solid #eee; }
+.place-name { width: 60% !important; font-weight: 600; font-size: 13px; word-wrap: break-word; }
+.place-detail { width: 40% !important; text-align: right; font-size: 12px; color: #666; white-space: nowrap; }
+.place-link { color: #1a1a1a !important; text-decoration: none !important; }
+.place-addr { font-size: 11px; color: #888; }
+.place-dist { font-size: 12px; color: #555; }
+.rating { font-size: 11px; color: #e6a117; font-weight: 500; }
+
+/* Compact sections */
+.section { page-break-inside: avoid; margin-bottom: 16px; }
+h2 { font-size: 18px; margin-bottom: 8px; }
+h3 { font-size: 14px; margin-bottom: 4px; }
+
+/* Hero header */
+.hero { padding: 24px 28px !important; }
+.hero h1 { font-size: 26px !important; }
+
+/* Tips and info tables */
+.tip-row td { padding: 6px 8px; font-size: 12px; }
+.info-table td { padding: 4px 8px; font-size: 12px; }
+.safety-list li { font-size: 12px; margin-bottom: 4px; }
+
+/* Map embed — hide in PDF (not renderable) */
+iframe { display: none !important; }
+.map-container { display: none !important; }
+
+/* Footer */
+.footer { font-size: 10px; color: #999; text-align: center; margin-top: 20px; }
+</style>
+"""
+    html_content = html_content.replace("</head>", f"{print_css}\n</head>", 1)
+
+    HTML(string=html_content, base_url=str(html_path.parent)).write_pdf(str(pdf_path))
+
+
+# ═══════════════════════════════════════════════════════════════
 # EMAIL SUBSCRIBERS (CRM list)
 # ═══════════════════════════════════════════════════════════════
 
@@ -527,26 +584,14 @@ def _generate_guide_for_order(token: str) -> bool:
         html_path = guide_dir / f"{listing_id}_guide.html"
         html_path.write_text(guide.content_html, encoding="utf-8")
 
-        # Step 6: Generate PDF using Playwright (renders full styled HTML)
+        # Step 6: Generate PDF using WeasyPrint (pure Python, no browser needed)
         pdf_path = html_path.with_suffix(".pdf")
         try:
-            from playwright.sync_api import sync_playwright
-            with sync_playwright() as pw:
-                browser = pw.chromium.launch(
-                    headless=True,
-                    args=["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"],
-                )
-                page = browser.new_page()
-                page.goto(f"file://{html_path.resolve()}", wait_until="networkidle", timeout=30000)
-                page.pdf(path=str(pdf_path), format="A4",
-                         margin={"top": "15mm", "bottom": "15mm",
-                                 "left": "12mm", "right": "12mm"},
-                         print_background=True)
-                browser.close()
-            print(f"PDF generated via Playwright: {pdf_path}")
+            _generate_pdf(html_path, pdf_path)
+            print(f"PDF generated via WeasyPrint: {pdf_path}")
         except Exception as e:
             import traceback
-            print(f"Playwright PDF failed: {e}\n{traceback.format_exc()}")
+            print(f"WeasyPrint PDF failed: {e}\n{traceback.format_exc()}")
             pdf_path.unlink(missing_ok=True)
 
         # Update order — single purchases expire in 24h, subscriptions don't
@@ -2148,19 +2193,7 @@ def download_pdf(token: str):
     # Regenerate PDF on-demand if it's missing
     if not pdf_path.exists():
         try:
-            from playwright.sync_api import sync_playwright
-            with sync_playwright() as pw:
-                browser = pw.chromium.launch(
-                    headless=True,
-                    args=["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"],
-                )
-                page = browser.new_page()
-                page.goto(f"file://{guide_path.resolve()}", wait_until="networkidle", timeout=30000)
-                page.pdf(path=str(pdf_path), format="A4",
-                         margin={"top": "15mm", "bottom": "15mm",
-                                 "left": "12mm", "right": "12mm"},
-                         print_background=True)
-                browser.close()
+            _generate_pdf(guide_path, pdf_path)
             print(f"On-demand PDF generated: {pdf_path}")
         except Exception as e:
             import traceback
