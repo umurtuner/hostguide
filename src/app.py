@@ -2737,6 +2737,11 @@ CITY_GUIDE_PAGE = """<!DOCTYPE html>
 # SEO routes: robots.txt, sitemap.xml, city landing pages
 # ---------------------------------------------------------------------------
 
+@app.route("/google775205a02f12530e.html")
+def google_verification():
+    return send_file(BASE / "static" / "google775205a02f12530e.html")
+
+
 @app.route("/robots.txt")
 def robots_txt():
     txt = "User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /dashboard\nDisallow: /generating/\n\nSitemap: https://host-guide.net/sitemap.xml"
