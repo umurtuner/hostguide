@@ -950,23 +950,23 @@ LANDING_PAGE = """<!DOCTYPE html>
 <meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="qg0cPYAQg0Zr4Ozt6sD4d4SU0_6l5cFbA1EsgVJxJvc">
 <meta name="theme-color" content="#004d40">
-<link rel="canonical" href="https://host-guide.net">
-<link rel="alternate" hreflang="en" href="https://host-guide.net">
-<link rel="alternate" hreflang="x-default" href="https://host-guide.net">
+<link rel="canonical" href="https://www.host-guide.net">
+<link rel="alternate" hreflang="en" href="https://www.host-guide.net">
+<link rel="alternate" hreflang="x-default" href="https://www.host-guide.net">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='35' r='20' fill='%23004d40'/><path d='M50 75 L30 45 Q30 15 50 15 Q70 15 70 45 Z' fill='%23004d40'/><circle cx='50' cy='35' r='8' fill='white'/></svg>">
 <!-- Open Graph -->
 <meta property="og:title" content="HostGuide - Neighborhood Guides for Airbnb Hosts">
 <meta property="og:description" content="Auto-generate personalized neighborhood guides with real ratings, walking distances, and local tips. Just paste your Airbnb listing URL.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://host-guide.net">
+<meta property="og:url" content="https://www.host-guide.net">
 <meta property="og:site_name" content="HostGuide">
-<meta property="og:image" content="https://host-guide.net/static/og-image.png">
+<meta property="og:image" content="https://www.host-guide.net/static/og-image.png">
 <meta property="og:locale" content="en_US">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="HostGuide - Neighborhood Guides for Airbnb Hosts">
 <meta name="twitter:description" content="Auto-generate personalized neighborhood guides with real ratings, walking distances, and local tips. Just paste your Airbnb listing URL.">
-<meta name="twitter:image" content="https://host-guide.net/static/og-image.png">
+<meta name="twitter:image" content="https://www.host-guide.net/static/og-image.png">
 <!-- Structured Data -->
 <script type="application/ld+json">
 {
@@ -974,7 +974,7 @@ LANDING_PAGE = """<!DOCTYPE html>
   "@type": "SoftwareApplication",
   "name": "HostGuide",
   "description": "Auto-generate personalized neighborhood guides for Airbnb guests with real ratings, walking distances, and local tips.",
-  "url": "https://host-guide.net",
+  "url": "https://www.host-guide.net",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "Web",
   "offers": {
@@ -1042,7 +1042,7 @@ LANDING_PAGE = """<!DOCTYPE html>
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://host-guide.net/"}
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.host-guide.net/"}
   ]
 }
 </script>
@@ -2687,13 +2687,13 @@ CITY_GUIDE_PAGE = """<!DOCTYPE html>
 <meta name="description" content="Create a beautiful digital guest guide for your Airbnb in {name}, {country}. Local tips on transit, currency, dining and more.">
 <meta property="og:title" content="Airbnb Guest Guide for {name} - HostGuide">
 <meta property="og:description" content="Everything your guests need to know about staying in {name}. Transit, currency, local tips and more.">
-<meta property="og:url" content="https://host-guide.net/guides/{slug}">
-<link rel="canonical" href="https://host-guide.net/guides/{slug}">
+<meta property="og:url" content="https://www.host-guide.net/guides/{slug}">
+<link rel="canonical" href="https://www.host-guide.net/guides/{slug}">
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>body{{font-family:'Inter',sans-serif}}</style>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"TouristDestination","name":"{name}","description":"Airbnb guest guide for {name}, {country}","url":"https://host-guide.net/guides/{slug}"}}
+{{"@context":"https://schema.org","@type":"TouristDestination","name":"{name}","description":"Airbnb guest guide for {name}, {country}","url":"https://www.host-guide.net/guides/{slug}"}}
 </script>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -2744,7 +2744,7 @@ def google_verification():
 
 @app.route("/robots.txt")
 def robots_txt():
-    txt = "User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /dashboard\nDisallow: /generating/\n\nSitemap: https://host-guide.net/sitemap.xml"
+    txt = "User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /dashboard\nDisallow: /generating/\n\nSitemap: https://www.host-guide.net/sitemap.xml"
     return app.response_class(txt, mimetype="text/plain")
 
 
@@ -2753,9 +2753,9 @@ def sitemap_xml():
     from datetime import date
     today = date.today().isoformat()
     cities = ["geneva", "dubai", "miami", "lisbon", "barcelona", "paris", "london", "new-york", "bali", "bangkok"]
-    urls = [f'<url><loc>https://host-guide.net/</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>']
+    urls = [f'<url><loc>https://www.host-guide.net/</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>']
     for c in cities:
-        urls.append(f'<url><loc>https://host-guide.net/guides/{c}</loc><lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>')
+        urls.append(f'<url><loc>https://www.host-guide.net/guides/{c}</loc><lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>')
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + '\n'.join(urls) + '\n</urlset>'
     return app.response_class(xml, mimetype="application/xml")
 
