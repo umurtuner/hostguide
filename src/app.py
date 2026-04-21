@@ -2701,6 +2701,66 @@ CITY_SEO_DATA = {
                 "q1": "The Rabbit Card for BTS saves guests from queuing every single ride - most welcome books miss this.",
                 "q2": "Tuk-tuks quote tourist prices 4x over Grab. Telling guests the exact Grab price upfront is a 5-star move.",
                 "q3": "Temple dress codes, scam-free taxi queues, and the best night market are the three most repeated questions."},
+    "amsterdam": {"name": "Amsterdam", "country": "Netherlands", "transit": "Trams, metro, and OV-chipkaart (or tap-to-pay)", "currency": "EUR", "tip": "Never walk in the red bike lanes - locals will yell, tourists get hit daily",
+                  "q1": "Contactless bank cards now work on all GVB transit. Guests still buy paper tickets and pay double.",
+                  "q2": "Renting a bike is the #1 thing guests ask about. Pre-booking via MacBike or Black Bikes saves them 30 min of queuing.",
+                  "q3": "Red light district etiquette, coffeeshop rules, and which canal cruise is least touristy come up in almost every thread."},
+    "rome": {"name": "Rome", "country": "Italy", "transit": "Metro lines A/B, ATAC buses, and Free Now", "currency": "EUR", "tip": "Restaurants near major sights charge 3x - walk 5 blocks for real Roman food",
+             "q1": "The Roma Pass covers transit plus 2 museums. For guests staying 2+ days it's always cheaper than individual tickets.",
+             "q2": "Colosseum tickets MUST be pre-booked online now. Same-day queues are 3+ hours.",
+             "q3": "Where to find coffee without the tourist markup, Vatican dress codes, and Sunday lunch hours are the top repeated questions."},
+    "berlin": {"name": "Berlin", "country": "Germany", "transit": "U-Bahn, S-Bahn, trams, and FreeNow", "currency": "EUR", "tip": "Sundays are almost fully closed - grocery-shop on Saturday or head to a Spaeti",
+               "q1": "The BVG app is the only transit source guests should trust - Google Maps is often wrong on weekend closures.",
+               "q2": "Spaetis (corner shops) are the only thing open late on Sundays. Tell guests the nearest one - it's a Berlin rite of passage.",
+               "q3": "Club entry policies, which bakery has the best pretzel, and the difference between a Doner and a Durum come up constantly."},
+    "prague": {"name": "Prague", "country": "Czech Republic", "transit": "Metro, trams, and Bolt", "currency": "CZK", "tip": "Never exchange money in tourist-area kiosks - ATMs from major banks give the real rate",
+               "q1": "The 24/72-hour transit pass is unbeatable value. Most guests default to single tickets and overpay 4x.",
+               "q2": "Charles Bridge at sunrise (before 7am) is the only way to avoid the crush. Tell guests or they'll blame you for the crowds.",
+               "q3": "Restaurant tipping (10% rounded up), which pilsner is authentic, and Old Town pickpocket zones are the top repeat questions."},
+    "budapest": {"name": "Budapest", "country": "Hungary", "transit": "Metro M1-M4, trams, and Bolt", "currency": "HUF", "tip": "Use cards - Hungarian cash has awkward denominations and some shops reject 10k bills",
+                 "q1": "Thermal bath etiquette (bring a swim cap for Szechenyi lap pool) trips up every first-time visitor.",
+                 "q2": "Ruin bars on the Pest side are the nightlife. Szimpla is famous but Instant-Fogas is where locals go.",
+                 "q3": "How to get to the airport (100E bus), Danube dinner cruise scams, and thermal bath timings are the repeat questions."},
+    "porto": {"name": "Porto", "country": "Portugal", "transit": "Metro, STCP buses, and Bolt", "currency": "EUR", "tip": "The Andante card covers bus+metro+urban trains - buy one at the station, not on the bus",
+              "q1": "Port wine cellar tours across the river in Gaia need booking - Sandeman and Graham's sell out by 11am.",
+              "q2": "Francesinha restaurants are everywhere but Cafe Santiago and Brasao are the two locals actually rate.",
+              "q3": "Sao Bento station tiles, the free Livraria Lello entry trick, and the best ocean-beach tram route are the top questions."},
+    "madrid": {"name": "Madrid", "country": "Spain", "transit": "Metro, EMT buses, and Cabify", "currency": "EUR", "tip": "Lunch is the big meal (2-4pm) - menu del dia is the best value meal in Europe",
+               "q1": "The 10-trip Metrobus ticket is half-price vs singles. Guests almost never know it exists.",
+               "q2": "Prado Museum is free 6-8pm daily. Going earlier means paying and still waiting in line.",
+               "q3": "Siesta hours, vermut tradition, and which churros-chocolate spot isn't a tourist trap are the repeat questions."},
+    "vienna": {"name": "Vienna", "country": "Austria", "transit": "U-Bahn, trams, and Bolt", "currency": "EUR", "tip": "The coffee house culture is sitting, not takeaway - budget an hour, not five minutes",
+               "q1": "The 24/48/72-hour transit pass covers all zones and is always cheaper than singles for multi-day stays.",
+               "q2": "Schnitzel in touristy spots is frozen pork. Send guests to Figlmueller or Gasthaus Poschl for the real thing.",
+               "q3": "Opera standing-room tickets, Naschmarkt scams, and which Kaffeehaus has the best Sachertorte are the top questions."},
+    "istanbul": {"name": "Istanbul", "country": "Turkey", "transit": "Metro, trams, ferries, and BiTaksi", "currency": "TRY", "tip": "Istanbulkart covers every transit type including ferries - pick one up at any metro entrance",
+                 "q1": "Hagia Sophia is now a mosque so no timed tickets but closed during prayer times. Guests arriving midday often lose an hour.",
+                 "q2": "BiTaksi replaces Uber here. Standard taxis still quote 3x prices off the meter at tourist spots.",
+                 "q3": "Bosphorus ferry vs tourist cruise, bazaar haggling, and Asian-side neighborhoods are the top repeat questions."},
+    "marrakech": {"name": "Marrakech", "country": "Morocco", "transit": "Petit taxis (metered) and InDrive", "currency": "MAD", "tip": "Petit taxis MUST use the meter - insist or walk away, otherwise expect a 3x tourist fare",
+                  "q1": "The Jemaa el-Fnaa square at sunset is the one must-do experience most guests don't realize peaks at 7pm.",
+                  "q2": "Riad vs hotel is the #1 first-time visitor confusion. If your place is a riad, explain the no-shoes rule upfront.",
+                  "q3": "Haggling in the souks, Atlas day-trip logistics, and which hammam isn't tourist-only are the most repeated questions."},
+    "tokyo": {"name": "Tokyo", "country": "Japan", "transit": "JR lines, Tokyo Metro, Toei, and Suica IC card", "currency": "JPY", "tip": "Cash is still king outside convenience stores - always keep 10,000 yen in small bills",
+              "q1": "Suica on Apple Wallet works on every train, bus, and vending machine. Guests still buy paper tickets and pay 2x.",
+              "q2": "Tipping is an insult in Japan. Telling guests upfront prevents awkward restaurant moments.",
+              "q3": "Convenience store meals, bathhouse tattoo rules, and how to ride a shinkansen for cheap are the top repeat questions."},
+    "singapore": {"name": "Singapore", "country": "Singapore", "transit": "MRT, buses, and Grab", "currency": "SGD", "tip": "Durian is banned on public transit - the fine is S$500 and locals take it seriously",
+                  "q1": "Contactless bank cards replace the EZ-Link card now on all MRT/buses. Guests still buy plastic cards.",
+                  "q2": "Hawker centers (Maxwell, Lau Pa Sat) are where locals eat - Michelin-rated stalls cost S$5.",
+                  "q3": "Chewing gum laws, Sentosa day-pass pricing, and which hawker center is open late are the top repeat questions."},
+    "mexico-city": {"name": "Mexico City", "country": "Mexico", "transit": "Metro, Metrobus, and Uber/DiDi", "currency": "MXN", "tip": "Altitude is real - drink water the first 24 hours and skip alcohol day 1",
+                    "q1": "Uber is dramatically cheaper and safer than street taxis. Tell guests never to flag one down.",
+                    "q2": "Tap water is NOT safe to drink - mention it on page 1 or risk a bad stomach review.",
+                    "q3": "Which neighborhoods to avoid at night, tacos al pastor spots, and Teotihuacan logistics are the top repeat questions."},
+    "rio": {"name": "Rio de Janeiro", "country": "Brazil", "transit": "Metro, buses, and Uber/99", "currency": "BRL", "tip": "Never walk with a visible phone or camera after dark - locals know this instinctively",
+            "q1": "99 app is often cheaper than Uber in Rio. Most first-time visitors only know Uber.",
+            "q2": "Beaches have 'postos' (numbered posts) - telling guests which posto is closest saves 20 min of wandering.",
+            "q3": "Safe neighborhoods, Christ the Redeemer timing, and which favela tours are ethical are the top repeat questions."},
+    "toronto": {"name": "Toronto", "country": "Canada", "transit": "TTC subway, streetcars, and Uber", "currency": "CAD", "tip": "Tipping 18-20% is expected everywhere - Canadian tipping is closer to US than European norms",
+                "q1": "Presto card is still worth it for multi-day stays - saves $1 per ride vs cash fares.",
+                "q2": "Pearson UP Express train to downtown is $12.35 and 25 min - cheaper than Uber and always faster.",
+                "q3": "Which CN Tower experience is worth it, Kensington Market timing, and St Lawrence Market Saturday tips are the repeat questions."},
 }
 
 CITY_GUIDE_PAGE = """<!DOCTYPE html>
@@ -2715,10 +2775,11 @@ CITY_GUIDE_PAGE = """<!DOCTYPE html>
 <meta property="og:description" content="Everything your guests need to know about staying in {name}. Transit, currency, local tips and more.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.host-guide.net/guides/{slug}">
-<meta property="og:image" content="https://www.host-guide.net/static/og-image.png">
+<meta property="og:image" content="https://www.host-guide.net/og/city/{slug}.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Airbnb Guest Guide for {name} - HostGuide">
 <meta name="twitter:description" content="Auto-generate a {name} guest guide from your Airbnb listing in 60 seconds.">
+<meta name="twitter:image" content="https://www.host-guide.net/og/city/{slug}.png">
 <link rel="canonical" href="https://www.host-guide.net/guides/{slug}">
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -2871,6 +2932,72 @@ BLOG_ARTICLES = {
   <li><a href="/blog/five-questions-every-guest-asks" style="color:#00897B;">The 5 questions every Airbnb guest asks</a></li>
 </ul>""",
     },
+    "handling-late-check-ins": {
+        "title": "How to handle late Airbnb check-ins without losing sleep",
+        "description": "A practical playbook for late check-ins: smart locks, QR-code access, and the one welcome-book page that prevents 90% of 2am messages.",
+        "date": "2026-04-15",
+        "body": """<p class="mb-4 leading-relaxed">Late check-ins are the single biggest source of "my wifi won't work" messages at 1am. Here's how I stopped getting them.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">1. Install a smart lock or a reliable lockbox</h2>
+<p class="mb-4 leading-relaxed">Keys are the #1 source of check-in chaos. A basic smart lock (Yale, August, Nuki) lets you generate one-time codes per guest. Cheaper option: a Master Lock 5401D lockbox mounted outside. Either way, the guest never needs you present.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">2. Send check-in instructions 24 hours ahead</h2>
+<p class="mb-4 leading-relaxed">Photo of the door. Photo of the lockbox. Step-by-step with numbers ("1. Approach the green door", "2. Enter code 4421 on keypad"). Most confusion happens because guests are tired and the instructions came too late. 24 hours gives them time to read.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">3. Put the wifi password in a place they'll find drunk</h2>
+<p class="mb-4 leading-relaxed">On a card next to the front door. Printed big. Also in the welcome book, also stuck to the fridge. Redundancy prevents the 2am "what's the wifi?" message.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">4. Leave snacks + bottled water</h2>
+<p class="mb-4 leading-relaxed">A red-eye flight guest arriving at 1am wants water and something salty. Total cost: $4. Review mentions: "so thoughtful". Best ROI on any hosting upgrade.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">5. Pre-write a "you're in" message</h2>
+<p class="mb-4 leading-relaxed">Ask them to send one word ("in") when they're settled. Prevents you from lying awake wondering. Also: if they DON'T send it by 30 minutes after their expected time, you know to check in.</p>
+<p class="mb-4 leading-relaxed">One welcome-book page covers 1-4. That page is the best investment you'll make. <a href="/" style="color:#00897B;">HostGuide</a> generates a late-check-in section automatically when you create your welcome book.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">Related reading</h2>
+<ul class="list-disc pl-6 leading-relaxed">
+  <li><a href="/blog/welcome-book-guests-read" style="color:#00897B;">How to write an Airbnb welcome book your guests will actually read</a></li>
+  <li><a href="/blog/house-rules-that-work" style="color:#00897B;">House rules that guests actually follow</a></li>
+</ul>""",
+    },
+    "pricing-new-airbnb-listing": {
+        "title": "How to price a new Airbnb listing without leaving money on the table",
+        "description": "A pragmatic pricing strategy for new Airbnb listings: the first 10 bookings matter more than your nightly rate. Here's how to actually set it.",
+        "date": "2026-04-17",
+        "body": """<p class="mb-4 leading-relaxed">Every new host agonizes over the nightly rate. It's the wrong thing to agonize over. Here's what actually moves the needle in your first 90 days.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">1. Start 15-20% below the market rate</h2>
+<p class="mb-4 leading-relaxed">Your first 10 reviews are worth more than any single booking revenue. Airbnb's algorithm amplifies listings with 8+ reviews hard. Lose $30/night on the first 10 bookings, gain $500+/week in visibility forever.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">2. Use Airbnb's Smart Pricing as a ceiling, not a floor</h2>
+<p class="mb-4 leading-relaxed">Smart Pricing is aggressive on the upside and lazy on the downside. I use it to cap prices during peak events (F1, summits) but set my own floor. Never trust it to lower prices for slow weeks - it won't go low enough.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">3. The cleaning fee matters more than the nightly rate</h2>
+<p class="mb-4 leading-relaxed">A $80 cleaning fee on a 2-night stay is a 40% add-on. On a 7-night stay it's 11%. Short-stay guests see the total and bounce. Either bake cleaning into the nightly rate or set a 3-night minimum.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">4. Compare against listings, not recommendations</h2>
+<p class="mb-4 leading-relaxed">Open Airbnb in an incognito window, search your own neighborhood for your exact dates. See what the 5-star listings charge. Ignore the "market rate" dashboard - it includes empty weekends and bad listings.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">5. Raise prices after 8 reviews, not before</h2>
+<p class="mb-4 leading-relaxed">Once you have 8+ reviews at 4.8+, Airbnb surfaces you to premium search traffic. That's when you move to market rate, then 10% above. Going early kills your booking velocity; going late leaves real money on the table.</p>
+<p class="mb-4 leading-relaxed">Pricing is a review-count problem disguised as a revenue problem. Solve the first and the second takes care of itself. While you're waiting for those first 10 reviews, make sure the welcome book actually helps guests - that's where 5-star ratings come from. <a href="/" style="color:#00897B;">HostGuide</a> generates one from your listing URL.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">Related reading</h2>
+<ul class="list-disc pl-6 leading-relaxed">
+  <li><a href="/blog/superhost-welcome-book-upgrades" style="color:#00897B;">Superhost upgrades: moving from 4.6 to 4.9</a></li>
+  <li><a href="/blog/welcome-book-guests-read" style="color:#00897B;">How to write an Airbnb welcome book your guests will actually read</a></li>
+</ul>""",
+    },
+    "house-rules-that-work": {
+        "title": "House rules that Airbnb guests actually follow",
+        "description": "The difference between house rules guests ignore and rules they follow is tone, placement, and brevity. A field guide from a Superhost.",
+        "date": "2026-04-19",
+        "body": """<p class="mb-4 leading-relaxed">A wall of 20 house rules is a wall guests skip. Five specific rules, phrased right, placed right, get followed. Here's what I learned in three years of tuning mine.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">1. Put the 3 most important rules at the top of the welcome book</h2>
+<p class="mb-4 leading-relaxed">Not the listing. The welcome book. Guests accept listing rules without reading them. They actually read the welcome book on arrival. Mine are: "shoes off inside", "no parties (we live next door)", and "trash day is Thursday, the bag goes out Wednesday night".</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">2. Explain the "why" in one line</h2>
+<p class="mb-4 leading-relaxed">"No parties" is a rule guests ignore. "No parties - we share a wall with a 3-month-old baby next door" is a rule guests respect. The why does the enforcement for you.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">3. Write rules as the guest, not as the host</h2>
+<p class="mb-4 leading-relaxed">"NO SMOKING" reads like a sign at a gas station. "We kept this place smoke-free since 2021 - please help us keep it that way outside on the balcony" reads like a conversation. Same rule, different compliance.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">4. Quiet hours work. 10 rules about noise don't.</h2>
+<p class="mb-4 leading-relaxed">One specific quiet-hours rule (10pm-8am) is enforceable, memorable, and something neighbors can point to. "Be respectful to neighbors" is noise no guest processes.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">5. Trash and check-out rules go on the fridge, not the welcome book</h2>
+<p class="mb-4 leading-relaxed">Guests forget the welcome book on check-out day. A small card on the fridge ("Please empty the dishwasher, put trash in the hallway bin, and leave the keys on the counter") gets followed 95% of the time. This single change moved my "cleanliness" review score up 0.2 points.</p>
+<p class="mb-4 leading-relaxed">Fewer rules, placed right, phrased human. That's the whole game. <a href="/" style="color:#00897B;">HostGuide</a> includes a house-rules block that follows this exact structure.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">Related reading</h2>
+<ul class="list-disc pl-6 leading-relaxed">
+  <li><a href="/blog/handling-late-check-ins" style="color:#00897B;">How to handle late check-ins without losing sleep</a></li>
+  <li><a href="/blog/welcome-book-guests-read" style="color:#00897B;">How to write an Airbnb welcome book your guests will actually read</a></li>
+</ul>""",
+    },
 }
 
 BLOG_INDEX_PAGE = """<!DOCTYPE html>
@@ -2903,6 +3030,21 @@ BLOG_INDEX_PAGE = """<!DOCTYPE html>
   <p class="text-lg text-teal-100">Airbnb hosting tips that move reviews from 4.6 to 4.9.</p>
 </section>
 <section class="max-w-3xl mx-auto py-16 px-6 space-y-8">
+  <article class="border-b pb-8">
+    <h2 class="text-2xl font-bold mb-2"><a href="/blog/house-rules-that-work" style="color:#00897B;">House rules that Airbnb guests actually follow</a></h2>
+    <p class="text-sm text-gray-500 mb-2">2026-04-19</p>
+    <p class="leading-relaxed">The difference between house rules guests ignore and rules they follow is tone, placement, and brevity. A field guide.</p>
+  </article>
+  <article class="border-b pb-8">
+    <h2 class="text-2xl font-bold mb-2"><a href="/blog/pricing-new-airbnb-listing" style="color:#00897B;">How to price a new Airbnb listing without leaving money on the table</a></h2>
+    <p class="text-sm text-gray-500 mb-2">2026-04-17</p>
+    <p class="leading-relaxed">The first 10 bookings matter more than your nightly rate. Here's how to actually set pricing for a new listing.</p>
+  </article>
+  <article class="border-b pb-8">
+    <h2 class="text-2xl font-bold mb-2"><a href="/blog/handling-late-check-ins" style="color:#00897B;">How to handle late Airbnb check-ins without losing sleep</a></h2>
+    <p class="text-sm text-gray-500 mb-2">2026-04-15</p>
+    <p class="leading-relaxed">A practical playbook for late check-ins: smart locks, QR-code access, and the welcome-book page that kills 90% of 2am messages.</p>
+  </article>
   <article class="border-b pb-8">
     <h2 class="text-2xl font-bold mb-2"><a href="/blog/welcome-book-guests-read" style="color:#00897B;">How to write an Airbnb welcome book your guests will actually read</a></h2>
     <p class="text-sm text-gray-500 mb-2">2026-04-10</p>
@@ -2938,10 +3080,11 @@ BLOG_ARTICLE_PAGE = """<!DOCTYPE html>
 <meta property="og:description" content="{description}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.host-guide.net/blog/{slug}">
-<meta property="og:image" content="https://www.host-guide.net/static/og-image.png">
+<meta property="og:image" content="https://www.host-guide.net/og/blog/{slug}.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:description" content="{description}">
+<meta name="twitter:image" content="https://www.host-guide.net/og/blog/{slug}.png">
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>body{{font-family:'Inter',sans-serif}}</style>
@@ -3048,6 +3191,99 @@ def blog_article(slug):
         body=article["body"],
     )
     return app.response_class(html, mimetype="text/html")
+
+
+def _render_og_png(title: str, subtitle: str) -> bytes:
+    from io import BytesIO
+    from PIL import Image, ImageDraw, ImageFont
+    W, H = 1200, 630
+    dark_teal = (0, 77, 64)
+    med_teal = (0, 137, 123)
+    accent = (77, 182, 172)
+    img = Image.new("RGB", (W, H), dark_teal)
+    draw = ImageDraw.Draw(img)
+    for x in range(W):
+        t = x / W
+        r = int(dark_teal[0] + (med_teal[0] - dark_teal[0]) * t)
+        g = int(dark_teal[1] + (med_teal[1] - dark_teal[1]) * t)
+        b = int(dark_teal[2] + (med_teal[2] - dark_teal[2]) * t)
+        draw.line([(x, 0), (x, H)], fill=(r, g, b))
+    draw.rectangle([(0, 0), (W, 4)], fill=accent)
+    try:
+        font_brand = ImageFont.load_default(size=32)
+        font_title = ImageFont.load_default(size=56)
+        font_sub = ImageFont.load_default(size=26)
+        font_url = ImageFont.load_default(size=20)
+    except TypeError:
+        font_brand = font_title = font_sub = font_url = ImageFont.load_default()
+    draw.text((70, 70), "HostGuide", fill=(255, 255, 255), font=font_brand)
+    max_w = W - 140
+    words = title.split()
+    lines, cur = [], ""
+    for w in words:
+        test = f"{cur} {w}".strip()
+        if draw.textlength(test, font=font_title) < max_w:
+            cur = test
+        else:
+            lines.append(cur)
+            cur = w
+    if cur:
+        lines.append(cur)
+    lines = lines[:3]
+    y = 180
+    for line in lines:
+        draw.text((70, y), line, fill=(255, 255, 255), font=font_title)
+        y += 72
+    y += 12
+    draw.line([(70, y), (370, y)], fill=(255, 255, 255, 128), width=2)
+    y += 20
+    sub_lines, cur = [], ""
+    for w in subtitle.split():
+        test = f"{cur} {w}".strip()
+        if draw.textlength(test, font=font_sub) < max_w:
+            cur = test
+        else:
+            sub_lines.append(cur)
+            cur = w
+    if cur:
+        sub_lines.append(cur)
+    for line in sub_lines[:2]:
+        draw.text((70, y), line, fill=(220, 240, 240), font=font_sub)
+        y += 34
+    url_text = "host-guide.net"
+    url_w = draw.textlength(url_text, font=font_url)
+    draw.text(((W - url_w) // 2, H - 45), url_text, fill=(200, 230, 230), font=font_url)
+    buf = BytesIO()
+    img.save(buf, "PNG", optimize=True)
+    return buf.getvalue()
+
+
+_OG_CACHE: dict[str, bytes] = {}
+
+
+@app.route("/og/city/<slug>.png")
+def og_city(slug):
+    city = CITY_SEO_DATA.get(slug.replace(".png", ""))
+    if not city:
+        return redirect("/static/og-image.png")
+    key = f"city:{slug}"
+    if key not in _OG_CACHE:
+        _OG_CACHE[key] = _render_og_png(
+            f"Airbnb Guide for {city['name']}",
+            f"Auto-generate a welcome book for your {city['name']} listing in 60 seconds."
+        )
+    return app.response_class(_OG_CACHE[key], mimetype="image/png")
+
+
+@app.route("/og/blog/<slug>.png")
+def og_blog(slug):
+    article = BLOG_ARTICLES.get(slug.replace(".png", ""))
+    if not article:
+        return redirect("/static/og-image.png")
+    key = f"blog:{slug}"
+    if key not in _OG_CACHE:
+        _OG_CACHE[key] = _render_og_png(article["title"], article["description"])
+    return app.response_class(_OG_CACHE[key], mimetype="image/png")
 
 
 if __name__ == "__main__":
