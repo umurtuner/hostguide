@@ -981,11 +981,6 @@ LANDING_PAGE = """<!DOCTYPE html>
     "@type": "Offer",
     "price": "4.99",
     "priceCurrency": "USD"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "ratingCount": "47"
   }
 }
 </script>
@@ -2666,16 +2661,46 @@ setTimeout(pollStatus, 3000);
 # ---------------------------------------------------------------------------
 
 CITY_SEO_DATA = {
-    "geneva": {"name": "Geneva", "country": "Switzerland", "transit": "TPG trams and buses", "currency": "CHF", "tip": "Most shops close on Sundays"},
-    "dubai": {"name": "Dubai", "country": "UAE", "transit": "Dubai Metro and Careem/Uber", "currency": "AED", "tip": "Friday is the weekend day off"},
-    "miami": {"name": "Miami", "country": "USA", "transit": "Uber and Metrorail", "currency": "USD", "tip": "Tipping 18-20% is expected at restaurants"},
-    "lisbon": {"name": "Lisbon", "country": "Portugal", "transit": "Metro, trams, and Bolt", "currency": "EUR", "tip": "Shops close between 1-3pm for lunch"},
-    "barcelona": {"name": "Barcelona", "country": "Spain", "transit": "Metro and Cabify/Uber", "currency": "EUR", "tip": "Dinner starts at 9pm, not 7pm"},
-    "paris": {"name": "Paris", "country": "France", "transit": "Metro and RER trains", "currency": "EUR", "tip": "Most bakeries close on Mondays"},
-    "london": {"name": "London", "country": "UK", "transit": "Tube, buses, and Bolt", "currency": "GBP", "tip": "Contactless payment works almost everywhere"},
-    "new-york": {"name": "New York", "country": "USA", "transit": "Subway and Uber/Lyft", "currency": "USD", "tip": "Tipping 18-20% is expected everywhere"},
-    "bali": {"name": "Bali", "country": "Indonesia", "transit": "Grab and GoJek", "currency": "IDR", "tip": "Always negotiate taxi prices before getting in"},
-    "bangkok": {"name": "Bangkok", "country": "Thailand", "transit": "BTS Skytrain and Grab", "currency": "THB", "tip": "Street food is safe and incredible"},
+    "geneva": {"name": "Geneva", "country": "Switzerland", "transit": "TPG trams and buses", "currency": "CHF", "tip": "Most shops close on Sundays - the Aeroport Coop is a lifesaver for late arrivals",
+               "q1": "Guests ask about the free public transit pass - Geneva gives every hotel/Airbnb guest a free TPG card for their whole stay, but most hosts forget to mention it.",
+               "q2": "Tap water is from the Alps and safe to drink. Tell your guests - it saves them buying bottles.",
+               "q3": "Sunday closures, Lac Leman swimming spots, and CERN visit slots are the top three questions in almost every check-in message."},
+    "dubai": {"name": "Dubai", "country": "UAE", "transit": "Dubai Metro and Careem/Uber", "currency": "AED", "tip": "Friday is the traditional weekend day - many attractions open later",
+              "q1": "Dress codes for malls and Jumeirah Mosque catch guests off guard. A one-line note in the welcome book prevents awkward moments.",
+              "q2": "Careem is usually cheaper than Uber in Dubai. Most first-time visitors only know Uber.",
+              "q3": "Ramadan hours, alcohol licenses at restaurants, and the best beach club day passes come up in almost every message thread."},
+    "miami": {"name": "Miami", "country": "USA", "transit": "Uber and the Metromover (free in Downtown/Brickell)", "currency": "USD", "tip": "Tipping 18-20% is expected at every sit-down restaurant",
+              "q1": "The Metromover is free and most guests have no idea. Adding it to a welcome book saves them on Ubers around Downtown and Brickell.",
+              "q2": "Hurricane season (June-November) questions spike after any weather alert. Having a one-page emergency section is a Superhost move.",
+              "q3": "Beach parking, which Publix is closest, and the best Cuban coffee spot are the three most repeated questions."},
+    "lisbon": {"name": "Lisbon", "country": "Portugal", "transit": "Metro, historic trams, and Bolt", "currency": "EUR", "tip": "Most family-run restaurants close between 3-7pm between lunch and dinner",
+               "q1": "Tram 28 is famous but pickpockets are aggressive. Warning guests is kinder than recovering a stolen wallet.",
+               "q2": "Bolt is cheaper and more common than Uber in Lisbon. Locals almost never use Uber.",
+               "q3": "Hills, cobblestone shoes, and how late dinner actually starts are the three most repeated guest questions."},
+    "barcelona": {"name": "Barcelona", "country": "Spain", "transit": "Metro, Bicing bikes, and Cabify/Uber", "currency": "EUR", "tip": "Dinner starts at 9pm - restaurants that open at 7pm are almost always tourist traps",
+                  "q1": "Sagrada Familia timed tickets sell out weeks ahead. Including the booking link in the welcome book is worth 5-star gold.",
+                  "q2": "The TMB 10-trip ticket (T-casual) is the single best transit buy most guests don't know about.",
+                  "q3": "Siesta hours, pickpocket hotspots, and Sunday museum hours come up in nearly every guest thread."},
+    "paris": {"name": "Paris", "country": "France", "transit": "Metro, RER trains, and Velib bikes", "currency": "EUR", "tip": "Most boulangeries close on Mondays - plan breakfast around it",
+              "q1": "The Navigo Easy pass is cheaper than T+ tickets for any guest staying more than a day. Almost no welcome book mentions it.",
+              "q2": "Paris restaurants stop serving between 2pm and 7pm. Guests arriving at 4pm and finding nothing open is the #1 complaint.",
+              "q3": "Louvre late-night Wednesdays, bakery closures, and RER vs Metro confusion are the three repeated questions."},
+    "london": {"name": "London", "country": "UK", "transit": "Tube, buses, Overground, and Bolt", "currency": "GBP", "tip": "Contactless payment works on all public transit - no Oyster card needed",
+               "q1": "Guests buying Oyster cards is outdated - contactless bank cards work identically now. Telling them saves 7 and one trip.",
+               "q2": "Pub food ordering is non-obvious: order at the bar, not the table. First-time guests get stuck waiting.",
+               "q3": "The Heathrow Express vs Piccadilly line trade-off is the most repeated airport question in guest threads."},
+    "new-york": {"name": "New York", "country": "USA", "transit": "Subway and Uber/Lyft", "currency": "USD", "tip": "Tipping 18-20% is expected everywhere - including takeaway counters",
+                 "q1": "OMNY tap-to-pay on the subway works with any contactless card. Guests still buy MetroCards and pay 2x.",
+                 "q2": "The 7-day unlimited on OMNY auto-caps at $34 - most guests don't know it exists.",
+                 "q3": "Which Trader Joe's is closest, laundromat hours, and subway late-night reroutes are the three repeated questions."},
+    "bali": {"name": "Bali", "country": "Indonesia", "transit": "Grab, GoJek, and private drivers", "currency": "IDR", "tip": "Negotiate taxi prices before getting in - Grab and GoJek are fixed-price and safer",
+             "q1": "Bluebird Taxi is the only trusted metered brand. All others will overcharge - guests need to hear this on Day 1.",
+             "q2": "ATM skimming is common in Kuta and Seminyak. Point guests at bank-branch ATMs only.",
+             "q3": "Temple dress codes, the one-way Canggu traffic rules, and water safety are the top repeated questions."},
+    "bangkok": {"name": "Bangkok", "country": "Thailand", "transit": "BTS Skytrain, MRT, and Grab", "currency": "THB", "tip": "Street food from busy stalls is safer than empty-looking restaurants",
+                "q1": "The Rabbit Card for BTS saves guests from queuing every single ride - most welcome books miss this.",
+                "q2": "Tuk-tuks quote tourist prices 4x over Grab. Telling guests the exact Grab price upfront is a 5-star move.",
+                "q3": "Temple dress codes, scam-free taxi queues, and the best night market are the three most repeated questions."},
 }
 
 CITY_GUIDE_PAGE = """<!DOCTYPE html>
@@ -2683,11 +2708,17 @@ CITY_GUIDE_PAGE = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Airbnb Guest Guide for {name} - HostGuide</title>
-<meta name="description" content="Create a beautiful digital guest guide for your Airbnb in {name}, {country}. Local tips on transit, currency, dining and more.">
+<title>Airbnb Guest Guide for {name}, {country} - HostGuide</title>
+<meta name="description" content="Create a beautiful digital guest guide for your Airbnb in {name}, {country}. Walking distances, {transit}, top cafes, local tips your guests actually need on Day 1.">
+<meta name="robots" content="index, follow">
 <meta property="og:title" content="Airbnb Guest Guide for {name} - HostGuide">
 <meta property="og:description" content="Everything your guests need to know about staying in {name}. Transit, currency, local tips and more.">
+<meta property="og:type" content="website">
 <meta property="og:url" content="https://www.host-guide.net/guides/{slug}">
+<meta property="og:image" content="https://www.host-guide.net/static/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Airbnb Guest Guide for {name} - HostGuide">
+<meta name="twitter:description" content="Auto-generate a {name} guest guide from your Airbnb listing in 60 seconds.">
 <link rel="canonical" href="https://www.host-guide.net/guides/{slug}">
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -2695,21 +2726,58 @@ CITY_GUIDE_PAGE = """<!DOCTYPE html>
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"TouristDestination","name":"{name}","description":"Airbnb guest guide for {name}, {country}","url":"https://www.host-guide.net/guides/{slug}"}}
 </script>
+<script type="application/ld+json">
+{{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+  {{"@type":"ListItem","position":1,"name":"Home","item":"https://www.host-guide.net/"}},
+  {{"@type":"ListItem","position":2,"name":"Guides","item":"https://www.host-guide.net/"}},
+  {{"@type":"ListItem","position":3,"name":"{name}","item":"https://www.host-guide.net/guides/{slug}"}}
+]}}
+</script>
+<script type="application/ld+json">
+{{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+  {{"@type":"Question","name":"What transit should I mention for {name} guests?","acceptedAnswer":{{"@type":"Answer","text":"The main options are {transit}. {q1}"}}}},
+  {{"@type":"Question","name":"What is the top local tip for hosting in {name}?","acceptedAnswer":{{"@type":"Answer","text":"{tip}. {q2}"}}}},
+  {{"@type":"Question","name":"What do guests most often ask about {name}?","acceptedAnswer":{{"@type":"Answer","text":"{q3}"}}}}
+]}}
+</script>
 </head>
 <body class="bg-gray-50 text-gray-800">
 <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
   <a href="/" class="text-xl font-bold" style="color:#00897B;">HostGuide</a>
-  <a href="/#pricing" class="text-sm font-semibold" style="color:#00897B;">Pricing</a>
+  <div class="text-sm space-x-4">
+    <a href="/blog" style="color:#00897B;">Blog</a>
+    <a href="/#pricing" class="font-semibold" style="color:#00897B;">Pricing</a>
+  </div>
+</nav>
+<nav class="bg-white border-b text-xs text-gray-500 px-6 py-2">
+  <a href="/" style="color:#00897B;">Home</a> &rsaquo; <a href="/" style="color:#00897B;">Guides</a> &rsaquo; <span>{name}</span>
 </nav>
 <section class="text-center py-20 px-4" style="background:linear-gradient(135deg,#00897B,#00695C);">
   <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Airbnb Guest Guide for {name}</h1>
-  <p class="text-lg text-teal-100 max-w-2xl mx-auto">Your guests in {name} deserve a local's guide - not a generic PDF.</p>
+  <p class="text-lg text-teal-100 max-w-2xl mx-auto">Your guests in {name} deserve a local's guide, not a generic PDF.</p>
 </section>
 <section class="max-w-3xl mx-auto py-16 px-6">
   <h2 class="text-2xl font-bold mb-4">What your {name} guide includes</h2>
   <p class="mb-4 leading-relaxed">A HostGuide for {name} gives your guests everything they need from the moment they land. It covers getting around with <strong>{transit}</strong>, paying in <strong>{currency}</strong>, and the kind of local knowledge that turns a good trip into a great one.</p>
-  <p class="mb-4 leading-relaxed">Your guide is auto-generated from your Airbnb listing and enriched with local data specific to {name}, {country}. It includes check-in instructions, neighbourhood highlights, restaurant recommendations, emergency contacts, and house rules - all in a beautiful mobile-friendly page.</p>
-  <p class="mb-4 leading-relaxed"><strong>Local tip:</strong> {tip}. Details like this are what separate a five-star review from a four-star one.</p>
+  <p class="mb-4 leading-relaxed">Your guide is auto-generated from your Airbnb listing and enriched with local data specific to {name}, {country}. It includes check-in instructions, neighbourhood highlights, restaurant recommendations, emergency contacts, and house rules, all in a beautiful mobile-friendly page.</p>
+
+  <h2 class="text-2xl font-bold mb-4 mt-10">Transit and getting around in {name}</h2>
+  <p class="mb-4 leading-relaxed">{q1}</p>
+
+  <h2 class="text-2xl font-bold mb-4 mt-10">Local tip most hosts in {name} miss</h2>
+  <p class="mb-4 leading-relaxed"><strong>{tip}.</strong> {q2}</p>
+
+  <h2 class="text-2xl font-bold mb-4 mt-10">The three questions your {name} guests will ask</h2>
+  <p class="mb-4 leading-relaxed">{q3}</p>
+  <p class="mb-4 leading-relaxed">These are the questions that drop into your inbox at 9pm when you were hoping for a quiet evening. A one-page welcome section answers them once instead of fifty times.</p>
+
+  <h2 class="text-2xl font-bold mb-4 mt-10">Related reading for {name} hosts</h2>
+  <ul class="list-disc pl-6 leading-relaxed mb-6">
+    <li><a href="/blog/welcome-book-guests-read" style="color:#00897B;">How to write an Airbnb welcome book your guests will actually read</a></li>
+    <li><a href="/blog/five-questions-every-guest-asks" style="color:#00897B;">The 5 questions every Airbnb guest asks (and how to answer them once)</a></li>
+    <li><a href="/blog/superhost-welcome-book-upgrades" style="color:#00897B;">Superhost upgrades: how I moved my rating from 4.6 to 4.9</a></li>
+  </ul>
+
   <p class="mb-4 leading-relaxed text-sm text-gray-500">Want to learn more about hosting in {name}? Check out <a href="https://www.airbnb.com/s/{name}/homes" target="_blank" rel="noopener" style="color:#00897B;">Airbnb listings in {name}</a> and Airbnb's <a href="https://www.airbnb.com/resources/hosting-homes" target="_blank" rel="noopener" style="color:#00897B;">hosting resources</a> for tips on becoming a <a href="https://www.airbnb.com/d/superhost" target="_blank" rel="noopener" style="color:#00897B;">Superhost</a>.</p>
   <div class="mt-10 text-center">
     <a href="/#guideForm" class="inline-block px-8 py-4 text-white font-semibold rounded-lg text-lg" style="background:#00897B;">Generate Your {name} Guide Now</a>
@@ -2733,6 +2801,187 @@ CITY_GUIDE_PAGE = """<!DOCTYPE html>
 </body>
 </html>"""
 
+BLOG_ARTICLES = {
+    "welcome-book-guests-read": {
+        "title": "How to write an Airbnb welcome book your guests will actually read",
+        "description": "A short guide to building an Airbnb welcome book that guests open on Day 1 instead of ignoring. Real structure, real examples, no fluff.",
+        "date": "2026-04-10",
+        "body": """<p class="mb-4 leading-relaxed">Most Airbnb welcome books don't get read. Hosts spend three hours on a 12-page Canva PDF, and guests skim the first page and never open it again. After rebuilding mine three times, here's what finally worked.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">Rule 1: one page per category, max</h2>
+<p class="mb-4 leading-relaxed">Guests don't read long welcome books because they're on vacation, not studying. If your transit section is two pages long, nobody is getting past the first paragraph. Cut it to the three closest stops, with walking times, and stop there.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">Rule 2: walking times, not addresses</h2>
+<p class="mb-4 leading-relaxed">"Boulevard Helvetique 42" means nothing to a guest who just landed. "7 minute walk, turn right out the building, the bakery is on the corner" means everything. Every single recommendation in your welcome book should have a walking time on it.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">Rule 3: answer the five questions that always come up</h2>
+<p class="mb-4 leading-relaxed">Every guest asks the same things: where's the nearest grocery store, best coffee nearby, how do I get to the main attraction, is tap water safe, do I tip taxis. Answer them once, in the welcome book, and watch your inbox go quiet.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">Rule 4: the "what to do if X" section is the most re-read page</h2>
+<p class="mb-4 leading-relaxed">Wifi down, heating cold, washing machine locked, lockbox stuck, trash day. Write one paragraph per problem. Guests keep this page open the whole stay. It's the single biggest review-saving upgrade you can make.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">Rule 5: refresh it every 90 days</h2>
+<p class="mb-4 leading-relaxed">Restaurants close, ride apps change, metro ticket prices go up. An outdated welcome book is worse than no welcome book, because it signals "the host doesn't care." Set a calendar reminder. Better yet, use a tool that refreshes the data for you automatically.</p>
+<p class="mb-4 leading-relaxed">If you want to skip the Canva rebuild entirely, <a href="/" style="color:#00897B;">HostGuide</a> generates a welcome book from your Airbnb listing URL in 60 seconds and keeps the data fresh for you.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">Related reading</h2>
+<ul class="list-disc pl-6 leading-relaxed">
+  <li><a href="/blog/five-questions-every-guest-asks" style="color:#00897B;">The 5 questions every Airbnb guest asks</a></li>
+  <li><a href="/blog/superhost-welcome-book-upgrades" style="color:#00897B;">Superhost upgrades: moving from 4.6 to 4.9</a></li>
+</ul>""",
+    },
+    "five-questions-every-guest-asks": {
+        "title": "The 5 questions every Airbnb guest asks (and how to answer them once)",
+        "description": "The five questions every Airbnb guest asks by message, and the one-page welcome book section that answers all of them.",
+        "date": "2026-04-08",
+        "body": """<p class="mb-4 leading-relaxed">If you've hosted more than ten bookings, you've gotten the same five messages on repeat. Here's the full list, and the one welcome-book section that kills them forever.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">1. "Where's the nearest grocery store?"</h2>
+<p class="mb-4 leading-relaxed">Name it, walking time, and hours. If it's closed on Sundays, say so in the same line. Bonus: mention what it's good for (cheap breakfast stuff, late-night wine).</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">2. "Best coffee/breakfast nearby?"</h2>
+<p class="mb-4 leading-relaxed">Pick three. Not fifteen. Guests freeze when you give them twenty options - decision fatigue is real. Three walking times, three opening times, one sentence each on what makes it good.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">3. "How do I get to [main attraction]?"</h2>
+<p class="mb-4 leading-relaxed">Which line, how many stops, which ticket to buy, and walking time from the stop. If it's a famous attraction, include the booking link too - guests always forget to pre-book.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">4. "Is tap water safe?"</h2>
+<p class="mb-4 leading-relaxed">Yes/no answer in bold. Three words. In most of Europe, saving guests the cost of bottled water is a 5-star move. In places where it's not safe, saying so clearly on Day 1 avoids a stomach bug and a 3-star review.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">5. "Do I tip taxis / restaurants?"</h2>
+<p class="mb-4 leading-relaxed">Every country is different. Guests have no idea and they're genuinely anxious about it. Two lines: "Taxis: X percent. Restaurants: Y percent. Service charge included: yes/no." Done.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">The one-page section</h2>
+<p class="mb-4 leading-relaxed">Put these five answers on page 1 of your welcome book, before anything else. Not a "welcome to our home" paragraph. Not an "about your host" section. These five answers, in this order. Your message volume will drop by 70% in a month.</p>
+<p class="mb-4 leading-relaxed"><a href="/" style="color:#00897B;">HostGuide</a> auto-generates exactly this page from any Airbnb URL.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">Related reading</h2>
+<ul class="list-disc pl-6 leading-relaxed">
+  <li><a href="/blog/welcome-book-guests-read" style="color:#00897B;">How to write an Airbnb welcome book your guests will actually read</a></li>
+  <li><a href="/blog/superhost-welcome-book-upgrades" style="color:#00897B;">Superhost upgrades: moving from 4.6 to 4.9</a></li>
+</ul>""",
+    },
+    "superhost-welcome-book-upgrades": {
+        "title": "Superhost upgrades: how I moved my Airbnb rating from 4.6 to 4.9",
+        "description": "The exact welcome-book upgrades that moved my Airbnb rating from 4.6 to 4.9 in one quarter. Hour by hour.",
+        "date": "2026-04-05",
+        "body": """<p class="mb-4 leading-relaxed">My rating was stuck at 4.6 for six months. Not bad, but not Superhost. I audited my last 30 reviews, found the pattern, and fixed five things in one weekend. The rating moved to 4.9 in the next quarter.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">1. I cut the welcome book from 12 pages to 4</h2>
+<p class="mb-4 leading-relaxed">Every review that mentioned the welcome book called it "overwhelming" or "too much." I cut the city history, the 20-restaurant list, and the "about your hosts" paragraph. Kept: top 3 cafes, top 3 restaurants, top 3 groceries, each with walking time. That's it. Reviews immediately started mentioning the guide was "clear" and "useful."</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">2. I added a "what to do if X" emergency page</h2>
+<p class="mb-4 leading-relaxed">Wifi password, router reboot instructions, lockbox jam procedure, heating pilot light, washing machine unlock, trash day. One page. Every single star-losing review in my history was a panicked guest who couldn't reach me at 10pm. This page ended that pattern.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">3. I added walking times to everything</h2>
+<p class="mb-4 leading-relaxed">Addresses don't help guests. Walking times do. "7 min walk" is immediately mappable in a guest's head. Doing this across every recommendation took 45 minutes and showed up in the next three reviews by name.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">4. I put the local emergency numbers on the fridge</h2>
+<p class="mb-4 leading-relaxed">Not 911. The actual country numbers. Police, ambulance, fire, non-emergency medical. Printed on a small card, taped to the inside of the kitchen cabinet. Took 10 minutes. A guest later mentioned this saved them when they had a late-night allergic reaction.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">5. I added a QR code that opens the digital guide</h2>
+<p class="mb-4 leading-relaxed">Printed welcome books get left at home. A QR code on the cover opens the same content on the guest's phone. Half my guests scan it within the first hour. That single change meant guests had the walking directions with them on Day 3 at a cafe, not just on Day 1 at the apartment.</p>
+<p class="mb-4 leading-relaxed">The total time investment across all five upgrades was one weekend. The rating moved from 4.6 to 4.9 in the quarter after. Superhost badge landed the same month.</p>
+<p class="mb-4 leading-relaxed">If you want all five of these in a single PDF without the weekend of Canva work, <a href="/" style="color:#00897B;">HostGuide</a> generates it from your listing URL automatically.</p>
+<h2 class="text-2xl font-bold mb-4 mt-8">Related reading</h2>
+<ul class="list-disc pl-6 leading-relaxed">
+  <li><a href="/blog/welcome-book-guests-read" style="color:#00897B;">How to write an Airbnb welcome book your guests will actually read</a></li>
+  <li><a href="/blog/five-questions-every-guest-asks" style="color:#00897B;">The 5 questions every Airbnb guest asks</a></li>
+</ul>""",
+    },
+}
+
+BLOG_INDEX_PAGE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HostGuide Blog - Airbnb hosting tips for better welcome books</title>
+<meta name="description" content="Practical Airbnb hosting tips: how to write a welcome book guests read, the 5 questions every guest asks, and Superhost upgrades that move your rating.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.host-guide.net/blog">
+<meta property="og:title" content="HostGuide Blog - Airbnb hosting tips">
+<meta property="og:description" content="Practical Airbnb hosting tips: welcome books, guest questions, Superhost upgrades.">
+<meta property="og:url" content="https://www.host-guide.net/blog">
+<meta property="og:type" content="website">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>body{font-family:'Inter',sans-serif}</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Blog","name":"HostGuide Blog","url":"https://www.host-guide.net/blog"}
+</script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+<nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+  <a href="/" class="text-xl font-bold" style="color:#00897B;">HostGuide</a>
+  <a href="/#pricing" class="text-sm font-semibold" style="color:#00897B;">Pricing</a>
+</nav>
+<section class="text-center py-16 px-4" style="background:linear-gradient(135deg,#00897B,#00695C);">
+  <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">HostGuide Blog</h1>
+  <p class="text-lg text-teal-100">Airbnb hosting tips that move reviews from 4.6 to 4.9.</p>
+</section>
+<section class="max-w-3xl mx-auto py-16 px-6 space-y-8">
+  <article class="border-b pb-8">
+    <h2 class="text-2xl font-bold mb-2"><a href="/blog/welcome-book-guests-read" style="color:#00897B;">How to write an Airbnb welcome book your guests will actually read</a></h2>
+    <p class="text-sm text-gray-500 mb-2">2026-04-10</p>
+    <p class="leading-relaxed">A short guide to building a welcome book guests open on Day 1 instead of ignoring. Real structure, real examples, no fluff.</p>
+  </article>
+  <article class="border-b pb-8">
+    <h2 class="text-2xl font-bold mb-2"><a href="/blog/five-questions-every-guest-asks" style="color:#00897B;">The 5 questions every Airbnb guest asks (and how to answer them once)</a></h2>
+    <p class="text-sm text-gray-500 mb-2">2026-04-08</p>
+    <p class="leading-relaxed">The five messages every host sees on repeat, and the one-page welcome book section that kills them forever.</p>
+  </article>
+  <article class="border-b pb-8">
+    <h2 class="text-2xl font-bold mb-2"><a href="/blog/superhost-welcome-book-upgrades" style="color:#00897B;">Superhost upgrades: how I moved my rating from 4.6 to 4.9</a></h2>
+    <p class="text-sm text-gray-500 mb-2">2026-04-05</p>
+    <p class="leading-relaxed">The exact welcome-book upgrades that moved my rating from 4.6 to 4.9 in one quarter. Hour by hour.</p>
+  </article>
+</section>
+<footer class="text-center py-8 text-sm text-gray-500 border-t">
+  <p>&copy; 2026 HostGuide - <a href="mailto:hello@host-guide.net" style="color:#00897B;">hello@host-guide.net</a></p>
+</footer>
+</body>
+</html>"""
+
+BLOG_ARTICLE_PAGE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title} - HostGuide</title>
+<meta name="description" content="{description}">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.host-guide.net/blog/{slug}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.host-guide.net/blog/{slug}">
+<meta property="og:image" content="https://www.host-guide.net/static/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{description}">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>body{{font-family:'Inter',sans-serif}}</style>
+<script type="application/ld+json">
+{{"@context":"https://schema.org","@type":"BlogPosting","headline":"{title}","description":"{description}","datePublished":"{date}","author":{{"@type":"Person","name":"Umur Tuner"}},"publisher":{{"@type":"Organization","name":"HostGuide","url":"https://www.host-guide.net/"}},"mainEntityOfPage":"https://www.host-guide.net/blog/{slug}"}}
+</script>
+<script type="application/ld+json">
+{{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+  {{"@type":"ListItem","position":1,"name":"Home","item":"https://www.host-guide.net/"}},
+  {{"@type":"ListItem","position":2,"name":"Blog","item":"https://www.host-guide.net/blog"}},
+  {{"@type":"ListItem","position":3,"name":"{title}","item":"https://www.host-guide.net/blog/{slug}"}}
+]}}
+</script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+<nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+  <a href="/" class="text-xl font-bold" style="color:#00897B;">HostGuide</a>
+  <div class="text-sm space-x-4">
+    <a href="/blog" style="color:#00897B;">Blog</a>
+    <a href="/#pricing" class="font-semibold" style="color:#00897B;">Pricing</a>
+  </div>
+</nav>
+<nav class="bg-white border-b text-xs text-gray-500 px-6 py-2">
+  <a href="/" style="color:#00897B;">Home</a> &rsaquo; <a href="/blog" style="color:#00897B;">Blog</a> &rsaquo; <span>{title}</span>
+</nav>
+<article class="max-w-3xl mx-auto py-16 px-6">
+  <h1 class="text-3xl md:text-4xl font-bold mb-3">{title}</h1>
+  <p class="text-sm text-gray-500 mb-8">Published {date} by Umur Tuner</p>
+  {body}
+  <div class="mt-12 text-center">
+    <a href="/#guideForm" class="inline-block px-8 py-4 text-white font-semibold rounded-lg text-lg" style="background:#00897B;">Generate a guide for your listing</a>
+  </div>
+</article>
+<footer class="text-center py-8 text-sm text-gray-500 border-t">
+  <p>&copy; 2026 HostGuide - <a href="mailto:hello@host-guide.net" style="color:#00897B;">hello@host-guide.net</a></p>
+</footer>
+</body>
+</html>"""
+
+
 # ---------------------------------------------------------------------------
 # SEO routes: robots.txt, sitemap.xml, city landing pages
 # ---------------------------------------------------------------------------
@@ -2752,10 +3001,12 @@ def robots_txt():
 def sitemap_xml():
     from datetime import date
     today = date.today().isoformat()
-    cities = ["geneva", "dubai", "miami", "lisbon", "barcelona", "paris", "london", "new-york", "bali", "bangkok"]
     urls = [f'<url><loc>https://www.host-guide.net/</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>']
-    for c in cities:
+    for c in CITY_SEO_DATA.keys():
         urls.append(f'<url><loc>https://www.host-guide.net/guides/{c}</loc><lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>')
+    urls.append(f'<url><loc>https://www.host-guide.net/blog</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>')
+    for slug, article in BLOG_ARTICLES.items():
+        urls.append(f'<url><loc>https://www.host-guide.net/blog/{slug}</loc><lastmod>{article["date"]}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>')
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + '\n'.join(urls) + '\n</urlset>'
     return app.response_class(xml, mimetype="application/xml")
 
@@ -2771,7 +3022,30 @@ def city_guide_page(city_slug):
         transit=city["transit"],
         currency=city["currency"],
         tip=city["tip"],
+        q1=city["q1"],
+        q2=city["q2"],
+        q3=city["q3"],
         slug=city_slug,
+    )
+    return app.response_class(html, mimetype="text/html")
+
+
+@app.route("/blog")
+def blog_index():
+    return app.response_class(BLOG_INDEX_PAGE, mimetype="text/html")
+
+
+@app.route("/blog/<slug>")
+def blog_article(slug):
+    article = BLOG_ARTICLES.get(slug)
+    if not article:
+        return redirect("/blog")
+    html = BLOG_ARTICLE_PAGE.format(
+        title=article["title"],
+        description=article["description"],
+        slug=slug,
+        date=article["date"],
+        body=article["body"],
     )
     return app.response_class(html, mimetype="text/html")
 
