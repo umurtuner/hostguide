@@ -152,10 +152,28 @@ Obrigado, Umur
 
 ---
 
-## Skipped
-- Zurin Charm Hotel (Lisbon, Mar 29-Apr 2) - commercial hotel, not a host relationship
+## 8. Zurin Charm Hotel - Lisbon (Mar 29-Apr 2, 2026) - boutique hotel on Airbnb
+- Listing: Zurin Charm Hotel - Standard Double Room
+- Address: Rua Dom Carlos de Mascarenhas 46, 1070-069, Lisbon, Portugal
+- Listing URL: https://www.airbnb.com/rooms/50359643
+- Profile: https://www.airbnb.com/users/profile/1469859730049668507
+- Phone: +351 925 970 605
+
+```
+Hey team at Zurin Charm, I stayed at the Standard Double Mar 29-Apr 2 - great stay, clean and well-located.
+
+I run a small tool for short-stay hosts: auto-generates a printable neighborhood welcome book (walking times, top cafes, transit, groceries, local tips) from an Airbnb URL in 60s. It works just as well for boutique hotels - drop one in each room instead of a generic city map.
+
+Made one for your listing as a thank-you: https://www.host-guide.net
+(Free, no strings. If useful I can send a branded PDF for your rooms.)
+
+Cheers, Umur
+```
+
+---
 
 ## Notes
 - These are WARM leads - you've physically stayed at their places. Response rate should be 2-3x higher than cold Miami queue.
 - Send within 30 days of the stay for maximum warmth. Joao, Filipa, Miguel are the hottest (<30 days).
 - Sara and Camilla have the SAME dates (Mar 27-29) - one of these was likely canceled. Check reservations history before sending both.
+- Zurin is a boutique hotel using Airbnb - pitch is "one per room" branded PDF angle.
