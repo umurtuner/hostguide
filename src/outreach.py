@@ -1,10 +1,9 @@
-"""Outreach message generator — personalized DMs for Airbnb hosts.
+"""Outreach message generator - personalized DMs for Airbnb hosts.
 
-Generates FB group posts and direct messages to hosts,
-including a sample guide preview for their specific listing.
+Generates Contact-Host messages, FB group posts, and email templates for hosts.
 
 Usage:
-    from hostguide.src.outreach import generate_dm, generate_fb_post
+    from hostguide.src.outreach import generate_contact_host, generate_fb_post
 """
 from __future__ import annotations
 
@@ -16,84 +15,111 @@ except ImportError:
     from src.guide_generator import GuestGuide
 
 
-def generate_dm(listing: Listing, guide: GuestGuide, pricing: str = "$9.99/month") -> str:
-    """Generate a personalized DM to a host about their specific listing."""
-    host = listing.host_name or "there"
-    city = listing.city
-    neighborhood = listing.neighborhood or city
+SITE = "https://www.host-guide.net"
 
-    return f"""Hi {host}! 👋
 
-I came across your listing in {neighborhood} — looks like a great place!
+def _first_name(full: str) -> str:
+    if not full:
+        return ""
+    return full.strip().split()[0]
 
-I built a service that creates **personalized guest guides** for Airbnb hosts. Instead of writing your own guidebook or answering the same "where's the nearest grocery store?" message every time, we generate a beautiful, branded guide specific to YOUR apartment's exact location.
 
-Here's what I made for your listing (free sample):
-→ [Link to sample guide]
+def generate_contact_host(listing: Listing, guide_url: str = "") -> str:
+    """Short Airbnb Contact-Host message. Must fit within Airbnb's message limits
+    and read like a host-to-host note, not a sales pitch.
+    """
+    host = _first_name(listing.host_name) or "there"
+    neighborhood = listing.neighborhood or listing.city
 
-It includes:
-✅ Walking directions to nearest metro/bus stops
-✅ Best restaurants & cafes within 10 min walk
-✅ Grocery stores, pharmacies, ATMs nearby
-✅ Local tips (safety, tipping, taxi apps)
-✅ Things to see & do in {neighborhood}
+    return f"""Hey {host}, fellow host here. I run HostGuide (host-guide dot net) - it generates a printable neighborhood welcome book for your listing in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place.
 
-Your guests get a better experience, you get fewer repetitive messages, and your reviews improve. Win-win.
+I made one for your {neighborhood} listing as a sample - the first guide is on me. Just reply with your listing URL and I'll send the PDF for your welcome book.
 
-**{pricing}/listing** — one-time setup, we keep it updated.
+Cheers, Umur"""
 
-Want me to send you the full guide for your listing? It's already done — just need your OK to share it.
+
+def generate_dm(listing: Listing, guide: GuestGuide = None, guide_url: str = "",
+                pricing: str = "$4.99 one-time") -> str:
+    """Longer DM for FB/IG or email, with pricing mention.
+
+    guide is optional and unused in the copy; kept for backwards compatibility.
+    """
+    host = _first_name(listing.host_name) or "there"
+    neighborhood = listing.neighborhood or listing.city
+    cta_link = guide_url or SITE
+
+    return f"""Hi {host},
+
+I came across your listing in {neighborhood} and it looks great. Quick note - I built a tool that generates personalized guest guides for Airbnb hosts. Instead of answering the same "where's the nearest grocery store?" message every week, hosts drop one branded PDF in their welcome book.
+
+I already made a sample guide for your listing (free):
+{cta_link}
+
+What's in it:
+- Walking directions to nearest metro/bus
+- Best cafes and restaurants within 10 min walk
+- Groceries, pharmacies, ATMs
+- Local taxi apps and tipping norms
+- Things to do in {neighborhood}
+
+Your guests get a better first day, you get fewer repetitive messages, reviews go up.
+
+Pricing: {pricing} per listing (no subscription). Reply if you'd like a printable PDF version.
 
 Best,
-Umur"""
+Umur
+HostGuide"""
 
 
-def generate_fb_post(city: str, **_kwargs) -> str:
-    """Generate a FB group post to attract hosts — conversational, not salesy."""
-    return f"""Hey everyone — I've been hosting in {city} for a while and got tired of answering the same guest questions: "where's the nearest grocery store?", "best coffee nearby?", "how do I get to the beach?"
+def generate_fb_post(city: str, sample_url: str = "", **_kwargs) -> str:
+    """Conversational FB group post. sample_url optional - a real host-guide.net link."""
+    link_line = f"\n\nHere's a sample: {sample_url}" if sample_url else ""
+    return f"""Hey everyone. I've been hosting in {city} for a while and got tired of answering the same guest questions: "where's the nearest grocery store?", "best coffee nearby?", "how do I get to the beach?".
 
-So I built a little tool that generates a neighborhood guide specific to your apartment's exact location. It pulls nearby restaurants, transit, groceries, landmarks — and formats it into something you can actually send to guests.
+So I built a little tool that generates a neighborhood guide specific to your apartment's exact location. It pulls nearby restaurants, transit, groceries, landmarks, and formats it into something you can actually send to guests.{link_line}
 
-Here's what it looks like (screenshot attached).
-
-I'm testing it out right now and happy to make one for your listing for free — just drop your Airbnb link and I'll send it over. Takes about 2 minutes to generate.
+Happy to make one for your listing for free - just drop your Airbnb link in a comment and I'll send it over. Takes about 60 seconds to generate.
 
 Figured it might save some of you the same headache."""
 
 
-def generate_instagram_dm(listing: Listing) -> str:
-    """Generate a short Instagram DM for hosts who post their listings on IG."""
-    host = listing.host_name or "there"
-    return f"""Hi {host}! Love your place in {listing.city} 🏡
+def generate_instagram_dm(listing: Listing, guide_url: str = "") -> str:
+    """Short IG DM - fits the 1000-char limit and reads casual."""
+    host = _first_name(listing.host_name) or "there"
+    cta_link = guide_url or SITE
+    return f"""Hi {host}! Love your place in {listing.city}.
 
-I make personalized guest guides for Airbnb hosts — walking distances to restaurants, transit, groceries etc. specific to your apartment's location.
+I make free neighborhood guides for Airbnb hosts - walking distances to restaurants, transit, groceries, tailored to the exact spot.
 
-Made a free sample for your listing — want me to send it?"""
+Made one for your listing: {cta_link}
+
+Let me know if you'd like a printable PDF."""
 
 
 def generate_email_template(listing: Listing, guide_url: str) -> dict:
-    """Generate email subject + body for hosts found via Airbnb messaging or email."""
-    host = listing.host_name or "Host"
+    """Subject + body for email outreach (when we have the host's email)."""
+    host = _first_name(listing.host_name) or "there"
     city = listing.city
     neighborhood = listing.neighborhood or city
 
     return {
-        "subject": f"Free guest guide for your {neighborhood} listing ✨",
+        "subject": f"Free guest guide for your {neighborhood} listing",
         "body": f"""Hi {host},
 
-I'm reaching out because I noticed your Airbnb listing in {neighborhood}, {city}. Great place!
+I noticed your Airbnb listing in {neighborhood}, {city}. Great place.
 
-I've created a personalized neighborhood guide specifically for YOUR listing's location. It includes walking directions to the nearest transit, restaurants, groceries, landmarks, and local tips — everything a guest needs on Day 1.
+I've made a personalized neighborhood guide specifically for your listing's exact location. It includes walking directions to the nearest transit, restaurants, groceries, landmarks, and local tips - everything a guest needs on Day 1.
 
-Here's the preview: {guide_url}
+Preview: {guide_url}
 
-This is completely free — I'm building a guest guide service for Airbnb hosts and would love your feedback on the guide.
+This is free - I'm building a guest guide service for Airbnb hosts and would love your feedback.
 
-If you like it, I can set up a hosted version with a short link you can include in your check-in message to guests. Your guests get a better experience, you get fewer "where is the nearest...?" messages.
+If you like it, I can send you a printable PDF you can drop in your welcome book. Your guests get a better first day, you get fewer repetitive messages.
 
-Let me know what you think!
+Let me know what you think.
 
 Best,
 Umur
-HostGuide · hostguide.co""",
+HostGuide
+{SITE}""",
     }
