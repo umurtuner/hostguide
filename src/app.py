@@ -631,9 +631,18 @@ def _generate_guide_for_order(token: str) -> bool:
         print(f"Enriching {listing.city} at {listing.lat},{listing.lng}...")
         enriched = enrich_without_api(listing.lat, listing.lng, city_config)
 
-        # Step 4: Generate guide (HTML)
+        # Quality gate: count total POIs across all categories. Below 8 means
+        # the area is too sparse for a useful guide — log so we can spot it.
+        poi_total = sum(len(getattr(enriched, c, []) or []) for c in
+                        ("transit", "grocery", "restaurant", "landmark", "nightlife", "health"))
+        if poi_total < 8:
+            print(f"[LOW_POI] token={token} listing={listing_id} "
+                  f"city={listing.city} lat={listing.lat} lng={listing.lng} "
+                  f"total={poi_total} — guide quality will be poor")
+
+        # Step 4: Generate guide (HTML). Use Claude when ANTHROPIC_API_KEY is set.
         print(f"Generating guide for listing {listing_id}...")
-        guide = generate_guide(listing, enriched, city_config, use_claude=False)
+        guide = generate_guide(listing, enriched, city_config, use_claude=True)
 
         # Step 5: Inject QR code and save guide HTML
         guide_url = f"{DOMAIN}/download/{token}"
@@ -733,16 +742,17 @@ def _fetch_listing_meta(airbnb_url: str) -> dict:
         if og_image:
             meta["image"] = og_image.group(1)
 
-        # Parse title: "Rental unit in Geneva · ★4.33 · 1 bedroom..." → extract parts
+        # Parse title: "Guest house in Lisbon · ★4.33 · 1 bedroom · 1 private bathroom"
+        # Extract city from the FIRST "in <Place>" segment (parts[-1] grabs junk
+        # like "1 private bathroom" which then propagates to title/header/taxi
+        # copy throughout the guide).
         if meta["title"] and "·" in meta["title"]:
             parts = meta["title"].split("·")
             meta["title"] = parts[0].strip()
-            if len(parts) >= 2:
-                meta["city"] = parts[-1].strip().split(",")[0].strip()
-            # Extract property type from title like "Rental unit in Geneva"
-            type_match = re.match(r'([\w\s]+?)\s+in\s+', meta["title"])
-            if type_match:
-                meta["property_type"] = type_match.group(1).strip()
+            in_match = re.match(r'([\w\s]+?)\s+in\s+(.+)', meta["title"])
+            if in_match:
+                meta["property_type"] = in_match.group(1).strip()
+                meta["city"] = in_match.group(2).split(",")[0].strip()
         if not meta["city"] and meta["description"]:
             desc_parts = meta["description"].split(" in ")
             if len(desc_parts) >= 2:

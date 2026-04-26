@@ -10,6 +10,7 @@ Usage:
 from __future__ import annotations
 
 import os
+import re
 from dataclasses import dataclass, asdict
 from datetime import date
 from pathlib import Path
@@ -48,6 +49,100 @@ def _format_place(p: Place) -> str:
         return f"- **{p.name}**{stars}{price}"
 
 
+COUNTRY_CONTEXT = {
+    "PT": {
+        "transit_card": "Viva Viagem rechargeable card (€0.50 from any Metro machine, then load €1.65 per ride or €6.80 for 24h unlimited)",
+        "ride_apps": "Bolt is dominant (cheaper than Uber). Uber works too. Free Now for taxis.",
+        "payment": "Multibanco network covers nearly every shop. Contactless cards everywhere. Carry €20 cash for small cafés.",
+        "tipping": "Not expected. Round up the bill or leave 5-10% if service was excellent.",
+        "water": "Tap water is safe and fine to drink across mainland Portugal.",
+        "plug": "Type F (same as most of EU). 230V.",
+        "greeting": "Olá (hello), Bom dia (morning), Obrigado/Obrigada (thank you, m/f).",
+        "emergency": "112 for everything (police/medical/fire). Tourist police 21 342 1623.",
+    },
+    "ES": {
+        "transit_card": "T-Casual 10-trip card in Barcelona (€12.55), Metrobus pass in Madrid (€12.20).",
+        "ride_apps": "Cabify and Bolt work well. Uber in major cities. Hailing taxis is fine and metered.",
+        "payment": "Cards everywhere. Carry €20 for small bars and markets.",
+        "tipping": "Not expected. Round up or 5-10% for excellent service.",
+        "water": "Tap water is safe in most cities (Madrid, Barcelona, San Sebastián). Some southern coast cities locals prefer bottled.",
+        "plug": "Type F. 230V.",
+        "greeting": "Hola, Buenos días, Gracias.",
+        "emergency": "112.",
+    },
+    "GB": {
+        "transit_card": "Contactless card or Apple/Google Pay tap on/off works on London Underground, buses, and most rail. Daily cap auto-applied.",
+        "ride_apps": "Uber, Bolt, FreeNow. Black cabs with metered fare; you can also hail.",
+        "payment": "Contactless universal. Few places refuse cards. Pubs sometimes minimum £5.",
+        "tipping": "10-12.5% at restaurants if service charge isn't included. Not expected at pubs or cafés.",
+        "water": "Tap water safe nationwide.",
+        "plug": "Type G (three flat pins). 230V.",
+        "greeting": "Hello, Thanks, Cheers (informal thanks).",
+        "emergency": "999 or 112.",
+    },
+    "US": {
+        "transit_card": "City-specific (CharlieCard Boston, MetroCard NYC, Clipper SF, EasyPark Miami). Most accept contactless tap.",
+        "ride_apps": "Uber and Lyft are the standard. Add 15-20% tip in-app.",
+        "payment": "Cards everywhere. Tap your phone. Tipping changes the math, see below.",
+        "tipping": "Restaurants 18-22% (sit-down). Bars $1-2/drink. Rideshare 15-20%. Hotel housekeeping $3-5/day.",
+        "water": "Tap water safe nationwide; locally Floridians often prefer filtered for taste.",
+        "plug": "Type A/B (two flat pins, optional ground). 120V.",
+        "greeting": "Hi, Thanks, How's it going.",
+        "emergency": "911.",
+    },
+    "FR": {
+        "transit_card": "Navigo Easy card in Paris (€2 + €2.15/ride or €8.65/day). t+ tickets are being phased out.",
+        "ride_apps": "Uber and Bolt. Heetch in Paris. Taxis G7 app for traditional taxis.",
+        "payment": "Cards universal. Carry €10-20 for cafés and bakeries.",
+        "tipping": "Service is included. Leave €1-2 if happy. 5-10% for excellent service.",
+        "water": "Tap water safe nationwide. Restaurants will bring a free carafe (\"une carafe d'eau, s'il vous plaît\").",
+        "plug": "Type E. 230V.",
+        "greeting": "Bonjour (always say it when entering shops), Merci, S'il vous plaît.",
+        "emergency": "112 or 17 (police), 15 (medical).",
+    },
+    "IT": {
+        "transit_card": "Single rides ~€1.50, daily passes city-specific. Validate paper tickets in machines on board.",
+        "ride_apps": "FreeNow and Uber Black (no UberX in most Italian cities). Taxis are metered.",
+        "payment": "Cards widely accepted but small bars/markets are still cash. Carry €20.",
+        "tipping": "Coperto (cover charge) is on the bill. No tipping expected. Round up if happy.",
+        "water": "Tap water is safe and good. Public fountains in Rome, Milan are drinkable.",
+        "plug": "Type F/L. 230V.",
+        "greeting": "Ciao (informal), Buongiorno, Grazie, Prego (you're welcome).",
+        "emergency": "112.",
+    },
+    "CO": {
+        "transit_card": "TuLlave card in Bogotá (TransMilenio), Cívica card in Medellín (Metro). ~3000 COP per ride.",
+        "ride_apps": "Uber, InDriver (cheapest, you negotiate fare), DiDi. Avoid hailing taxis at night.",
+        "payment": "Cash for street vendors and small spots. Cards in supermarkets/restaurants. Bring small bills.",
+        "tipping": "10% propina voluntaria — usually added to the bill, you can decline. Round up taxis.",
+        "water": "Tap water safe in Bogotá and Medellín. Outside major cities, drink bottled.",
+        "plug": "Type A/B (US-style). 110V.",
+        "greeting": "Hola, Buenos días, Gracias, ¿Cómo está?",
+        "emergency": "123.",
+    },
+    "MX": {
+        "transit_card": "MetroBus card in CDMX (~$10 MXN to buy, $6 MXN/ride).",
+        "ride_apps": "Uber and DiDi everywhere. Don't hail street taxis in CDMX.",
+        "payment": "Cards in chains and tourist areas. Cash for everything else. ATMs at HSBC/Santander/BBVA.",
+        "tipping": "10-15% restaurants. 10-20 pesos for hotel staff. Round up taxis.",
+        "water": "Drink bottled or filtered. Tap is not safe.",
+        "plug": "Type A/B. 127V.",
+        "greeting": "Hola, Buenos días, Gracias, Por favor.",
+        "emergency": "911.",
+    },
+    "AE": {
+        "transit_card": "Nol card for Dubai Metro and buses (AED 25 buy + load).",
+        "ride_apps": "Careem (local) and Uber. Both ~AED 15-30 per short ride.",
+        "payment": "Cards universal. Bring some cash for souks and small shops.",
+        "tipping": "10-15% restaurants if no service charge. AED 5-10 for hotel staff.",
+        "water": "Tap is technically safe but locals/expats drink bottled for taste.",
+        "plug": "Type G (UK-style). 230V.",
+        "greeting": "As-salamu alaykum (peace be upon you), Shukran (thanks), Marhaba (hello).",
+        "emergency": "999 (police), 998 (ambulance), 997 (fire).",
+    },
+}
+
+
 def _generate_with_claude(listing: Listing, enriched: EnrichedLocation,
                           city_config: dict) -> str:
     """Use Claude to write an engaging, personalized guide."""
@@ -58,43 +153,77 @@ def _generate_with_claude(listing: Listing, enriched: EnrichedLocation,
         return ""
 
     places_summary = ""
+    poi_total = 0
     for category in ["transit", "grocery", "restaurant", "landmark", "nightlife", "health"]:
         places = getattr(enriched, category, [])
         if places:
-            places_summary += f"\n{category.upper()}:\n"
+            poi_total += len(places)
+            places_summary += f"\n{category.upper()} ({len(places)} found):\n"
             for p in places:
                 places_summary += f"  - {p.name} ({p.distance_m}m, {p.walking_min} min walk)"
-                if p.rating:
-                    places_summary += f" rating: {p.rating}/5"
+                if getattr(p, "rating", 0):
+                    places_summary += f" — rated {p.rating}/5"
+                if getattr(p, "address", ""):
+                    places_summary += f" @ {p.address}"
                 places_summary += "\n"
+        else:
+            places_summary += f"\n{category.upper()}: (no data — call this out and reason about it)\n"
 
-    prompt = f"""Write a warm, practical guest guide for an Airbnb in {city_config['name']}, {city_config.get('country', '')}.
+    country = (city_config.get("country") or "").upper()
+    ctx = COUNTRY_CONTEXT.get(country, {})
+    country_block = ""
+    if ctx:
+        country_block = (
+            "\nCOUNTRY CONTEXT (use these as ground truth — don't invent new versions):\n"
+            f"  Transit ticketing: {ctx['transit_card']}\n"
+            f"  Ride apps: {ctx['ride_apps']}\n"
+            f"  Payment: {ctx['payment']}\n"
+            f"  Tipping: {ctx['tipping']}\n"
+            f"  Tap water: {ctx['water']}\n"
+            f"  Plug: {ctx['plug']}\n"
+            f"  Greeting/phrases: {ctx['greeting']}\n"
+            f"  Emergency: {ctx['emergency']}\n"
+        )
 
-LISTING: {listing.title or 'Apartment'}
-NEIGHBORHOOD: {listing.neighborhood or city_config.get('neighborhoods', [''])[0]}
-HOST: {listing.host_name or 'Your Host'}
+    listing_facts = (
+        f"LISTING: {listing.title or 'this apartment'}\n"
+        f"CITY: {city_config['name']}\n"
+        f"NEIGHBORHOOD: {listing.neighborhood or '(not detected)'}\n"
+        f"HOST: {listing.host_name or 'Your Host'}\n"
+        f"PROPERTY TYPE: {listing.property_type or '(not detected)'}\n"
+        f"BEDS / BATHS / GUESTS: {listing.bedrooms} / {listing.bathrooms} / {listing.guests}\n"
+        f"COORDS: {listing.lat}, {listing.lng}\n"
+    )
 
-NEARBY PLACES (from Google Maps data):
+    prompt = f"""You are writing the printed welcome book a guest will read in this exact apartment, in {city_config['name']}, {country}.
+
+{listing_facts}
+NEARBY PLACES (from OpenStreetMap, walking distances calculated from the listing's exact lat/lng):
 {places_summary}
+{country_block}
 
-Write the guide in this structure:
-1. Welcome message (warm, 2-3 sentences from the host)
-2. Getting Around (nearest transit, taxi apps like InDriver/Uber, tips)
-3. Eating & Drinking (top nearby restaurants + cafes, with walking times)
-4. Groceries & Essentials (nearest supermarket, pharmacy, ATM)
-5. Things to See & Do (landmarks, parks, museums nearby)
-6. Nightlife (if applicable -bars, clubs)
-7. Safety Tips (specific to {city_config['name']} -practical, not scary)
-8. Useful Info (emergency numbers, tipping customs, language basics)
+WRITE THE GUIDE WITH THESE EIGHT SECTIONS, IN ORDER:
 
-Style: Friendly, concise, useful. Like a friend who lives there.
-Include walking times from the data. Use emoji sparingly (1-2 per section max).
-Write in English. Keep it under 1500 words.
-Output as clean markdown."""
+1. **Welcome from {listing.host_name or 'Your host'}** — 2-3 sentences in first person, warm but not gushy. Mention the neighborhood by name.
+2. **Getting Around** — Open with the closest transit option BY NAME from the data. Then the country's transit ticketing fact verbatim. Then 1-2 lines on ride apps for this country. If TRANSIT data is empty: say "the closest station should be checked locally — your host can confirm" and recommend the country's ride app.
+3. **Eating & Drinking** — Pick 3-4 specific named restaurants/cafes from the data (closest first, mix cafe + sit-down if both present). For each, one short reason to go (cuisine type, vibe, time of day). Include walking time. End with one country-specific food tip ("try a *pastel de nata*", "the prato do dia is the lunchtime move", etc.).
+4. **Groceries & Essentials** — Name the 2 closest groceries with walking time. Name the closest pharmacy. One line about opening hours norms in this country.
+5. **Things to See & Do** — 3-4 named landmarks from the data with walking time. If everything is >25 min walk: be honest ("the neighborhood is residential — for sights, take Metro/bus to..."). Don't pad.
+6. **Nightlife** — If data is empty or you only have 1 entry: skip this section entirely (don't write a placeholder). If you have 2+: 2-3 named spots with vibe.
+7. **Safety & Practicalities** — 2-3 specific notes about THIS neighborhood and city. Avoid clichés. Include the country's emergency number.
+8. **Useful Info** — Bullet list: tap water, tipping, plug type, greeting phrases, emergency number — pulled from country context above.
+
+HARD RULES:
+- Every section must reference specific named places from the data. If a category is empty, say so honestly — don't invent place names.
+- Voice: a host who lives in the building writing for a guest who arrived 20 minutes ago. First person. No "experience the vibrant culture of...", no "discover hidden gems".
+- Walking times come from the data, never round to "about 10 min" — use the exact minute count.
+- No emojis except one per section header (max 8 total).
+- Output clean markdown. No HTML, no preamble, no closing apology, just the guide starting with the H1 welcome header.
+- Maximum 1200 words total."""
 
     resp = client.messages.create(
         model="claude-sonnet-4-6",
-        max_tokens=2000,
+        max_tokens=2500,
         messages=[{"role": "user", "content": prompt}],
     )
     return resp.content[0].text
@@ -263,7 +392,7 @@ def _generate_template(listing: Listing, enriched: EnrichedLocation,
 
 
 def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
-                      city_config: dict) -> str:
+                      city_config: dict, narrative_md: str = "") -> str:
     """Build a print-first, guest-ready HTML guide.
 
     Design principles:
@@ -274,6 +403,10 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
     - QR code links to digital version for phone users
     - Mobile-responsive for guests viewing on phone
     - Dual @media print stylesheet for clean A4/Letter output
+
+    `narrative_md` is the Claude-generated markdown narrative. When provided,
+    it renders as an opening section above the structured place lists, giving
+    the guide a host's voice on top of the data spine.
     """
     raw_city = city_config["name"]
     # Filter out listing subtitle junk that leaked into city name
@@ -282,6 +415,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
         raw_city = ""
     city = raw_city or listing.city or "your neighborhood"
     country = city_config.get("country", "")
+    emergency_text = COUNTRY_CONTEXT.get(country, {}).get("emergency", "112 (EU) / 911 (US) / 999 (UK)")
     neighborhood = listing.neighborhood or city
     host = listing.host_name or "Your Host"
     today = date.today().strftime("%B %d, %Y")
@@ -809,6 +943,20 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             info_rows.append(("SIM card", "Three, EE, or Giffgaff. Buy at any convenience store."))
     info_table = "\n".join(f'<tr><td class="info-label">{k}</td><td>{v}</td></tr>' for k, v in info_rows)
 
+    # Render Claude narrative (if any) to a styled HTML block. Strip any leading
+    # H1 — the page already has its own hero header.
+    narrative_html = ""
+    if narrative_md and narrative_md.strip():
+        cleaned = re.sub(r"^\s*#\s+.+?\n", "", narrative_md, count=1)
+        try:
+            import markdown as _md
+            body = _md.markdown(cleaned, extensions=["tables", "fenced_code"])
+        except ImportError:
+            body = "<p>" + cleaned.replace("\n\n", "</p><p>") + "</p>"
+        narrative_html = f'''<section class="section narrative">
+            <div class="narrative-body">{body}</div>
+        </section>'''
+
     # Map section
     map_html = ""
     if lat and lng and lat != 0:
@@ -1010,6 +1158,29 @@ body {{
     color: var(--text-secondary);
     margin: 14px 0 6px;
 }}
+
+/* ── Narrative (Claude-generated voice block) ── */
+.narrative {{
+    background: #fafbfb;
+    border-left: 3px solid var(--primary);
+    padding: 22px 26px;
+    margin-bottom: 28px;
+    border-radius: 4px;
+}}
+.narrative-body h2 {{
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 19px;
+    margin: 22px 0 8px;
+    color: var(--primary-dark);
+    border-bottom: none;
+    padding-bottom: 0;
+}}
+.narrative-body h2:first-child {{ margin-top: 0; }}
+.narrative-body p {{ margin: 0 0 12px; line-height: 1.65; color: var(--text); }}
+.narrative-body ul {{ padding-left: 20px; margin: 8px 0 14px; }}
+.narrative-body li {{ margin-bottom: 4px; }}
+.narrative-body strong {{ color: var(--primary-dark); }}
+.narrative-body em {{ color: var(--text-secondary); }}
 
 /* ── Place tables ── */
 .place-table {{
@@ -1233,7 +1404,7 @@ body {{
         </div>
         <div class="cell">
             <div class="label">Emergency</div>
-            <div class="value">{"911" if country == "US" else "123 (police) / 125 (fire)"}</div>
+            <div class="value">{emergency_text}</div>
         </div>
         <div class="cell">
             <div class="label">Check-in / Check-out</div>
@@ -1251,6 +1422,7 @@ body {{
     <!-- Main content -->
     <div class="content">
 
+        {narrative_html}
         {map_html}
         {transit_html}
         {restaurants_html}
@@ -1325,15 +1497,17 @@ def generate_guide(listing: Listing, enriched: EnrichedLocation,
                    city_config: dict, use_claude: bool = True) -> GuestGuide:
     """Generate a complete guest guide."""
     md_content = ""
+    claude_md = ""  # only inject the Claude voice — never the bland template — into the HTML
 
     if use_claude and os.environ.get("ANTHROPIC_API_KEY"):
-        md_content = _generate_with_claude(listing, enriched, city_config)
+        claude_md = _generate_with_claude(listing, enriched, city_config)
+        md_content = claude_md
 
     if not md_content:
         md_content = _generate_template(listing, enriched, city_config)
 
-    # Build polished HTML directly from structured data (not from markdown)
-    html_content = _build_html_guide(listing, enriched, city_config)
+    # HTML: structured place data + (when available) Claude narrative on top.
+    html_content = _build_html_guide(listing, enriched, city_config, narrative_md=claude_md)
 
     return GuestGuide(
         listing_id=listing.listing_id,

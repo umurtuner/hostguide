@@ -349,7 +349,7 @@ def enrich_without_api(lat: float, lng: float, city_config: dict) -> EnrichedLoc
     # Use node + way (not nwr which includes relations and is too heavy)
     # way with 'out center' gives centroid coords for building-mapped places
     osm_mapping = {
-        "transit": f'[out:json][timeout:15];(node["railway"="station"](around:{r_transit},{{lat}},{{lng}});node["railway"="halt"](around:{r_transit},{{lat}},{{lng}});node["public_transport"="station"](around:{r_transit},{{lat}},{{lng}});node["highway"="bus_stop"](around:{r_bus},{{lat}},{{lng}});node["railway"="tram_stop"](around:{r_transit},{{lat}},{{lng}}););out body {max_places};',
+        "transit": f'[out:json][timeout:15];(node["railway"="station"](around:{r_transit},{{lat}},{{lng}});node["railway"="halt"](around:{r_transit},{{lat}},{{lng}});node["railway"="subway_entrance"](around:{r_transit},{{lat}},{{lng}});node["station"="subway"](around:{r_transit},{{lat}},{{lng}});node["public_transport"="station"](around:{r_transit},{{lat}},{{lng}});node["public_transport"="stop_position"]["train"="yes"](around:{r_transit},{{lat}},{{lng}});node["highway"="bus_stop"](around:{r_bus},{{lat}},{{lng}});node["railway"="tram_stop"](around:{r_transit},{{lat}},{{lng}}););out body {max_places};',
         "grocery": f'[out:json][timeout:15];(node["shop"="supermarket"](around:{r_grocery},{{lat}},{{lng}});way["shop"="supermarket"](around:{r_grocery},{{lat}},{{lng}});node["shop"="convenience"](around:{r_conv},{{lat}},{{lng}});node["shop"="bakery"](around:{r_conv},{{lat}},{{lng}}););out body center {max_places};',
         "restaurant": f'[out:json][timeout:15];(node["amenity"="restaurant"](around:{r_restaurant},{{lat}},{{lng}});way["amenity"="restaurant"](around:{r_restaurant},{{lat}},{{lng}});node["amenity"="cafe"](around:{r_cafe},{{lat}},{{lng}});way["amenity"="cafe"](around:{r_cafe},{{lat}},{{lng}});node["amenity"="fast_food"](around:{r_restaurant},{{lat}},{{lng}}););out body center {max_restaurant};',
         "landmark": f'[out:json][timeout:15];(node["tourism"="attraction"](around:{r_landmark},{{lat}},{{lng}});node["tourism"="museum"](around:{r_landmark},{{lat}},{{lng}});way["leisure"="park"](around:{r_park},{{lat}},{{lng}});node["tourism"="viewpoint"](around:{r_landmark},{{lat}},{{lng}});node["tourism"="gallery"](around:{r_landmark},{{lat}},{{lng}}););out body center {max_places};',
@@ -401,47 +401,71 @@ def enrich_without_api(lat: float, lng: float, city_config: dict) -> EnrichedLoc
                 time.sleep(2 * (attempt + 1))
         places.sort(key=lambda x: x.distance_m)
         setattr(enriched, category, places[:8])
-        time.sleep(2)  # Overpass rate limit
+        time.sleep(4)  # Overpass per-IP throttling — keep generous
 
-    # Adaptive retry: if restaurant/grocery results are thin in US, widen to 5km
+    # Adaptive retry: if any core category is thin, widen the radius. This used
+    # to be US-only and used a non-existent `overpass_url` variable, so it was
+    # silently failing. Now applies to all countries.
     if country == "US":
-        for cat, min_count, wider_query in [
-            ("restaurant", 3, '[out:json];(node["amenity"="restaurant"](around:20000,{lat},{lng});node["amenity"="cafe"](around:15000,{lat},{lng});node["amenity"="fast_food"](around:10000,{lat},{lng}););out body 30;'),
-            ("grocery", 2, '[out:json];(node["shop"="supermarket"](around:20000,{lat},{lng});node["shop"="convenience"](around:10000,{lat},{lng}););out body 15;'),
-            ("health", 1, '[out:json];(node["amenity"="pharmacy"](around:20000,{lat},{lng});node["amenity"="hospital"](around:20000,{lat},{lng}););out body 10;'),
-        ]:
-            current = getattr(enriched, cat, [])
-            if len(current) < min_count:
-                query = wider_query.format(lat=lat, lng=lng)
-                try:
-                    time.sleep(3)
-                    resp = requests.post(overpass_url, data={"data": query}, timeout=25)
-                    if resp.status_code == 200:
-                        data = resp.json()
-                        seen_names = {p.name.lower() for p in current}
-                        for elem in data.get("elements", []):
-                            tags = elem.get("tags", {})
-                            name = tags.get("name", "")
-                            if not name or name.lower() in seen_names:
-                                continue
-                            seen_names.add(name.lower())
-                            plat = elem.get("lat", 0)
-                            plng = elem.get("lon", 0)
-                            dist = _haversine_m(lat, lng, plat, plng)
-                            street = tags.get("addr:street", "")
-                            house = tags.get("addr:housenumber", "")
-                            addr = f"{house} {street}".strip() if street else ""
-                            current.append(Place(
-                                name=name, type=cat,
-                                category=tags.get("amenity", tags.get("shop", "")),
-                                lat=plat, lng=plng,
-                                distance_m=dist, walking_min=_walking_minutes(dist),
-                                address=addr,
-                            ))
-                        current.sort(key=lambda x: x.distance_m)
-                        setattr(enriched, cat, current[:10])
-                except Exception:
-                    pass
+        # US: very wide retry (driving distance)
+        retry_specs = [
+            ("restaurant", 3, '[out:json][timeout:20];(node["amenity"="restaurant"](around:20000,{lat},{lng});node["amenity"="cafe"](around:15000,{lat},{lng});node["amenity"="fast_food"](around:10000,{lat},{lng}););out body 30;'),
+            ("grocery", 2, '[out:json][timeout:20];(node["shop"="supermarket"](around:20000,{lat},{lng});node["shop"="convenience"](around:10000,{lat},{lng}););out body 15;'),
+            ("health", 1, '[out:json][timeout:20];(node["amenity"="pharmacy"](around:20000,{lat},{lng});node["amenity"="hospital"](around:20000,{lat},{lng}););out body 10;'),
+            ("transit", 1, '[out:json][timeout:20];(node["railway"="station"](around:25000,{lat},{lng});node["public_transport"="station"](around:25000,{lat},{lng}););out body 10;'),
+            ("landmark", 2, '[out:json][timeout:20];(node["tourism"="attraction"](around:25000,{lat},{lng});node["tourism"="museum"](around:25000,{lat},{lng});way["leisure"="park"](around:15000,{lat},{lng}););out body center 15;'),
+        ]
+    else:
+        # Walkable cities (EU/LATAM/UK): widen to 3-5km, still walking-tolerant
+        retry_specs = [
+            ("restaurant", 3, '[out:json][timeout:20];(node["amenity"="restaurant"](around:5000,{lat},{lng});node["amenity"="cafe"](around:5000,{lat},{lng});node["amenity"="fast_food"](around:5000,{lat},{lng}););out body 30;'),
+            ("grocery", 2, '[out:json][timeout:20];(node["shop"="supermarket"](around:5000,{lat},{lng});node["shop"="convenience"](around:5000,{lat},{lng});node["shop"="bakery"](around:5000,{lat},{lng}););out body 20;'),
+            ("health", 1, '[out:json][timeout:20];(node["amenity"="pharmacy"](around:5000,{lat},{lng});node["amenity"="hospital"](around:8000,{lat},{lng}););out body 10;'),
+            ("transit", 1, '[out:json][timeout:20];(node["railway"="station"](around:5000,{lat},{lng});node["railway"="subway_entrance"](around:5000,{lat},{lng});node["station"="subway"](around:5000,{lat},{lng});node["public_transport"="station"](around:5000,{lat},{lng});node["highway"="bus_stop"](around:3000,{lat},{lng}););out body 10;'),
+            ("landmark", 2, '[out:json][timeout:20];(node["tourism"="attraction"](around:8000,{lat},{lng});node["tourism"="museum"](around:8000,{lat},{lng});way["leisure"="park"](around:5000,{lat},{lng}););out body center 15;'),
+        ]
+
+    for cat, min_count, wider_query in retry_specs:
+        current = getattr(enriched, cat, [])
+        # Only widen when category is fully empty. If the initial query already
+        # returned even 1 result, treat that as a signal that Overpass is up
+        # and the area is just sparse — don't hammer the API for marginal gains.
+        if len(current) > 0:
+            continue
+        query = wider_query.format(lat=lat, lng=lng)
+        for attempt in range(2):
+            try:
+                time.sleep(5)
+                url = overpass_urls[0] if attempt == 0 else overpass_urls[1]
+                resp = requests.post(url, data={"data": query}, timeout=25)
+                if resp.status_code != 200:
+                    continue
+                data = resp.json()
+                seen_names = {p.name.lower() for p in current}
+                for elem in data.get("elements", []):
+                    tags = elem.get("tags", {})
+                    name = tags.get("name", "")
+                    if not name or name.lower() in seen_names:
+                        continue
+                    seen_names.add(name.lower())
+                    plat = elem.get("lat") or (elem.get("center", {}).get("lat", 0))
+                    plng = elem.get("lon") or (elem.get("center", {}).get("lon", 0))
+                    dist = _haversine_m(lat, lng, plat, plng)
+                    street = tags.get("addr:street", "")
+                    house = tags.get("addr:housenumber", "")
+                    addr = f"{house} {street}".strip() if street else ""
+                    current.append(Place(
+                        name=name, type=cat,
+                        category=tags.get("amenity", tags.get("shop", tags.get("tourism", ""))),
+                        lat=plat, lng=plng,
+                        distance_m=dist, walking_min=_walking_minutes(dist),
+                        address=addr,
+                    ))
+                current.sort(key=lambda x: x.distance_m)
+                setattr(enriched, cat, current[:10])
+                break
+            except Exception as e:
+                print(f"[adaptive-retry] {cat} attempt {attempt+1} failed: {e}")
 
     # Post-enrichment: fetch Google ratings for top places if API key available
     if GOOGLE_API_KEY:

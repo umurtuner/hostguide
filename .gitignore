@@ -12,4 +12,6 @@ output/*/guides/
 output/*/hosts.json
 output/*/host_profiles.json
 output/*/listings.json
+output/qa/
 .claude-flow/
+.venv/

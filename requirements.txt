@@ -7,3 +7,5 @@ weasyprint==68.1
 requests
 playwright
 qrcode[pil]
+markdown
+anthropic
