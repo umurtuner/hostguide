@@ -21,3 +21,5 @@ services:
           name: tuto-redis
       - key: GOOGLE_MAPS_API_KEY
         sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
