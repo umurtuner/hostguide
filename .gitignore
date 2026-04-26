@@ -12,3 +12,4 @@ output/*/guides/
 output/*/hosts.json
 output/*/host_profiles.json
 output/*/listings.json
+.claude-flow/
