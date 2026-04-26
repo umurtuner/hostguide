@@ -196,3 +196,153 @@ Regenerate all assets at once: `python scripts/generate_ph_assets.py`
 - Signups (target: 150+)
 - Paid conversions in first 48h (target: 20+)
 - Cost to acquire: ($X ad spend + Render upgrade) / paid signups
+
+---
+
+## Pre-launch sequence (Apr 27 - May 11, 2026)
+
+Goal: 50+ followers on the PH coming-soon page so the launch hits the front
+page in the first 4 hours (PH's algorithm weights early velocity heavily).
+
+**Apr 27-28 — Submit coming-soon page**
+- Go to https://www.producthunt.com/ship → "New Product"
+- Upload the same assets from /static/ph/ (logo, gallery)
+- Use the tagline + description from the top of this file
+- Set launch date: **Tuesday May 12, 2026**
+- This gives a public follow URL of the form: producthunt.com/products/hostguide
+- Save that URL somewhere obvious — every DM below uses it
+
+**Apr 29 - May 7 — Hunter outreach (target 50 follows)**
+- Use the LinkedIn DM template below for 30 1st-degree marketing/SaaS contacts
+- Use the X/Twitter DM template for 15 indie hacker / host community follows
+- Post the IH "I'm building" thread for organic follows
+
+**May 8-10 — Activation reminders**
+- Post a "launching Tuesday" update on LinkedIn (don't drop link, generate curiosity)
+- DM the 50 followers with the May-11 reminder template below
+- Test the dashboard flow end-to-end yourself with a fresh email
+
+**May 11 (Mon)**
+- Final pre-launch DM to all followers
+- Post X teaser tweet
+- Send to forum responders
+
+---
+
+## Coming-soon page submission text (PH Ship)
+
+**Name:** HostGuide
+**Tagline:** Personalized neighborhood guides for Airbnb hosts, in 60 seconds
+**Description:** (use the 258-char description from top of this file)
+**Topics:** Travel, Productivity, Marketing, No-Code
+**URL:** https://www.host-guide.net
+**Launch date:** May 12, 2026
+**Hunter:** @umurtuner (self-hunting)
+**Maker comment:** (use the maker comment from top of this file)
+
+---
+
+## Hunter outreach DMs
+
+### LinkedIn (1st-degree marketers, SaaS PMs, founders) — send 5/day Apr 29 - May 4
+
+> Hey [Name] — quick favor.
+>
+> I'm launching a side project on Product Hunt next Tuesday (May 12). It's HostGuide — a tool that generates printable neighborhood welcome books for Airbnb hosts. Built it because my own Canva welcome book stopped scaling.
+>
+> Would mean a lot if you'd follow the coming-soon page so I get a notification when you upvote on launch day. No vote needed today, just a follow:
+>
+> [coming-soon URL]
+>
+> Happy to return the favor when you ship. Thanks!
+
+### X/Twitter DMs (indie hackers, hosts you follow) — send 3/day Apr 29 - May 4
+
+> Hey — launching HostGuide on PH Tuesday May 12. Auto-generates printable welcome books from any Airbnb URL. Following the coming-soon page would help me a lot when launch day hits → [URL]. Cheers!
+
+### Final reminder DM (send May 11 to everyone who followed)
+
+> Hey [Name] — HostGuide goes live on PH at 09:01 Geneva tomorrow (00:01 PT).
+>
+> If you find it useful, an upvote in the morning would mean the world: [PH launch URL — replace with the live one Tuesday morning]
+>
+> No sweat if you can't, thanks for following!
+
+---
+
+## Day-of comment-reply templates (paste into PH within 10 min of comment)
+
+### "Does this work for [city/country] X?"
+> Yes — anywhere with OpenStreetMap coverage (so 200+ countries). The data is hand-tested in Lisbon, Madrid, Dublin, Miami, Tampa, Orlando, Medellin, Bogota. Drop your listing URL and I'll generate yours live in this thread!
+
+### "How is this different from a Canva template?"
+> Canva templates are static — every host fills them in by hand and they go stale fast. HostGuide pulls actual nearby places from each listing's exact lat/lng and regenerates the data per-listing. So you don't write "the cafe down the street" — it actually finds the cafe down the street with the walking time.
+
+### "Why not just AI-generate the whole thing?"
+> The "AI city guide" output is generic ("experience the vibrant culture"). HostGuide grounds Claude on real OSM/Maps data so every recommendation is a named place with walking time and address. The AI does the voice, the data does the truth.
+
+### "What's the data source?"
+> OpenStreetMap for coverage + Google Places for ratings (Places API New, just the cheapest fields). Anthropic Claude for the narrative.
+
+### "Can I white-label it for my host management business?"
+> Not yet, but DM me. If 3+ pros ask in the launch I'll prioritize a B2B tier this quarter.
+
+### "Does this work for hotels?"
+> Same workflow — paste the property URL, get a printable welcome book per room. One pro-host (Zurin Charm Hotel in Lisbon) is using it as a per-room branded PDF. Drop the URL and I'll show you.
+
+### "Open source?"
+> The frontend is closed; the data layer (enricher, scraper) might end up open. If you want to contribute or fork, reply and I'll prioritize.
+
+---
+
+## Reddit r/airbnb_hosts post (May 12, 1pm Geneva, after PH momentum)
+
+**Title:** I built a free tool that generates printable neighborhood welcome books for Airbnb hosts (launched today on PH)
+
+**Body:**
+> Long-time host here (Geneva). I got tired of answering "where's the grocery store?" 5x/week and rebuilt my welcome book as a tool you can use too: paste your Airbnb URL → get a printable PDF with walking times to transit, top cafes, local ride apps, tipping norms.
+>
+> Live at host-guide.net. First guide is on the house if you've never tried it.
+>
+> Mod-friendly note: I'm not selling here — happy to give /r/airbnb_hosts a free guide for any listing in the comments. Drop your URL.
+>
+> Also on Product Hunt today if anyone's there: [PH URL]
+
+---
+
+## Indie Hackers post (Apr 29 — soft pre-launch, ~2 weeks early)
+
+**Title:** Going live on PH May 12 — built a niche SaaS for Airbnb hosts on the side
+
+**Body:**
+> 6 months ago I started building HostGuide as a weekend project. Live at host-guide.net.
+>
+> The premise: every Airbnb host writes a welcome book in Canva. It's outdated in 6 weeks and nobody reads it. So I built a generator that pulls real nearby places from each listing's exact lat/lng and writes a printable PDF in 60 seconds.
+>
+> Stack: Flask + Stripe + WeasyPrint + OpenStreetMap + Google Places + Claude. Hosted on Render.
+>
+> Tech learnings I'd write a longer post about:
+> - The Airbnb scraper is HTTP-only (no Playwright in the hot path) — 800ms per listing
+> - Generated PDFs are templated HTML rendered by WeasyPrint, not headless Chrome — 2x faster, 10x cheaper
+> - Claude writes the narrative; structured place data is the spine
+> - 80% of the work was edge cases: junk city names from OG tags, OSM transit tagging quirks, US suburban density
+>
+> Launching on PH May 12 — coming-soon: [URL]. Would love feedback from anyone who's shipped a vertical SaaS in a niche I'm not in.
+
+---
+
+## Show HN post (alternative to PH if PH gets snowed under)
+
+**Title:** Show HN: HostGuide – Generate printable Airbnb welcome books from a listing URL
+
+**Body:**
+> Hi HN. I built HostGuide because my Canva welcome book stopped scaling and every alternative was either generic AI slop or a $99/mo subscription tool.
+>
+> Paste an Airbnb URL → site scrapes the listing's lat/lng/host/title via HTTP-only meta tags (no Playwright on the hot path), enriches with OSM Overpass + Google Places (just the rating field for cost), feeds it to Claude with strict no-cliché rules, renders as HTML → PDF via WeasyPrint. Total time per guide: ~60 seconds.
+>
+> Live: https://www.host-guide.net
+> First guide on the house.
+>
+> The interesting engineering problem turned out to be data quality across 200 countries: OSM tags transit differently in every city (Lisbon Metro is railway=subway_entrance, NYC subway is railway=station, London Underground is station=subway), and US suburbs need 5km radii while EU walkable cities need 1.5km. The whole pipeline has a quality gate that flags guides with <8 POIs.
+>
+> Happy to answer questions about the stack, the quality gate, or why I picked Render over Fly.io.
