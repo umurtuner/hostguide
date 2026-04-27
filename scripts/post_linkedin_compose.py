@@ -41,7 +41,7 @@ So I built a tool that generates a printable neighborhood guide from any Airbnb 
 
 My guest messages dropped by 70%. Reviews started mentioning "the guide was so helpful."
 
-It's launching on Product Hunt on Tuesday May 12 as HostGuide. Side project - I still run MarTech for Pampers by day - but it solves a real problem I had.
+It's launching on Product Hunt on Tuesday Apr 28 as HostGuide. Side project, but it solves a real problem I had.
 
 If you host on Airbnb, or know someone who does, you can follow the coming-soon page so you get a ping when it ships:
 
@@ -49,7 +49,7 @@ If you host on Airbnb, or know someone who does, you can follow the coming-soon 
 
 First guide on the house for everyone who follows.""",
 
-    "teaser": f"""Quietly shipping a side project on Tuesday May 12.
+    "teaser": f"""Quietly shipping a side project on Tuesday Apr 28.
 
 Six months of nights and weekends building HostGuide - a tool that generates printable neighborhood welcome books for Airbnb hosts in 60 seconds.
 

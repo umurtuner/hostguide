@@ -25,7 +25,7 @@ POSTS = {
     "ph_forum": {
         "title": "Hosts: what's the most-asked guest question that ruins your week?",
         "where": f"PH forum: https://www.producthunt.com/p/hostguide-2 (post BEFORE launch, ~Apr 28-29)",
-        "body": f"""I'm launching HostGuide on PH next Tuesday (Apr 28) - it generates printable welcome books for Airbnb guests. Before we go live, I'd love to know: what's the one guest question you wish your welcome book actually answered?
+        "body": f"""I'm launching HostGuide on PH tomorrow (Tue Apr 28) - it generates printable welcome books for Airbnb guests. Before we go live, I'd love to know: what's the one guest question you wish your welcome book actually answered?
 
 For me it was "where's the nearest grocery store?" - I got it 47 times in one summer despite a 12-page Canva guide that literally had a map.
 
