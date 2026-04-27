@@ -10,10 +10,13 @@ Maker: Umur Tuener (@umurtuner)
 
 ## Status snapshot (Apr 27, 2026)
 
-- Site UP (200 OK, 262ms response).
-- 5 required PH assets present in `static/ph/`. Missing optional: gallery_5 dashboard screenshot + 20s GIF demo.
+- Site UP (200 OK, 262ms response). Static asset 404 fix deployed.
+- **PH coming-soon page LIVE: https://www.producthunt.com/products/hostguide-2** (forum: `p/hostguide-2`)
+- Launch scheduled: **May 12, 2026 00:01 PDT (07:01 UTC, 09:01 Geneva)**.
+- 5 required PH assets uploaded; 4 gallery images visible on PH page. Missing optional: gallery_5 dashboard screenshot + 20s GIF demo.
 - 9 cities scraped, 452 hosts queued, **0 sent**. 4 cities (austin, nashville, savannah, scottsdale) need first scrape.
 - Distribution plan + daily cadence: see `tasks/distribution_plan.md`.
+- 5 launch-week preflight routines scheduled May 8-12 06:00 UTC.
 - New tooling:
   - `scripts/preflight_ph.py` - run T-48, T-24, morning-of (PASS/FAIL gates)
   - `scripts/crm_status.py` - one-shot dashboard across all city queues
@@ -21,8 +24,8 @@ Maker: Umur Tuener (@umurtuner)
   - `scripts/enrich_linkedin.py` - Apollo-backed LinkedIn + email enrichment
 
 **Action items still on user:**
-1. Submit PH coming-soon page on Ship (Apr 27-28). URL goes into hunter DM templates below.
-2. Re-run Miami scrape (bounds widened today) + scrape 4 empty cities.
+1. Get followers from 1 -> 50 by May 11 (LinkedIn announcement, hunter DMs, IH soft-launch Apr 29).
+2. Re-run Miami scrape (bounds widened) + scrape 4 empty cities.
 3. Record 20s screen demo GIF.
 4. Capture dashboard screenshot for gallery_5.
 5. (Optional) Get APOLLO_API_KEY for email enrichment.
@@ -175,10 +178,10 @@ Regenerate all assets at once: `python scripts/generate_ph_assets.py`
 > Works in 30+ countries so far. If you host anywhere in the world, I'd love to test yours live - drop your listing URL below.
 
 **Tweet 5**
-> PH launch: https://www.producthunt.com/posts/hostguide
+> PH launch: https://www.producthunt.com/products/hostguide-2
 > Site: https://www.host-guide.net
 >
-> RT appreciated. Back to answering PH comments 🙏
+> RT appreciated. Back to answering PH comments.
 
 ---
 
@@ -267,27 +270,27 @@ page in the first 4 hours (PH's algorithm weights early velocity heavily).
 
 ### LinkedIn (1st-degree marketers, SaaS PMs, founders) — send 5/day Apr 29 - May 4
 
-> Hey [Name] — quick favor.
+> Hey [Name] — quick one.
 >
 > I'm launching a side project on Product Hunt next Tuesday (May 12). It's HostGuide — a tool that generates printable neighborhood welcome books for Airbnb hosts. Built it because my own Canva welcome book stopped scaling.
 >
-> Would mean a lot if you'd follow the coming-soon page so I get a notification when you upvote on launch day. No vote needed today, just a follow:
+> If it sounds interesting, you can follow the coming-soon page so you get a ping when it ships:
 >
-> [coming-soon URL]
+> https://www.producthunt.com/products/hostguide-2
 >
-> Happy to return the favor when you ship. Thanks!
+> Happy to return the favor when you launch something. Thanks!
 
 ### X/Twitter DMs (indie hackers, hosts you follow) — send 3/day Apr 29 - May 4
 
-> Hey — launching HostGuide on PH Tuesday May 12. Auto-generates printable welcome books from any Airbnb URL. Following the coming-soon page would help me a lot when launch day hits → [URL]. Cheers!
+> Hey — launching HostGuide on PH Tuesday May 12. Auto-generates printable welcome books from any Airbnb URL. Coming-soon page if you want a ping at ship time: https://www.producthunt.com/products/hostguide-2. Cheers!
 
 ### Final reminder DM (send May 11 to everyone who followed)
 
-> Hey [Name] — HostGuide goes live on PH at 09:01 Geneva tomorrow (00:01 PT).
+> Hey [Name] — heads-up, HostGuide goes live on PH at 09:01 Geneva tomorrow (00:01 PT).
 >
-> If you find it useful, an upvote in the morning would mean the world: [PH launch URL — replace with the live one Tuesday morning]
+> If you want to check it out: https://www.producthunt.com/products/hostguide-2
 >
-> No sweat if you can't, thanks for following!
+> Thanks again for following!
 
 ---
 
@@ -327,7 +330,7 @@ page in the first 4 hours (PH's algorithm weights early velocity heavily).
 >
 > Mod-friendly note: I'm not selling here — happy to give /r/airbnb_hosts a free guide for any listing in the comments. Drop your URL.
 >
-> Also on Product Hunt today if anyone's there: [PH URL]
+> Also on Product Hunt today if anyone's there: https://www.producthunt.com/products/hostguide-2
 
 ---
 
@@ -348,7 +351,7 @@ page in the first 4 hours (PH's algorithm weights early velocity heavily).
 > - Claude writes the narrative; structured place data is the spine
 > - 80% of the work was edge cases: junk city names from OG tags, OSM transit tagging quirks, US suburban density
 >
-> Launching on PH May 12 — coming-soon: [URL]. Would love feedback from anyone who's shipped a vertical SaaS in a niche I'm not in.
+> Launching on PH May 12 — coming-soon: https://www.producthunt.com/products/hostguide-2. Would love feedback from anyone who's shipped a vertical SaaS in a niche I'm not in.
 
 ---
 
@@ -367,3 +370,46 @@ page in the first 4 hours (PH's algorithm weights early velocity heavily).
 > The interesting engineering problem turned out to be data quality across 200 countries: OSM tags transit differently in every city (Lisbon Metro is railway=subway_entrance, NYC subway is railway=station, London Underground is station=subway), and US suburbs need 5km radii while EU walkable cities need 1.5km. The whole pipeline has a quality gate that flags guides with <8 POIs.
 >
 > Happy to answer questions about the stack, the quality gate, or why I picked Render over Fly.io.
+
+---
+
+## PH forum thread (post on `p/hostguide-2` ~Apr 28-29, before launch)
+
+PH suggests starting a forum thread to engage early users. Research-flavored beats promo-flavored — comments become social proof for launch day.
+
+**Title:**
+> Hosts: what's the most-asked guest question that ruins your week?
+
+**Body:**
+> I'm launching HostGuide on PH next Tuesday (May 12) - it generates printable welcome books for Airbnb guests. Before we go live, I'd love to know: what's the one guest question you wish your welcome book actually answered?
+>
+> For me it was "where's the nearest grocery store?" - I got it 47 times in one summer despite a 12-page Canva guide that literally had a map.
+>
+> Drop yours below. If you share your listing URL I'll generate a free guide for it and reply with the PDF - genuine usability research, no upvote ask.
+
+---
+
+## LinkedIn launch announcement (post Apr 28-29, ~1300 chars)
+
+**Headline (first line - the scroll-stopper):**
+> My 47th "where's the grocery store?" message broke me. So I built HostGuide.
+
+**Full body:**
+> My 47th "where's the grocery store?" message broke me. So I built HostGuide.
+>
+> I host on Airbnb in Geneva. Every week, the same questions: where's the metro, where's coffee, where's the beach. My welcome book had answers. Nobody read it - 12 pages of Canva, outdated within a month, generic by design.
+>
+> So I built a tool that generates a printable neighborhood guide from any Airbnb listing URL in 60 seconds. Walking times to transit and groceries, top-rated cafes within 10 minutes, local ride apps (Bolt, Grab, Careem), tipping norms, emergency numbers, and a QR code guests scan for the digital version. All tailored to the exact lat/lng of the place.
+>
+> My guest messages dropped by 70%. Reviews started mentioning "the guide was so helpful."
+>
+> It's launching on Product Hunt on Tuesday May 12 as HostGuide. Side project - I still run MarTech for Pampers by day - but it solves a real problem I had.
+>
+> If you host on Airbnb, or know someone who does, you can follow the coming-soon page so you get a ping when it ships:
+>
+> https://www.producthunt.com/products/hostguide-2
+>
+> First guide on the house for everyone who follows.
+
+**Comment to drop on your own post (5 min after posting):**
+> P.S. - if you want to test it before launch, drop your Airbnb URL in a reply and I'll generate a guide for it tonight.
