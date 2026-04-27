@@ -1144,12 +1144,12 @@ if (location.search.includes('error=payment')) document.getElementById('errorBan
 
 (function(){
   var now = Date.now();
-  var launchStart = Date.UTC(2026, 4, 12, 7, 1);   // May 12 2026 07:01 UTC = 00:01 PT
-  var launchEnd   = Date.UTC(2026, 4, 13, 7, 0);   // May 13 2026 07:00 UTC = 24h window
+  var launchStart = Date.UTC(2026, 3, 28, 7, 1);   // Apr 28 2026 07:01 UTC = 00:01 PT
+  var launchEnd   = Date.UTC(2026, 3, 29, 7, 0);   // Apr 29 2026 07:00 UTC = 24h window
   var banner = document.getElementById('phBanner');
   var text = document.getElementById('phBannerText');
   if (now < launchStart) {
-    text.textContent = 'Launching on Product Hunt May 12.';
+    text.textContent = 'Launching on Product Hunt tomorrow.';
     banner.classList.remove('hidden');
   } else if (now < launchEnd) {
     text.textContent = 'Live on Product Hunt now!';

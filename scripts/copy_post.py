@@ -25,7 +25,7 @@ POSTS = {
     "ph_forum": {
         "title": "Hosts: what's the most-asked guest question that ruins your week?",
         "where": f"PH forum: https://www.producthunt.com/p/hostguide-2 (post BEFORE launch, ~Apr 28-29)",
-        "body": f"""I'm launching HostGuide on PH next Tuesday (May 12) - it generates printable welcome books for Airbnb guests. Before we go live, I'd love to know: what's the one guest question you wish your welcome book actually answered?
+        "body": f"""I'm launching HostGuide on PH next Tuesday (Apr 28) - it generates printable welcome books for Airbnb guests. Before we go live, I'd love to know: what's the one guest question you wish your welcome book actually answered?
 
 For me it was "where's the nearest grocery store?" - I got it 47 times in one summer despite a 12-page Canva guide that literally had a map.
 
@@ -33,7 +33,7 @@ Drop yours below. If you share your listing URL I'll generate a free guide for i
     },
 
     "ih": {
-        "title": "Going live on PH May 12 - built a niche SaaS for Airbnb hosts on the side",
+        "title": "Going live on PH Apr 28 - built a niche SaaS for Airbnb hosts on the side",
         "where": "Indie Hackers Tasks/Milestones/Show: https://www.indiehackers.com/post (post Apr 29)",
         "body": f"""6 months ago I started building HostGuide as a weekend project. Live at host-guide.net.
 
@@ -47,12 +47,12 @@ Tech learnings I'd write a longer post about:
 - Claude writes the narrative; structured place data is the spine
 - 80% of the work was edge cases: junk city names from OG tags, OSM transit tagging quirks, US suburban density
 
-Launching on PH May 12 - coming-soon: {PH_URL}. Would love feedback from anyone who's shipped a vertical SaaS in a niche I'm not in.""",
+Launching on PH Apr 28 - coming-soon: {PH_URL}. Would love feedback from anyone who's shipped a vertical SaaS in a niche I'm not in.""",
     },
 
     "reddit": {
         "title": "I built a free tool that generates printable neighborhood welcome books for Airbnb hosts (launched today on PH)",
-        "where": "r/airbnb_hosts: https://www.reddit.com/r/airbnb_hosts/submit (post May 12 ~13:00 Geneva)",
+        "where": "r/airbnb_hosts: https://www.reddit.com/r/airbnb_hosts/submit (post Apr 28 ~13:00 Geneva)",
         "body": f"""Long-time host here (Geneva). I got tired of answering "where's the grocery store?" 5x/week and rebuilt my welcome book as a tool you can use too: paste your Airbnb URL -> get a printable PDF with walking times to transit, top cafes, local ride apps, tipping norms.
 
 Live at {SITE.replace('https://', '').replace('www.', '')}. First guide is on the house if you've never tried it.
@@ -64,7 +64,7 @@ Also on Product Hunt today if anyone's there: {PH_URL}""",
 
     "airbnb_community": {
         "title": "(reply to existing threads, no new title)",
-        "where": "Existing 2 Airbnb Community threads (post May 11 evening or May 12 morning)",
+        "where": "Existing 2 Airbnb Community threads (post Apr 27 evening or Apr 28 morning)",
         "body": f"""Update for anyone following this thread: we're launching on Product Hunt tomorrow (Tuesday). If you want to test a guide for your listing before the launch and give feedback, drop your Airbnb URL in a reply and I'll generate one and send it back in this thread. Totally free, no strings.
 
 PH page: {PH_URL}""",
@@ -106,7 +106,7 @@ Thanks for checking it out!""",
 
     "ph_second_comment": {
         "title": "(maker comment to drop ~hour 6 of launch day)",
-        "where": "PH product page comment box, May 12 mid-morning Geneva",
+        "where": "PH product page comment box, Apr 28 mid-morning Geneva",
         "body": f"""Quick mid-day update. Most-requested cities so far: [fill in top 3 from comments above].
 
 Anyone whose city isn't covered yet - drop your Airbnb URL in this thread and I'll generate one live.

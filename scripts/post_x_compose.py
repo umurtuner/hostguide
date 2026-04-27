@@ -36,7 +36,7 @@ PH_URL = "https://www.producthunt.com/products/hostguide-2"
 SITE = "https://www.host-guide.net"
 
 POSTS = {
-    "teaser": f"""Quietly shipping a side project on PH next Tuesday May 12.
+    "teaser": f"""Quietly shipping a side project on PH tomorrow (Tue Apr 28).
 
 HostGuide - generates printable Airbnb welcome books from any listing URL in 60s.
 
