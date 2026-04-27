@@ -228,22 +228,34 @@ def write_queue(city: str, queue: list[QueueRow]):
     return md_path, jsonl_path
 
 
-def mark_sent(city: str, listing_id: str) -> bool:
+def mark_sent(city: str, listing_ids: list[str] | str) -> int:
+    """Mark one or more listing_ids as sent. Returns count actually updated.
+
+    Accepts a single id (back-compat) or a list. Also rewrites rows whose
+    status is currently 'queued_today' (set by daily_outreach.py) so that the
+    daily picker workflow advances cleanly.
+    """
+    if isinstance(listing_ids, str):
+        listing_ids = [listing_ids]
+    ids = set(listing_ids)
+
     path = CRM_DIR / f"{city}_contacts.csv"
     if not path.exists():
         print(f"  [err] {path} not found")
-        return False
+        return 0
 
     rows = []
-    found = False
+    updated = 0
     with open(path) as f:
         reader = csv.DictReader(f)
         fieldnames = reader.fieldnames
         for row in reader:
-            if row.get("listing_id") == listing_id and row.get("channel") == "contact_host":
+            if (row.get("listing_id") in ids
+                    and row.get("channel") == "contact_host"
+                    and row.get("status") in ("pending", "queued_today")):
                 row["status"] = "sent"
                 row["contacted_at"] = datetime.now().isoformat()
-                found = True
+                updated += 1
             rows.append(row)
 
     with open(path, "w", newline="") as f:
@@ -251,22 +263,22 @@ def mark_sent(city: str, listing_id: str) -> bool:
         writer.writeheader()
         writer.writerows(rows)
 
-    return found
+    return updated
 
 
 def main():
     parser = argparse.ArgumentParser(description="Build Contact-Host outreach queue")
     parser.add_argument("city", help="City folder under output/ (e.g., miami, lisbon)")
     parser.add_argument("--limit", type=int, default=0, help="Max messages to queue")
-    parser.add_argument("--mark-sent", metavar="LISTING_ID",
-                        help="Mark a queued message as sent in the CRM")
+    parser.add_argument("--mark-sent", metavar="LISTING_ID", nargs="+",
+                        help="Mark one or more listing_ids as sent (space-separated)")
     args = parser.parse_args()
 
     city = args.city.lower()
 
     if args.mark_sent:
-        ok = mark_sent(city, args.mark_sent)
-        print(f"  {'[ok]' if ok else '[err]'} mark_sent {args.mark_sent}")
+        n = mark_sent(city, args.mark_sent)
+        print(f"  [ok] marked {n} of {len(args.mark_sent)} as sent")
         return
 
     queue = build(city, limit=args.limit)

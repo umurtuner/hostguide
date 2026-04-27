@@ -8,6 +8,27 @@ Maker: Umur Tuener (@umurtuner)
 
 ---
 
+## Status snapshot (Apr 27, 2026)
+
+- Site UP (200 OK, 262ms response).
+- 5 required PH assets present in `static/ph/`. Missing optional: gallery_5 dashboard screenshot + 20s GIF demo.
+- 9 cities scraped, 452 hosts queued, **0 sent**. 4 cities (austin, nashville, savannah, scottsdale) need first scrape.
+- Distribution plan + daily cadence: see `tasks/distribution_plan.md`.
+- New tooling:
+  - `scripts/preflight_ph.py` - run T-48, T-24, morning-of (PASS/FAIL gates)
+  - `scripts/crm_status.py` - one-shot dashboard across all city queues
+  - `scripts/daily_outreach.py` - picks 30 messages/day across tiers
+  - `scripts/enrich_linkedin.py` - Apollo-backed LinkedIn + email enrichment
+
+**Action items still on user:**
+1. Submit PH coming-soon page on Ship (Apr 27-28). URL goes into hunter DM templates below.
+2. Re-run Miami scrape (bounds widened today) + scrape 4 empty cities.
+3. Record 20s screen demo GIF.
+4. Capture dashboard screenshot for gallery_5.
+5. (Optional) Get APOLLO_API_KEY for email enrichment.
+
+---
+
 ## Tagline (60 char max)
 
 Primary:

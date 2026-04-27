@@ -71,12 +71,14 @@ miami:
   language: en
   airbnb_url: "https://www.airbnb.com/s/Miami--Florida--United-States/homes"
   bounds:
-    lat_min: 25.70
-    lat_max: 25.85
-    lon_min: -80.30
-    lon_max: -80.12
+    lat_min: 25.65
+    lat_max: 25.95
+    lon_min: -80.40
+    lon_max: -80.10
   neighborhoods:
     - South Beach
+    - Mid-Beach
+    - North Beach
     - Wynwood
     - Brickell
     - Downtown
@@ -84,6 +86,11 @@ miami:
     - Coconut Grove
     - Design District
     - Coral Gables
+    - Edgewater
+    - Doral
+    - Aventura
+    - Bay Harbor Islands
+    - Surfside
   fb_groups:
     - "https://www.facebook.com/groups/airbnbhostssfl/"
     - "https://www.facebook.com/groups/644874232556787/"
