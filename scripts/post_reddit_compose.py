@@ -19,7 +19,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from copy_post import POSTS
 from _compose_helpers import (hold_open, launch_browser, paste_into,
-                              wait_for_login, wait_if_challenged)
+                              try_submit, wait_for_login, wait_if_challenged)
 
 PROFILE_DIR = ROOT / "chrome_profile_reddit"
 
@@ -28,6 +28,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--subreddit", default="airbnb_hosts",
                         help="subreddit to submit to (default: airbnb_hosts)")
+    parser.add_argument("--submit", action="store_true",
+                        help="auto-click Post after paste (Reddit may shadowban — use sparingly)")
     args = parser.parse_args()
 
     post = POSTS["reddit"]
@@ -80,7 +82,17 @@ def main():
                 pass
 
         paste_into(page, body_sels, body, "body")
-        hold_open()
+
+        if args.submit:
+            time.sleep(1)
+            try_submit(page, [
+                'button:has-text("Post")',
+                'button:has-text("Submit")',
+                '[role="button"]:has-text("Post")',
+            ], "reddit submit")
+            time.sleep(5)
+        else:
+            hold_open()
     finally:
         ctx.close()
         p.stop()

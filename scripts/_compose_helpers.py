@@ -131,6 +131,24 @@ def launch_browser(profile_dir: Path):
     return p, ctx
 
 
+def try_submit(page: Page, selectors: list[str], label: str = "submit") -> bool:
+    """Click the first matching submit button. Returns True on click."""
+    for sel in selectors:
+        try:
+            btn = page.locator(sel).first
+            if btn.is_visible(timeout=3000) and btn.is_enabled(timeout=1000):
+                btn.scroll_into_view_if_needed()
+                time.sleep(0.5)
+                btn.click()
+                time.sleep(2)
+                print(f"[ok] clicked {label}: {sel}")
+                return True
+        except Exception:
+            continue
+    print(f"[warn] could not auto-click {label}; click it yourself in the browser.")
+    return False
+
+
 def hold_open():
     """Block until Ctrl+C. Used after composer is pre-pasted."""
     print("\n" + "=" * 60)

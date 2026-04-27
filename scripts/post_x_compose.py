@@ -139,6 +139,8 @@ def main():
     parser.add_argument("--post", choices=list(POSTS.keys()), default="launch_short",
                         help="canned post name (default: launch_short)")
     parser.add_argument("--text-file", help="path to file with custom text")
+    parser.add_argument("--submit", action="store_true",
+                        help="auto-click Post after pasting (use for launch-day blast)")
     args = parser.parse_args()
 
     text = Path(args.text_file).read_text() if args.text_file else POSTS[args.post]
@@ -161,17 +163,34 @@ def main():
         if "/home" not in page.url and "/compose" not in page.url:
             wait_for_login(page)
 
-        if not open_composer(page):
+        opened = open_composer(page)
+        if not opened:
             print("\n[!] Composer didn't open. Browser stays open - paste from clipboard manually.")
             copy_to_clipboard(text)
         else:
             paste(page, text)
 
+        if args.submit and opened:
+            time.sleep(1)
+            for sel in ['[data-testid="tweetButton"]', 'button:has-text("Post")']:
+                try:
+                    btn = page.locator(sel).first
+                    if btn.is_visible(timeout=3000) and btn.is_enabled(timeout=1000):
+                        btn.click()
+                        time.sleep(3)
+                        print(f"[ok] clicked Post: {sel}")
+                        break
+                except Exception:
+                    continue
+            print("[ok] submitted. Closing in 5s.")
+            time.sleep(5)
+            ctx.close()
+            return
+
         print("\n" + "=" * 60)
         print("COMPOSER READY. Review. Click POST when satisfied.")
         print("Browser stays open. Ctrl+C this terminal when done.")
         print("=" * 60 + "\n")
-
         try:
             while True:
                 time.sleep(30)

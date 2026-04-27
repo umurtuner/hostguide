@@ -15,14 +15,21 @@ ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(Path(__file__).parent))
 
 from copy_post import POSTS
+import argparse
+
 from _compose_helpers import (hold_open, launch_browser, paste_into,
-                              wait_for_login, wait_if_challenged)
+                              try_submit, wait_for_login, wait_if_challenged)
 
 PROFILE_DIR = ROOT / "chrome_profile_hn"
 SUBMIT_URL = "https://news.ycombinator.com/submit"
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--submit", action="store_true",
+                        help="auto-click Submit after paste")
+    args = parser.parse_args()
+
     post = POSTS["hn"]
     title = post["title"]
     body = post["body"]
@@ -48,7 +55,18 @@ def main():
         time.sleep(0.5)
         # Show HN posts are text-only, no URL field, body goes in textarea
         paste_into(page, ['textarea[name="text"]'], body, "body")
-        hold_open()
+
+        if args.submit:
+            import time as _t
+            _t.sleep(1)
+            try_submit(page, [
+                'input[type="submit"][value="submit" i]',
+                'input[type="submit"]',
+                'button:has-text("Submit")',
+            ], "hn submit")
+            _t.sleep(5)
+        else:
+            hold_open()
     finally:
         ctx.close()
         p.stop()

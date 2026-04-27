@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from copy_post import POSTS
 from _compose_helpers import (hold_open, launch_browser, paste_into,
-                              wait_for_login, wait_if_challenged)
+                              try_submit, wait_for_login, wait_if_challenged)
 
 PROFILE_DIR = ROOT / "chrome_profile_ih"
 
@@ -30,6 +30,8 @@ SECTION_URLS = {
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--section", choices=list(SECTION_URLS.keys()), default="default")
+    parser.add_argument("--submit", action="store_true",
+                        help="auto-click Post after paste")
     args = parser.parse_args()
 
     post = POSTS["ih"]
@@ -68,7 +70,18 @@ def main():
         paste_into(page, title_sels, title, "title")
         time.sleep(1)
         paste_into(page, body_sels, body, "body")
-        hold_open()
+
+        if args.submit:
+            time.sleep(1)
+            try_submit(page, [
+                'button:has-text("Post")',
+                'button:has-text("Submit")',
+                'button:has-text("Publish")',
+                'button[type="submit"]',
+            ], "ih submit")
+            time.sleep(5)
+        else:
+            hold_open()
     finally:
         ctx.close()
         p.stop()
