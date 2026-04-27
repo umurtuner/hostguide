@@ -435,6 +435,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
     safety_icon = ICONS["safety"]
     info_icon = ICONS["info"]
     narrative_icon = ICONS["narrative"]
+    lat, lng = listing.lat, listing.lng
 
     # Hero background: prefer the listing's first photo (Airbnb og:image, ~1080w).
     # If we have one, swap the gradient for a darkening overlay over the photo
@@ -468,7 +469,6 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
     neighborhood = listing.neighborhood or city
     host = listing.host_name or "Your Host"
     today = date.today().strftime("%B %d, %Y")
-    lat, lng = listing.lat, listing.lng
 
     # Deduplicate places by name within each category
     def _dedup_places(places: list) -> list:
