@@ -1126,6 +1126,10 @@ tailwind.config = {
 <body class="font-sans text-gray-900 bg-gray-50 antialiased">
 
 <!-- ════════ BANNERS ════════ -->
+<a id="phBanner" href="https://www.producthunt.com/products/hostguide-2" target="_blank" rel="noopener" class="hidden block px-6 py-2.5 text-center text-sm font-medium text-white" style="background:#DA552F;">
+  <span id="phBannerText"></span>
+  <span class="ml-2 underline">Follow on Product Hunt &rarr;</span>
+</a>
 <div id="cancelBanner" class="hidden bg-amber-50 border-b border-amber-200 px-6 py-3 text-center text-sm text-amber-800">
   Payment was cancelled. No charge was made. You can try again whenever you're ready.
   <button onclick="this.parentElement.classList.add('hidden')" class="ml-3 text-amber-600 hover:text-amber-800 font-semibold">&times;</button>
@@ -1137,6 +1141,21 @@ tailwind.config = {
 <script>
 if (location.search.includes('cancelled=1')) document.getElementById('cancelBanner').classList.remove('hidden');
 if (location.search.includes('error=payment')) document.getElementById('errorBanner').classList.remove('hidden');
+
+(function(){
+  var now = Date.now();
+  var launchStart = Date.UTC(2026, 4, 12, 7, 1);   // May 12 2026 07:01 UTC = 00:01 PT
+  var launchEnd   = Date.UTC(2026, 4, 13, 7, 0);   // May 13 2026 07:00 UTC = 24h window
+  var banner = document.getElementById('phBanner');
+  var text = document.getElementById('phBannerText');
+  if (now < launchStart) {
+    text.textContent = 'Launching on Product Hunt May 12.';
+    banner.classList.remove('hidden');
+  } else if (now < launchEnd) {
+    text.textContent = 'Live on Product Hunt now!';
+    banner.classList.remove('hidden');
+  }
+})();
 </script>
 
 <!-- ════════ NAV ════════ -->
