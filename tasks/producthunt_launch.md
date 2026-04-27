@@ -24,11 +24,14 @@ Maker: Umur Tuener (@umurtuner)
   - `scripts/enrich_linkedin.py` - Apollo-backed LinkedIn + email enrichment
 
 **Action items still on user:**
-1. Get followers from 1 -> 50 by May 11 (LinkedIn announcement, hunter DMs, IH soft-launch Apr 29).
+1. Get followers from 1 -> 50 by May 11. **LinkedIn personal announcement is OFF the table** (P&G colleagues / corp politics). Make up the volume via: X teaser (Apr 29), IH soft-launch (Apr 29), Reddit r/airbnb_hosts soft-mention (Apr 30), warm DMs to past Airbnb host contacts, FB host groups (already in the daily picker).
 2. Re-run Miami scrape (bounds widened) + scrape 4 empty cities.
 3. Record 20s screen demo GIF.
 4. Capture dashboard screenshot for gallery_5.
 5. (Optional) Get APOLLO_API_KEY for email enrichment.
+
+**Channels in play:** PH coming-soon, X, Reddit, IH, Airbnb Contact Host, FB host groups, warm past-host DMs.
+**Channels skipped:** LinkedIn personal (kept the composer script in `scripts/post_linkedin_compose.py` in case the call changes; not used for this launch).
 
 ---
 
@@ -390,6 +393,10 @@ PH suggests starting a forum thread to engage early users. Research-flavored bea
 ---
 
 ## LinkedIn launch announcement (post Apr 28-29, ~1300 chars)
+
+**STATUS: SKIPPED for this launch.** P&G colleagues + corp politics. Posting host-targeted content via PH / X / Reddit / IH / FB groups instead. Draft retained below in case the decision changes.
+
+
 
 **Headline (first line - the scroll-stopper):**
 > My 47th "where's the grocery store?" message broke me. So I built HostGuide.
