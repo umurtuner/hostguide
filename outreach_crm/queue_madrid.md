@@ -1,13 +1,37 @@
 # Contact Host outreach queue - Madrid
-Generated: 2026-04-12 15:36
-Total: 64
+Generated: 2026-04-12 15:36 · Template updated 2026-04-27 (post-Joao learnings)
+Total: 64 · Status: HOLD until Miami pilot converts (do not send before that)
 
 ## How to use
 1. Open each Airbnb profile URL below
 2. Click Contact Host on one of their listings
-3. Paste the message block as-is
-4. Send. Do no more than 20/day from one account.
-5. Mark sent in CRM: `python scripts/build_outreach_queue.py madrid --mark-sent <listing_id>`
+3. **Use the V2 template block below, not the per-entry V1 blocks** — V1 was the Apr-12 copy that we now know underperforms (asks the prospect to send their URL before they see value)
+4. Substitute `[Name]` and `[Neighborhood]` for each entry
+5. Send. Cap: 5/day per account (was 20 — softer pace = less spam-flag risk)
+6. Mark sent in CRM: `python scripts/build_outreach_queue.py madrid --mark-sent <listing_id>`
+
+## V2 message template (use this — shorter, tighter hook, fellow-host first)
+
+```
+Hey [Name], fellow host here. I built HostGuide — generates a printable neighborhood welcome book per Airbnb listing in ~60s with real walking times to transit, top cafes, groceries.
+
+I'd love to make yours for the [Neighborhood] place as a free sample. Just reply with a thumbs-up and I'll send the PDF.
+
+Cheers, Umur · host-guide.net
+```
+
+## V2 follow-up (if no reply after 5 days, send once)
+
+```
+Hey [Name] — me again, won't bug you twice. If the welcome-book sample isn't your thing, no worries at all. If you'd like one, just reply "yes" and I'll send it tonight. Cheers, Umur
+```
+
+## V1 message blocks (DO NOT USE — kept for historical reference only)
+
+The per-entry V1 blocks below are 2x longer and ask the prospect to do work
+(reply with their URL) before they see the value. V2 inverts that: the offer
+is binary (thumbs-up = receive PDF), and the host's name + neighborhood are
+already substituted by us.
 
 ---
 
