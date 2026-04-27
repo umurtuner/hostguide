@@ -62,7 +62,7 @@ else:
 if STRIPE_SECRET:
     stripe.api_key = STRIPE_SECRET
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=str(Path(__file__).parent.parent / "static"))
 CORS(app)
 
 
@@ -2525,13 +2525,6 @@ def admin_subscribers():
         abort(401, "Unauthorized")
     subs = _get_all_subscribers()
     return jsonify({"count": len(subs), "subscribers": subs})
-
-
-# Static files (preview image)
-@app.route("/static/<path:filename>")
-def static_files(filename: str):
-    static_dir = BASE / "static"
-    return send_file(static_dir / filename)
 
 
 # ═══════════════════════════════════════════════════════════════
