@@ -20,7 +20,31 @@ GOOGLE_API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY", "")
 FOURSQUARE_API_KEY = os.environ.get("FOURSQUARE_API_KEY", "")
 PLACES_NEARBY_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
 PLACE_DETAILS_URL = "https://maps.googleapis.com/maps/api/place/details/json"
+PLACES_NEARBY_V1_URL = "https://places.googleapis.com/v1/places:searchNearby"
 FOURSQUARE_SEARCH_URL = "https://api.foursquare.com/v3/places/search"
+
+# Places API New (v1) category mapping. Each of our 6 buckets maps to a list
+# of Google place types. See https://developers.google.com/maps/documentation/places/web-service/place-types
+GOOGLE_V1_CATEGORIES = {
+    "transit": ["subway_station", "train_station", "transit_station", "bus_station", "light_rail_station"],
+    "grocery": ["supermarket", "grocery_store", "convenience_store", "bakery"],
+    "restaurant": ["restaurant", "cafe", "bakery"],
+    "landmark": ["tourist_attraction", "museum", "park", "art_gallery"],
+    "nightlife": ["bar", "night_club"],
+    "health": ["pharmacy", "hospital"],
+}
+
+# Per-category radius in meters. Bigger for transit/landmarks (people will
+# walk further or take a bus); tighter for groceries/cafes/health (must be
+# walkable from the front door).
+GOOGLE_V1_RADIUS = {
+    "transit": 2000,
+    "grocery": 1500,
+    "restaurant": 1500,
+    "landmark": 3500,
+    "nightlife": 2000,
+    "health": 1500,
+}
 
 
 @dataclass
@@ -110,6 +134,91 @@ def _search_nearby(lat: float, lng: float, place_types: list[str],
             continue
 
     return results
+
+
+def enrich_with_google_places(lat: float, lng: float) -> EnrichedLocation:
+    """Primary enricher: Google Places API New (v1) Nearby Search.
+
+    Why this exists: OSM Overpass is community-run and rate-limits aggressively
+    enough that a single guide generation can return zero results across half
+    the categories. Google Places is paid, reliable, and gives us ratings +
+    review counts + formatted addresses in a single call.
+
+    Returns an empty EnrichedLocation if GOOGLE_MAPS_API_KEY is unset — caller
+    should then fall back to enrich_without_api (OSM).
+    """
+    enriched = EnrichedLocation(lat=lat, lng=lng)
+    if not GOOGLE_API_KEY:
+        return enriched
+
+    field_mask = (
+        "places.displayName,places.formattedAddress,places.location,"
+        "places.rating,places.userRatingCount,places.types,places.priceLevel"
+    )
+    headers = {
+        "Content-Type": "application/json",
+        "X-Goog-Api-Key": GOOGLE_API_KEY,
+        "X-Goog-FieldMask": field_mask,
+    }
+
+    for category, types in GOOGLE_V1_CATEGORIES.items():
+        radius = GOOGLE_V1_RADIUS[category]
+        body = {
+            "includedTypes": types,
+            "maxResultCount": 20,
+            "rankPreference": "DISTANCE",
+            "locationRestriction": {
+                "circle": {
+                    "center": {"latitude": lat, "longitude": lng},
+                    "radius": float(radius),
+                }
+            },
+        }
+        try:
+            resp = requests.post(PLACES_NEARBY_V1_URL, headers=headers,
+                                 json=body, timeout=10)
+            if resp.status_code != 200:
+                print(f"[google_places] {category} failed: {resp.status_code} {resp.text[:200]}")
+                continue
+            data = resp.json()
+        except Exception as e:
+            print(f"[google_places] {category} request failed: {e}")
+            continue
+
+        seen = set()
+        places = []
+        for raw in data.get("places", []):
+            name = (raw.get("displayName") or {}).get("text", "")
+            if not name or name.lower() in seen:
+                continue
+            seen.add(name.lower())
+            loc = raw.get("location") or {}
+            plat = loc.get("latitude", 0)
+            plng = loc.get("longitude", 0)
+            if not plat:
+                continue
+            dist = _haversine_m(lat, lng, plat, plng)
+            types_list = raw.get("types") or []
+            cat_specific = next((t for t in types_list if t in types), types[0])
+            places.append(Place(
+                name=name,
+                type=category,
+                category=cat_specific,
+                lat=plat,
+                lng=plng,
+                distance_m=dist,
+                walking_min=_walking_minutes(dist),
+                rating=float(raw.get("rating") or 0),
+                total_ratings=int(raw.get("userRatingCount") or 0),
+                address=raw.get("formattedAddress", ""),
+            ))
+
+        places.sort(key=lambda x: x.distance_m)
+        # 8 per category gives Claude room to pick the best 3-4 with judgment
+        setattr(enriched, category, places[:8])
+        time.sleep(0.15)  # Stay well under 100 QPS Places New limit
+
+    return enriched
 
 
 def enrich_listing(lat: float, lng: float, city_config: dict) -> EnrichedLocation:

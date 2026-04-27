@@ -522,7 +522,7 @@ def _generate_guide_for_order(token: str) -> bool:
         import sys
         sys.path.insert(0, str(BASE))
         from src.scraper import Listing, enrich_listing_from_detail
-        from src.enricher import enrich_without_api
+        from src.enricher import enrich_without_api, enrich_with_google_places, _merge_enriched
         from src.guide_generator import generate_guide
 
         # Step 0: Use cached meta from preview, or fetch fresh
@@ -629,19 +629,32 @@ def _generate_guide_for_order(token: str) -> bool:
             listing.city = city_config["name"]
 
         print(f"Enriching {listing.city} at {listing.lat},{listing.lng}...")
-        enriched = enrich_without_api(listing.lat, listing.lng, city_config)
+        # Primary: Google Places (paid, reliable, high coverage). Fall back to
+        # OSM Overpass when the Google key is missing or returns nothing useful.
+        # Then merge so OSM can fill any holes Google left empty.
+        enriched = enrich_with_google_places(listing.lat, listing.lng)
+        google_total = sum(len(getattr(enriched, c, []) or []) for c in
+                           ("transit", "grocery", "restaurant", "landmark", "nightlife", "health"))
+        print(f"[google_places] returned {google_total} POIs total")
 
-        # Quality gate: count total POIs across all categories. Below 8 means
-        # the area is too sparse for a useful guide — log so we can spot it.
+        if google_total < 8:
+            print(f"[fallback] Google returned {google_total} POIs — running OSM fallback")
+            osm_enriched = enrich_without_api(listing.lat, listing.lng, city_config)
+            enriched = _merge_enriched(enriched, osm_enriched) if google_total > 0 else osm_enriched
+
+        # Hard quality gate: refuse to ship a guide with no place data. Refund
+        # the credit and surface the failure rather than ship an empty PDF
+        # (this is what burned Joao on the v1 send).
         poi_total = sum(len(getattr(enriched, c, []) or []) for c in
                         ("transit", "grocery", "restaurant", "landmark", "nightlife", "health"))
         if poi_total < 8:
-            print(f"[LOW_POI] token={token} listing={listing_id} "
+            print(f"[QUALITY_GATE_FAIL] token={token} listing={listing_id} "
                   f"city={listing.city} lat={listing.lat} lng={listing.lng} "
-                  f"total={poi_total} — guide quality will be poor")
+                  f"total={poi_total} — refusing to ship empty guide, refunding credit")
+            return False
 
         # Step 4: Generate guide (HTML). Use Claude when ANTHROPIC_API_KEY is set.
-        print(f"Generating guide for listing {listing_id}...")
+        print(f"Generating guide for listing {listing_id} ({poi_total} POIs)...")
         guide = generate_guide(listing, enriched, city_config, use_claude=True)
 
         # Step 5: Inject QR code and save guide HTML

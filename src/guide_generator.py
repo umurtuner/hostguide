@@ -217,7 +217,7 @@ HARD RULES:
 - Every section must reference specific named places from the data. If a category is empty, say so honestly — don't invent place names.
 - Voice: a host who lives in the building writing for a guest who arrived 20 minutes ago. First person. No "experience the vibrant culture of...", no "discover hidden gems".
 - Walking times come from the data, never round to "about 10 min" — use the exact minute count.
-- No emojis except one per section header (max 8 total).
+- ZERO emojis anywhere in the output. The HTML adds its own SVG icons.
 - Output clean markdown. No HTML, no preamble, no closing apology, just the guide starting with the H1 welcome header.
 - Maximum 1200 words total."""
 
@@ -240,12 +240,12 @@ def _generate_template(listing: Listing, enriched: EnrichedLocation,
     sections = []
 
     # Header
-    sections.append(f"# Welcome to {city}! 🌎\n")
+    sections.append(f"# Welcome to {city}\n")
     sections.append(f"**Your host {host}** has prepared this guide to help you "
                     f"make the most of your stay in **{neighborhood}**, {city}.\n")
 
     # Transit
-    sections.append("## 🚌 Getting Around\n")
+    sections.append("## Getting Around\n")
     if enriched.transit:
         for p in enriched.transit[:3]:
             sections.append(_format_place(p))
@@ -264,7 +264,7 @@ def _generate_template(listing: Listing, enriched: EnrichedLocation,
         sections.append(f"**Taxi apps:** Uber and Bolt work in {city}. Check locally for other options.\n")
 
     # Restaurants
-    sections.append("## 🍽️ Eating & Drinking\n")
+    sections.append("## Eating & Drinking\n")
     if enriched.restaurant:
         sections.append("**Nearby favorites:**")
         for p in enriched.restaurant[:5]:
@@ -299,7 +299,7 @@ def _generate_template(listing: Listing, enriched: EnrichedLocation,
                         "Rent a pontoon boat at Crab Island -the locals' favorite. Tip 18-20%.\n")
 
     # Groceries
-    sections.append("## 🛒 Groceries & Essentials\n")
+    sections.append("## Groceries & Essentials\n")
     if enriched.grocery:
         for p in enriched.grocery[:3]:
             sections.append(_format_place(p))
@@ -311,7 +311,7 @@ def _generate_template(listing: Listing, enriched: EnrichedLocation,
         sections.append("")
 
     # Landmarks
-    sections.append("## 📸 Things to See & Do\n")
+    sections.append("## Things to See & Do\n")
     if enriched.landmark:
         for p in enriched.landmark[:5]:
             sections.append(_format_place(p))
@@ -319,13 +319,13 @@ def _generate_template(listing: Listing, enriched: EnrichedLocation,
 
     # Nightlife
     if enriched.nightlife:
-        sections.append("## 🍸 Nightlife\n")
+        sections.append("## Nightlife\n")
         for p in enriched.nightlife[:3]:
             sections.append(_format_place(p))
         sections.append("")
 
     # Safety
-    sections.append("## ⚠️ Safety Tips\n")
+    sections.append("## Safety Tips\n")
     if city == "Medellín":
         sections.append("- El Poblado and Laureles are very safe day and night")
         sections.append("- Don't flash expensive phones/jewelry in crowded areas")
@@ -364,7 +364,7 @@ def _generate_template(listing: Listing, enriched: EnrichedLocation,
         sections.append("- Ask your host about areas to avoid\n")
 
     # Useful info
-    sections.append("## ℹ️ Useful Info\n")
+    sections.append("## Useful Info\n")
     sections.append("| | |")
     sections.append("|---|---|")
     if country == "US":
@@ -389,6 +389,22 @@ def _generate_template(listing: Listing, enriched: EnrichedLocation,
                     f"Powered by HostGuide*")
 
     return "\n".join(sections)
+
+
+# Inline SVG icons used in section headers. Heroicons-style (24x24, line, 1.6
+# stroke). Monochrome — color is set in CSS via stroke="currentColor".
+ICONS = {
+    "transit": '<svg class="sec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="14" rx="3"/><circle cx="9" cy="13" r="0.8"/><circle cx="15" cy="13" r="0.8"/><path d="M9 17l-2 4M15 17l2 4M8 7h8"/></svg>',
+    "eating": '<svg class="sec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v8a3 3 0 003 3v7M9 3v8M14 14V3c2 0 4 2 4 5s-2 5-4 5z"/></svg>',
+    "grocery": '<svg class="sec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.5 11h11l2-8H7"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>',
+    "landmark": '<svg class="sec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-5h6v5M9 13h.01M15 13h.01"/></svg>',
+    "nightlife": '<svg class="sec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14l-7 9zM12 13v8M8 21h8"/></svg>',
+    "health": '<svg class="sec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/><path d="M9 11h6M12 8v6"/></svg>',
+    "safety": '<svg class="sec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>',
+    "info": '<svg class="sec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v.01M11 12h1v5h1"/></svg>',
+    "tips": '<svg class="sec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 016 6c0 2.5-1.5 4-3 5v2h-6v-2c-1.5-1-3-2.5-3-5a6 6 0 016-6z"/></svg>',
+    "narrative": '<svg class="sec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H7l-3 3z"/><path d="M8 9h8M8 12h5"/></svg>',
+}
 
 
 def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
@@ -416,6 +432,39 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
     city = raw_city or listing.city or "your neighborhood"
     country = city_config.get("country", "")
     emergency_text = COUNTRY_CONTEXT.get(country, {}).get("emergency", "112 (EU) / 911 (US) / 999 (UK)")
+    safety_icon = ICONS["safety"]
+    info_icon = ICONS["info"]
+    narrative_icon = ICONS["narrative"]
+
+    # Hero background: prefer the listing's first photo (Airbnb og:image, ~1080w).
+    # If we have one, swap the gradient for a darkening overlay over the photo
+    # so the hero feels like a real welcome book cover, not a banner.
+    hero_photo_class = ""
+    hero_style = ""
+    if listing.photos:
+        # Sanitize: only allow https and reasonable URL chars (defense against
+        # CSS injection via a malicious og:image).
+        photo_url = listing.photos[0]
+        if photo_url.startswith("https://") and '"' not in photo_url and "<" not in photo_url:
+            hero_photo_class = "hero-with-photo"
+            hero_style = f"background-image: linear-gradient(rgba(20,30,40,0.55), rgba(15,25,35,0.78)), url('{photo_url}');"
+
+    # Static map banner: 600x260 Google Static Maps, centered on the listing,
+    # with a marker. Only render when we have the API key + valid coords.
+    map_banner_html = ""
+    google_map_key = os.environ.get("GOOGLE_MAPS_API_KEY", "")
+    if google_map_key and lat and lng:
+        static_map_url = (
+            "https://maps.googleapis.com/maps/api/staticmap"
+            f"?center={lat},{lng}&zoom=15&size=720x260&scale=2"
+            "&maptype=roadmap"
+            "&style=feature:poi|element:labels|visibility:off"
+            f"&markers=color:0x37474F%7C{lat},{lng}"
+            f"&key={google_map_key}"
+        )
+        map_banner_html = f'''<div class="map-banner">
+            <img src="{static_map_url}" alt="Map of {neighborhood}, {city}" loading="lazy"/>
+        </div>'''
     neighborhood = listing.neighborhood or city
     host = listing.host_name or "Your Host"
     today = date.today().strftime("%B %d, %Y")
@@ -463,18 +512,27 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
 
     def place_row(p: Place) -> str:
         addr = p.address or ""
+        dist_html = ""
         if p.distance_m > 0:
             if is_driving_city and p.distance_m > 1000:
                 drive_min = max(1, round(p.distance_m / 500))
                 dist_mi = round(p.distance_m / 1609, 1)
-                dist = f"{drive_min} min drive ({dist_mi} mi)"
+                dist_text = f"{drive_min} min drive · {dist_mi} mi"
+                badge_class = "far"
             elif p.distance_m > 1500:
                 drive_min = max(1, round(p.distance_m / 500))
-                dist = f"{drive_min} min drive ({round(p.distance_m/1000, 1)} km)"
+                dist_text = f"{drive_min} min drive · {round(p.distance_m/1000, 1)} km"
+                badge_class = "far"
             else:
-                dist = f"{p.walking_min} min walk ({p.distance_m}m)"
-        else:
-            dist = ""
+                dist_text = f"{p.walking_min} min walk · {p.distance_m}m"
+                # Color-code: <=5min teal "near", 6-15 amber "mid", >15 gray "far"
+                if p.walking_min <= 5:
+                    badge_class = "near"
+                elif p.walking_min <= 15:
+                    badge_class = "mid"
+                else:
+                    badge_class = "far"
+            dist_html = f'<span class="dist-badge {badge_class}">{dist_text}</span>'
         if p.rating and p.total_ratings:
             rating_html = f' <span class="rating">★ {p.rating} ({p.total_ratings:,})</span>'
         elif p.rating:
@@ -485,10 +543,9 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
         # Show address as text (print-friendly), name as link (digital bonus)
         name_html = f'<a href="{maps_url}" target="_blank" class="place-link">{p.name}</a>' if maps_url else p.name
         addr_line = f'<span class="place-addr">{addr}</span>' if addr else ""
-        dist_line = f'<span class="place-dist">{dist}</span>' if dist else ""
         return f'''<tr class="place-row">
             <td class="place-name">{name_html}{rating_html}</td>
-            <td class="place-detail">{addr_line}{" &middot; " if addr and dist else ""}{dist_line}</td>
+            <td class="place-detail">{addr_line}{" &middot; " if addr and dist_html else ""}{dist_html}</td>
         </tr>'''
 
     # ── Section data builders ──
@@ -681,13 +738,24 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
     if listing.guests:
         detail_items.append(f'<span class="apt-tag">Up to {listing.guests} guests</span>')
 
-    # Only show amenities that are useful for a guest staying at the apartment
+    # Only show real amenities. The Airbnb scrape sometimes leaks review-category
+    # names (Cleanliness, Communication, Location, Check-in, etc.) into the
+    # amenities list — filter those out so the welcome book doesn't read like
+    # a review form.
+    REVIEW_CATEGORIES = {
+        "cleanliness", "communication", "location", "check-in", "checkin",
+        "accuracy", "value", "noise", "sleep quality", "shared spaces",
+        "getting around", "kitchen", "amenities",
+    }
     amenity_tags = ""
     if listing.amenities:
-        top_amenities = listing.amenities[:12]
-        amenity_tags = '<div class="amenity-list">' + \
-            " ".join(f'<span class="amenity-tag">{a}</span>' for a in top_amenities) + \
-            '</div>'
+        clean = [a for a in listing.amenities
+                 if a and a.strip().lower() not in REVIEW_CATEGORIES]
+        top_amenities = clean[:12]
+        if top_amenities:
+            amenity_tags = '<div class="amenity-list">' + \
+                " ".join(f'<span class="amenity-tag">{a}</span>' for a in top_amenities) + \
+                '</div>'
 
     if detail_items:
         apartment_details_html = f'''<div class="apartment-details">
@@ -696,11 +764,11 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             {amenity_tags}
         </div>'''
 
-    # ── Section HTML builders (table-based, no emoji headers) ──
+    # ── Section HTML builders (icon + label headers, no emojis) ──
     restaurants_html = ""
     if enriched.restaurant:
         restaurants_html = f'''<section class="section">
-            <h2>Eating & Drinking</h2>
+            <h2>{ICONS["eating"]}<span>Eating &amp; Drinking</span></h2>
             {_place_table(enriched.restaurant[:6])}
         </section>'''
 
@@ -711,7 +779,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
         grocery_tbl = _place_table(grocery_rows) if grocery_rows else ""
         health_tbl = f'<h3>Pharmacy / Health</h3>{_place_table(health_rows)}' if health_rows else ""
         groceries_html = f'''<section class="section">
-            <h2>Groceries & Essentials</h2>
+            <h2>{ICONS["grocery"]}<span>Groceries &amp; Essentials</span></h2>
             {grocery_tbl}
             {health_tbl}
         </section>'''
@@ -757,7 +825,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
         ride_info = f"<strong>Taxi apps:</strong> Uber and Bolt work in {city}. Check locally for other options."
     transit_tbl = _place_table(enriched.transit[:3]) if enriched.transit else ""
     transit_html = f'''<section class="section">
-        <h2>Getting Around</h2>
+        <h2>{ICONS["transit"]}<span>Getting Around</span></h2>
         {transit_tbl}
         <div class="note">{ride_info}{taxi_tip}</div>
     </section>'''
@@ -766,7 +834,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
     landmarks_html = ""
     if enriched.landmark:
         landmarks_html = f'''<section class="section">
-            <h2>Things to See & Do</h2>
+            <h2>{ICONS["landmark"]}<span>Things to See &amp; Do</span></h2>
             {_place_table(enriched.landmark[:5])}
         </section>'''
 
@@ -774,7 +842,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
     nightlife_html = ""
     if enriched.nightlife:
         nightlife_html = f'''<section class="section">
-            <h2>Nightlife</h2>
+            <h2>{ICONS["nightlife"]}<span>Nightlife</span></h2>
             {_place_table(enriched.nightlife[:3])}
         </section>'''
 
@@ -786,7 +854,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             for label, text in city_tips
         )
         tips_html = f'''<section class="section tips-section">
-            <h2>Local Tips from {city}</h2>
+            <h2>{ICONS["tips"]}<span>Local Tips from {city}</span></h2>
             <div class="tips-grid">{tip_items}</div>
         </section>'''
 
@@ -954,6 +1022,7 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
         except ImportError:
             body = "<p>" + cleaned.replace("\n\n", "</p><p>") + "</p>"
         narrative_html = f'''<section class="section narrative">
+            <h2 class="narrative-heading">{narrative_icon}<span>From Your Host</span></h2>
             <div class="narrative-body">{body}</div>
         </section>'''
 
@@ -1035,24 +1104,92 @@ body {{
 .hero {{
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: white;
-    padding: 44px 36px 36px;
+    padding: 0;
+    position: relative;
+    min-height: 220px;
+    display: flex;
+    align-items: flex-end;
+}}
+.hero.hero-with-photo {{
+    background-size: cover;
+    background-position: center;
+    min-height: 280px;
+}}
+.hero-overlay {{
+    padding: 44px 36px 32px;
+    width: 100%;
 }}
 .hero h1 {{
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 6px;
+    line-height: 1.15;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
 }}
 .hero-sub {{
     font-size: 16px;
     opacity: 0.92;
+    letter-spacing: 0.3px;
 }}
 .hero-host {{
-    margin-top: 18px;
-    font-size: 14px;
-    opacity: 0.85;
+    margin-top: 16px;
+    font-size: 13px;
+    opacity: 0.82;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 500;
 }}
+
+/* ── Static map banner ── */
+.map-banner {{
+    line-height: 0;
+    border-bottom: 2px solid var(--primary);
+    background: #f0f0f0;
+}}
+.map-banner img {{
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 260px;
+    object-fit: cover;
+}}
+
+/* ── Section header icons ── */
+.sec-icon {{
+    width: 22px;
+    height: 22px;
+    color: var(--primary);
+    flex-shrink: 0;
+}}
+.section h2 {{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}}
+.section h2 span {{ display: inline-block; }}
+.narrative-heading {{
+    color: var(--primary-dark);
+    margin-bottom: 14px !important;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+}}
+.narrative-heading .sec-icon {{ color: var(--primary-dark); }}
+
+/* ── Distance badge color coding (near = teal, mid = amber, far = gray) ── */
+.dist-badge {{
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    background: #eceff1;
+    color: #455a64;
+}}
+.dist-badge.near {{ background: #b2dfdb; color: #00695c; }}
+.dist-badge.mid {{ background: #ffe0b2; color: #bf6b00; }}
+.dist-badge.far {{ background: #cfd8dc; color: #455a64; }}
 
 /* ── Essentials card (WiFi, address, emergency) ── */
 .essentials {{
@@ -1382,11 +1519,15 @@ body {{
 <div class="page">
 
     <!-- Hero -->
-    <div class="hero">
-        <h1>Your Guide to {neighborhood}</h1>
-        <p class="hero-sub">{city} - prepared by your host</p>
-        <p class="hero-host">Hosted by {host}</p>
+    <div class="hero {hero_photo_class}" style="{hero_style}">
+        <div class="hero-overlay">
+            <h1>Your Guide to {neighborhood}</h1>
+            <p class="hero-sub">{city} &middot; prepared by your host</p>
+            <p class="hero-host">Hosted by {host}</p>
+        </div>
     </div>
+
+    {map_banner_html}
 
     <!-- Essentials (above the fold, print-critical) -->
     <div class="essentials">
@@ -1433,7 +1574,7 @@ body {{
 
         <!-- Safety -->
         <section class="section">
-            <h2>Safety Tips</h2>
+            <h2>{safety_icon}<span>Safety Tips</span></h2>
             <ul class="safety-list">
                 {safety_list}
             </ul>
@@ -1441,7 +1582,7 @@ body {{
 
         <!-- Useful Info -->
         <section class="section">
-            <h2>Useful Info</h2>
+            <h2>{info_icon}<span>Useful Info</span></h2>
             <table class="info-table">
                 {info_table}
             </table>
