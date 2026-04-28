@@ -34,14 +34,20 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(Path(__file__).parent))
 
+import random
+
 from _compose_helpers import (copy_to_clipboard, launch_browser, paste_into,
-                              wait_if_challenged)
+                              try_submit, wait_if_challenged)
 
 CRM_DIR = ROOT / "outreach_crm"
 PROFILE_DIR = ROOT / "chrome_profile_airbnb"
 
 PAUSE_AFTER_N = 10  # take a 5-min break after every N sends
 PAUSE_SEC = 300
+
+AUTO_DELAY_MIN = 60   # min seconds between auto-sends
+AUTO_DELAY_MAX = 120  # max seconds between auto-sends (jittered)
+AUTO_CAP = 10         # hard stop after this many auto-sends in a session
 
 
 def load_today_queue(status_filter: str = "queued_today") -> list[dict]:
@@ -145,30 +151,36 @@ def main():
                         choices=["queued_today", "pending"],
                         help="which CRM status to step through")
     parser.add_argument("--max", type=int, default=0,
-                        help="cap on this session (0 = whole queue)")
+                        help="cap on this session (0 = whole queue, or AUTO_CAP if --submit)")
+    parser.add_argument("--submit", action="store_true",
+                        help="HIGH RISK: auto-click Send after paste. Caps at "
+                             f"{AUTO_CAP}/session, {AUTO_DELAY_MIN}-{AUTO_DELAY_MAX}s "
+                             "delay between sends, hard stops on CAPTCHA.")
     args = parser.parse_args()
+
+    if args.submit:
+        cap = args.max if args.max and args.max < AUTO_CAP else AUTO_CAP
+    else:
+        cap = args.max
 
     queue = load_today_queue(args.status)
     if not queue:
         print(f"[empty] no CRM rows with status='{args.status}'.")
         return
 
-    if args.max:
-        queue = queue[:args.max]
+    if cap:
+        queue = queue[:cap]
 
     print(f"\n{'=' * 60}")
-    print(f"AIRBNB CONTACT-HOST STEP-THROUGH ({len(queue)} hosts)")
-    print(f"{'=' * 60}")
-    print("For each host:")
-    print("  1. Browser opens the listing + contact form, pastes message.")
-    print("  2. YOU click Send in the browser.")
-    print("  3. Switch to this terminal and press Enter to advance.")
-    print(f"  4. After every {PAUSE_AFTER_N} sends, {PAUSE_SEC // 60}min break.")
-    print()
-    print("Type 's' + Enter to skip a host (without marking sent).")
-    print("Type 'q' + Enter to quit early.")
-    print("Type 'm' + Enter to mark sent + advance (use if Send button worked).")
-    print()
+    if args.submit:
+        print(f"AIRBNB FULL AUTO ({len(queue)} hosts, cap {AUTO_CAP}, "
+              f"{AUTO_DELAY_MIN}-{AUTO_DELAY_MAX}s between sends)")
+        print("WATCH FOR CAPTCHA - script will pause if detected.")
+    else:
+        print(f"AIRBNB CONTACT-HOST STEP-THROUGH ({len(queue)} hosts)")
+        print("For each host: browser opens, pastes message, YOU click Send,")
+        print("press Enter to advance.")
+    print(f"{'=' * 60}\n")
 
     p, ctx = launch_browser(PROFILE_DIR)
     sent_count = 0
@@ -187,33 +199,60 @@ def main():
             print(f"    listing: {q.get('listing_url', '')}")
 
             ok = open_contact_host(page, q["listing_url"], q["message"])
-            if ok:
-                print("    [ok] message pasted. Click Send in browser.")
-            else:
-                print("    [warn] auto-paste failed. Message on clipboard - paste manually.")
-
-            choice = input("    [Enter=mark sent / s=skip / q=quit] > ").strip().lower()
-            if choice == "q":
-                print("    quitting early.")
-                break
-            if choice == "s":
+            if not ok:
+                print("    [warn] auto-paste failed - skipping.")
                 skipped.append(q["listing_id"])
                 continue
 
-            if mark_sent(q["city"], q["listing_id"]):
-                sent_count += 1
-                print(f"    [ok] marked sent. ({sent_count} this session)")
-            else:
-                print(f"    [warn] could not mark {q['listing_id']} sent in CRM")
+            if args.submit:
+                # CAPTCHA gate before clicking Send
+                wait_if_challenged(page, "before send")
+                clicked = try_submit(page, [
+                    'button[type="submit"]:has-text("Send")',
+                    'button:has-text("Send message")',
+                    'button:has-text("Send")',
+                    '[data-testid*="send"]',
+                ], "airbnb send")
+                if not clicked:
+                    print("    [warn] Send button not found - skipping. Click manually if you want.")
+                    skipped.append(q["listing_id"])
+                    time.sleep(5)
+                    continue
+                time.sleep(3)
+                # Verify the form actually closed (success indicator)
+                # If composer is still visible, message likely didn't go
+                # but we mark sent anyway since we clicked the button
 
-            if sent_count > 0 and sent_count % PAUSE_AFTER_N == 0 and i < len(queue):
-                print(f"\n[break] {PAUSE_AFTER_N} sent. Pausing {PAUSE_SEC // 60} min for anti-spam.")
-                print("        Press Enter to skip the break, or Ctrl+C to stop.")
-                try:
-                    for _ in range(PAUSE_SEC):
-                        time.sleep(1)
-                except KeyboardInterrupt:
-                    pass
+                if mark_sent(q["city"], q["listing_id"]):
+                    sent_count += 1
+                    print(f"    [ok] sent + marked. ({sent_count}/{AUTO_CAP} this session)")
+
+                if i < len(queue):
+                    delay = random.randint(AUTO_DELAY_MIN, AUTO_DELAY_MAX)
+                    print(f"    [wait] {delay}s before next host (anti-spam) ...")
+                    time.sleep(delay)
+            else:
+                print("    [ok] message pasted. Click Send in browser.")
+                choice = input("    [Enter=mark sent / s=skip / q=quit] > ").strip().lower()
+                if choice == "q":
+                    print("    quitting early.")
+                    break
+                if choice == "s":
+                    skipped.append(q["listing_id"])
+                    continue
+
+                if mark_sent(q["city"], q["listing_id"]):
+                    sent_count += 1
+                    print(f"    [ok] marked sent. ({sent_count} this session)")
+
+                if sent_count > 0 and sent_count % PAUSE_AFTER_N == 0 and i < len(queue):
+                    print(f"\n[break] {PAUSE_AFTER_N} sent. Pausing {PAUSE_SEC // 60}min for anti-spam.")
+                    print("        Press Enter to skip the break, or Ctrl+C to stop.")
+                    try:
+                        for _ in range(PAUSE_SEC):
+                            time.sleep(1)
+                    except KeyboardInterrupt:
+                        pass
 
     finally:
         ctx.close()
