@@ -450,6 +450,12 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             hero_photo_class = "hero-with-photo"
             hero_style = f"background-image: linear-gradient(rgba(20,30,40,0.55), rgba(15,25,35,0.78)), url('{photo_url}');"
 
+    # Define neighborhood up front so downstream blocks (map banner alt text,
+    # narrative templates) can reference it. Previous regression: map banner
+    # built at line ~467 referenced `neighborhood` before it was assigned a
+    # few lines down -> UnboundLocalError on every guide.
+    neighborhood = listing.neighborhood or city
+
     # Static map banner: 600x260 Google Static Maps, centered on the listing,
     # with a marker. Only render when we have the API key + valid coords.
     map_banner_html = ""
@@ -466,7 +472,6 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
         map_banner_html = f'''<div class="map-banner">
             <img src="{static_map_url}" alt="Map of {neighborhood}, {city}" loading="lazy"/>
         </div>'''
-    neighborhood = listing.neighborhood or city
     host = listing.host_name or "Your Host"
     today = date.today().strftime("%B %d, %Y")
 
