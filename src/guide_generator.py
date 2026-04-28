@@ -457,7 +457,9 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
     neighborhood = listing.neighborhood or city
 
     # Static map banner: 600x260 Google Static Maps, centered on the listing,
-    # with a marker. Only render when we have the API key + valid coords.
+    # with a marker. Only render when we have the API key + valid coords AND
+    # we can confirm the URL doesn't 403 (caught broken-map regressions when
+    # Maps Static API is disabled on the project or hits quota).
     map_banner_html = ""
     google_map_key = os.environ.get("GOOGLE_MAPS_API_KEY", "")
     if google_map_key and lat and lng:
@@ -469,9 +471,19 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             f"&markers=color:0x37474F%7C{lat},{lng}"
             f"&key={google_map_key}"
         )
-        map_banner_html = f'''<div class="map-banner">
-            <img src="{static_map_url}" alt="Map of {neighborhood}, {city}" loading="lazy"/>
-        </div>'''
+        # Pre-flight HEAD check so we don't ship a broken <img> if the API
+        # is disabled, key restricted, or quota exceeded. Cheap (~50ms).
+        try:
+            import requests as _req
+            r = _req.head(static_map_url, timeout=4, allow_redirects=True)
+            if r.status_code == 200:
+                map_banner_html = f'''<div class="map-banner">
+                    <img src="{static_map_url}" alt="Map of {neighborhood}, {city}" loading="lazy"/>
+                </div>'''
+            else:
+                print(f"[map-banner] skipped: HTTP {r.status_code} from Maps Static API")
+        except Exception as e:
+            print(f"[map-banner] skipped: {e}")
     host = listing.host_name or "Your Host"
     today = date.today().strftime("%B %d, %Y")
 
