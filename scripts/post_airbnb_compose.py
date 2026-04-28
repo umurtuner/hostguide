@@ -199,12 +199,12 @@ def main():
             print(f"    listing: {q.get('listing_url', '')}")
 
             ok = open_contact_host(page, q["listing_url"], q["message"])
-            if not ok:
-                print("    [warn] auto-paste failed - skipping.")
-                skipped.append(q["listing_id"])
-                continue
 
             if args.submit:
+                if not ok:
+                    print("    [warn] auto-paste failed - skipping (auto-mode can't recover).")
+                    skipped.append(q["listing_id"])
+                    continue
                 # CAPTCHA gate before clicking Send
                 wait_if_challenged(page, "before send")
                 clicked = try_submit(page, [
@@ -232,7 +232,13 @@ def main():
                     print(f"    [wait] {delay}s before next host (anti-spam) ...")
                     time.sleep(delay)
             else:
-                print("    [ok] message pasted. Click Send in browser.")
+                if ok:
+                    print("    [ok] message pasted. Click Send in browser.")
+                else:
+                    print("    [!] auto-paste failed. Message is on your clipboard:")
+                    print("        1. Click into the message textarea in the browser")
+                    print("        2. Cmd+V to paste")
+                    print("        3. Click Send")
                 choice = input("    [Enter=mark sent / s=skip / q=quit] > ").strip().lower()
                 if choice == "q":
                     print("    quitting early.")
