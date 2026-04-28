@@ -24,12 +24,10 @@ SITE = "https://www.host-guide.net"
 POSTS = {
     "ph_forum": {
         "title": "Hosts: what's the most-asked guest question that ruins your week?",
-        "where": f"PH forum: https://www.producthunt.com/p/hostguide-2 (post BEFORE launch, ~May 1-29)",
-        "body": f"""I'm launching HostGuide on PH Friday May 1 - it generates printable welcome books for Airbnb guests. Before we go live, I'd love to know: what's the one guest question you wish your welcome book actually answered?
+        "where": f"PH forum: https://www.producthunt.com/p/hostguide-2 (post BEFORE launch, ~Apr 28-30)",
+        "body": f"""For me it was "where's the nearest grocery store?" - I got it 47 times in one summer despite a 12-page Canva guide that literally had a map.
 
-For me it was "where's the nearest grocery store?" - I got it 47 times in one summer despite a 12-page Canva guide that literally had a map.
-
-Drop yours below. If you share your listing URL I'll generate a free guide for it and reply with the PDF - genuine usability research, no upvote ask.""",
+What's yours?""",
     },
 
     "ih": {
