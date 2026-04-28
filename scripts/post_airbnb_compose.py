@@ -191,12 +191,9 @@ def main():
     skipped: list[str] = []
     try:
         page = ctx.new_page()
-        page.goto("https://www.airbnb.com/", wait_until="domcontentloaded")
-        time.sleep(3)
-        wait_if_challenged(page, "airbnb home")
-        if "/login" in page.url or "signup" in page.url.lower():
-            print("[!] Sign in to Airbnb in the browser, then press Enter here.")
-            input()
+        # Skip the home page warmup - persistent profile is already logged in.
+        # If a listing redirects to /login, the user can sign in once and
+        # the session will stick for future runs.
 
         for i, q in enumerate(queue, 1):
             print(f"\n--- {i}/{len(queue)}: {q['host_name']} ({q['neighborhood']}, {q['city']}) ---")
