@@ -1138,9 +1138,24 @@ tailwind.config = {
   Something went wrong with the payment. Please try again.
   <button onclick="this.parentElement.classList.add('hidden')" class="ml-3 text-red-600 hover:text-red-800 font-semibold">&times;</button>
 </div>
+<div id="noAccountBanner" class="hidden bg-amber-50 border-b border-amber-200 px-6 py-3 text-center text-sm text-amber-800">
+  No account found for that email. Generate a guide below to create one - your account is created automatically with your first purchase.
+  <button onclick="this.parentElement.classList.add('hidden')" class="ml-3 text-amber-600 hover:text-amber-800 font-semibold">&times;</button>
+</div>
+<div id="genericErrorBanner" class="hidden bg-red-50 border-b border-red-200 px-6 py-3 text-center text-sm text-red-800">
+  <span id="genericErrorText">Something went wrong. Please try again or email hello@host-guide.net.</span>
+  <button onclick="this.parentElement.classList.add('hidden')" class="ml-3 text-red-600 hover:text-red-800 font-semibold">&times;</button>
+</div>
 <script>
 if (location.search.includes('cancelled=1')) document.getElementById('cancelBanner').classList.remove('hidden');
 if (location.search.includes('error=payment')) document.getElementById('errorBanner').classList.remove('hidden');
+if (location.search.includes('error=no_account')) document.getElementById('noAccountBanner').classList.remove('hidden');
+var errMatch = location.search.match(/[?&]error=([^&]+)/);
+if (errMatch && !['payment','no_account'].includes(errMatch[1])) {
+  document.getElementById('genericErrorText').textContent =
+    'Error: ' + decodeURIComponent(errMatch[1]).replace(/_/g, ' ') + '. Email hello@host-guide.net if this persists.';
+  document.getElementById('genericErrorBanner').classList.remove('hidden');
+}
 
 (function(){
   var now = Date.now();
