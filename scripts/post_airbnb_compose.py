@@ -109,11 +109,15 @@ def open_contact_host(page, listing_url: str, message: str) -> bool:
     wait_if_challenged(page, "airbnb listing")
 
     contact_selectors = [
+        'button:has-text("Message host")',
+        'a:has-text("Message host")',
+        'button:has(span:has-text("Message host"))',
+        'span[data-button-content="true"]:has-text("Message host")',
         'a[href*="/contact_host"]',
         'button:has-text("Contact host")',
         'a:has-text("Contact host")',
-        'button:has-text("Contact Host")',
         '[data-testid*="contact"]',
+        '[data-testid*="message"]',
     ]
     clicked = False
     for sel in contact_selectors:
