@@ -1031,23 +1031,17 @@ def _build_html_guide(listing: Listing, enriched: EnrichedLocation,
             <div class="narrative-body">{body}</div>
         </section>'''
 
-    # Map section
+    # Map section: just the GPS coords + 'Open in Google Maps' link.
+    # Removed the OSM iframe — it duplicates the Google Static Maps banner at
+    # the top of the guide AND iframes don't render in PDF (the printable use
+    # case). Keep just a text-mode link + GPS for reference.
     map_html = ""
     if lat and lng and lat != 0:
         gmaps_link = f"https://www.google.com/maps/@{lat},{lng},16z"
         map_html = f'''<section class="section map-section">
             <h2>Your Location</h2>
-            <div class="map-container">
-                <a href="{gmaps_link}" target="_blank" style="display: block;">
-                    <iframe
-                        width="100%" height="260" frameborder="0" scrolling="no"
-                        src="https://www.openstreetmap.org/export/embed.html?bbox={lng-0.006}%2C{lat-0.004}%2C{lng+0.006}%2C{lat+0.004}&amp;layer=mapnik&amp;marker={lat}%2C{lng}"
-                        style="border-radius: 8px; pointer-events: none;">
-                    </iframe>
-                </a>
-                <p class="map-link"><a href="{gmaps_link}" target="_blank">Open in Google Maps</a></p>
-            </div>
-            <p class="print-only map-coords">GPS: {lat}, {lng} -search in Google Maps or scan QR code on back page</p>
+            <p class="map-link"><a href="{gmaps_link}" target="_blank">Open in Google Maps &rarr;</a></p>
+            <p class="print-only map-coords">GPS: {lat}, {lng} - search in Google Maps or scan QR code on back page</p>
         </section>'''
 
     # ── City color themes (primary, dark, light bg) ──
