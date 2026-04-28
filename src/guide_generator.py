@@ -1128,9 +1128,12 @@ body {{
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 34px;
     font-weight: 700;
-    line-height: 1.15;
-    margin-bottom: 8px;
+    line-height: 1.18;
+    margin-bottom: 10px;
     letter-spacing: -0.5px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }}
 .hero-sub {{
     font-size: 16px;
@@ -1273,8 +1276,13 @@ body {{
     color: #999;
     border-bottom: 1.5px dashed #ccc;
     display: inline-block;
-    min-width: 180px;
+    min-width: 140px;  /* was 180px - too wide for narrow grid cells */
+    max-width: 100%;
     height: 22px;
+}}
+.essentials .value {{
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }}
 
 /* ── Content wrapper ── */
@@ -1328,21 +1336,26 @@ body {{
 .place-table {{
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;  /* honor the 42/58 width split, prevent overflow */
 }}
 .place-row td {{
-    padding: 9px 0;
+    padding: 11px 0;
     border-bottom: 1px solid #f0f0f0;
     font-size: 14px;
     vertical-align: top;
+    line-height: 1.45;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }}
 .place-row:last-child td {{
     border-bottom: none;
 }}
 .place-name {{
     font-weight: 600;
-    white-space: nowrap;
-    padding-right: 16px;
-    width: 40%;
+    padding-right: 18px;
+    width: 42%;
+    /* drop white-space:nowrap so long names wrap inside the cell instead
+       of overflowing into the .place-detail column */
 }}
 .place-name a.place-link {{
     color: var(--text);
@@ -1353,19 +1366,26 @@ body {{
 }}
 .place-detail {{
     color: var(--text-secondary);
+    width: 58%;
 }}
 .place-addr {{
     font-size: 13px;
+    display: inline;
 }}
 .place-dist {{
     font-size: 13px;
     color: #888;
+}}
+.dist-badge {{
+    white-space: nowrap;  /* keep '5 min walk' on one line, can wrap to next */
+    margin-left: 4px;
 }}
 .rating {{
     font-size: 12px;
     color: #e6a117;
     margin-left: 6px;
     font-weight: 500;
+    white-space: nowrap;
 }}
 
 /* ── Notes and tips ── */
@@ -1408,11 +1428,18 @@ body {{
     font-weight: 700;
     color: var(--primary-dark);
     min-width: 90px;
+    max-width: 110px;  /* cap so long labels don't push the tip text off the right edge */
     flex-shrink: 0;
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 0.3px;
     padding-top: 1px;
+    word-break: break-word;
+}}
+.tip-item > div:not(.tip-label) {{
+    flex: 1;
+    min-width: 0;  /* allow flex item to shrink below content width */
+    word-wrap: break-word;
 }}
 
 /* ── Safety list ── */
