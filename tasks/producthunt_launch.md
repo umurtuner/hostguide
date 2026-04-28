@@ -12,11 +12,11 @@ Maker: Umur Tuener (@umurtuner)
 
 - Site UP (200 OK, 262ms response). Static asset 404 fix deployed.
 - **PH coming-soon page LIVE: https://www.producthunt.com/products/hostguide-2** (forum: `p/hostguide-2`)
-- Launch scheduled: **Apr 28, 2026 00:01 PDT (07:01 UTC, 09:01 Geneva)**.
+- Launch scheduled: **May 1, 2026 00:01 PDT (07:01 UTC, 09:01 Geneva)**.
 - 5 required PH assets uploaded; 4 gallery images visible on PH page. Missing optional: gallery_5 dashboard screenshot + 20s GIF demo.
 - 9 cities scraped, 452 hosts queued, **0 sent**. 4 cities (austin, nashville, savannah, scottsdale) need first scrape.
 - Distribution plan + daily cadence: see `tasks/distribution_plan.md`.
-- 5 launch-week preflight routines scheduled Apr 28 launch day 06:00 UTC.
+- 5 launch-week preflight routines scheduled May 1 launch day 06:00 UTC.
 - New tooling:
   - `scripts/preflight_ph.py` - run T-48, T-24, morning-of (PASS/FAIL gates)
   - `scripts/crm_status.py` - one-shot dashboard across all city queues
@@ -235,7 +235,7 @@ page in the first 4 hours (PH's algorithm weights early velocity heavily).
 - Go to https://www.producthunt.com/ship → "New Product"
 - Upload the same assets from /static/ph/ (logo, gallery)
 - Use the tagline + description from the top of this file
-- Set launch date: **Tuesday Apr 28, 2026**
+- Set launch date: **Tuesday May 1, 2026**
 - This gives a public follow URL of the form: producthunt.com/products/hostguide
 - Save that URL somewhere obvious — every DM below uses it
 
@@ -263,7 +263,7 @@ page in the first 4 hours (PH's algorithm weights early velocity heavily).
 **Description:** (use the 258-char description from top of this file)
 **Topics:** Travel, Productivity, Marketing, No-Code
 **URL:** https://www.host-guide.net
-**Launch date:** Apr 28, 2026
+**Launch date:** May 1, 2026
 **Hunter:** @umurtuner (self-hunting)
 **Maker comment:** (use the maker comment from top of this file)
 
@@ -275,7 +275,7 @@ page in the first 4 hours (PH's algorithm weights early velocity heavily).
 
 > Hey [Name] — quick one.
 >
-> I'm launching a side project on Product Hunt next Tuesday (Apr 28). It's HostGuide — a tool that generates printable neighborhood welcome books for Airbnb hosts. Built it because my own Canva welcome book stopped scaling.
+> I'm launching a side project on Product Hunt next Tuesday (May 1). It's HostGuide — a tool that generates printable neighborhood welcome books for Airbnb hosts. Built it because my own Canva welcome book stopped scaling.
 >
 > If it sounds interesting, you can follow the coming-soon page so you get a ping when it ships:
 >
@@ -285,7 +285,7 @@ page in the first 4 hours (PH's algorithm weights early velocity heavily).
 
 ### X/Twitter DMs (indie hackers, hosts you follow) — send 3/day Apr 29 - May 4
 
-> Hey — launching HostGuide on PH Tuesday Apr 28. Auto-generates printable welcome books from any Airbnb URL. Coming-soon page if you want a ping at ship time: https://www.producthunt.com/products/hostguide-2. Cheers!
+> Hey — launching HostGuide on PH Friday May 1. Auto-generates printable welcome books from any Airbnb URL. Coming-soon page if you want a ping at ship time: https://www.producthunt.com/products/hostguide-2. Cheers!
 
 ### Final reminder DM (send Apr 27 evening to everyone who followed)
 
@@ -322,7 +322,7 @@ page in the first 4 hours (PH's algorithm weights early velocity heavily).
 
 ---
 
-## Reddit r/airbnb_hosts post (Apr 28, 1pm Geneva, after PH momentum)
+## Reddit r/airbnb_hosts post (May 1, 1pm Geneva, after PH momentum)
 
 **Title:** I built a free tool that generates printable neighborhood welcome books for Airbnb hosts (launched today on PH)
 
@@ -339,7 +339,7 @@ page in the first 4 hours (PH's algorithm weights early velocity heavily).
 
 ## Indie Hackers post (Apr 29 — soft pre-launch, ~2 weeks early)
 
-**Title:** Going live on PH Apr 28 — built a niche SaaS for Airbnb hosts on the side
+**Title:** Going live on PH May 1 — built a niche SaaS for Airbnb hosts on the side
 
 **Body:**
 > 6 months ago I started building HostGuide as a weekend project. Live at host-guide.net.
@@ -354,7 +354,7 @@ page in the first 4 hours (PH's algorithm weights early velocity heavily).
 > - Claude writes the narrative; structured place data is the spine
 > - 80% of the work was edge cases: junk city names from OG tags, OSM transit tagging quirks, US suburban density
 >
-> Launching on PH Apr 28 — coming-soon: https://www.producthunt.com/products/hostguide-2. Would love feedback from anyone who's shipped a vertical SaaS in a niche I'm not in.
+> Launching on PH May 1 — coming-soon: https://www.producthunt.com/products/hostguide-2. Would love feedback from anyone who's shipped a vertical SaaS in a niche I'm not in.
 
 ---
 
@@ -376,7 +376,7 @@ page in the first 4 hours (PH's algorithm weights early velocity heavily).
 
 ---
 
-## PH forum thread (post on `p/hostguide-2` ~Apr 28-29, before launch)
+## PH forum thread (post on `p/hostguide-2` ~May 1-29, before launch)
 
 PH suggests starting a forum thread to engage early users. Research-flavored beats promo-flavored — comments become social proof for launch day.
 
@@ -384,7 +384,7 @@ PH suggests starting a forum thread to engage early users. Research-flavored bea
 > Hosts: what's the most-asked guest question that ruins your week?
 
 **Body:**
-> I'm launching HostGuide on PH next Tuesday (Apr 28) - it generates printable welcome books for Airbnb guests. Before we go live, I'd love to know: what's the one guest question you wish your welcome book actually answered?
+> I'm launching HostGuide on PH next Tuesday (May 1) - it generates printable welcome books for Airbnb guests. Before we go live, I'd love to know: what's the one guest question you wish your welcome book actually answered?
 >
 > For me it was "where's the nearest grocery store?" - I got it 47 times in one summer despite a 12-page Canva guide that literally had a map.
 >
@@ -392,7 +392,7 @@ PH suggests starting a forum thread to engage early users. Research-flavored bea
 
 ---
 
-## LinkedIn launch announcement (post Apr 28-29, ~1300 chars)
+## LinkedIn launch announcement (post May 1-29, ~1300 chars)
 
 **STATUS: SKIPPED for this launch.** P&G colleagues + corp politics. Posting host-targeted content via PH / X / Reddit / IH / FB groups instead. Draft retained below in case the decision changes.
 
@@ -410,7 +410,7 @@ PH suggests starting a forum thread to engage early users. Research-flavored bea
 >
 > My guest messages dropped by 70%. Reviews started mentioning "the guide was so helpful."
 >
-> It's launching on Product Hunt on Tuesday Apr 28 as HostGuide. Side project - I still run MarTech for Pampers by day - but it solves a real problem I had.
+> It's launching on Product Hunt on Friday May 1 as HostGuide. Side project - I still run MarTech for Pampers by day - but it solves a real problem I had.
 >
 > If you host on Airbnb, or know someone who does, you can follow the coming-soon page so you get a ping when it ships:
 >

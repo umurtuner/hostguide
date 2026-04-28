@@ -1,6 +1,6 @@
 # HostGuide Distribution Plan
 
-**Window:** Apr 27 - Apr 28, 2026 (PH launch day) and 2 weeks of post-launch ramp.
+**Window:** Apr 27 - May 1, 2026 (PH launch day) and 2 weeks of post-launch ramp.
 **Goal:** 450+ host conversations, 50 PH coming-soon followers, 20 paid signups in launch week.
 
 ---
@@ -129,9 +129,9 @@ python scripts/enrich_linkedin.py --all             # full run
 | Apr 29 - May 4     | All                     | 30/day Contact Host + 5/day LinkedIn DM           |
 | May 5 - May 7      | Tier A                  | Push to 50 PH followers; second IH update         |
 | May 8-10           | Tier A                  | Activation reminders to 50 followers              |
-| Apr 27 evening     | All                     | X teaser + past-host warm DMs + PH forum thread   |
-| **Apr 28 LAUNCH**  | All                     | Per `producthunt_launch.md` minute-by-minute      |
-| Apr 29 - May 12    | Tier B + Tier C         | Ride PH afterglow; bulk Contact Host              |
+| Apr 28-30          | All                     | X teaser + past-host warm DMs + PH forum thread + IH soft-launch |
+| **May 1 LAUNCH**   | All                     | Per `producthunt_launch.md` minute-by-minute      |
+| May 2 - May 15     | Tier B + Tier C         | Ride PH afterglow; bulk Contact Host              |
 
 ---
 
@@ -141,7 +141,7 @@ python scripts/enrich_linkedin.py --all             # full run
 python scripts/crm_status.py
 ```
 
-| Metric                    | Apr 27 | Target by Apr 28 |
+| Metric                    | Apr 27 | Target by May 1  |
 |---------------------------|--------|------------------|
 | Cities with full pipeline | 9      | 13               |
 | Hosts queued              | 452    | 600+             |
