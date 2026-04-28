@@ -545,6 +545,13 @@ def _generate_guide_for_order(token: str) -> bool:
         else:
             meta = _fetch_listing_meta(airbnb_url)
 
+        if meta.get("_listing_404"):
+            print(f"Listing 404 for {listing_id} - not generating, marking as failed")
+            _update_order(token, status="failed",
+                          error="This Airbnb listing no longer exists or has been removed by the host. "
+                                "Please double-check the URL or try a different listing.")
+            return False
+
         listing = Listing(
             listing_id=listing_id,
             title=meta.get("title", ""),
@@ -742,6 +749,18 @@ def _fetch_listing_meta(airbnb_url: str) -> dict:
             "Accept-Language": "en-US,en;q=0.9",
         }, timeout=15, allow_redirects=True)
         html = resp.text
+
+        # 404 / dead-listing detection. Airbnb returns 200 OK with a stub
+        # "Oops!" 404 page (~3KB) when a listing was deleted or never existed.
+        # Real listing pages are 200KB+. Bail early so the caller can surface
+        # a clear "listing not found" error instead of a generic generation
+        # failure.
+        if (len(html) < 10_000
+                or "404 Page Not Found" in html
+                or "We can't seem to find the page" in html):
+            print(f"[404] listing not found / removed: {airbnb_url} (html_len={len(html)})")
+            meta["_listing_404"] = True
+            return meta
 
         # ── OG tags (always available) ──
         og_title = re.search(r'<meta\s+property="og:title"\s+content="([^"]*)"', html)
@@ -2429,6 +2448,7 @@ def order_status(token: str):
         "status": order["status"],
         "ready": order["status"] == "generated" and order.get("guide_path") is not None,
         "failed": order["status"] == "failed",
+        "error": order.get("error", ""),
     })
 
 
@@ -2676,9 +2696,10 @@ function pollStatus() {
                     document.getElementById('readySection').style.display = 'block';
                 }, 500);
             } else if (data.failed) {
+                var errorMsg = data.error || 'We couldn\\'t generate your guide. Please make sure the Airbnb URL is valid and the city is correct.';
                 document.querySelector('.generating').innerHTML =
                     '<h1 style="font-size:22px;margin-bottom:8px;color:#dc2626;">Generation Failed</h1>' +
-                    '<p style="font-size:14px;color:#666;line-height:1.6;">We couldn\\'t generate your guide. Please make sure the Airbnb URL is valid and the city is correct.</p>' +
+                    '<p style="font-size:14px;color:#666;line-height:1.6;">' + errorMsg + '</p>' +
                     '<p style="margin-top:16px;"><a href="/" style="color:#00897B;font-weight:600;">Try Again</a></p>' +
                     '<p style="margin-top:8px;font-size:13px;color:#888;">Your credit has been refunded. Questions? hello@host-guide.net</p>';
             } else if (notFoundCount >= 8) {
