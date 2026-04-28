@@ -1,9 +1,9 @@
 listing_id,host_name,city,channel,status,contacted_at,guide_url,email,fb_profile,ig_handle,notes
-670228195238281392,Tobias,madrid,contact_host,pending,,,,https://www.airbnb.com/users/show/7280945,,Madrid
-1630976554397449690,Alberto,madrid,contact_host,pending,,,,https://www.airbnb.com/users/show/657731227,,Madrid
-1647800749393701637,Nawal,madrid,contact_host,pending,,,,https://www.airbnb.com/users/show/263892488,,Madrid
-1617261973664297835,Aspasios,madrid,contact_host,pending,,,,https://www.airbnb.com/users/show/739898859,,Madrid
-36399333,Carlos,madrid,contact_host,pending,,,,https://www.airbnb.com/users/show/273694002,,Madrid
+670228195238281392,Tobias,madrid,contact_host,queued_today,,,,https://www.airbnb.com/users/show/7280945,,Madrid | queued 2026-04-27
+1630976554397449690,Alberto,madrid,contact_host,queued_today,,,,https://www.airbnb.com/users/show/657731227,,Madrid | queued 2026-04-27
+1647800749393701637,Nawal,madrid,contact_host,queued_today,,,,https://www.airbnb.com/users/show/263892488,,Madrid | queued 2026-04-27
+1617261973664297835,Aspasios,madrid,contact_host,queued_today,,,,https://www.airbnb.com/users/show/739898859,,Madrid | queued 2026-04-27
+36399333,Carlos,madrid,contact_host,queued_today,,,,https://www.airbnb.com/users/show/273694002,,Madrid | queued 2026-04-27
 1640458703388269583,Homeclub,madrid,contact_host,pending,,,,https://www.airbnb.com/users/show/570694659,,Madrid
 1340376110053785468,Host,madrid,contact_host,pending,,,,,,Madrid
 1594902380014662811,Host,madrid,contact_host,pending,,,,,,Madrid

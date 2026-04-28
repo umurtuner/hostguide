@@ -1,37 +1,13 @@
 # Contact Host outreach queue - Lisbon
-Generated: 2026-04-12 15:36 · Template updated 2026-04-27 (post-Joao learnings)
-Total: 52 · Status: HOLD until Miami pilot converts (do not send before that)
+Generated: 2026-04-28 19:25
+Total: 52
 
 ## How to use
 1. Open each Airbnb profile URL below
 2. Click Contact Host on one of their listings
-3. **Use the V2 template block below, not the per-entry V1 blocks** — V1 was the Apr-12 copy that we now know underperforms (asks the prospect to send their URL before they see value)
-4. Substitute `[Name]` and `[Neighborhood]` for each entry
-5. Send. Cap: 5/day per account (was 20 — softer pace = less spam-flag risk)
-6. Mark sent in CRM: `python scripts/build_outreach_queue.py lisbon --mark-sent <listing_id>`
-
-## V2 message template (use this — shorter, tighter hook, fellow-host first)
-
-```
-Hey [Name], fellow host here. I built HostGuide — generates a printable neighborhood welcome book per Airbnb listing in ~60s with real walking times to transit, top cafes, groceries.
-
-I'd love to make yours for the [Neighborhood] place as a free sample. Just reply with a thumbs-up and I'll send the PDF.
-
-Cheers, Umur · host-guide.net
-```
-
-## V2 follow-up (if no reply after 5 days, send once)
-
-```
-Hey [Name] — me again, won't bug you twice. If the welcome-book sample isn't your thing, no worries at all. If you'd like one, just reply "yes" and I'll send it tonight. Cheers, Umur
-```
-
-## V1 message blocks (DO NOT USE — kept for historical reference only)
-
-The per-entry V1 blocks below are 2x longer and ask the prospect to do work
-(reply with their URL) before they see the value. V2 inverts that: the offer
-is binary (thumbs-up = receive PDF), and the host's name + neighborhood are
-already substituted by us.
+3. Paste the message block as-is
+4. Send. Do no more than 20/day from one account.
+5. Mark sent in CRM: `python scripts/build_outreach_queue.py lisbon --mark-sent <listing_id>`
 
 ---
 
@@ -41,11 +17,11 @@ already substituted by us.
 - Listing: https://www.airbnb.com/rooms/1573421331214642095
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -56,11 +32,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1638670687794051090
 
 ```
-Hey Ricardo, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Ricardo, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -71,11 +47,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1645637269072758098
 
 ```
-Hey Alexandra, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Alexandra, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -86,11 +62,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/37698787
 
 ```
-Hey Tagus, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Tagus, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -101,11 +77,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1004109635656602002
 
 ```
-Hey The, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey The, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -116,11 +92,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1632820403416521795
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -131,11 +107,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1099447472367568976
 
 ```
-Hey Rita, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Rita, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -146,11 +122,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1399279792930752903
 
 ```
-Hey Rocio, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Rocio, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -161,11 +137,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1648768077559828229
 
 ```
-Hey Ana, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Ana, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -176,11 +152,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/959919508863439658
 
 ```
-Hey Leonor, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Leonor, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -191,11 +167,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/937494000910501728
 
 ```
-Hey Bruno, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Bruno, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -206,11 +182,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1596355954818295375
 
 ```
-Hey Esmeralda, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Esmeralda, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -221,11 +197,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1374832436020273971
 
 ```
-Hey Lina, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Lina, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -236,11 +212,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/38952507
 
 ```
-Hey Jorge, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Jorge, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -251,11 +227,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/47869210
 
 ```
-Hey Sara, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Sara, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -266,11 +242,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1378346301810523794
 
 ```
-Hey Elsa, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Elsa, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -281,11 +257,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/45307024
 
 ```
-Hey Carlos, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Carlos, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -296,11 +272,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/801863225384835186
 
 ```
-Hey Maria, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Maria, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -311,11 +287,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/51255698
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -326,11 +302,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/37268954
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -341,11 +317,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1364415697618083840
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -356,11 +332,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1650080258699223154
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -371,11 +347,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1649436881653299387
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -386,11 +362,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/573730513378314870
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -401,11 +377,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/635343580234318785
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -416,11 +392,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1640607993689260744
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -431,11 +407,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/576707987183009846
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -446,11 +422,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1295397276223671438
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -461,11 +437,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/969365301887922219
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -476,11 +452,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1575997818251599928
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -491,11 +467,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1632824949957490860
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -506,11 +482,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/548690351123400087
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -521,11 +497,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/975321993299794869
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -536,11 +512,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1145677796038078807
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -551,11 +527,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1193509690607919415
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -566,11 +542,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/35424367
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -581,11 +557,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1617402596489281421
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -596,11 +572,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/867320925540926718
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -611,11 +587,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1640833061017405418
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -626,11 +602,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1374800161696980695
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -641,11 +617,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/17466733
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -656,11 +632,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1257946285898321299
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -671,11 +647,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1650933853752119646
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -686,11 +662,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1531089183783331769
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -701,11 +677,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1390047236924985312
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -716,11 +692,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1020484132006328527
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -731,11 +707,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1164633076692932659
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -746,11 +722,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/33734127
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -761,11 +737,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/49241691
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -776,11 +752,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/42243564
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -791,11 +767,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1635529581223637735
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -806,11 +782,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1437548406103565211
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Lisbon (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Lisbon specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---

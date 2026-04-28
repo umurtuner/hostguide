@@ -1,7 +1,7 @@
 listing_id,host_name,city,channel,status,contacted_at,guide_url,email,fb_profile,ig_handle,notes
-1548849428183932969,Pablo,bogota,contact_host,pending,,,,https://www.airbnb.com/users/show/16724089,,La Candelaria
-28134373,Ale,bogota,contact_host,pending,,,,https://www.airbnb.com/users/show/6390711,,La Candelaria
-1629767066381760535,Marcela,bogota,contact_host,pending,,,,https://www.airbnb.com/users/show/443556523,,Chapinero
+1548849428183932969,Pablo,bogota,contact_host,queued_today,,,,https://www.airbnb.com/users/show/16724089,,La Candelaria | queued 2026-04-27
+28134373,Ale,bogota,contact_host,queued_today,,,,https://www.airbnb.com/users/show/6390711,,La Candelaria | queued 2026-04-27
+1629767066381760535,Marcela,bogota,contact_host,queued_today,,,,https://www.airbnb.com/users/show/443556523,,Chapinero | queued 2026-04-27
 42049912,Yael,bogota,contact_host,pending,,,,https://www.airbnb.com/users/show/222796321,,La Candelaria
 1637288249150274784,Leidy,bogota,contact_host,pending,,,,https://www.airbnb.com/users/show/449272022,,Chapinero
 1637619274594796077,Carolina,bogota,contact_host,pending,,,,https://www.airbnb.com/users/show/287482722,,La Candelaria

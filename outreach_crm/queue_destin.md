@@ -1,37 +1,13 @@
 # Contact Host outreach queue - Destin
-Generated: 2026-04-12 15:36 · Template updated 2026-04-27 (post-Joao learnings)
-Total: 54 · Status: HOLD until Miami pilot converts (do not send before that)
+Generated: 2026-04-28 19:25
+Total: 54
 
 ## How to use
 1. Open each Airbnb profile URL below
 2. Click Contact Host on one of their listings
-3. **Use the V2 template block below, not the per-entry V1 blocks** — V1 was the Apr-12 copy that we now know underperforms (asks the prospect to send their URL before they see value)
-4. Substitute `[Name]` and `[Neighborhood]` for each entry
-5. Send. Cap: 5/day per account (was 20 — softer pace = less spam-flag risk)
-6. Mark sent in CRM: `python scripts/build_outreach_queue.py destin --mark-sent <listing_id>`
-
-## V2 message template (use this — shorter, tighter hook, fellow-host first)
-
-```
-Hey [Name], fellow host here. I built HostGuide — generates a printable neighborhood welcome book per Airbnb listing in ~60s with real walking times to transit, top cafes, groceries.
-
-I'd love to make yours for the [Neighborhood] place as a free sample. Just reply with a thumbs-up and I'll send the PDF.
-
-Cheers, Umur · host-guide.net
-```
-
-## V2 follow-up (if no reply after 5 days, send once)
-
-```
-Hey [Name] — me again, won't bug you twice. If the welcome-book sample isn't your thing, no worries at all. If you'd like one, just reply "yes" and I'll send it tonight. Cheers, Umur
-```
-
-## V1 message blocks (DO NOT USE — kept for historical reference only)
-
-The per-entry V1 blocks below are 2x longer and ask the prospect to do work
-(reply with their URL) before they see the value. V2 inverts that: the offer
-is binary (thumbs-up = receive PDF), and the host's name + neighborhood are
-already substituted by us.
+3. Paste the message block as-is
+4. Send. Do no more than 20/day from one account.
+5. Mark sent in CRM: `python scripts/build_outreach_queue.py destin --mark-sent <listing_id>`
 
 ---
 
@@ -41,11 +17,11 @@ already substituted by us.
 - Listing: https://www.airbnb.com/rooms/1606556798344112679
 
 ```
-Hey Mitch, fellow host here. I just made a free neighborhood guide for your place in Henderson Park (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Mitch, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Henderson Park specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -56,11 +32,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1637166653644528251
 
 ```
-Hey Stanton, fellow host here. I just made a free neighborhood guide for your place in Miramar Beach (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Stanton, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Miramar Beach specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -71,11 +47,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1430497668346633755
 
 ```
-Hey Beach, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Beach, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -86,11 +62,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1637261367469584690
 
 ```
-Hey Clint, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Clint, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -101,11 +77,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/43715142
 
 ```
-Hey Courtney, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Courtney, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -116,11 +92,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1388482905748362408
 
 ```
-Hey Epiqhost, fellow host here. I just made a free neighborhood guide for your place in Miramar Beach (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Epiqhost, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Miramar Beach specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -131,11 +107,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/681204986872468701
 
 ```
-Hey Sasha, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Sasha, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -146,11 +122,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1619980757637285755
 
 ```
-Hey Avari, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Avari, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -161,11 +137,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1497182019461147856
 
 ```
-Hey Karen, fellow host here. I just made a free neighborhood guide for your place in Miramar Beach (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Karen, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Miramar Beach specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -176,11 +152,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1531512093321838525
 
 ```
-Hey Erika, fellow host here. I just made a free neighborhood guide for your place in Miramar Beach (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Erika, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Miramar Beach specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -191,11 +167,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1287780548562393468
 
 ```
-Hey Laura, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Laura, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -206,11 +182,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1190068711323935535
 
 ```
-Hey James, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey James, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -221,11 +197,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1639458788428479835
 
 ```
-Hey Kristeen, fellow host here. I just made a free neighborhood guide for your place in Crystal Beach (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Kristeen, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Crystal Beach specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -236,11 +212,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/52403103
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Miramar Beach (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Miramar Beach specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -251,11 +227,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1644309171599181566
 
 ```
-Hey Aaron, fellow host here. I just made a free neighborhood guide for your place in Henderson Park (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Aaron, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Henderson Park specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -266,11 +242,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1620332406729742352
 
 ```
-Hey Barb, fellow host here. I just made a free neighborhood guide for your place in Holiday Isle (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Barb, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Holiday Isle specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -281,11 +257,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/52353018
 
 ```
-Hey Nichole, fellow host here. I just made a free neighborhood guide for your place in Holiday Isle (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Nichole, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Holiday Isle specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -296,11 +272,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1497228082008433055
 
 ```
-Hey Tyler, fellow host here. I just made a free neighborhood guide for your place in Henderson Park (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Tyler, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Henderson Park specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -311,11 +287,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1632661131625119548
 
 ```
-Hey Christina, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Christina, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -326,11 +302,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/18811513
 
 ```
-Hey Beth, fellow host here. I just made a free neighborhood guide for your place in Henderson Park (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Beth, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Henderson Park specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -341,11 +317,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1581284053224518183
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -356,11 +332,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1637166550669875263
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -371,11 +347,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1014547044009941783
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -386,11 +362,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1643085159133355248
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -401,11 +377,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1372530839035711322
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -416,11 +392,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1401076468754014650
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -431,11 +407,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1111698610948998542
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -446,11 +422,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1602143150333001235
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -461,11 +437,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1545986087785367111
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -476,11 +452,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/613955287439244291
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -491,11 +467,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/861642926407589073
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -506,11 +482,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1603932074127599906
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -521,11 +497,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/828124066002823677
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -536,11 +512,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1426109276526326558
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -551,11 +527,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1035541017451166774
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -566,11 +542,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1594373020330766042
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -581,11 +557,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1487987401313985587
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -596,11 +572,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1650302493136158682
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -611,11 +587,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1467401078309468328
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -626,11 +602,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1574001120104278015
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -641,11 +617,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1148870099238842834
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -656,11 +632,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1407286305497325036
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -671,11 +647,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1643564670477137687
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -686,11 +662,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1542824334805605813
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -701,11 +677,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/556363631911063735
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -716,11 +692,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/645727713232583999
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -731,11 +707,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1564496704624341913
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -746,11 +722,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/957603238543038261
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -761,11 +737,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1396531124495998044
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -776,11 +752,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1619746720320449141
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -791,11 +767,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1543813026916422644
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -806,11 +782,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1641305744869342332
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -821,11 +797,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1152394460561503831
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -836,11 +812,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1475683863299565638
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Destin (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---

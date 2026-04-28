@@ -1,37 +1,13 @@
 # Contact Host outreach queue - Medellin
-Generated: 2026-04-12 15:36 · Template updated 2026-04-27 (post-Joao learnings)
-Total: 54 · Status: HOLD until Miami pilot converts (do not send before that)
+Generated: 2026-04-28 19:25
+Total: 54
 
 ## How to use
 1. Open each Airbnb profile URL below
 2. Click Contact Host on one of their listings
-3. **Use the V2 template block below, not the per-entry V1 blocks** — V1 was the Apr-12 copy that we now know underperforms (asks the prospect to send their URL before they see value)
-4. Substitute `[Name]` and `[Neighborhood]` for each entry
-5. Send. Cap: 5/day per account (was 20 — softer pace = less spam-flag risk)
-6. Mark sent in CRM: `python scripts/build_outreach_queue.py medellin --mark-sent <listing_id>`
-
-## V2 message template (use this — shorter, tighter hook, fellow-host first)
-
-```
-Hey [Name], fellow host here. I built HostGuide — generates a printable neighborhood welcome book per Airbnb listing in ~60s with real walking times to transit, top cafes, groceries.
-
-I'd love to make yours for the [Neighborhood] place as a free sample. Just reply with a thumbs-up and I'll send the PDF.
-
-Cheers, Umur · host-guide.net
-```
-
-## V2 follow-up (if no reply after 5 days, send once)
-
-```
-Hey [Name] — me again, won't bug you twice. If the welcome-book sample isn't your thing, no worries at all. If you'd like one, just reply "yes" and I'll send it tonight. Cheers, Umur
-```
-
-## V1 message blocks (DO NOT USE — kept for historical reference only)
-
-The per-entry V1 blocks below are 2x longer and ask the prospect to do work
-(reply with their URL) before they see the value. V2 inverts that: the offer
-is binary (thumbs-up = receive PDF), and the host's name + neighborhood are
-already substituted by us.
+3. Paste the message block as-is
+4. Send. Do no more than 20/day from one account.
+5. Mark sent in CRM: `python scripts/build_outreach_queue.py medellin --mark-sent <listing_id>`
 
 ---
 
@@ -41,11 +17,11 @@ already substituted by us.
 - Listing: https://www.airbnb.com/rooms/1223879329973806264
 
 ```
-Hey Vibra, fellow host here. I just made a free neighborhood guide for your place in El Poblado (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Vibra, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For El Poblado specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -56,11 +32,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1508952007924469704
 
 ```
-Hey Maria, fellow host here. I just made a free neighborhood guide for your place in El Poblado (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Maria, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For El Poblado specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -71,11 +47,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1125618171502358691
 
 ```
-Hey Angela, fellow host here. I just made a free neighborhood guide for your place in El Poblado (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Angela, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For El Poblado specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -86,11 +62,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1638546690917871253
 
 ```
-Hey Camila, fellow host here. I just made a free neighborhood guide for your place in El Poblado (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Camila, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For El Poblado specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -101,11 +77,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1628442384969861317
 
 ```
-Hey Valentina, fellow host here. I just made a free neighborhood guide for your place in El Poblado (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Valentina, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For El Poblado specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -116,11 +92,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/946547864714412810
 
 ```
-Hey Adriana, fellow host here. I just made a free neighborhood guide for your place in Laureles (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Adriana, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Laureles specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -131,11 +107,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1571096907513972420
 
 ```
-Hey Elizabeth, fellow host here. I just made a free neighborhood guide for your place in Laureles (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Elizabeth, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Laureles specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -146,11 +122,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1626384058700002495
 
 ```
-Hey David, fellow host here. I just made a free neighborhood guide for your place in Belén (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey David, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Belén specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -161,11 +137,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/50285960
 
 ```
-Hey Diego, fellow host here. I just made a free neighborhood guide for your place in El Poblado (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Diego, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For El Poblado specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -176,11 +152,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/51978429
 
 ```
-Hey Jalo, fellow host here. I just made a free neighborhood guide for your place in El Poblado (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Jalo, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For El Poblado specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -191,11 +167,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1604735883414056442
 
 ```
-Hey Distinto, fellow host here. I just made a free neighborhood guide for your place in Laureles (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Distinto, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Laureles specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -206,11 +182,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1625588766235608639
 
 ```
-Hey Jorge, fellow host here. I just made a free neighborhood guide for your place in Belén (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Jorge, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Belén specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -221,11 +197,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/26670864
 
 ```
-Hey Carlos, fellow host here. I just made a free neighborhood guide for your place in Laureles (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Carlos, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Laureles specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -236,11 +212,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1248737331740170771
 
 ```
-Hey Leidy, fellow host here. I just made a free neighborhood guide for your place in El Poblado (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Leidy, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For El Poblado specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -251,11 +227,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/588583401342581057
 
 ```
-Hey Charles, fellow host here. I just made a free neighborhood guide for your place in El Poblado (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Charles, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For El Poblado specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -266,11 +242,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1585769192805563694
 
 ```
-Hey Waloja, fellow host here. I just made a free neighborhood guide for your place in El Poblado (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Waloja, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For El Poblado specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -281,11 +257,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1613877472902139664
 
 ```
-Hey Camila, fellow host here. I just made a free neighborhood guide for your place in Laureles (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Camila, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Laureles specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -296,11 +272,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1655198047202729798
 
 ```
-Hey Tim, fellow host here. I just made a free neighborhood guide for your place in Laureles (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Tim, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Laureles specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -311,11 +287,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1234329449891515771
 
 ```
-Hey Juan, fellow host here. I just made a free neighborhood guide for your place in Sabaneta (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Juan, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Sabaneta specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -326,11 +302,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1253042557137295294
 
 ```
-Hey Juan, fellow host here. I just made a free neighborhood guide for your place in El Poblado (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Juan, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For El Poblado specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -341,11 +317,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1562595384487687412
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -356,11 +332,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/39911241
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -371,11 +347,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1505827483578830546
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -386,11 +362,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1047893134906821108
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -401,11 +377,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1616795558609348368
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -416,11 +392,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1649725720513182473
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -431,11 +407,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1561987281877876391
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -446,11 +422,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1478455440944777406
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -461,11 +437,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1005276344960630259
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -476,11 +452,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1536422116832953684
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -491,11 +467,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1250744346791027063
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -506,11 +482,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1063173929361877042
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -521,11 +497,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1541290915184575273
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -536,11 +512,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1605078443756781697
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -551,11 +527,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1633013797282206808
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -566,11 +542,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1624979221644023920
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -581,11 +557,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1064511970836198373
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -596,11 +572,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1194236913771254172
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -611,11 +587,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1427167882999052508
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -626,11 +602,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1611757427950437860
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -641,11 +617,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/980592378508448904
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -656,11 +632,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/50180126
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -671,11 +647,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1308240257526928817
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -686,11 +662,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1187771671621509040
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -701,11 +677,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1249293610870928136
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -716,11 +692,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1117393802707927046
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -731,11 +707,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1617374980683164034
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -746,11 +722,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1509689516190126852
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -761,11 +737,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1466090931411338381
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -776,11 +752,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1614025634870139349
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -791,11 +767,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1236344540558361060
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -806,11 +782,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1655322085019071847
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -821,11 +797,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1444232182205278716
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -836,11 +812,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1639430414352389086
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Medellín (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Medellín specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---

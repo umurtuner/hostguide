@@ -1,7 +1,7 @@
 listing_id,host_name,city,channel,status,contacted_at,guide_url,email,fb_profile,ig_handle,notes
-1223879329973806264,Vibra,medellin,contact_host,pending,,,,https://www.airbnb.com/users/show/144268544,,El Poblado
-1508952007924469704,Maria,medellin,contact_host,pending,,,,https://www.airbnb.com/users/show/717922679,,El Poblado
-1125618171502358691,Angela,medellin,contact_host,pending,,,,https://www.airbnb.com/users/show/482220131,,El Poblado
+1223879329973806264,Vibra,medellin,contact_host,queued_today,,,,https://www.airbnb.com/users/show/144268544,,El Poblado | queued 2026-04-27
+1508952007924469704,Maria,medellin,contact_host,queued_today,,,,https://www.airbnb.com/users/show/717922679,,El Poblado | queued 2026-04-27
+1125618171502358691,Angela,medellin,contact_host,queued_today,,,,https://www.airbnb.com/users/show/482220131,,El Poblado | queued 2026-04-27
 1638546690917871253,Camila,medellin,contact_host,pending,,,,https://www.airbnb.com/users/show/238275729,,El Poblado
 1628442384969861317,Valentina,medellin,contact_host,pending,,,,https://www.airbnb.com/users/show/525483251,,El Poblado
 946547864714412810,Adriana,medellin,contact_host,pending,,,,https://www.airbnb.com/users/show/528688298,,Laureles

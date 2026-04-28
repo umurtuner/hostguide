@@ -1,37 +1,13 @@
 # Contact Host outreach queue - Orlando
-Generated: 2026-04-12 15:36 · Template updated 2026-04-27 (post-Joao learnings)
-Total: 53 · Status: HOLD until Miami pilot converts (do not send before that)
+Generated: 2026-04-28 19:25
+Total: 53
 
 ## How to use
 1. Open each Airbnb profile URL below
 2. Click Contact Host on one of their listings
-3. **Use the V2 template block below, not the per-entry V1 blocks** — V1 was the Apr-12 copy that we now know underperforms (asks the prospect to send their URL before they see value)
-4. Substitute `[Name]` and `[Neighborhood]` for each entry
-5. Send. Cap: 5/day per account (was 20 — softer pace = less spam-flag risk)
-6. Mark sent in CRM: `python scripts/build_outreach_queue.py orlando --mark-sent <listing_id>`
-
-## V2 message template (use this — shorter, tighter hook, fellow-host first)
-
-```
-Hey [Name], fellow host here. I built HostGuide — generates a printable neighborhood welcome book per Airbnb listing in ~60s with real walking times to transit, top cafes, groceries.
-
-I'd love to make yours for the [Neighborhood] place as a free sample. Just reply with a thumbs-up and I'll send the PDF.
-
-Cheers, Umur · host-guide.net
-```
-
-## V2 follow-up (if no reply after 5 days, send once)
-
-```
-Hey [Name] — me again, won't bug you twice. If the welcome-book sample isn't your thing, no worries at all. If you'd like one, just reply "yes" and I'll send it tonight. Cheers, Umur
-```
-
-## V1 message blocks (DO NOT USE — kept for historical reference only)
-
-The per-entry V1 blocks below are 2x longer and ask the prospect to do work
-(reply with their URL) before they see the value. V2 inverts that: the offer
-is binary (thumbs-up = receive PDF), and the host's name + neighborhood are
-already substituted by us.
+3. Paste the message block as-is
+4. Send. Do no more than 20/day from one account.
+5. Mark sent in CRM: `python scripts/build_outreach_queue.py orlando --mark-sent <listing_id>`
 
 ---
 
@@ -41,11 +17,11 @@ already substituted by us.
 - Listing: https://www.airbnb.com/rooms/1156532842478226707
 
 ```
-Hey Yay, fellow host here. I just made a free neighborhood guide for your place in International Drive (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Yay, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For International Drive specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -56,11 +32,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1628408166014561104
 
 ```
-Hey Vitor, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Vitor, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -71,11 +47,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1644393760605075678
 
 ```
-Hey Sunset, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Sunset, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -86,11 +62,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1508025591272990112
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -101,11 +77,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1638500854640656071
 
 ```
-Hey Rennata, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Rennata, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -116,11 +92,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1640713047633771666
 
 ```
-Hey Vicenzo, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Vicenzo, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -131,11 +107,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1628063519526182359
 
 ```
-Hey Alex, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Alex, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -146,11 +122,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1640322407754756900
 
 ```
-Hey Diogo, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Diogo, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -161,11 +137,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1610329913067178409
 
 ```
-Hey Derek, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Derek, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -176,11 +152,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1645197609576999230
 
 ```
-Hey Andrea, fellow host here. I just made a free neighborhood guide for your place in International Drive (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Andrea, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For International Drive specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -191,11 +167,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1596484287819705942
 
 ```
-Hey Jeremy, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Jeremy, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -206,11 +182,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1632737945267871146
 
 ```
-Hey The, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey The, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -221,11 +197,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1630720729080500560
 
 ```
-Hey Best, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Best, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -236,11 +212,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1625108857417679663
 
 ```
-Hey Bruce, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Bruce, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -251,11 +227,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1471895842041595162
 
 ```
-Hey Luciano, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Luciano, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -266,11 +242,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1647902306086773235
 
 ```
-Hey Oscar, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Oscar, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -281,11 +257,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1634290463701094839
 
 ```
-Hey Peter, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Peter, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -296,11 +272,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1617455425427480245
 
 ```
-Hey Florida, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Florida, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -311,11 +287,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1632710833313724013
 
 ```
-Hey Vi, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey Vi, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -326,11 +302,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1642212117510881914
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -341,11 +317,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1640097873979308832
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -356,11 +332,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1626359115705366956
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -371,11 +347,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1644472975505789536
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -386,11 +362,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1623252315435838628
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -401,11 +377,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1624847961693541623
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -416,11 +392,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1490623307475897430
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -431,11 +407,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1614019210521007236
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -446,11 +422,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1624104144337020588
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -461,11 +437,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1592140588263996199
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -476,11 +452,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1513264690151960889
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -491,11 +467,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1635617487268543541
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -506,11 +482,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/773363542634538845
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -521,11 +497,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1577069344307470459
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -536,11 +512,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1613226519198093208
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -551,11 +527,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1617515207786126908
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -566,11 +542,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1632599057511671579
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -581,11 +557,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1642366705465118029
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -596,11 +572,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1577630996587616104
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -611,11 +587,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1635121641480302687
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -626,11 +602,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1608151914556430946
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -641,11 +617,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1589968337679413428
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -656,11 +632,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1617513964160883552
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -671,11 +647,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1633530022503672287
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -686,11 +662,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1592959402817609904
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -701,11 +677,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1445725898004536404
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -716,11 +692,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1382291804619923468
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -731,11 +707,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1452923468138606136
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -746,11 +722,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1560989841588431991
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -761,11 +737,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1578453773292175998
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -776,11 +752,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1639974196925689438
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -791,11 +767,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1645198433107399908
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -806,11 +782,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1362530749178230161
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---
@@ -821,11 +797,11 @@ If it's useful I'll send you a printable PDF version to drop in your welcome boo
 - Listing: https://www.airbnb.com/rooms/1651497610664885231
 
 ```
-Hey there, fellow host here. I just made a free neighborhood guide for your place in Orlando (walking directions to transit, top cafes, groceries, local tips). Totally free, no strings.
+Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-Take a look: https://www.host-guide.net
+For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
-If it's useful I'll send you a printable PDF version to drop in your welcome book. Cheers, Umur
+Cheers, Umur
 ```
 
 ---

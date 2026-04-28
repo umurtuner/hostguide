@@ -1,7 +1,7 @@
 listing_id,host_name,city,channel,status,contacted_at,guide_url,email,fb_profile,ig_handle,notes
-1521731927171903672,Niamh,dublin,contact_host,pending,,,,https://www.airbnb.com/users/show/134191974,,Dublin
-1132439200158885917,Joseph,dublin,contact_host,pending,,,,https://www.airbnb.com/users/show/149728620,,Dublin
-46256758,Zanzibar,dublin,contact_host,pending,,,,https://www.airbnb.com/users/show/371005518,,Dublin
+1521731927171903672,Niamh,dublin,contact_host,queued_today,,,,https://www.airbnb.com/users/show/134191974,,Dublin | queued 2026-04-27
+1132439200158885917,Joseph,dublin,contact_host,queued_today,,,,https://www.airbnb.com/users/show/149728620,,Dublin | queued 2026-04-27
+46256758,Zanzibar,dublin,contact_host,queued_today,,,,https://www.airbnb.com/users/show/371005518,,Dublin | queued 2026-04-27
 1183399579511492771,Aoife,dublin,contact_host,pending,,,,https://www.airbnb.com/users/show/13230123,,Dublin
 1202019078633043459,Lauren,dublin,contact_host,pending,,,,https://www.airbnb.com/users/show/419447437,,Dublin
 1369547930663364571,Karl,dublin,contact_host,pending,,,,https://www.airbnb.com/users/show/576349796,,Dublin

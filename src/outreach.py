@@ -31,9 +31,9 @@ def generate_contact_host(listing: Listing, guide_url: str = "") -> str:
     host = _first_name(listing.host_name) or "there"
     neighborhood = listing.neighborhood or listing.city
 
-    return f"""Hey {host}, fellow host here. I run HostGuide (host-guide dot net) - it generates a printable neighborhood welcome book for your listing in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place.
+    return f"""Hey {host}, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-I made one for your {neighborhood} listing as a sample - the first guide is on me. Just reply with your listing URL and I'll send the PDF for your welcome book.
+For {neighborhood} specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
 
 Cheers, Umur"""
 
@@ -52,9 +52,6 @@ def generate_dm(listing: Listing, guide: GuestGuide = None, guide_url: str = "",
 
 I came across your listing in {neighborhood} and it looks great. Quick note - I built a tool that generates personalized guest guides for Airbnb hosts. Instead of answering the same "where's the nearest grocery store?" message every week, hosts drop one branded PDF in their welcome book.
 
-I already made a sample guide for your listing (free):
-{cta_link}
-
 What's in it:
 - Walking directions to nearest metro/bus
 - Best cafes and restaurants within 10 min walk
@@ -64,7 +61,7 @@ What's in it:
 
 Your guests get a better first day, you get fewer repetitive messages, reviews go up.
 
-Pricing: {pricing} per listing (no subscription). Reply if you'd like a printable PDF version.
+Pricing: {pricing} per listing (no subscription). Site: {cta_link}
 
 Best,
 Umur
@@ -78,7 +75,7 @@ def generate_fb_post(city: str, sample_url: str = "", **_kwargs) -> str:
 
 So I built a little tool that generates a neighborhood guide specific to your apartment's exact location. It pulls nearby restaurants, transit, groceries, landmarks, and formats it into something you can actually send to guests.{link_line}
 
-Happy to make one for your listing for free - just drop your Airbnb link in a comment and I'll send it over. Takes about 60 seconds to generate.
+Site: https://www.host-guide.net - $1.99 to test on your listing, refund if it's not better than what you have now.
 
 Figured it might save some of you the same headache."""
 
@@ -89,37 +86,32 @@ def generate_instagram_dm(listing: Listing, guide_url: str = "") -> str:
     cta_link = guide_url or SITE
     return f"""Hi {host}! Love your place in {listing.city}.
 
-I make free neighborhood guides for Airbnb hosts - walking distances to restaurants, transit, groceries, tailored to the exact spot.
+I built a tool that auto-generates a printable welcome book for any Airbnb listing - walking distances to cafes, transit, groceries, all tailored to the exact spot.
 
-Made one for your listing: {cta_link}
+Site: {cta_link} - $1.99 to test on your listing.
 
-Let me know if you'd like a printable PDF."""
+Cheers, Umur"""
 
 
-def generate_email_template(listing: Listing, guide_url: str) -> dict:
+def generate_email_template(listing: Listing, _guide_url: str = "") -> dict:
     """Subject + body for email outreach (when we have the host's email)."""
     host = _first_name(listing.host_name) or "there"
     city = listing.city
     neighborhood = listing.neighborhood or city
 
     return {
-        "subject": f"Free guest guide for your {neighborhood} listing",
+        "subject": f"Printable neighborhood guide for your {neighborhood} listing",
         "body": f"""Hi {host},
 
 I noticed your Airbnb listing in {neighborhood}, {city}. Great place.
 
-I've made a personalized neighborhood guide specifically for your listing's exact location. It includes walking directions to the nearest transit, restaurants, groceries, landmarks, and local tips - everything a guest needs on Day 1.
+I built a tool that auto-generates a personalized printable neighborhood guide from any Airbnb URL. Walking directions to the nearest transit, top-rated cafes within 10 min, groceries, local tips, ride apps - everything a guest needs on Day 1.
 
-Preview: {guide_url}
+Site: {SITE} - $1.99 per listing, no subscription.
 
-This is free - I'm building a guest guide service for Airbnb hosts and would love your feedback.
-
-If you like it, I can send you a printable PDF you can drop in your welcome book. Your guests get a better first day, you get fewer repetitive messages.
-
-Let me know what you think.
+If you'd like to see what one looks like for {neighborhood} specifically, reply and I'll send a preview. Your guests get a better first day, you get fewer repetitive messages.
 
 Best,
 Umur
-HostGuide
-{SITE}""",
+HostGuide""",
     }

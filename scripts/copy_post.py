@@ -49,23 +49,21 @@ Launching on PH May 1 - coming-soon: {PH_URL}. Would love feedback from anyone w
     },
 
     "reddit": {
-        "title": "I built a free tool that generates printable neighborhood welcome books for Airbnb hosts (launched today on PH)",
+        "title": "I built a tool that generates printable neighborhood welcome books for Airbnb hosts (launched today on PH)",
         "where": "r/airbnb_hosts: https://www.reddit.com/r/airbnb_hosts/submit (post May 1 ~13:00 Geneva)",
         "body": f"""Long-time host here (Geneva). I got tired of answering "where's the grocery store?" 5x/week and rebuilt my welcome book as a tool you can use too: paste your Airbnb URL -> get a printable PDF with walking times to transit, top cafes, local ride apps, tipping norms.
 
-Live at {SITE.replace('https://', '').replace('www.', '')}. First guide is on the house if you've never tried it.
+Live at {SITE.replace('https://', '').replace('www.', '')} - $1.99 per listing, no subscription.
 
-Mod-friendly note: I'm not selling here - happy to give /r/airbnb_hosts a free guide for any listing in the comments. Drop your URL.
-
-Also on Product Hunt today if anyone's there: {PH_URL}""",
+Also on Product Hunt today if anyone's there: {PH_URL} (first 50 launch-day commenters get a free credit code)""",
     },
 
     "airbnb_community": {
         "title": "(reply to existing threads, no new title)",
         "where": "Existing 2 Airbnb Community threads (post Apr 30 evening evening or May 1 morning)",
-        "body": f"""Update for anyone following this thread: we're launching on Product Hunt tomorrow (Tuesday). If you want to test a guide for your listing before the launch and give feedback, drop your Airbnb URL in a reply and I'll generate one and send it back in this thread. Totally free, no strings.
+        "body": f"""Update for anyone following this thread: we're launching on Product Hunt this Friday May 1. Site is live at {SITE.replace('https://', '').replace('www.', '')} if you want to test - $1.99 per listing, no subscription.
 
-PH page: {PH_URL}""",
+PH page: {PH_URL} (first 50 launch-day commenters get a free credit code)""",
     },
 
     "hn": {
@@ -75,8 +73,7 @@ PH page: {PH_URL}""",
 
 Paste an Airbnb URL -> site scrapes the listing's lat/lng/host/title via HTTP-only meta tags (no Playwright on the hot path), enriches with OSM Overpass + Google Places (just the rating field for cost), feeds it to Claude with strict no-cliche rules, renders as HTML -> PDF via WeasyPrint. Total time per guide: ~60 seconds.
 
-Live: {SITE}
-First guide on the house.
+Live: {SITE} - $1.99 per listing, no subscription.
 
 The interesting engineering problem turned out to be data quality across 200 countries: OSM tags transit differently in every city (Lisbon Metro is railway=subway_entrance, NYC subway is railway=station, London Underground is station=subway), and US suburbs need 5km radii while EU walkable cities need 1.5km. The whole pipeline has a quality gate that flags guides with <8 POIs.
 

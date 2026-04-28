@@ -1,6 +1,6 @@
 listing_id,host_name,city,channel,status,contacted_at,guide_url,email,fb_profile,ig_handle,notes
-1606556798344112679,Mitch,destin,contact_host,pending,,,,https://www.airbnb.com/users/show/563244438,,Henderson Park
-1637166653644528251,Stanton,destin,contact_host,pending,,,,https://www.airbnb.com/users/show/12063204,,Miramar Beach
+1606556798344112679,Mitch,destin,contact_host,queued_today,,,,https://www.airbnb.com/users/show/563244438,,Henderson Park | queued 2026-04-27
+1637166653644528251,Stanton,destin,contact_host,queued_today,,,,https://www.airbnb.com/users/show/12063204,,Miramar Beach | queued 2026-04-27
 1430497668346633755,Beach,destin,contact_host,pending,,,,https://www.airbnb.com/users/show/54745572,,Destin
 1637261367469584690,Clint,destin,contact_host,pending,,,,https://www.airbnb.com/users/show/191709541,,Destin
 43715142,Courtney,destin,contact_host,pending,,,,https://www.airbnb.com/users/show/347258926,,Destin

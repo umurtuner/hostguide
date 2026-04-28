@@ -1,6 +1,6 @@
 listing_id,host_name,city,channel,status,contacted_at,guide_url,email,fb_profile,ig_handle,notes
-1360899245027915426,Alex,tampa,contact_host,pending,,,,https://www.airbnb.com/users/show/53371722,,Seminole Heights
-1476909671555981555,Lindsay,tampa,contact_host,pending,,,,https://www.airbnb.com/users/show/544260491,,Tampa
+1360899245027915426,Alex,tampa,contact_host,queued_today,,,,https://www.airbnb.com/users/show/53371722,,Seminole Heights | queued 2026-04-27
+1476909671555981555,Lindsay,tampa,contact_host,queued_today,,,,https://www.airbnb.com/users/show/544260491,,Tampa | queued 2026-04-27
 985266834581697552,Lindsey,tampa,contact_host,pending,,,,https://www.airbnb.com/users/show/20662345,,Downtown Tampa
 1562545254539423534,Monica,tampa,contact_host,pending,,,,https://www.airbnb.com/users/show/731043515,,Tampa
 1508114073638070383,Kasa,tampa,contact_host,pending,,,,https://www.airbnb.com/users/show/714239569,,Channelside
