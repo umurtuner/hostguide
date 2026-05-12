@@ -1,6 +1,6 @@
 # Contact Host outreach queue - Miami
-Generated: 2026-04-28 19:25
-Total: 18
+Generated: 2026-05-12 22:58
+Total: 13
 
 ## How to use
 1. Open each Airbnb profile URL below
@@ -11,82 +11,7 @@ Total: 18
 
 ---
 
-## 1. Domus - Brickell
-- listing_id: `1624363205028471293`
-- Profile: https://www.airbnb.com/users/show/570206607
-- Listing: https://www.airbnb.com/rooms/1624363205028471293
-
-```
-Hey Domus, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
-
-For Brickell specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
-
-Cheers, Umur
-```
-
----
-
-## 2. Nomada - Downtown
-- listing_id: `1632798515044844835`
-- Profile: https://www.airbnb.com/users/show/280689633
-- Listing: https://www.airbnb.com/rooms/1632798515044844835
-
-```
-Hey Nomada, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
-
-For Downtown specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
-
-Cheers, Umur
-```
-
----
-
-## 3. Lua - Downtown
-- listing_id: `1640699975372353200`
-- Profile: https://www.airbnb.com/users/show/464171047
-- Listing: https://www.airbnb.com/rooms/1640699975372353200
-
-```
-Hey Lua, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
-
-For Downtown specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
-
-Cheers, Umur
-```
-
----
-
-## 4. Host - Downtown
-- listing_id: `1612517976859054706`
-- Profile: https://www.airbnb.com/users/show/511083472
-- Listing: https://www.airbnb.com/rooms/1612517976859054706
-
-```
-Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
-
-For Downtown specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
-
-Cheers, Umur
-```
-
----
-
-## 5. Alfredo - Brickell
-- listing_id: `769100686736177149`
-- Profile: https://www.airbnb.com/users/show/452608490
-- Listing: https://www.airbnb.com/rooms/769100686736177149
-
-```
-Hey Alfredo, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
-
-For Brickell specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
-
-Cheers, Umur
-```
-
----
-
-## 6. Juanita - Downtown
+## 1. Juanita - Downtown
 - listing_id: `1613112196446203599`
 - Profile: https://www.airbnb.com/users/show/744151231
 - Listing: https://www.airbnb.com/rooms/1613112196446203599
@@ -94,14 +19,14 @@ Cheers, Umur
 ```
 Hey Juanita, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Downtown specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Downtown specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 7. Nebojsa - Miami
+## 2. Nebojsa - Miami
 - listing_id: `1602931653649601880`
 - Profile: https://www.airbnb.com/users/show/1434754
 - Listing: https://www.airbnb.com/rooms/1602931653649601880
@@ -109,14 +34,14 @@ Cheers, Umur
 ```
 Hey Nebojsa, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Miami specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Miami specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 8. Allan - Miami
+## 3. Allan - Miami
 - listing_id: `1648259625375753169`
 - Profile: https://www.airbnb.com/users/show/87117026
 - Listing: https://www.airbnb.com/rooms/1648259625375753169
@@ -124,14 +49,14 @@ Cheers, Umur
 ```
 Hey Allan, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Miami specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Miami specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 9. Kevin - Downtown
+## 4. Kevin - Downtown
 - listing_id: `1608193290112444326`
 - Profile: https://www.airbnb.com/users/show/742874063
 - Listing: https://www.airbnb.com/rooms/1608193290112444326
@@ -139,14 +64,14 @@ Cheers, Umur
 ```
 Hey Kevin, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Downtown specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Downtown specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 10. Mayle - Coconut Grove
+## 5. Mayle - Coconut Grove
 - listing_id: `1642916596399602003`
 - Profile: https://www.airbnb.com/users/show/451953363
 - Listing: https://www.airbnb.com/rooms/1642916596399602003
@@ -154,14 +79,14 @@ Cheers, Umur
 ```
 Hey Mayle, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Coconut Grove specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Coconut Grove specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 11. Miami - Downtown
+## 6. Miami - Downtown
 - listing_id: `1486407707332155573`
 - Profile: https://www.airbnb.com/users/show/9077680
 - Listing: https://www.airbnb.com/rooms/1486407707332155573
@@ -169,14 +94,14 @@ Cheers, Umur
 ```
 Hey Miami, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Downtown specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Downtown specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 12. Ang - Downtown
+## 7. Ang - Downtown
 - listing_id: `1559760560606182967`
 - Profile: https://www.airbnb.com/users/show/45102460
 - Listing: https://www.airbnb.com/rooms/1559760560606182967
@@ -184,14 +109,14 @@ Cheers, Umur
 ```
 Hey Ang, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Downtown specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Downtown specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 13. Romy - Miami
+## 8. Romy - Miami
 - listing_id: `1281860748559006240`
 - Profile: https://www.airbnb.com/users/show/76641392
 - Listing: https://www.airbnb.com/rooms/1281860748559006240
@@ -199,14 +124,14 @@ Cheers, Umur
 ```
 Hey Romy, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Miami specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Miami specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 14. Juan - Design District
+## 9. Juan - Design District
 - listing_id: `1653104485863072492`
 - Profile: https://www.airbnb.com/users/show/3273572
 - Listing: https://www.airbnb.com/rooms/1653104485863072492
@@ -214,14 +139,14 @@ Cheers, Umur
 ```
 Hey Juan, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Design District specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Design District specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 15. Nicole - Downtown
+## 10. Nicole - Downtown
 - listing_id: `1648180257035805046`
 - Profile: https://www.airbnb.com/users/show/753129560
 - Listing: https://www.airbnb.com/rooms/1648180257035805046
@@ -229,14 +154,14 @@ Cheers, Umur
 ```
 Hey Nicole, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Downtown specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Downtown specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 16. Luis - Coral Gables
+## 11. Luis - Coral Gables
 - listing_id: `39393599`
 - Profile: https://www.airbnb.com/users/show/10451232
 - Listing: https://www.airbnb.com/rooms/39393599
@@ -244,14 +169,14 @@ Cheers, Umur
 ```
 Hey Luis, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Coral Gables specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Coral Gables specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 17. Caroline - Little Havana
+## 12. Caroline - Little Havana
 - listing_id: `1628545688858731922`
 - Profile: https://www.airbnb.com/users/show/36635075
 - Listing: https://www.airbnb.com/rooms/1628545688858731922
@@ -259,14 +184,14 @@ Cheers, Umur
 ```
 Hey Caroline, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Little Havana specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Little Havana specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 18. Esteban - Miami
+## 13. Esteban - Miami
 - listing_id: `1632947524812331780`
 - Profile: https://www.airbnb.com/users/show/368978773
 - Listing: https://www.airbnb.com/rooms/1632947524812331780
@@ -274,7 +199,7 @@ Cheers, Umur
 ```
 Hey Esteban, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Miami specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Miami specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```

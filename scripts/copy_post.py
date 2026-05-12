@@ -53,7 +53,7 @@ Launching on PH May 1 - coming-soon: {PH_URL}. Would love feedback from anyone w
         "where": "r/airbnb_hosts: https://www.reddit.com/r/airbnb_hosts/submit (post May 1 ~13:00 Geneva)",
         "body": f"""Long-time host here (Geneva). I got tired of answering "where's the grocery store?" 5x/week and rebuilt my welcome book as a tool you can use too: paste your Airbnb URL -> get a printable PDF with walking times to transit, top cafes, local ride apps, tipping norms.
 
-Live at {SITE.replace('https://', '').replace('www.', '')} - $1.99 per listing, no subscription.
+Live at {SITE.replace('https://', '').replace('www.', '')} - $14.99 per listing or $49 for 10, no subscription.
 
 Also on Product Hunt today if anyone's there: {PH_URL} (first 50 launch-day commenters get a free credit code)""",
     },
@@ -61,7 +61,7 @@ Also on Product Hunt today if anyone's there: {PH_URL} (first 50 launch-day comm
     "airbnb_community": {
         "title": "(reply to existing threads, no new title)",
         "where": "Existing 2 Airbnb Community threads (post Apr 30 evening evening or May 1 morning)",
-        "body": f"""Update for anyone following this thread: we're launching on Product Hunt this Friday May 1. Site is live at {SITE.replace('https://', '').replace('www.', '')} if you want to test - $1.99 per listing, no subscription.
+        "body": f"""Update for anyone following this thread: we're launching on Product Hunt this Friday May 1. Site is live at {SITE.replace('https://', '').replace('www.', '')} if you want to test - $14.99 per listing or $49 for 10, no subscription.
 
 PH page: {PH_URL} (first 50 launch-day commenters get a free credit code)""",
     },
@@ -73,7 +73,7 @@ PH page: {PH_URL} (first 50 launch-day commenters get a free credit code)""",
 
 Paste an Airbnb URL -> site scrapes the listing's lat/lng/host/title via HTTP-only meta tags (no Playwright on the hot path), enriches with OSM Overpass + Google Places (just the rating field for cost), feeds it to Claude with strict no-cliche rules, renders as HTML -> PDF via WeasyPrint. Total time per guide: ~60 seconds.
 
-Live: {SITE} - $1.99 per listing, no subscription.
+Live: {SITE} - $14.99 per listing or $49 for 10, no subscription.
 
 The interesting engineering problem turned out to be data quality across 200 countries: OSM tags transit differently in every city (Lisbon Metro is railway=subway_entrance, NYC subway is railway=station, London Underground is station=subway), and US suburbs need 5km radii while EU walkable cities need 1.5km. The whole pipeline has a quality gate that flags guides with <8 POIs.
 
@@ -89,7 +89,7 @@ I started hosting on Airbnb a few years ago and quickly noticed the same pattern
 
 So I built HostGuide. You paste your Airbnb URL, it pulls your exact location, runs it through Google Places and our ranking model, and produces a printable PDF in 60 seconds. Walking times to transit and groceries, top-rated restaurants within 10 minutes, local tipping and taxi norms, emergency numbers, and a QR code guests can scan to pull the digital version on their phone.
 
-It works in every country I've tested so far (30+ and counting) and covers city-specific stuff like ride apps (Bolt in Portugal, Grab in SEA, Careem in Dubai, etc.). One-time $4.99 per guide, or $14.99 for a 5-pack. No subscription. No AI-slop filler paragraphs. Just a useful PDF.
+It works in every country I've tested so far (30+ and counting) and covers city-specific stuff like ride apps (Bolt in Portugal, Grab in SEA, Careem in Dubai, etc.). $14.99 per listing, $49 for 10 listings, or $149 for 50 (property managers). No subscription. No AI-slop filler paragraphs. Just a useful PDF.
 
 I'd love feedback from hosts and travelers here, especially on:
 1. What's missing from your own welcome book today?

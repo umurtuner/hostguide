@@ -77,7 +77,7 @@ Character count: 258.
 >
 > It works in every country I've tested so far (30+ and counting) and covers
 > city-specific stuff like ride apps (Bolt in Portugal, Grab in SEA, Careem in
-> Dubai, etc.). One-time $4.99 per guide, or $14.99 for a 5-pack. No
+> Dubai, etc.). $14.99 per listing, $49 for 10 listings, or $149 for 50 (property managers). No
 > subscription. No AI-slop filler paragraphs. Just a useful PDF.
 >
 > I'd love feedback from hosts and travelers here, especially on:
@@ -176,7 +176,7 @@ Regenerate all assets at once: `python scripts/generate_ph_assets.py`
 > All in a branded PDF you drop in your welcome book.
 
 **Tweet 4**
-> Pricing: $4.99 one-time, or $14.99 for a 5-pack. No subscription.
+> Pricing: $14.99 per listing, $49 for 10, or $149 for 50 (property managers). No subscription.
 >
 > Works in 30+ countries so far. If you host anywhere in the world, I'd love to test yours live - drop your listing URL below.
 

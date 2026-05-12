@@ -67,7 +67,7 @@ So I made one that's personalized to each listing's exact lat/lng.""",
 
 All in a branded PDF you drop in your welcome book.""",
 
-    "thread4": f"""Pricing: $4.99 one-time, or $14.99 for a 5-pack. No subscription.
+    "thread4": f"""Pricing: $14.99 per listing, $49 for 10, or $149 for 50 (property managers). No subscription.
 
 Works in 30+ countries so far. If you host anywhere in the world, drop your listing URL below and I'll test yours live.""",
 

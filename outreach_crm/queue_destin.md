@@ -1,6 +1,6 @@
 # Contact Host outreach queue - Destin
-Generated: 2026-04-28 19:25
-Total: 54
+Generated: 2026-05-12 22:58
+Total: 52
 
 ## How to use
 1. Open each Airbnb profile URL below
@@ -11,37 +11,7 @@ Total: 54
 
 ---
 
-## 1. Mitch - Henderson Park
-- listing_id: `1606556798344112679`
-- Profile: https://www.airbnb.com/users/show/563244438
-- Listing: https://www.airbnb.com/rooms/1606556798344112679
-
-```
-Hey Mitch, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
-
-For Henderson Park specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
-
-Cheers, Umur
-```
-
----
-
-## 2. Stanton - Miramar Beach
-- listing_id: `1637166653644528251`
-- Profile: https://www.airbnb.com/users/show/12063204
-- Listing: https://www.airbnb.com/rooms/1637166653644528251
-
-```
-Hey Stanton, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
-
-For Miramar Beach specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
-
-Cheers, Umur
-```
-
----
-
-## 3. Beach - Destin
+## 1. Beach - Destin
 - listing_id: `1430497668346633755`
 - Profile: https://www.airbnb.com/users/show/54745572
 - Listing: https://www.airbnb.com/rooms/1430497668346633755
@@ -49,14 +19,14 @@ Cheers, Umur
 ```
 Hey Beach, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 4. Clint - Destin
+## 2. Clint - Destin
 - listing_id: `1637261367469584690`
 - Profile: https://www.airbnb.com/users/show/191709541
 - Listing: https://www.airbnb.com/rooms/1637261367469584690
@@ -64,14 +34,14 @@ Cheers, Umur
 ```
 Hey Clint, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 5. Courtney - Destin
+## 3. Courtney - Destin
 - listing_id: `43715142`
 - Profile: https://www.airbnb.com/users/show/347258926
 - Listing: https://www.airbnb.com/rooms/43715142
@@ -79,14 +49,14 @@ Cheers, Umur
 ```
 Hey Courtney, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 6. Epiqhost - Miramar Beach
+## 4. Epiqhost - Miramar Beach
 - listing_id: `1388482905748362408`
 - Profile: https://www.airbnb.com/users/show/423179913
 - Listing: https://www.airbnb.com/rooms/1388482905748362408
@@ -94,14 +64,14 @@ Cheers, Umur
 ```
 Hey Epiqhost, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Miramar Beach specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Miramar Beach specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 7. Sasha - Destin
+## 5. Sasha - Destin
 - listing_id: `681204986872468701`
 - Profile: https://www.airbnb.com/users/show/136445134
 - Listing: https://www.airbnb.com/rooms/681204986872468701
@@ -109,14 +79,14 @@ Cheers, Umur
 ```
 Hey Sasha, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 8. Avari - Destin
+## 6. Avari - Destin
 - listing_id: `1619980757637285755`
 - Profile: https://www.airbnb.com/users/show/76189039
 - Listing: https://www.airbnb.com/rooms/1619980757637285755
@@ -124,14 +94,14 @@ Cheers, Umur
 ```
 Hey Avari, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 9. Karen - Miramar Beach
+## 7. Karen - Miramar Beach
 - listing_id: `1497182019461147856`
 - Profile: https://www.airbnb.com/users/show/55117988
 - Listing: https://www.airbnb.com/rooms/1497182019461147856
@@ -139,14 +109,14 @@ Cheers, Umur
 ```
 Hey Karen, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Miramar Beach specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Miramar Beach specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 10. Erika - Miramar Beach
+## 8. Erika - Miramar Beach
 - listing_id: `1531512093321838525`
 - Profile: https://www.airbnb.com/users/show/385902568
 - Listing: https://www.airbnb.com/rooms/1531512093321838525
@@ -154,14 +124,14 @@ Cheers, Umur
 ```
 Hey Erika, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Miramar Beach specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Miramar Beach specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 11. Laura - Destin
+## 9. Laura - Destin
 - listing_id: `1287780548562393468`
 - Profile: https://www.airbnb.com/users/show/12795657
 - Listing: https://www.airbnb.com/rooms/1287780548562393468
@@ -169,14 +139,14 @@ Cheers, Umur
 ```
 Hey Laura, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 12. James - Destin
+## 10. James - Destin
 - listing_id: `1190068711323935535`
 - Profile: https://www.airbnb.com/users/show/48607313
 - Listing: https://www.airbnb.com/rooms/1190068711323935535
@@ -184,14 +154,14 @@ Cheers, Umur
 ```
 Hey James, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 13. Kristeen - Crystal Beach
+## 11. Kristeen - Crystal Beach
 - listing_id: `1639458788428479835`
 - Profile: https://www.airbnb.com/users/show/750931349
 - Listing: https://www.airbnb.com/rooms/1639458788428479835
@@ -199,14 +169,14 @@ Cheers, Umur
 ```
 Hey Kristeen, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Crystal Beach specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Crystal Beach specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 14. Host - Miramar Beach
+## 12. Host - Miramar Beach
 - listing_id: `52403103`
 - Profile: https://www.airbnb.com/users/show/42626951
 - Listing: https://www.airbnb.com/rooms/52403103
@@ -214,14 +184,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Miramar Beach specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Miramar Beach specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 15. Aaron - Henderson Park
+## 13. Aaron - Henderson Park
 - listing_id: `1644309171599181566`
 - Profile: https://www.airbnb.com/users/show/363510961
 - Listing: https://www.airbnb.com/rooms/1644309171599181566
@@ -229,14 +199,14 @@ Cheers, Umur
 ```
 Hey Aaron, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Henderson Park specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Henderson Park specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 16. Barb - Holiday Isle
+## 14. Barb - Holiday Isle
 - listing_id: `1620332406729742352`
 - Profile: https://www.airbnb.com/users/show/378373308
 - Listing: https://www.airbnb.com/rooms/1620332406729742352
@@ -244,14 +214,14 @@ Cheers, Umur
 ```
 Hey Barb, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Holiday Isle specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Holiday Isle specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 17. Nichole - Holiday Isle
+## 15. Nichole - Holiday Isle
 - listing_id: `52353018`
 - Profile: https://www.airbnb.com/users/show/175913139
 - Listing: https://www.airbnb.com/rooms/52353018
@@ -259,14 +229,14 @@ Cheers, Umur
 ```
 Hey Nichole, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Holiday Isle specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Holiday Isle specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 18. Tyler - Henderson Park
+## 16. Tyler - Henderson Park
 - listing_id: `1497228082008433055`
 - Profile: https://www.airbnb.com/users/show/207103402
 - Listing: https://www.airbnb.com/rooms/1497228082008433055
@@ -274,14 +244,14 @@ Cheers, Umur
 ```
 Hey Tyler, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Henderson Park specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Henderson Park specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 19. Christina - Destin
+## 17. Christina - Destin
 - listing_id: `1632661131625119548`
 - Profile: https://www.airbnb.com/users/show/377359633
 - Listing: https://www.airbnb.com/rooms/1632661131625119548
@@ -289,14 +259,14 @@ Cheers, Umur
 ```
 Hey Christina, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 20. Beth - Henderson Park
+## 18. Beth - Henderson Park
 - listing_id: `18811513`
 - Profile: https://www.airbnb.com/users/show/53877430
 - Listing: https://www.airbnb.com/rooms/18811513
@@ -304,14 +274,14 @@ Cheers, Umur
 ```
 Hey Beth, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Henderson Park specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Henderson Park specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 21. Host - Destin
+## 19. Host - Destin
 - listing_id: `1581284053224518183`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1581284053224518183
@@ -319,14 +289,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 22. Host - Destin
+## 20. Host - Destin
 - listing_id: `1637166550669875263`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1637166550669875263
@@ -334,14 +304,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 23. Host - Destin
+## 21. Host - Destin
 - listing_id: `1014547044009941783`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1014547044009941783
@@ -349,14 +319,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 24. Host - Destin
+## 22. Host - Destin
 - listing_id: `1643085159133355248`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1643085159133355248
@@ -364,14 +334,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 25. Host - Destin
+## 23. Host - Destin
 - listing_id: `1372530839035711322`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1372530839035711322
@@ -379,14 +349,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 26. Host - Destin
+## 24. Host - Destin
 - listing_id: `1401076468754014650`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1401076468754014650
@@ -394,14 +364,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 27. Host - Destin
+## 25. Host - Destin
 - listing_id: `1111698610948998542`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1111698610948998542
@@ -409,14 +379,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 28. Host - Destin
+## 26. Host - Destin
 - listing_id: `1602143150333001235`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1602143150333001235
@@ -424,14 +394,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 29. Host - Destin
+## 27. Host - Destin
 - listing_id: `1545986087785367111`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1545986087785367111
@@ -439,14 +409,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 30. Host - Destin
+## 28. Host - Destin
 - listing_id: `613955287439244291`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/613955287439244291
@@ -454,14 +424,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 31. Host - Destin
+## 29. Host - Destin
 - listing_id: `861642926407589073`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/861642926407589073
@@ -469,14 +439,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 32. Host - Destin
+## 30. Host - Destin
 - listing_id: `1603932074127599906`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1603932074127599906
@@ -484,14 +454,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 33. Host - Destin
+## 31. Host - Destin
 - listing_id: `828124066002823677`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/828124066002823677
@@ -499,14 +469,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 34. Host - Destin
+## 32. Host - Destin
 - listing_id: `1426109276526326558`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1426109276526326558
@@ -514,14 +484,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 35. Host - Destin
+## 33. Host - Destin
 - listing_id: `1035541017451166774`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1035541017451166774
@@ -529,14 +499,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 36. Host - Destin
+## 34. Host - Destin
 - listing_id: `1594373020330766042`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1594373020330766042
@@ -544,14 +514,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 37. Host - Destin
+## 35. Host - Destin
 - listing_id: `1487987401313985587`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1487987401313985587
@@ -559,14 +529,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 38. Host - Destin
+## 36. Host - Destin
 - listing_id: `1650302493136158682`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1650302493136158682
@@ -574,14 +544,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 39. Host - Destin
+## 37. Host - Destin
 - listing_id: `1467401078309468328`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1467401078309468328
@@ -589,14 +559,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 40. Host - Destin
+## 38. Host - Destin
 - listing_id: `1574001120104278015`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1574001120104278015
@@ -604,14 +574,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 41. Host - Destin
+## 39. Host - Destin
 - listing_id: `1148870099238842834`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1148870099238842834
@@ -619,14 +589,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 42. Host - Destin
+## 40. Host - Destin
 - listing_id: `1407286305497325036`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1407286305497325036
@@ -634,14 +604,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 43. Host - Destin
+## 41. Host - Destin
 - listing_id: `1643564670477137687`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1643564670477137687
@@ -649,14 +619,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 44. Host - Destin
+## 42. Host - Destin
 - listing_id: `1542824334805605813`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1542824334805605813
@@ -664,14 +634,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 45. Host - Destin
+## 43. Host - Destin
 - listing_id: `556363631911063735`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/556363631911063735
@@ -679,14 +649,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 46. Host - Destin
+## 44. Host - Destin
 - listing_id: `645727713232583999`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/645727713232583999
@@ -694,14 +664,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 47. Host - Destin
+## 45. Host - Destin
 - listing_id: `1564496704624341913`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1564496704624341913
@@ -709,14 +679,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 48. Host - Destin
+## 46. Host - Destin
 - listing_id: `957603238543038261`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/957603238543038261
@@ -724,14 +694,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 49. Host - Destin
+## 47. Host - Destin
 - listing_id: `1396531124495998044`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1396531124495998044
@@ -739,14 +709,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 50. Host - Destin
+## 48. Host - Destin
 - listing_id: `1619746720320449141`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1619746720320449141
@@ -754,14 +724,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 51. Host - Destin
+## 49. Host - Destin
 - listing_id: `1543813026916422644`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1543813026916422644
@@ -769,14 +739,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 52. Host - Destin
+## 50. Host - Destin
 - listing_id: `1641305744869342332`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1641305744869342332
@@ -784,14 +754,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 53. Host - Destin
+## 51. Host - Destin
 - listing_id: `1152394460561503831`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1152394460561503831
@@ -799,14 +769,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 54. Host - Destin
+## 52. Host - Destin
 - listing_id: `1475683863299565638`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1475683863299565638
@@ -814,7 +784,7 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Destin specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Destin specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```

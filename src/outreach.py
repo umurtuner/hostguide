@@ -33,13 +33,13 @@ def generate_contact_host(listing: Listing, guide_url: str = "") -> str:
 
     return f"""Hey {host}, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For {neighborhood} specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For {neighborhood} specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur"""
 
 
 def generate_dm(listing: Listing, guide: GuestGuide = None, guide_url: str = "",
-                pricing: str = "$4.99 one-time") -> str:
+                pricing: str = "$14.99 one-time per listing, $49 for 10 listings") -> str:
     """Longer DM for FB/IG or email, with pricing mention.
 
     guide is optional and unused in the copy; kept for backwards compatibility.
@@ -75,7 +75,7 @@ def generate_fb_post(city: str, sample_url: str = "", **_kwargs) -> str:
 
 So I built a little tool that generates a neighborhood guide specific to your apartment's exact location. It pulls nearby restaurants, transit, groceries, landmarks, and formats it into something you can actually send to guests.{link_line}
 
-Site: https://www.host-guide.net - $1.99 to test on your listing, refund if it's not better than what you have now.
+Site: https://www.host-guide.net - $14.99 per listing or $49 for 10 listings, refund if it's not better than what you have now.
 
 Figured it might save some of you the same headache."""
 
@@ -88,7 +88,7 @@ def generate_instagram_dm(listing: Listing, guide_url: str = "") -> str:
 
 I built a tool that auto-generates a printable welcome book for any Airbnb listing - walking distances to cafes, transit, groceries, all tailored to the exact spot.
 
-Site: {cta_link} - $1.99 to test on your listing.
+Site: {cta_link} - $14.99 per listing or $49 for 10.
 
 Cheers, Umur"""
 
@@ -107,7 +107,7 @@ I noticed your Airbnb listing in {neighborhood}, {city}. Great place.
 
 I built a tool that auto-generates a personalized printable neighborhood guide from any Airbnb URL. Walking directions to the nearest transit, top-rated cafes within 10 min, groceries, local tips, ride apps - everything a guest needs on Day 1.
 
-Site: {SITE} - $1.99 per listing, no subscription.
+Site: {SITE} - $14.99 per listing or $49 for 10, no subscription.
 
 If you'd like to see what one looks like for {neighborhood} specifically, reply and I'll send a preview. Your guests get a better first day, you get fewer repetitive messages.
 

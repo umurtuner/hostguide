@@ -1,6 +1,6 @@
 # Contact Host outreach queue - Orlando
-Generated: 2026-04-28 19:25
-Total: 53
+Generated: 2026-05-12 22:58
+Total: 52
 
 ## How to use
 1. Open each Airbnb profile URL below
@@ -11,22 +11,7 @@ Total: 53
 
 ---
 
-## 1. Yay - International Drive
-- listing_id: `1156532842478226707`
-- Profile: https://www.airbnb.com/users/show/577538385
-- Listing: https://www.airbnb.com/rooms/1156532842478226707
-
-```
-Hey Yay, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
-
-For International Drive specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
-
-Cheers, Umur
-```
-
----
-
-## 2. Vitor - Orlando
+## 1. Vitor - Orlando
 - listing_id: `1628408166014561104`
 - Profile: https://www.airbnb.com/users/show/59454746
 - Listing: https://www.airbnb.com/rooms/1628408166014561104
@@ -34,14 +19,14 @@ Cheers, Umur
 ```
 Hey Vitor, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 3. Sunset - Orlando
+## 2. Sunset - Orlando
 - listing_id: `1644393760605075678`
 - Profile: https://www.airbnb.com/users/show/750128242
 - Listing: https://www.airbnb.com/rooms/1644393760605075678
@@ -49,14 +34,14 @@ Cheers, Umur
 ```
 Hey Sunset, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 4. Host - Orlando
+## 3. Host - Orlando
 - listing_id: `1508025591272990112`
 - Profile: https://www.airbnb.com/users/show/93929916
 - Listing: https://www.airbnb.com/rooms/1508025591272990112
@@ -64,14 +49,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 5. Rennata - Orlando
+## 4. Rennata - Orlando
 - listing_id: `1638500854640656071`
 - Profile: https://www.airbnb.com/users/show/128847275
 - Listing: https://www.airbnb.com/rooms/1638500854640656071
@@ -79,14 +64,14 @@ Cheers, Umur
 ```
 Hey Rennata, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 6. Vicenzo - Orlando
+## 5. Vicenzo - Orlando
 - listing_id: `1640713047633771666`
 - Profile: https://www.airbnb.com/users/show/321852842
 - Listing: https://www.airbnb.com/rooms/1640713047633771666
@@ -94,14 +79,14 @@ Cheers, Umur
 ```
 Hey Vicenzo, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 7. Alex - Orlando
+## 6. Alex - Orlando
 - listing_id: `1628063519526182359`
 - Profile: https://www.airbnb.com/users/show/593619869
 - Listing: https://www.airbnb.com/rooms/1628063519526182359
@@ -109,14 +94,14 @@ Cheers, Umur
 ```
 Hey Alex, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 8. Diogo - Orlando
+## 7. Diogo - Orlando
 - listing_id: `1640322407754756900`
 - Profile: https://www.airbnb.com/users/show/439908260
 - Listing: https://www.airbnb.com/rooms/1640322407754756900
@@ -124,14 +109,14 @@ Cheers, Umur
 ```
 Hey Diogo, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 9. Derek - Orlando
+## 8. Derek - Orlando
 - listing_id: `1610329913067178409`
 - Profile: https://www.airbnb.com/users/show/1833851
 - Listing: https://www.airbnb.com/rooms/1610329913067178409
@@ -139,14 +124,14 @@ Cheers, Umur
 ```
 Hey Derek, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 10. Andrea - International Drive
+## 9. Andrea - International Drive
 - listing_id: `1645197609576999230`
 - Profile: https://www.airbnb.com/users/show/336849675
 - Listing: https://www.airbnb.com/rooms/1645197609576999230
@@ -154,14 +139,14 @@ Cheers, Umur
 ```
 Hey Andrea, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For International Drive specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For International Drive specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 11. Jeremy - Orlando
+## 10. Jeremy - Orlando
 - listing_id: `1596484287819705942`
 - Profile: https://www.airbnb.com/users/show/732654927
 - Listing: https://www.airbnb.com/rooms/1596484287819705942
@@ -169,14 +154,14 @@ Cheers, Umur
 ```
 Hey Jeremy, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 12. The - Orlando
+## 11. The - Orlando
 - listing_id: `1632737945267871146`
 - Profile: https://www.airbnb.com/users/show/516219439
 - Listing: https://www.airbnb.com/rooms/1632737945267871146
@@ -184,14 +169,14 @@ Cheers, Umur
 ```
 Hey The, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 13. Best - Orlando
+## 12. Best - Orlando
 - listing_id: `1630720729080500560`
 - Profile: https://www.airbnb.com/users/show/260447986
 - Listing: https://www.airbnb.com/rooms/1630720729080500560
@@ -199,14 +184,14 @@ Cheers, Umur
 ```
 Hey Best, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 14. Bruce - Orlando
+## 13. Bruce - Orlando
 - listing_id: `1625108857417679663`
 - Profile: https://www.airbnb.com/users/show/256279883
 - Listing: https://www.airbnb.com/rooms/1625108857417679663
@@ -214,14 +199,14 @@ Cheers, Umur
 ```
 Hey Bruce, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 15. Luciano - Orlando
+## 14. Luciano - Orlando
 - listing_id: `1471895842041595162`
 - Profile: https://www.airbnb.com/users/show/159752698
 - Listing: https://www.airbnb.com/rooms/1471895842041595162
@@ -229,14 +214,14 @@ Cheers, Umur
 ```
 Hey Luciano, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 16. Oscar - Orlando
+## 15. Oscar - Orlando
 - listing_id: `1647902306086773235`
 - Profile: https://www.airbnb.com/users/show/184683038
 - Listing: https://www.airbnb.com/rooms/1647902306086773235
@@ -244,14 +229,14 @@ Cheers, Umur
 ```
 Hey Oscar, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 17. Peter - Orlando
+## 16. Peter - Orlando
 - listing_id: `1634290463701094839`
 - Profile: https://www.airbnb.com/users/show/54439
 - Listing: https://www.airbnb.com/rooms/1634290463701094839
@@ -259,14 +244,14 @@ Cheers, Umur
 ```
 Hey Peter, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 18. Florida - Orlando
+## 17. Florida - Orlando
 - listing_id: `1617455425427480245`
 - Profile: https://www.airbnb.com/users/show/47645667
 - Listing: https://www.airbnb.com/rooms/1617455425427480245
@@ -274,14 +259,14 @@ Cheers, Umur
 ```
 Hey Florida, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 19. Vi - Orlando
+## 18. Vi - Orlando
 - listing_id: `1632710833313724013`
 - Profile: https://www.airbnb.com/users/show/112715245
 - Listing: https://www.airbnb.com/rooms/1632710833313724013
@@ -289,14 +274,14 @@ Cheers, Umur
 ```
 Hey Vi, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 20. Host - Orlando
+## 19. Host - Orlando
 - listing_id: `1642212117510881914`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1642212117510881914
@@ -304,14 +289,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 21. Host - Orlando
+## 20. Host - Orlando
 - listing_id: `1640097873979308832`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1640097873979308832
@@ -319,14 +304,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 22. Host - Orlando
+## 21. Host - Orlando
 - listing_id: `1626359115705366956`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1626359115705366956
@@ -334,14 +319,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 23. Host - Orlando
+## 22. Host - Orlando
 - listing_id: `1644472975505789536`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1644472975505789536
@@ -349,14 +334,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 24. Host - Orlando
+## 23. Host - Orlando
 - listing_id: `1623252315435838628`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1623252315435838628
@@ -364,14 +349,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 25. Host - Orlando
+## 24. Host - Orlando
 - listing_id: `1624847961693541623`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1624847961693541623
@@ -379,14 +364,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 26. Host - Orlando
+## 25. Host - Orlando
 - listing_id: `1490623307475897430`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1490623307475897430
@@ -394,14 +379,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 27. Host - Orlando
+## 26. Host - Orlando
 - listing_id: `1614019210521007236`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1614019210521007236
@@ -409,14 +394,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 28. Host - Orlando
+## 27. Host - Orlando
 - listing_id: `1624104144337020588`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1624104144337020588
@@ -424,14 +409,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 29. Host - Orlando
+## 28. Host - Orlando
 - listing_id: `1592140588263996199`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1592140588263996199
@@ -439,14 +424,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 30. Host - Orlando
+## 29. Host - Orlando
 - listing_id: `1513264690151960889`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1513264690151960889
@@ -454,14 +439,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 31. Host - Orlando
+## 30. Host - Orlando
 - listing_id: `1635617487268543541`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1635617487268543541
@@ -469,14 +454,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 32. Host - Orlando
+## 31. Host - Orlando
 - listing_id: `773363542634538845`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/773363542634538845
@@ -484,14 +469,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 33. Host - Orlando
+## 32. Host - Orlando
 - listing_id: `1577069344307470459`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1577069344307470459
@@ -499,14 +484,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 34. Host - Orlando
+## 33. Host - Orlando
 - listing_id: `1613226519198093208`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1613226519198093208
@@ -514,14 +499,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 35. Host - Orlando
+## 34. Host - Orlando
 - listing_id: `1617515207786126908`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1617515207786126908
@@ -529,14 +514,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 36. Host - Orlando
+## 35. Host - Orlando
 - listing_id: `1632599057511671579`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1632599057511671579
@@ -544,14 +529,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 37. Host - Orlando
+## 36. Host - Orlando
 - listing_id: `1642366705465118029`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1642366705465118029
@@ -559,14 +544,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 38. Host - Orlando
+## 37. Host - Orlando
 - listing_id: `1577630996587616104`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1577630996587616104
@@ -574,14 +559,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 39. Host - Orlando
+## 38. Host - Orlando
 - listing_id: `1635121641480302687`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1635121641480302687
@@ -589,14 +574,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 40. Host - Orlando
+## 39. Host - Orlando
 - listing_id: `1608151914556430946`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1608151914556430946
@@ -604,14 +589,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 41. Host - Orlando
+## 40. Host - Orlando
 - listing_id: `1589968337679413428`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1589968337679413428
@@ -619,14 +604,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 42. Host - Orlando
+## 41. Host - Orlando
 - listing_id: `1617513964160883552`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1617513964160883552
@@ -634,14 +619,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 43. Host - Orlando
+## 42. Host - Orlando
 - listing_id: `1633530022503672287`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1633530022503672287
@@ -649,14 +634,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 44. Host - Orlando
+## 43. Host - Orlando
 - listing_id: `1592959402817609904`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1592959402817609904
@@ -664,14 +649,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 45. Host - Orlando
+## 44. Host - Orlando
 - listing_id: `1445725898004536404`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1445725898004536404
@@ -679,14 +664,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 46. Host - Orlando
+## 45. Host - Orlando
 - listing_id: `1382291804619923468`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1382291804619923468
@@ -694,14 +679,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 47. Host - Orlando
+## 46. Host - Orlando
 - listing_id: `1452923468138606136`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1452923468138606136
@@ -709,14 +694,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 48. Host - Orlando
+## 47. Host - Orlando
 - listing_id: `1560989841588431991`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1560989841588431991
@@ -724,14 +709,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 49. Host - Orlando
+## 48. Host - Orlando
 - listing_id: `1578453773292175998`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1578453773292175998
@@ -739,14 +724,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 50. Host - Orlando
+## 49. Host - Orlando
 - listing_id: `1639974196925689438`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1639974196925689438
@@ -754,14 +739,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 51. Host - Orlando
+## 50. Host - Orlando
 - listing_id: `1645198433107399908`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1645198433107399908
@@ -769,14 +754,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 52. Host - Orlando
+## 51. Host - Orlando
 - listing_id: `1362530749178230161`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1362530749178230161
@@ -784,14 +769,14 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```
 
 ---
 
-## 53. Host - Orlando
+## 52. Host - Orlando
 - listing_id: `1651497610664885231`
 - Profile: (no profile URL)
 - Listing: https://www.airbnb.com/rooms/1651497610664885231
@@ -799,7 +784,7 @@ Cheers, Umur
 ```
 Hey there, fellow host here. I run HostGuide (host-guide dot net) - it auto-generates a printable neighborhood welcome book from any Airbnb URL in 60s. Walking times, top cafes, transit, groceries, local tips. I use it for my own place in Geneva.
 
-For Orlando specifically I think you'd find the cafe + transit picks useful. $1.99 to test on yours, refund if it's not better than what you have now.
+For Orlando specifically I think you'd find the cafe + transit picks useful. $14.99 to test on yours (or $49 for 10 listings if you manage a few), refund if it's not better than what you have now.
 
 Cheers, Umur
 ```

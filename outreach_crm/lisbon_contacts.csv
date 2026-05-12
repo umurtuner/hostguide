@@ -1,9 +1,9 @@
 listing_id,host_name,city,channel,status,contacted_at,guide_url,email,fb_profile,ig_handle,notes
-1573421331214642095,Host,lisbon,contact_host,queued_today,,,,https://www.airbnb.com/users/show/733460969,,Lisbon | queued 2026-04-27
-1638670687794051090,Ricardo,lisbon,contact_host,queued_today,,,,https://www.airbnb.com/users/show/660112444,,Lisbon | queued 2026-04-27
-1645637269072758098,Alexandra,lisbon,contact_host,queued_today,,,,https://www.airbnb.com/users/show/65122532,,Lisbon | queued 2026-04-27
-37698787,Tagus,lisbon,contact_host,queued_today,,,,https://www.airbnb.com/users/show/280571720,,Lisbon | queued 2026-04-27
-1004109635656602002,The,lisbon,contact_host,queued_today,,,,https://www.airbnb.com/users/show/36302573,,Lisbon | queued 2026-04-27
+1573421331214642095,Host,lisbon,contact_host,sent,2026-04-28T20:47:41.314860,,,https://www.airbnb.com/users/show/733460969,,Lisbon | queued 2026-04-27
+1638670687794051090,Ricardo,lisbon,contact_host,sent,2026-04-28T20:48:08.513446,,,https://www.airbnb.com/users/show/660112444,,Lisbon | queued 2026-04-27
+1645637269072758098,Alexandra,lisbon,contact_host,sent,2026-04-28T20:48:44.311557,,,https://www.airbnb.com/users/show/65122532,,Lisbon | queued 2026-04-27
+37698787,Tagus,lisbon,contact_host,sent,2026-04-28T20:49:12.212788,,,https://www.airbnb.com/users/show/280571720,,Lisbon | queued 2026-04-27
+1004109635656602002,The,lisbon,contact_host,sent,2026-04-28T20:49:52.498085,,,https://www.airbnb.com/users/show/36302573,,Lisbon | queued 2026-04-27
 1632820403416521795,Host,lisbon,contact_host,pending,,,,https://www.airbnb.com/users/show/747836850,,Lisbon
 1099447472367568976,Rita,lisbon,contact_host,pending,,,,https://www.airbnb.com/users/show/245741265,,Lisbon
 1399279792930752903,Rocio,lisbon,contact_host,pending,,,,https://www.airbnb.com/users/show/46943341,,Lisbon
@@ -51,3 +51,5 @@ listing_id,host_name,city,channel,status,contacted_at,guide_url,email,fb_profile
 42243564,Host,lisbon,contact_host,pending,,,,,,Lisbon
 1635529581223637735,Host,lisbon,contact_host,pending,,,,,,Lisbon
 1437548406103565211,Host,lisbon,contact_host,pending,,,,,,Lisbon
+1043288301605149316,The,lisbon,contact_host,pending,,,,https://www.airbnb.com/users/show/36302573,,Lisbon
+1637693712184006078,Alexandra,lisbon,contact_host,pending,,,,https://www.airbnb.com/users/show/65122532,,Lisbon

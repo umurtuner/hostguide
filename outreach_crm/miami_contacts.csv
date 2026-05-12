@@ -1,10 +1,10 @@
 listing_id,host_name,city,channel,status,contacted_at,guide_url,email,fb_profile,ig_handle,notes
 group_post,,miami,fb_group,join_requested,2026-04-06T23:24:51.241069,,,,,Group: https://www.facebook.com/groups/airbnbhostssfl/
-1624363205028471293,Domus,miami,contact_host,queued_today,,,,https://www.airbnb.com/users/show/570206607,,Brickell | queued 2026-04-27
-1632798515044844835,Nomada,miami,contact_host,queued_today,,,,https://www.airbnb.com/users/show/280689633,,Downtown | queued 2026-04-27
-1640699975372353200,Lua,miami,contact_host,queued_today,,,,https://www.airbnb.com/users/show/464171047,,Downtown | queued 2026-04-27
-1612517976859054706,Host,miami,contact_host,queued_today,,,,https://www.airbnb.com/users/show/511083472,,Downtown | queued 2026-04-27
-769100686736177149,Alfredo,miami,contact_host,queued_today,,,,https://www.airbnb.com/users/show/452608490,,Brickell | queued 2026-04-27
+1624363205028471293,Domus,miami,contact_host,sent,2026-04-28T20:57:11.706553,,,https://www.airbnb.com/users/show/570206607,,Brickell | queued 2026-04-27
+1632798515044844835,Nomada,miami,contact_host,sent,2026-04-28T20:57:34.758105,,,https://www.airbnb.com/users/show/280689633,,Downtown | queued 2026-04-27
+1640699975372353200,Lua,miami,contact_host,sent,2026-04-29T20:50:45.184970,,,https://www.airbnb.com/users/show/464171047,,Downtown | queued 2026-04-27
+1612517976859054706,Host,miami,contact_host,sent,2026-04-29T20:51:11.071168,,,https://www.airbnb.com/users/show/511083472,,Downtown | queued 2026-04-27
+769100686736177149,Alfredo,miami,contact_host,sent,2026-04-29T20:51:30.907369,,,https://www.airbnb.com/users/show/452608490,,Brickell | queued 2026-04-27
 1613112196446203599,Juanita,miami,contact_host,pending,,,,https://www.airbnb.com/users/show/744151231,,Downtown
 1602931653649601880,Nebojsa,miami,contact_host,pending,,,,https://www.airbnb.com/users/show/1434754,,Miami
 1648259625375753169,Allan,miami,contact_host,pending,,,,https://www.airbnb.com/users/show/87117026,,Miami

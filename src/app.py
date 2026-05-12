@@ -252,7 +252,7 @@ def _add_credits(email: str, amount: int, tier: str = "single",
     user["credits"] += amount
     # Don't downgrade tier: single purchase shouldn't overwrite active pack
     current_tier = user.get("tier", "none")
-    tier_priority = {"none": 0, "single": 1, "starter": 2, "pro": 3}
+    tier_priority = {"none": 0, "single": 1, "starter": 2, "agency": 3, "pro": 4}
     if tier_priority.get(tier, 0) >= tier_priority.get(current_tier, 0):
         user["tier"] = tier
     if stripe_customer_id:
@@ -1021,7 +1021,7 @@ LANDING_PAGE = """<!DOCTYPE html>
   "operatingSystem": "Web",
   "offers": {
     "@type": "Offer",
-    "price": "4.99",
+    "price": "14.99",
     "priceCurrency": "USD"
   }
 }
@@ -1068,7 +1068,7 @@ LANDING_PAGE = """<!DOCTYPE html>
       "name": "What if I manage multiple properties?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Each guide is tied to a specific location. Our 5 Guide Pack is $14.99 (launch price) - that is $3.00 per guide instead of $4.99. Credits never expire."
+        "text": "Each guide is tied to a specific location. Our Host Pack is $49 for 10 guides ($4.90/guide) or the Agency Pack is $149 for 50 guides ($2.98/guide) - both launch pricing. Credits never expire."
       }
     }
   ]
@@ -1507,22 +1507,22 @@ if (errMatch && !['payment','no_account'].includes(errMatch[1])) {
 </section>
 
 <!-- ════════ PRICING ════════ -->
-<section id="pricing" class="max-w-3xl mx-auto px-6 mb-24">
+<section id="pricing" class="max-w-4xl mx-auto px-6 mb-24">
   <h2 class="text-2xl font-bold text-center mb-3">Pay once per listing. Use it forever.</h2>
-  <p class="text-sm text-gray-500 text-center mb-10">No subscriptions. No per-guest fees. One guide, unlimited prints.</p>
-  <div class="grid md:grid-cols-2 gap-5 max-w-2xl mx-auto items-start">
+  <p class="text-sm text-gray-500 text-center mb-10">No subscriptions. No per-guest fees. Regenerate any guide free for 12 months.</p>
+  <div class="grid md:grid-cols-3 gap-5 max-w-4xl mx-auto items-start">
 
     <!-- Single -->
     <div class="bg-white rounded-2xl shadow-md p-7 border border-gray-100 text-center">
       <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">Single Guide</h3>
-      <div class="text-3xl font-extrabold text-gray-800 mb-1"><span class="text-lg line-through text-gray-300 mr-1">$19.99</span>$4.99</div>
-      <div class="text-xs text-gray-500 mb-1">one-time</div>
-      <div class="text-xs text-teal-600 font-medium mb-5">Launch pricing - 75% off</div>
+      <div class="text-3xl font-extrabold text-gray-800 mb-1"><span class="text-lg line-through text-gray-300 mr-1">$29.99</span>$14.99</div>
+      <div class="text-xs text-gray-500 mb-1">one-time, 1 listing</div>
+      <div class="text-xs text-teal-600 font-medium mb-5">Launch pricing - 50% off</div>
       <ul class="text-left text-sm text-gray-600 space-y-2 mb-7">
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 1 personalized guide</li>
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 30+ nearby places with ratings</li>
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> PDF + web version</li>
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Safety tips + local info</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> PDF + web + QR code</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Free regeneration for 12 months</li>
       </ul>
       <a href="#" onclick="document.getElementById('airbnb_url').focus();window.scrollTo({top:0,behavior:'smooth'});return false;"
          class="block w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold text-sm text-center hover:border-teal-400 transition">
@@ -1530,23 +1530,40 @@ if (errMatch && !['payment','no_account'].includes(errMatch[1])) {
       </a>
     </div>
 
-    <!-- 5 Guide Pack -->
+    <!-- Host Pack (10 listings) -->
     <div class="bg-white rounded-2xl shadow-xl p-7 border-2 border-teal-500 text-center relative md:-mt-2 md:mb-0">
-      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-semibold px-4 py-1 rounded-full">83% off + save 40% per guide</div>
-      <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4 mt-1">5 Guide Pack</h3>
-      <div class="text-3xl font-extrabold text-teal-700 mb-1"><span class="text-lg line-through text-gray-300 mr-1">$89.99</span>$14.99</div>
-      <div class="text-xs text-gray-500 mb-1">$3.00/guide instead of $4.99</div>
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-semibold px-4 py-1 rounded-full">Most popular - save 67% per guide</div>
+      <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4 mt-1">Host Pack</h3>
+      <div class="text-3xl font-extrabold text-teal-700 mb-1"><span class="text-lg line-through text-gray-300 mr-1">$99</span>$49</div>
+      <div class="text-xs text-gray-500 mb-1">10 listings - $4.90/guide</div>
       <div class="text-xs text-teal-600 font-medium mb-5">Launch pricing</div>
       <ul class="text-left text-sm text-gray-600 space-y-2 mb-7">
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 5 personalized guides</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 10 personalized guides</li>
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 30+ nearby places with ratings</li>
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> PDF + web version</li>
-        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Safety tips + local info</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> PDF + web + QR code</li>
         <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Use anytime - credits never expire</li>
       </ul>
       <a href="#" onclick="document.getElementById('airbnb_url').focus();window.scrollTo({top:0,behavior:'smooth'});return false;"
          class="cta-btn block w-full py-2.5 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-xl font-semibold text-sm text-center">
-        Get 5 Guides
+        Get the Host Pack
+      </a>
+    </div>
+
+    <!-- Agency Pack (50 listings) -->
+    <div class="bg-white rounded-2xl shadow-md p-7 border border-gray-100 text-center">
+      <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">Agency Pack</h3>
+      <div class="text-3xl font-extrabold text-gray-800 mb-1"><span class="text-lg line-through text-gray-300 mr-1">$299</span>$149</div>
+      <div class="text-xs text-gray-500 mb-1">50 listings - $2.98/guide</div>
+      <div class="text-xs text-teal-600 font-medium mb-5">For property managers + co-hosts</div>
+      <ul class="text-left text-sm text-gray-600 space-y-2 mb-7">
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> 50 personalized guides</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Cheapest per-listing rate</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> PDF + web + QR code per listing</li>
+        <li class="flex items-start gap-2"><svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg> Credits never expire</li>
+      </ul>
+      <a href="#" onclick="document.getElementById('airbnb_url').focus();window.scrollTo({top:0,behavior:'smooth'});return false;"
+         class="block w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold text-sm text-center hover:border-teal-400 transition">
+        Get the Agency Pack
       </a>
     </div>
 
@@ -1590,7 +1607,7 @@ if (errMatch && !['payment','no_account'].includes(errMatch[1])) {
         What if I manage multiple properties?
         <span class="text-gray-400">+</span>
       </button>
-      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Each guide is tied to a specific location. Our 5 Guide Pack is $14.99 (launch price) - that's $3.00 per guide instead of $4.99. Credits never expire.</p></div>
+      <div class="faq-answer px-6 text-sm text-gray-500 leading-relaxed"><p class="pb-4">Each guide is tied to a specific location. Our Host Pack is $49 for 10 guides ($4.90/guide) or the Agency Pack is $149 for 50 guides ($2.98/guide) - both launch pricing. Credits never expire.</p></div>
     </div>
   </div>
 </section>
@@ -1848,11 +1865,11 @@ tailwind.config = {
         <div class="bg-white rounded-xl border border-gray-200 p-4 hover:border-teal-400 transition h-full flex flex-col relative">
           <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-semibold px-3 py-0.5 rounded-full">50% off</div>
           <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 mt-1">Single Guide</div>
-          <div class="text-2xl font-extrabold text-gray-800"><span class="text-sm line-through text-gray-300">$19.99</span> $4.99</div>
+          <div class="text-2xl font-extrabold text-gray-800"><span class="text-sm line-through text-gray-300">$29.99</span> $14.99</div>
           <div class="text-xs text-teal-600 font-medium mb-3">Launch pricing</div>
           <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
             <li>&#10003; This guide only</li>
-            <li>&#10003; PDF + web version</li>
+            <li>&#10003; PDF + web + QR code</li>
             <li>&#10003; 30+ places with ratings</li>
           </ul>
           <button type="submit" class="w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-lg font-semibold text-sm hover:border-teal-400 transition">
@@ -1861,23 +1878,23 @@ tailwind.config = {
         </div>
       </form>
 
-      <!-- 5 Guide Pack -->
+      <!-- Host Pack (10 listings) -->
       <form action="/checkout" method="POST" class="text-center">
         <input type="hidden" name="token" value="{{ token }}">
         <input type="hidden" name="tier" value="starter">
         <div class="bg-white rounded-xl border-2 border-teal-500 p-4 relative h-full flex flex-col shadow-md">
-          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-semibold px-3 py-0.5 rounded-full">83% off + save 40%/guide</div>
-          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 mt-1">5 Guide Pack</div>
-          <div class="text-2xl font-extrabold text-teal-700"><span class="text-sm line-through text-gray-300 mr-1">$89.99</span>$14.99</div>
-          <div class="text-xs text-teal-600 font-medium mb-3">$3.00/guide instead of $4.99</div>
+          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-semibold px-3 py-0.5 rounded-full">Save 67% per guide</div>
+          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 mt-1">Host Pack</div>
+          <div class="text-2xl font-extrabold text-teal-700"><span class="text-sm line-through text-gray-300 mr-1">$99</span>$49</div>
+          <div class="text-xs text-teal-600 font-medium mb-3">10 listings at $4.90/guide</div>
           <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
-            <li>&#10003; <strong>5 personalized guides</strong></li>
-            <li>&#10003; PDF + web version</li>
+            <li>&#10003; <strong>10 personalized guides</strong></li>
+            <li>&#10003; PDF + web + QR code</li>
             <li>&#10003; 30+ places with ratings</li>
             <li>&#10003; Credits never expire</li>
           </ul>
           <button type="submit" class="pulse-cta w-full py-2.5 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-lg font-semibold text-sm">
-            Get 5 Guides
+            Get Host Pack
           </button>
         </div>
       </form>
@@ -2226,7 +2243,7 @@ tailwind.config = {
       </button>
     </form>
     {% else %}
-      {% if tier in ('starter', 'pro') %}
+      {% if tier in ('starter', 'pro', 'agency') %}
     <p class="text-sm text-gray-500 mb-4">You've used all your credits for this billing cycle. They'll automatically refill on your next billing date.</p>
     <a href="/#pricing" class="inline-block px-4 py-2 text-teal-700 bg-teal-50 rounded-xl font-semibold text-sm hover:bg-teal-100 transition">
       Upgrade Plan
@@ -2272,16 +2289,23 @@ TIERS = {
     "single": {
         "name": "HostGuide - Single Guide",
         "description": "One personalized neighborhood guide for your Airbnb listing",
-        "amount": 499,  # $4.99 (launch, normal $9.99)
+        "amount": 1499,  # $14.99 (launch price, normal $29.99)
         "mode": "payment",
         "guides": 1,
     },
     "starter": {
-        "name": "HostGuide - 5 Guide Pack",
-        "description": "5 personalized neighborhood guides for your Airbnb listings",
-        "amount": 1499,  # $14.99 (launch, normal $29.99)
+        "name": "HostGuide - Host Pack (10 listings)",
+        "description": "10 personalized neighborhood guides - $4.90 per listing",
+        "amount": 4900,  # $49 (launch price, normal $99)
         "mode": "payment",
-        "guides": 5,
+        "guides": 10,
+    },
+    "agency": {
+        "name": "HostGuide - Agency Pack (50 listings)",
+        "description": "50 personalized neighborhood guides for property managers - $2.98 per listing",
+        "amount": 14900,  # $149 (launch price, normal $299)
+        "mode": "payment",
+        "guides": 50,
     },
 }
 
@@ -2333,7 +2357,7 @@ def checkout():
         _update_order(token, status="paid", tier=tier)
         tier_credits = TIERS[tier]["guides"]
         _add_credits(email, tier_credits, tier, dedup_key=f"dev-{token}")
-        if tier in ("starter", "pro"):
+        if tier in ("starter", "pro", "agency"):
             return redirect(_dashboard_url(email))
         return redirect(f"/generating/{token}")
 
@@ -2354,7 +2378,7 @@ def checkout():
             line_items=[{"price_data": price_data, "quantity": 1}],
             mode="payment",
             customer_email=email,
-            success_url=f"{DOMAIN}{_dashboard_url(email, welcome='1')}" if tier in ("starter", "pro") else f"{DOMAIN}/generating/{token}",
+            success_url=f"{DOMAIN}{_dashboard_url(email, welcome='1')}" if tier in ("starter", "pro", "agency") else f"{DOMAIN}/generating/{token}",
             cancel_url=f"{DOMAIN}/preview/{token}",
             metadata={"order_token": token, "tier": tier},
         )
