@@ -2510,7 +2510,22 @@ def download(token: str):
 
     guide_path = Path(order["guide_path"])
     if not guide_path.exists():
-        abort(404, "Guide file not found")
+        # Render's filesystem is ephemeral — a deploy between generation and
+        # this download wipes the PDF/HTML. Order is still in Redis though.
+        # Regenerate synchronously so the user still gets their guide on
+        # this same request (typical regen ~30s; better than refunding).
+        print(f"[download] file missing on disk for {token} — regenerating "
+              f"(probably wiped by a Render redeploy)")
+        _update_order(token, status="generating")
+        ok = _generate_guide_for_order(token)
+        if ok:
+            order = _get_order(token)  # refresh path
+            guide_path = Path(order.get("guide_path", "")) if order else guide_path
+            if not guide_path.exists():
+                abort(500, "Regeneration produced no file — please try again.")
+        else:
+            abort(404, "Guide file not found and regeneration failed. "
+                       "Please reply to hello@host-guide.net with this token: " + token)
 
     html = guide_path.read_text(encoding="utf-8")
 
@@ -2549,7 +2564,18 @@ def download_pdf(token: str):
 
     guide_path = Path(order.get("guide_path", ""))
     if not guide_path.exists():
-        abort(404, "Guide file not found")
+        # Render's filesystem is ephemeral — regenerate end-to-end if a
+        # redeploy wiped the HTML between generation and this download.
+        print(f"[download_pdf] HTML missing for {token} — regenerating "
+              f"(probably wiped by a Render redeploy)")
+        _update_order(token, status="generating")
+        if not _generate_guide_for_order(token):
+            abort(404, "Guide file not found and regeneration failed. "
+                       "Please reply to hello@host-guide.net with this token: " + token)
+        order = _get_order(token)
+        guide_path = Path(order.get("guide_path", "")) if order else guide_path
+        if not guide_path.exists():
+            abort(500, "Regeneration produced no HTML — please try again.")
 
     pdf_path = guide_path.with_suffix(".pdf")
 
