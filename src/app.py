@@ -1856,7 +1856,7 @@ tailwind.config = {
     <p class="text-xs text-gray-400 text-center mb-4">— or upgrade your plan —</p>
     {% endif %}
     <h3 class="text-lg font-bold text-center mb-5">Unlock Your Full Guide</h3>
-    <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto">
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
 
       <!-- Single -->
       <form action="/checkout" method="POST" class="text-center">
@@ -1895,6 +1895,27 @@ tailwind.config = {
           </ul>
           <button type="submit" class="pulse-cta w-full py-2.5 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-lg font-semibold text-sm">
             Get Host Pack
+          </button>
+        </div>
+      </form>
+
+      <!-- Agency Pack (50 listings) - shown on the post-preview upsell so property managers have a checkout path -->
+      <form action="/checkout" method="POST" class="text-center sm:col-span-2 md:col-span-1">
+        <input type="hidden" name="token" value="{{ token }}">
+        <input type="hidden" name="tier" value="agency">
+        <div class="bg-white rounded-xl border border-gray-200 p-4 hover:border-teal-400 transition h-full flex flex-col relative">
+          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-gray-700 text-white text-xs font-semibold px-3 py-0.5 rounded-full">For property managers</div>
+          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 mt-1">Agency Pack</div>
+          <div class="text-2xl font-extrabold text-gray-800"><span class="text-sm line-through text-gray-300 mr-1">$299</span>$149</div>
+          <div class="text-xs text-teal-600 font-medium mb-3">50 listings at $2.98/guide</div>
+          <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
+            <li>&#10003; <strong>50 personalized guides</strong></li>
+            <li>&#10003; PDF + web + QR code per listing</li>
+            <li>&#10003; Cheapest per-listing rate</li>
+            <li>&#10003; Credits never expire</li>
+          </ul>
+          <button type="submit" class="w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-lg font-semibold text-sm hover:border-teal-400 transition">
+            Get Agency Pack
           </button>
         </div>
       </form>
