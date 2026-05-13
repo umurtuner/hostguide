@@ -37,6 +37,72 @@ ORDERS_FILE.parent.mkdir(parents=True, exist_ok=True)
 STRIPE_SECRET = os.environ.get("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 DOMAIN = os.environ.get("HOSTGUIDE_DOMAIN", "http://localhost:5555")
+
+# ── Cloudflare R2 (durable guide storage so Render redeploys don't wipe PDFs) ──
+R2_ACCOUNT_ID = os.environ.get("R2_ACCOUNT_ID", "")
+R2_ACCESS_KEY_ID = os.environ.get("R2_ACCESS_KEY_ID", "")
+R2_SECRET_ACCESS_KEY = os.environ.get("R2_SECRET_ACCESS_KEY", "")
+R2_BUCKET = os.environ.get("R2_BUCKET", "hostguide-guides")
+_R2_CLIENT = None
+
+
+def _r2():
+    """Lazy boto3 client for Cloudflare R2 (S3-compatible)."""
+    global _R2_CLIENT
+    if _R2_CLIENT is not None:
+        return _R2_CLIENT
+    if not (R2_ACCOUNT_ID and R2_ACCESS_KEY_ID and R2_SECRET_ACCESS_KEY):
+        return None
+    try:
+        import boto3
+        from botocore.client import Config as BotoConfig
+        _R2_CLIENT = boto3.client(
+            "s3",
+            endpoint_url=f"https://{R2_ACCOUNT_ID}.r2.cloudflarestorage.com",
+            aws_access_key_id=R2_ACCESS_KEY_ID,
+            aws_secret_access_key=R2_SECRET_ACCESS_KEY,
+            config=BotoConfig(signature_version="s3v4", s3={"addressing_style": "virtual"}),
+            region_name="auto",
+        )
+        print(f"[r2] client initialized for bucket {R2_BUCKET}")
+        return _R2_CLIENT
+    except Exception as e:
+        print(f"[r2] init failed: {e}")
+        return None
+
+
+def _r2_key(token: str, filename: str) -> str:
+    """Object key for a guide in R2. token includes enough entropy to be unguessable."""
+    return f"guides/{token}/{filename}"
+
+
+def _r2_upload(local_path: Path, key: str) -> bool:
+    client = _r2()
+    if not client or not local_path.exists():
+        return False
+    try:
+        content_type = "text/html" if str(local_path).endswith(".html") else "application/pdf"
+        client.upload_file(str(local_path), R2_BUCKET, key,
+                           ExtraArgs={"ContentType": content_type})
+        return True
+    except Exception as e:
+        print(f"[r2] upload failed for {key}: {e}")
+        return False
+
+
+def _r2_download(key: str, local_path: Path) -> bool:
+    client = _r2()
+    if not client:
+        return False
+    try:
+        local_path.parent.mkdir(parents=True, exist_ok=True)
+        client.download_file(R2_BUCKET, key, str(local_path))
+        print(f"[r2] restored {key} from R2 to {local_path}")
+        return True
+    except Exception as e:
+        # Common case: file truly not in R2. Quiet log so this doesn't spam.
+        print(f"[r2] download missed for {key}: {type(e).__name__}")
+        return False
 ADMIN_SECRET = os.environ.get("HOSTGUIDE_ADMIN_SECRET", "dev-admin-secret")
 REDIS_URL = os.environ.get("REDIS_URL", "")
 
@@ -200,6 +266,50 @@ def _load_credits() -> dict:
 def _save_credits(credits: dict):
     if not _redis:
         CREDITS_FILE.write_text(json.dumps(credits, indent=2))
+
+
+LEADS_FILE = BASE / "data" / "leads.json"
+
+
+def _log_lead(email: str, token: str = "", tier: str = "") -> None:
+    """Record a checkout intent so we can retarget abandoned carts.
+
+    Stores: lead:<email> hash with {first_seen, last_seen, tier, token, count}.
+    Idempotent — repeat checkouts update timestamps but don't duplicate.
+    """
+    email = (email or "").lower().strip()
+    if not email or "@" not in email:
+        return
+    now = datetime.utcnow().isoformat()
+    key = f"lead:{email}"
+    if _redis:
+        try:
+            _redis.hset(key, mapping={
+                "email": email,
+                "last_seen": now,
+                "last_tier": tier or "",
+                "last_token": token or "",
+            })
+            _redis.hsetnx(key, "first_seen", now)
+            _redis.hincrby(key, "count", 1)
+            _redis.expire(key, 60 * 60 * 24 * 90)  # 90-day retention
+            _redis.sadd("leads:all", email)
+        except Exception as e:
+            print(f"[leads] redis log failed for {email}: {e}")
+        return
+    # Local dev: JSON file
+    try:
+        leads = json.loads(LEADS_FILE.read_text()) if LEADS_FILE.exists() else {}
+        entry = leads.get(email, {"email": email, "first_seen": now, "count": 0})
+        entry["last_seen"] = now
+        entry["last_tier"] = tier
+        entry["last_token"] = token
+        entry["count"] = int(entry.get("count", 0)) + 1
+        leads[email] = entry
+        LEADS_FILE.parent.mkdir(parents=True, exist_ok=True)
+        LEADS_FILE.write_text(json.dumps(leads, indent=2))
+    except Exception as e:
+        print(f"[leads] file log failed for {email}: {e}")
 
 
 def _get_user_credits(email: str) -> dict:
@@ -681,6 +791,13 @@ def _generate_guide_for_order(token: str) -> bool:
             import traceback
             print(f"WeasyPrint PDF failed: {e}\n{traceback.format_exc()}")
             pdf_path.unlink(missing_ok=True)
+
+        # Upload to R2 for durable storage (survives Render deploys).
+        # No-op if R2 env vars aren't configured.
+        if _r2_upload(html_path, _r2_key(token, "guide.html")):
+            print(f"[r2] uploaded {token}/guide.html")
+        if pdf_path.exists() and _r2_upload(pdf_path, _r2_key(token, "guide.pdf")):
+            print(f"[r2] uploaded {token}/guide.pdf")
 
         # Update order — single purchases expire in 24h, pack credits don't
         tier = order.get("tier", "single")
@@ -1855,7 +1972,45 @@ tailwind.config = {
     </div>
     <p class="text-xs text-gray-400 text-center mb-4">— or upgrade your plan —</p>
     {% endif %}
-    <h3 class="text-lg font-bold text-center mb-5">Unlock Your Full Guide</h3>
+    <h3 class="text-lg font-bold text-center mb-3">Unlock Your Full Guide</h3>
+
+    <!-- Email capture: required before checkout so we have the lead even if Stripe is abandoned -->
+    <div class="max-w-md mx-auto mb-5">
+      <label for="lead_email" class="block text-xs text-gray-500 mb-1 text-center">Where should I send your guide?</label>
+      <input id="lead_email" name="email" type="email" required placeholder="your@email.com"
+             class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-400"
+             value="{{ prefill_email|default('') }}">
+      <p class="text-xs text-gray-400 text-center mt-1">We use this to deliver your guide and let you regenerate later. No spam.</p>
+    </div>
+
+    <script>
+      // Copy the shared email field into whichever checkout form the user submits.
+      // Block submit if email is empty/invalid so we always capture the lead before payment.
+      (function(){
+        var emailInput = document.getElementById('lead_email');
+        document.querySelectorAll('form[action="/checkout"]').forEach(function(form){
+          form.addEventListener('submit', function(e){
+            var val = (emailInput.value || '').trim();
+            if (!val || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val)) {
+              e.preventDefault();
+              emailInput.focus();
+              emailInput.classList.add('border-red-400','ring-2','ring-red-200');
+              return false;
+            }
+            // Inject email into THIS form before submitting
+            var hidden = form.querySelector('input[name="email"]');
+            if (!hidden) {
+              hidden = document.createElement('input');
+              hidden.type = 'hidden';
+              hidden.name = 'email';
+              form.appendChild(hidden);
+            }
+            hidden.value = val;
+          });
+        });
+      })();
+    </script>
+
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
 
       <!-- Single -->
@@ -2354,6 +2509,9 @@ def checkout():
     """Create Stripe Checkout session for any tier."""
     token = request.form.get("token", "").strip()
     tier = request.form.get("tier", "single").strip()
+    # Email may come from the post-preview lead-capture field; prefer that over
+    # the original order email if both exist (user may correct it post-preview).
+    form_email = request.form.get("email", "").strip().lower()
 
     if tier not in TIERS:
         tier = "single"
@@ -2362,14 +2520,21 @@ def checkout():
         order = _get_order(token)
         if not order:
             return redirect("/")
-        email = order["email"]
+        email = form_email or order["email"]
+        if form_email and form_email != order.get("email", "").lower():
+            _update_order(token, email=form_email)
     else:
         airbnb_url = request.form.get("airbnb_url", "").strip()
-        email = request.form.get("email", "").strip()
+        email = form_email
         city = request.form.get("city", "").strip()
         if not airbnb_url or not re.search(r'airbnb\.\w+/(rooms|h)/', airbnb_url):
             return redirect("/")
         token = _create_order(airbnb_url, email, city=city)
+
+    # Capture lead BEFORE Stripe redirect so abandoned checkouts are still
+    # marketable (retargeting, drip emails, future product launches).
+    if email:
+        _log_lead(email, token, tier)
 
     # Store tier on order
     _update_order(token, tier=tier)
@@ -2511,21 +2676,22 @@ def download(token: str):
     guide_path = Path(order["guide_path"])
     if not guide_path.exists():
         # Render's filesystem is ephemeral — a deploy between generation and
-        # this download wipes the PDF/HTML. Order is still in Redis though.
-        # Regenerate synchronously so the user still gets their guide on
-        # this same request (typical regen ~30s; better than refunding).
-        print(f"[download] file missing on disk for {token} — regenerating "
-              f"(probably wiped by a Render redeploy)")
-        _update_order(token, status="generating")
-        ok = _generate_guide_for_order(token)
-        if ok:
-            order = _get_order(token)  # refresh path
-            guide_path = Path(order.get("guide_path", "")) if order else guide_path
-            if not guide_path.exists():
-                abort(500, "Regeneration produced no file — please try again.")
+        # this download wipes the PDF/HTML. Try R2 first (cheap restore),
+        # fall back to full regeneration if R2 doesn't have it either.
+        print(f"[download] file missing on disk for {token} — trying R2 first")
+        if _r2_download(_r2_key(token, "guide.html"), guide_path):
+            # Also restore the PDF if it's in R2
+            _r2_download(_r2_key(token, "guide.pdf"), guide_path.with_suffix(".pdf"))
         else:
-            abort(404, "Guide file not found and regeneration failed. "
-                       "Please reply to hello@host-guide.net with this token: " + token)
+            print(f"[download] R2 miss for {token} — falling back to regeneration")
+            _update_order(token, status="generating")
+            ok = _generate_guide_for_order(token)
+            if ok:
+                order = _get_order(token)
+                guide_path = Path(order.get("guide_path", "")) if order else guide_path
+            if not guide_path.exists():
+                abort(404, "Guide file not found and regeneration failed. "
+                           "Please reply to hello@host-guide.net with this token: " + token)
 
     html = guide_path.read_text(encoding="utf-8")
 
@@ -2563,11 +2729,18 @@ def download_pdf(token: str):
         abort(404)
 
     guide_path = Path(order.get("guide_path", ""))
+    pdf_path_local = guide_path.with_suffix(".pdf") if guide_path else None
+
+    # Try R2 for the PDF directly first — fastest restore path.
+    if pdf_path_local and not pdf_path_local.exists():
+        if _r2_download(_r2_key(token, "guide.pdf"), pdf_path_local):
+            # Also pull HTML so future /download (HTML) works
+            if not guide_path.exists():
+                _r2_download(_r2_key(token, "guide.html"), guide_path)
+
     if not guide_path.exists():
-        # Render's filesystem is ephemeral — regenerate end-to-end if a
-        # redeploy wiped the HTML between generation and this download.
-        print(f"[download_pdf] HTML missing for {token} — regenerating "
-              f"(probably wiped by a Render redeploy)")
+        # Last resort: regen from scratch
+        print(f"[download_pdf] HTML+PDF both missing for {token} — regenerating")
         _update_order(token, status="generating")
         if not _generate_guide_for_order(token):
             abort(404, "Guide file not found and regeneration failed. "
