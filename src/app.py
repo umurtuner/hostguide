@@ -3026,10 +3026,13 @@ p { font-size: 14px; color: #666; line-height: 1.6; }
           <div style="display:flex; align-items:flex-start; gap:12px;">
             <div style="font-size:28px; line-height:1;">🗓</div>
             <div style="flex:1;">
-              <h2 style="font-size:18px; font-weight:700; color:#0f766e; margin:0 0 4px;">Make this guide auto-update for every guest</h2>
-              <p style="font-size:14px; color:#374151; margin:0 0 16px; line-height:1.55;">
-                Connect your Airbnb calendar. Your guidebook then personalizes itself for each booking — guests see <em>"Day 3 of your 7-night stay"</em>, <em>"Welcome — your stay starts Friday"</em>, and stay-length-aware recommendations. You never touch it again.
+              <h2 style="font-size:18px; font-weight:700; color:#0f766e; margin:0 0 4px;">Your guide auto-updates for every booking. Set it once. Forget it forever.</h2>
+              <p style="font-size:14px; color:#374151; margin:0 0 10px; line-height:1.55;">
+                Paste your Airbnb calendar link once. After that, every guest opens a version of this guide personalized to <em>their</em> stay — automatically, for every future booking.
               </p>
+              <div style="margin:0 0 16px; padding:12px 14px; background:white; border:1px dashed #99f6e4; border-radius:8px; font-size:12.5px; color:#0f766e; line-height:1.55;">
+                <strong>Concrete example:</strong> A guest opens your guide on day 4 of a 7-night stay. They see: <em>"Welcome back — 3 nights left. Here's what's worth your remaining time, sorted for stays this length."</em> Without iCal: every guest sees the same generic intro, no matter where they are in their trip.
+              </div>
             </div>
           </div>
 
@@ -3046,7 +3049,7 @@ p { font-size: 14px; color: #666; line-height: 1.6; }
 
           <!-- ═════ TRUST + SAFETY (preempt the "is this safe?" worry) ═════ -->
           <div style="margin-bottom:16px; font-size:12px; color:#6b7280; line-height:1.5;">
-            🔒 <strong>What we see:</strong> only your booking dates (start/end). No guest names, no contact info, no Airbnb login. Disconnect anytime.
+            🔒 <strong>Read-only.</strong> We see booking dates only — no guest names, no messages, no Airbnb login. Disconnect anytime.
           </div>
 
           <!-- ═════ HOW IT WORKS - STEPS ═════ -->
