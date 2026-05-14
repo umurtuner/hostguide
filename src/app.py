@@ -28,6 +28,15 @@ from flask import (Flask, abort, jsonify, redirect, render_template_string,
                    request, send_file)
 from flask_cors import CORS
 
+# iCal sync (MIE V9 - auto-personalize guidebook from booking calendar)
+# See src/ical_sync.py for module documentation.
+try:
+    from src.ical_sync import sync_listing, get_current_booking, get_next_booking, fetch_ical, parse_ical
+    ICAL_AVAILABLE = True
+except ImportError as _ical_err:
+    ICAL_AVAILABLE = False
+    _ical_import_error = str(_ical_err)
+
 # ── Config ──
 BASE = Path(__file__).parent.parent
 OUTPUT = BASE / "output"
@@ -3599,6 +3608,95 @@ def og_blog(slug):
     if key not in _OG_CACHE:
         _OG_CACHE[key] = _render_og_png(article["title"], article["description"])
     return app.response_class(_OG_CACHE[key], mimetype="image/png")
+
+
+# ==========================================================================
+# iCal sync endpoints (MIE V9 - auto-personalize guides from booking calendar)
+# ==========================================================================
+# Hosts paste their listing's iCal URL (Airbnb/VRBO/Booking all expose this
+# publicly); HostGuide caches upcoming bookings so guide pages can render
+# "Welcome - your stay starts [date], you have [N] nights" without manual
+# updates per booking. Removes the #1 standalone-vs-PMS-bundled-guidebook
+# objection per MIE V9 SI-1.
+# ==========================================================================
+
+@app.route("/api/ical/test", methods=["POST"])
+def api_ical_test():
+    """Test an iCal URL - fetches + parses + returns next 5 upcoming bookings (no persistence).
+
+    Hosts use this to verify their iCal URL is correct BEFORE wiring it to a guide.
+    Body (JSON): {"ical_url": "https://www.airbnb.com/calendar/ical/...ics"}
+    Returns: {"ok": true, "bookings": [...], "count": N}
+    """
+    if not ICAL_AVAILABLE:
+        return jsonify({"ok": False, "error": f"iCal module not loaded: {_ical_import_error}. Run: pip install icalendar python-dateutil"}), 500
+    data = request.get_json(silent=True) or {}
+    ical_url = (data.get("ical_url") or "").strip()
+    if not ical_url:
+        return jsonify({"ok": False, "error": "ical_url required"}), 400
+    try:
+        ics_text = fetch_ical(ical_url)
+        bookings = parse_ical(ics_text, listing_id="test")
+        return jsonify({
+            "ok": True,
+            "count": len(bookings),
+            "bookings": [
+                {
+                    "uid": b.uid,
+                    "start": b.start.isoformat(),
+                    "end": b.end.isoformat(),
+                    "nights": b.nights,
+                    "status": b.status,
+                    "summary": b.summary,
+                }
+                for b in bookings[:5]
+            ],
+        })
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)}), 400
+
+
+@app.route("/api/ical/sync/<token>", methods=["POST"])
+def api_ical_sync(token: str):
+    """Persist an iCal URL on an existing order + sync once.
+
+    Body (JSON): {"ical_url": "https://..."}
+    Returns: {"ok": true, "synced": N, "next_booking": {...} | null}
+    """
+    if not ICAL_AVAILABLE:
+        return jsonify({"ok": False, "error": "iCal module not loaded"}), 500
+    order = _get_order(token)
+    if not order:
+        return jsonify({"ok": False, "error": "order not found"}), 404
+    data = request.get_json(silent=True) or {}
+    ical_url = (data.get("ical_url") or "").strip()
+    if not ical_url:
+        return jsonify({"ok": False, "error": "ical_url required"}), 400
+    try:
+        bookings = sync_listing(ical_url, listing_id=token)
+        _update_order(token, ical_url=ical_url, ical_synced_at=datetime.now().isoformat())
+        next_b = get_next_booking(token)
+        return jsonify({
+            "ok": True,
+            "synced": len(bookings),
+            "next_booking": next_b,
+        })
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)}), 400
+
+
+@app.route("/api/ical/booking/<token>")
+def api_ical_booking(token: str):
+    """Return the booking matching today's date for a guide (used by guide page personalization)."""
+    if not ICAL_AVAILABLE:
+        return jsonify({"ok": False, "error": "iCal module not loaded"}), 500
+    current = get_current_booking(token)
+    next_b = get_next_booking(token)
+    return jsonify({
+        "ok": True,
+        "current_booking": current,
+        "next_booking": next_b,
+    })
 
 
 if __name__ == "__main__":

@@ -10,3 +10,7 @@ qrcode[pil]
 markdown
 anthropic
 boto3==1.35.0
+
+# iCal sync (MIE V9 - auto-personalize guidebook from booking calendar)
+icalendar>=5.0
+python-dateutil>=2.8
