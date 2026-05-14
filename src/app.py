@@ -2727,7 +2727,112 @@ def download(token: str):
     # Inject nav bar after <body> tag
     html = html.replace("<body>", f"<body>\n{nav_bar}", 1)
 
+    # ── iCal personalization: inject a guest-aware welcome banner if iCal synced ──
+    # Per MIE V9 SI-1: this is the differentiator vs Touch Stay / Hostfully.
+    # Banner uses get_stay_context() output to render before/during/after personalization.
+    # Supports ?preview_date=YYYY-MM-DD or ?preview_date=auto for hosts to test.
+    if ICAL_AVAILABLE and order.get("ical_url"):
+        try:
+            preview_date = request.args.get("preview_date", "").strip()
+            ctx = None
+            if preview_date == "auto":
+                # Auto-pick a date inside the next upcoming booking for the host's preview
+                from datetime import date as _date, timedelta as _td
+                next_b = get_next_booking(token)
+                if next_b:
+                    preview = _date.fromisoformat(next_b["start"]) + _td(days=1)
+                    ctx = _stay_context_for_date(token, preview)
+            elif preview_date:
+                from datetime import date as _date
+                try:
+                    ctx = _stay_context_for_date(token, _date.fromisoformat(preview_date))
+                except ValueError:
+                    pass
+            else:
+                from src.ical_sync import get_stay_context
+                ctx = get_stay_context(token)
+
+            if ctx:
+                banner = _render_stay_banner(ctx, preview=bool(preview_date))
+                if banner:
+                    html = html.replace("</div>\n", f"{banner}\n</div>\n", 1) if "</div>\n" in html else html + banner
+        except Exception as e:
+            print(f"[ical-personalization] failed for {token}: {e}")
+
     return html
+
+
+def _stay_context_for_date(listing_id: str, target_date):
+    """Like get_stay_context but for an arbitrary date (used by ?preview_date=...)."""
+    from src.ical_sync import load_persisted
+    from datetime import date as _date
+    state = load_persisted(listing_id)
+    bookings = state.get("bookings", [])
+    iso = target_date.isoformat()
+    for b in bookings:
+        if b["start"] <= iso < b["end"]:
+            start = _date.fromisoformat(b["start"])
+            end = _date.fromisoformat(b["end"])
+            day_n = (target_date - start).days + 1
+            days_total = (end - start).days
+            return {
+                "phase": "during",
+                "booking": b,
+                "day_n": day_n,
+                "days_total": days_total,
+                "days_remaining": (end - target_date).days,
+                "is_short_stay": days_total < 3,
+                "is_long_stay": days_total >= 7,
+            }
+    upcoming = [b for b in bookings if b["start"] > iso and b["status"] == "BOOKED"]
+    if upcoming:
+        next_b = upcoming[0]
+        days_until = (_date.fromisoformat(next_b["start"]) - target_date).days
+        if days_until <= 7:
+            return {"phase": "before", "booking": next_b, "days_until_arrival": days_until}
+    return None
+
+
+def _render_stay_banner(ctx: dict, preview: bool = False) -> str:
+    """Render the personalized welcome banner injected at the top of every guide page."""
+    if not ctx:
+        return ""
+    phase = ctx.get("phase")
+    preview_chip = '<span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-left:8px;">PREVIEW</span>' if preview else ""
+
+    if phase == "during":
+        day_n = ctx["day_n"]
+        days_total = ctx["days_total"]
+        days_remaining = ctx["days_remaining"]
+        if ctx.get("is_short_stay"):
+            sub = "Quick highlights for your short stay below."
+        elif ctx.get("is_long_stay"):
+            sub = "Plenty of time — here's the full neighborhood deep-dive."
+        else:
+            sub = "Here's what's worth your remaining time."
+        return f'''<div style="margin:20px auto;max-width:800px;padding:20px 24px;background:linear-gradient(135deg,#0f766e,#0d9488);color:white;border-radius:12px;font-family:Inter,-apple-system,sans-serif;">
+  <div style="font-size:14px;opacity:0.9;letter-spacing:0.5px;text-transform:uppercase;">Welcome back{preview_chip}</div>
+  <div style="font-size:22px;font-weight:700;margin:6px 0 4px;">Day {day_n} of {days_total} · {days_remaining} {'night' if days_remaining == 1 else 'nights'} left</div>
+  <div style="font-size:14px;opacity:0.95;">{sub}</div>
+</div>'''
+
+    if phase == "before":
+        days_until = ctx["days_until_arrival"]
+        when = "tomorrow" if days_until == 1 else f"in {days_until} days"
+        return f'''<div style="margin:20px auto;max-width:800px;padding:20px 24px;background:linear-gradient(135deg,#0f766e,#0d9488);color:white;border-radius:12px;font-family:Inter,-apple-system,sans-serif;">
+  <div style="font-size:14px;opacity:0.9;letter-spacing:0.5px;text-transform:uppercase;">Looking forward to your stay{preview_chip}</div>
+  <div style="font-size:22px;font-weight:700;margin:6px 0 4px;">You arrive {when}</div>
+  <div style="font-size:14px;opacity:0.95;">Save this page — you'll want it during your stay. Wifi, check-in, and parking are all below.</div>
+</div>'''
+
+    if phase == "after":
+        return f'''<div style="margin:20px auto;max-width:800px;padding:20px 24px;background:linear-gradient(135deg,#0f766e,#0d9488);color:white;border-radius:12px;font-family:Inter,-apple-system,sans-serif;">
+  <div style="font-size:14px;opacity:0.9;letter-spacing:0.5px;text-transform:uppercase;">Hope you enjoyed your stay{preview_chip}</div>
+  <div style="font-size:22px;font-weight:700;margin:6px 0 4px;">Thank you for visiting</div>
+  <div style="font-size:14px;opacity:0.95;">If the guide helped, a quick Airbnb review goes a long way.</div>
+</div>'''
+
+    return ""
 
 
 @app.route("/download/<token>/pdf")
@@ -2911,8 +3016,171 @@ p { font-size: 14px; color: #666; line-height: 1.6; }
         <br>
         <a href="{{ dashboard_link }}" style="margin-top:12px; display:inline-block; padding:8px 20px; font-size:13px; background:#f3f4f6; color:#374151; border-radius:8px; font-weight:500; text-decoration:none;">Back to Dashboard</a>
         {% endif %}
+
+        <!-- ════════════════════════════════════════════════════════
+             ICAL CONNECT - one-time setup, auto-personalizes guide for every guest
+             ════════════════════════════════════════════════════════ -->
+        <div id="icalCard" style="margin-top:32px; padding:24px; background:#f0fdfa; border:1px solid #99f6e4; border-radius:16px; text-align:left; max-width:560px; margin-left:auto; margin-right:auto;">
+
+          <!-- ═════ HEADLINE + WHAT IT IS ═════ -->
+          <div style="display:flex; align-items:flex-start; gap:12px;">
+            <div style="font-size:28px; line-height:1;">🗓</div>
+            <div style="flex:1;">
+              <h2 style="font-size:18px; font-weight:700; color:#0f766e; margin:0 0 4px;">Make this guide auto-update for every guest</h2>
+              <p style="font-size:14px; color:#374151; margin:0 0 16px; line-height:1.55;">
+                Connect your Airbnb calendar. Your guidebook then personalizes itself for each booking — guests see <em>"Day 3 of your 7-night stay"</em>, <em>"Welcome — your stay starts Friday"</em>, and stay-length-aware recommendations. You never touch it again.
+              </p>
+            </div>
+          </div>
+
+          <!-- ═════ WHAT'S IN IT FOR YOU ═════ -->
+          <div style="margin-bottom:16px; padding:14px; background:white; border-radius:10px; font-size:13px; line-height:1.6; color:#374151;">
+            <strong style="color:#0f766e;">Why this matters for you:</strong>
+            <ul style="margin:8px 0 0; padding-left:20px;">
+              <li>Guests get current-feeling info every stay → fewer "where's the wifi?" messages at midnight</li>
+              <li>Personalized welcome → stronger 5-star reviews → higher rebooking rate</li>
+              <li>Multi-property hosts: this is the feature PMS-bundled guidebooks (Hostfully, Hospitable) auto-do. Now yours does too.</li>
+              <li><strong>Zero work after setup.</strong> One paste, then forget about it.</li>
+            </ul>
+          </div>
+
+          <!-- ═════ TRUST + SAFETY (preempt the "is this safe?" worry) ═════ -->
+          <div style="margin-bottom:16px; font-size:12px; color:#6b7280; line-height:1.5;">
+            🔒 <strong>What we see:</strong> only your booking dates (start/end). No guest names, no contact info, no Airbnb login. Disconnect anytime.
+          </div>
+
+          <!-- ═════ HOW IT WORKS - STEPS ═════ -->
+          <details style="margin-bottom:16px;">
+            <summary style="cursor:pointer; font-weight:600; color:#0f766e; font-size:14px; padding:8px 0;">📋 How to find your Airbnb iCal URL (60 seconds) →</summary>
+            <ol style="margin:12px 0 0; padding-left:22px; font-size:13px; color:#374151; line-height:1.7;">
+              <li>Go to <a href="https://www.airbnb.com/hosting/listings" target="_blank" style="color:#0f766e; text-decoration:underline;">Airbnb → Listings</a> and open the listing for this guide</li>
+              <li>Click the <strong>Availability</strong> tab on the left</li>
+              <li>Scroll down to <strong>Sync calendars</strong> → click <strong>Export calendar</strong></li>
+              <li>Copy the URL that ends in <code style="background:#e5e7eb; padding:1px 4px; border-radius:3px; font-size:12px;">.ics</code></li>
+              <li>Paste it below ↓</li>
+            </ol>
+            <p style="margin:10px 0 0; font-size:12px; color:#6b7280;">
+              Other platforms work too (VRBO / Booking.com / Hostaway / Hospitable / Guesty / Lodgify). Same export-calendar pattern in their settings.
+            </p>
+          </details>
+
+          <!-- ═════ THE FORM ═════ -->
+          <div id="icalForm">
+            <label for="icalUrlInput" style="display:block; font-size:12px; font-weight:600; color:#0f766e; margin-bottom:6px;">Paste your iCal URL</label>
+            <input type="url" id="icalUrlInput"
+                   placeholder="https://www.airbnb.com/calendar/ical/..."
+                   style="width:100%; box-sizing:border-box; padding:10px 12px; font-size:13px; border:1px solid #99f6e4; border-radius:8px; outline:none; font-family:monospace;">
+            <button onclick="testIcal()" id="icalTestBtn"
+                    style="width:100%; margin-top:10px; padding:11px 16px; font-size:14px; font-weight:600; background:#0d9488; color:white; border:none; border-radius:8px; cursor:pointer;">
+              Test connection
+            </button>
+            <p style="margin:10px 0 0; font-size:12px; color:#6b7280; text-align:center;">
+              We'll verify the URL works + show you your next 5 bookings before anything is saved.
+            </p>
+          </div>
+
+          <!-- ═════ STATE 2: TEST RESULT (hidden until test runs) ═════ -->
+          <div id="icalTestResult" style="display:none; margin-top:16px; padding:14px; background:white; border-radius:10px;"></div>
+
+          <!-- ═════ STATE 3: CONNECTED (hidden until confirm clicked) ═════ -->
+          <div id="icalConnected" style="display:none; margin-top:16px; padding:16px; background:#dcfce7; border:1px solid #86efac; border-radius:10px;">
+            <div style="font-size:15px; font-weight:600; color:#15803d; margin-bottom:6px;">✅ Connected. Your guide will auto-update from now on.</div>
+            <div style="font-size:13px; color:#166534;">No further action needed. Each guest opening your guide URL will see content tailored to their booking.</div>
+            <div style="margin-top:10px; font-size:12px; color:#15803d;">
+              <a href="/download/{{ token }}?preview_date=auto" style="color:#15803d; text-decoration:underline;">Preview the personalization →</a>
+            </div>
+          </div>
+
+        </div>
     </div>
 </div>
+
+<script>
+// ════════════════════════════════════════════════════════
+// iCal Connect flow - test → confirm → activate
+// ════════════════════════════════════════════════════════
+async function testIcal() {
+  var url = document.getElementById('icalUrlInput').value.trim();
+  var btn = document.getElementById('icalTestBtn');
+  var resultBox = document.getElementById('icalTestResult');
+
+  if (!url) {
+    resultBox.style.display = 'block';
+    resultBox.style.background = '#fef2f2';
+    resultBox.innerHTML = '<div style="color:#991b1b; font-size:13px;">Please paste an iCal URL first.</div>';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Testing...';
+  resultBox.style.display = 'block';
+  resultBox.style.background = '#f9fafb';
+  resultBox.innerHTML = '<div style="color:#374151; font-size:13px;">⏳ Fetching your calendar...</div>';
+
+  try {
+    var resp = await fetch('/api/ical/test', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ical_url: url})
+    });
+    var data = await resp.json();
+
+    if (!data.ok) {
+      btn.disabled = false;
+      btn.textContent = 'Try again';
+      resultBox.style.background = '#fef2f2';
+      resultBox.innerHTML = '<div style="color:#991b1b; font-size:13px;"><strong>Couldn\\'t read that URL.</strong><br>' + (data.error || 'Make sure you copied the URL ending in .ics from Airbnb\\'s Export calendar option.') + '</div>';
+      return;
+    }
+
+    // Success - render the bookings preview + Confirm button
+    var html = '<div style="color:#15803d; font-size:14px; font-weight:600; margin-bottom:10px;">✅ Connected. Found ' + data.count + ' upcoming booking' + (data.count === 1 ? '' : 's') + '.</div>';
+    if (data.bookings && data.bookings.length > 0) {
+      html += '<div style="font-size:12px; color:#374151; margin-bottom:10px;">Next ' + Math.min(5, data.bookings.length) + ':</div><ul style="margin:0; padding-left:20px; font-size:13px; color:#374151; line-height:1.7;">';
+      data.bookings.forEach(function(b) {
+        var label = b.status === 'BOOKED' ? '🟢 Booked' : '⚪ Blocked';
+        html += '<li>' + b.start + ' → ' + b.end + ' <span style="color:#6b7280;">(' + b.nights + 'n)</span> ' + label + '</li>';
+      });
+      html += '</ul>';
+    }
+    html += '<button onclick="confirmIcal()" style="width:100%; margin-top:14px; padding:11px 16px; font-size:14px; font-weight:600; background:#15803d; color:white; border:none; border-radius:8px; cursor:pointer;">Confirm + activate auto-personalization</button>';
+    html += '<button onclick="document.getElementById(\\'icalTestResult\\').style.display=\\'none\\'; document.getElementById(\\'icalTestBtn\\').disabled=false; document.getElementById(\\'icalTestBtn\\').textContent=\\'Test connection\\';" style="width:100%; margin-top:8px; padding:9px 16px; font-size:13px; background:transparent; color:#6b7280; border:1px solid #d1d5db; border-radius:8px; cursor:pointer;">Cancel</button>';
+
+    resultBox.style.background = 'white';
+    resultBox.innerHTML = html;
+
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = 'Try again';
+    resultBox.style.background = '#fef2f2';
+    resultBox.innerHTML = '<div style="color:#991b1b; font-size:13px;"><strong>Network error.</strong> Please try again or email hello@host-guide.net.</div>';
+  }
+}
+
+async function confirmIcal() {
+  var url = document.getElementById('icalUrlInput').value.trim();
+
+  try {
+    var resp = await fetch('/api/ical/sync/{{ token }}', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ical_url: url})
+    });
+    var data = await resp.json();
+
+    if (data.ok) {
+      // Hide form + test result, show success
+      document.getElementById('icalForm').style.display = 'none';
+      document.getElementById('icalTestResult').style.display = 'none';
+      document.getElementById('icalConnected').style.display = 'block';
+    } else {
+      alert('Could not save: ' + (data.error || 'unknown error'));
+    }
+  } catch (e) {
+    alert('Network error - please try again.');
+  }
+}
+</script>
 <script>
 const token = "{{ token }}";
 let checks = 0;

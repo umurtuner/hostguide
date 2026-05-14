@@ -31,3 +31,41 @@ services:
         sync: false
       - key: R2_BUCKET
         sync: false
+
+  # iCal sync - polls all hosts' booking calendars every 30 min so guide
+  # personalization stays current. Per MIE V9 SI-1: this auto-update is the
+  # standalone-vs-PMS-bundled differentiator.
+  - type: cron
+    name: hostguide-ical-sync
+    runtime: python
+    schedule: "*/30 * * * *"
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m src.ical_sync --all
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.2
+
+  # Pre-arrival emails - daily 8am UTC, finds bookings starting in 3 days,
+  # outputs JSON list of {listing_id, booking, action} to logs (stdout).
+  # Wire to your email service by piping to a sender script.
+  - type: cron
+    name: hostguide-pre-arrival
+    runtime: python
+    schedule: "0 8 * * *"
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m src.ical_sync --pre-arrival 3
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.2
+
+  # Post-checkout review nudges - daily 9am UTC, finds bookings that checked
+  # out yesterday. Same JSON-to-stdout pattern as pre-arrival.
+  - type: cron
+    name: hostguide-review-nudge
+    runtime: python
+    schedule: "0 9 * * *"
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m src.ical_sync --post-checkout 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.2
