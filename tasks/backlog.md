@@ -10,7 +10,7 @@
   - $5 one-time per guide
   - $19/month unlimited listings
   - First guide free (lead gen)
-- Stack: static HTML or simple Flask page, Stripe for payments
+- Stack: static HTML or simple Flask page (payments removed 16 Oct 2026)
 - Priority: HIGH — this is the monetization path
 
 ### Google Places API Integration
