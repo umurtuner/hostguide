@@ -2,13 +2,12 @@
 
 Flow:
 1. Landing page: host pastes Airbnb listing URL
-2. Stripe Checkout: $5 payment
-3. On success: scrape listing → enrich → generate guide
+2. Blurred preview; purchases are closed, existing guide credits still work
+3. On credit use: scrape listing → enrich → generate guide
 4. Serve guide at unique token URL (24h expiry)
 
 Run:
     cd hostguide && python -m src.app
-    # Requires: STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET env vars
 """
 from __future__ import annotations
 
@@ -23,7 +22,6 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 import requests as http_requests
-import stripe
 from flask import (Flask, abort, jsonify, redirect, render_template_string,
                    request, send_file)
 from flask_cors import CORS
@@ -43,8 +41,6 @@ OUTPUT = BASE / "output"
 ORDERS_FILE = BASE / "data" / "orders.json"
 ORDERS_FILE.parent.mkdir(parents=True, exist_ok=True)
 
-STRIPE_SECRET = os.environ.get("STRIPE_SECRET_KEY", "")
-STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 DOMAIN = os.environ.get("HOSTGUIDE_DOMAIN", "http://localhost:5555")
 
 # ── Cloudflare R2 (durable guide storage so Render redeploys don't wipe PDFs) ──
@@ -134,9 +130,6 @@ if REDIS_URL:
 else:
     print("[storage] No REDIS_URL — using JSON file storage (local dev)")
 
-if STRIPE_SECRET:
-    stripe.api_key = STRIPE_SECRET
-
 app = Flask(__name__, static_folder=str(Path(__file__).parent.parent / "static"))
 CORS(app)
 
@@ -203,8 +196,8 @@ def _create_order(airbnb_url: str, email: str, city: str = "") -> str:
         "created": datetime.utcnow().isoformat(),
         "expires": None,  # Set when guide is generated
         "guide_path": None,
-        "stripe_session_id": None,
     }
+    # Read-compat: old records may carry stripe_session_id / stripe_customer_id; loaded as-is, never written (payments removed 16 Oct 2026).
     if _redis:
         _redis.set(_redis_order_key(token), json.dumps(order), ex=86400 * 7)  # 7 day TTL
     else:
@@ -328,8 +321,7 @@ def _get_user_credits(email: str) -> dict:
         raw = _redis.get(_redis_credits_key(email))
         if raw:
             return json.loads(raw)
-        user = {"credits": 0, "tier": "none", "guides_generated": [],
-                "stripe_customer_id": None}
+        user = {"credits": 0, "tier": "none", "guides_generated": []}
         _redis.set(_redis_credits_key(email), json.dumps(user))
         return user
     credits = _load_credits()
@@ -338,7 +330,6 @@ def _get_user_credits(email: str) -> dict:
             "credits": 0,
             "tier": "none",
             "guides_generated": [],
-            "stripe_customer_id": None,
         }
         _save_credits(credits)
     return credits[email]
@@ -353,30 +344,6 @@ def _save_user_credits(email: str, user: dict):
         credits = _load_credits()
         credits[email] = user
         _save_credits(credits)
-
-
-def _add_credits(email: str, amount: int, tier: str = "single",
-                  stripe_customer_id: str | None = None,
-                  dedup_key: str | None = None):
-    """Add guide credits to a user. dedup_key prevents double-adding."""
-    email = email.lower().strip()
-    user = _get_user_credits(email)
-    if "processed_payments" not in user:
-        user["processed_payments"] = []
-    # Dedup: skip if this payment was already processed
-    if dedup_key:
-        if dedup_key in user.get("processed_payments", []):
-            return
-        user["processed_payments"].append(dedup_key)
-    user["credits"] += amount
-    # Don't downgrade tier: single purchase shouldn't overwrite active pack
-    current_tier = user.get("tier", "none")
-    tier_priority = {"none": 0, "single": 1, "starter": 2, "agency": 3, "pro": 4}
-    if tier_priority.get(tier, 0) >= tier_priority.get(current_tier, 0):
-        user["tier"] = tier
-    if stripe_customer_id:
-        user["stripe_customer_id"] = stripe_customer_id
-    _save_user_credits(email, user)
 
 
 def _use_credit(email: str, token: str) -> bool:
@@ -1635,7 +1602,11 @@ if (errMatch && !['payment','no_account'].includes(errMatch[1])) {
 <!-- ════════ PRICING ════════ -->
 <section id="pricing" class="max-w-4xl mx-auto px-6 mb-24">
   <h2 class="text-2xl font-bold text-center mb-3">Pay once per listing. Use it forever.</h2>
-  <p class="text-sm text-gray-500 text-center mb-10">No subscriptions. No per-guest fees. Regenerate any guide free for 12 months.</p>
+  <p class="text-sm text-gray-500 text-center mb-4">No subscriptions. No per-guest fees. Regenerate any guide free for 12 months.</p>
+  <div class="max-w-md mx-auto mb-10 bg-gray-50 border border-gray-200 rounded-xl p-4 text-center">
+    <p class="text-sm font-semibold text-gray-800">Purchases are closed</p>
+    <p class="text-xs text-gray-500">New packs are not on sale. Existing credits still work from your dashboard.</p>
+  </div>
   <div class="grid md:grid-cols-3 gap-5 max-w-4xl mx-auto items-start">
 
     <!-- Single -->
@@ -1979,122 +1950,10 @@ tailwind.config = {
         </button>
       </form>
     </div>
-    <p class="text-xs text-gray-400 text-center mb-4">— or upgrade your plan —</p>
     {% endif %}
-    <h3 class="text-lg font-bold text-center mb-3">Unlock Your Full Guide</h3>
-
-    <!-- Email capture: required before checkout so we have the lead even if Stripe is abandoned -->
-    <div class="max-w-md mx-auto mb-5">
-      <label for="lead_email" class="block text-xs text-gray-500 mb-1 text-center">Where should I send your guide?</label>
-      <input id="lead_email" name="email" type="email" required placeholder="your@email.com"
-             class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-400"
-             value="{{ prefill_email|default('') }}">
-      <p class="text-xs text-gray-400 text-center mt-1">We use this to deliver your guide and let you regenerate later. No spam.</p>
-    </div>
-
-    <script>
-      // Copy the shared email field into whichever checkout form the user submits.
-      // Block submit if email is empty/invalid so we always capture the lead before payment.
-      (function(){
-        var emailInput = document.getElementById('lead_email');
-        document.querySelectorAll('form[action="/checkout"]').forEach(function(form){
-          form.addEventListener('submit', function(e){
-            var val = (emailInput.value || '').trim();
-            if (!val || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val)) {
-              e.preventDefault();
-              emailInput.focus();
-              emailInput.classList.add('border-red-400','ring-2','ring-red-200');
-              return false;
-            }
-            // Inject email into THIS form before submitting
-            var hidden = form.querySelector('input[name="email"]');
-            if (!hidden) {
-              hidden = document.createElement('input');
-              hidden.type = 'hidden';
-              hidden.name = 'email';
-              form.appendChild(hidden);
-            }
-            hidden.value = val;
-          });
-        });
-      })();
-    </script>
-
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-
-      <!-- Single -->
-      <form action="/checkout" method="POST" class="text-center">
-        <input type="hidden" name="token" value="{{ token }}">
-        <input type="hidden" name="tier" value="single">
-        <div class="bg-white rounded-xl border border-gray-200 p-4 hover:border-teal-400 transition h-full flex flex-col relative">
-          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-semibold px-3 py-0.5 rounded-full">50% off</div>
-          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 mt-1">Single Guide</div>
-          <div class="text-2xl font-extrabold text-gray-800"><span class="text-sm line-through text-gray-300">$29.99</span> $14.99</div>
-          <div class="text-xs text-teal-600 font-medium mb-3">Launch pricing</div>
-          <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
-            <li>&#10003; This guide only</li>
-            <li>&#10003; PDF + web + QR code</li>
-            <li>&#10003; 30+ places with ratings</li>
-          </ul>
-          <button type="submit" class="w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-lg font-semibold text-sm hover:border-teal-400 transition">
-            Get This Guide
-          </button>
-        </div>
-      </form>
-
-      <!-- Host Pack (10 listings) -->
-      <form action="/checkout" method="POST" class="text-center">
-        <input type="hidden" name="token" value="{{ token }}">
-        <input type="hidden" name="tier" value="starter">
-        <div class="bg-white rounded-xl border-2 border-teal-500 p-4 relative h-full flex flex-col shadow-md">
-          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-semibold px-3 py-0.5 rounded-full">Save 67% per guide</div>
-          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 mt-1">Host Pack</div>
-          <div class="text-2xl font-extrabold text-teal-700"><span class="text-sm line-through text-gray-300 mr-1">$99</span>$49</div>
-          <div class="text-xs text-teal-600 font-medium mb-3">10 listings at $4.90/guide</div>
-          <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
-            <li>&#10003; <strong>10 personalized guides</strong></li>
-            <li>&#10003; PDF + web + QR code</li>
-            <li>&#10003; 30+ places with ratings</li>
-            <li>&#10003; Credits never expire</li>
-          </ul>
-          <button type="submit" class="pulse-cta w-full py-2.5 bg-gradient-to-r from-teal-600 to-teal-800 text-white rounded-lg font-semibold text-sm">
-            Get Host Pack
-          </button>
-        </div>
-      </form>
-
-      <!-- Agency Pack (50 listings) - shown on the post-preview upsell so property managers have a checkout path -->
-      <form action="/checkout" method="POST" class="text-center sm:col-span-2 md:col-span-1">
-        <input type="hidden" name="token" value="{{ token }}">
-        <input type="hidden" name="tier" value="agency">
-        <div class="bg-white rounded-xl border border-gray-200 p-4 hover:border-teal-400 transition h-full flex flex-col relative">
-          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-gray-700 text-white text-xs font-semibold px-3 py-0.5 rounded-full">For property managers</div>
-          <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 mt-1">Agency Pack</div>
-          <div class="text-2xl font-extrabold text-gray-800"><span class="text-sm line-through text-gray-300 mr-1">$299</span>$149</div>
-          <div class="text-xs text-teal-600 font-medium mb-3">50 listings at $2.98/guide</div>
-          <ul class="text-xs text-gray-500 text-left space-y-1 mb-4 flex-grow">
-            <li>&#10003; <strong>50 personalized guides</strong></li>
-            <li>&#10003; PDF + web + QR code per listing</li>
-            <li>&#10003; Cheapest per-listing rate</li>
-            <li>&#10003; Credits never expire</li>
-          </ul>
-          <button type="submit" class="w-full py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-lg font-semibold text-sm hover:border-teal-400 transition">
-            Get Agency Pack
-          </button>
-        </div>
-      </form>
-
-    </div>
-    <p class="text-xs text-gray-400 text-center mt-4">Secure payment via Stripe &middot; Instant access &middot; PDF + digital version</p>
-    <div class="flex items-center justify-center gap-4 mt-4 text-xs text-gray-400">
-      <span class="flex items-center gap-1">
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
-        Secure payment via Stripe
-      </span>
-      <span class="flex items-center gap-1">
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5"/></svg>
-        30+ personalized places
-      </span>
+    <div class="max-w-md mx-auto bg-gray-50 border border-gray-200 rounded-xl p-5 text-center">
+      <h3 class="text-lg font-bold mb-1">Purchases are closed</h3>
+      <p class="text-sm text-gray-500">HostGuide is no longer selling new guides. Existing credits still work.</p>
     </div>
   </div>
 </section>
@@ -2216,7 +2075,7 @@ def preview():
 
 @app.route("/preview/<token>")
 def preview_by_token(token: str):
-    """Show preview page for an existing order (e.g. after Stripe cancel)."""
+    """Show preview page for an existing order."""
     order = _get_order(token)
     if not order:
         return redirect("/")
@@ -2264,33 +2123,8 @@ def dashboard():
 
     user = _get_user_credits(email)
 
-    # If arriving from Stripe (welcome=1) and credits are 0, verify payment directly
-    if welcome and user["credits"] == 0 and STRIPE_SECRET:
-        # Find the most recent order for this email with a stripe session
-        orders = _load_orders()
-        for tok, ord_data in sorted(orders.items(),
-                                     key=lambda x: x[1].get("created", ""), reverse=True):
-            if (ord_data.get("email", "").lower() == email
-                    and ord_data.get("stripe_session_id")
-                    and ord_data.get("status") in ("pending", "paid")):
-                try:
-                    session = stripe.checkout.Session.retrieve(ord_data["stripe_session_id"])
-                    if session.payment_status == "paid":
-                        tier_name = ord_data.get("tier", "single")
-                        tier_config = TIERS.get(tier_name, TIERS["single"])
-                        _add_credits(email, tier_config["guides"], tier_name,
-                                     stripe_customer_id=session.get("customer"),
-                                     dedup_key=ord_data["stripe_session_id"])
-                        _update_order(tok, status="paid", tier=tier_name)
-                        user = _get_user_credits(email)  # Refresh
-                        print(f"[dashboard] Verified Stripe payment for {email}: "
-                              f"+{tier_config['guides']} credits ({tier_name})")
-                except Exception as e:
-                    print(f"[dashboard] Stripe verify failed: {e}")
-                break
-
-    # If arriving from Stripe with credits, auto-generate the first guide
-    # using the Airbnb URL they already entered before payment
+    # If arriving with welcome=1 and credits, auto-generate the first guide
+    # from their most recent paid order
     if welcome and user["credits"] > 0:
         orders = _load_orders()
         for tok, ord_data in sorted(orders.items(),
@@ -2428,17 +2262,8 @@ tailwind.config = {
       </button>
     </form>
     {% else %}
-      {% if tier in ('starter', 'pro', 'agency') %}
-    <p class="text-sm text-gray-500 mb-4">You've used all your credits for this billing cycle. They'll automatically refill on your next billing date.</p>
-    <a href="/#pricing" class="inline-block px-4 py-2 text-teal-700 bg-teal-50 rounded-xl font-semibold text-sm hover:bg-teal-100 transition">
-      Upgrade Plan
-    </a>
-      {% else %}
-    <p class="text-sm text-gray-500 mb-4">You've used all your credits.</p>
-    <a href="/#pricing" class="inline-block px-6 py-3 bg-teal-600 text-white rounded-xl font-semibold text-sm hover:bg-teal-700 transition">
-      Get More Credits
-    </a>
-      {% endif %}
+    <p class="text-sm text-gray-500 mb-2">You've used all your credits.</p>
+    <p class="text-sm font-semibold text-gray-700">Purchases are closed.</p>
     {% endif %}
   </div>
 
@@ -2469,35 +2294,9 @@ tailwind.config = {
 </html>"""
 
 
-# Stripe pricing tiers
-TIERS = {
-    "single": {
-        "name": "HostGuide - Single Guide",
-        "description": "One personalized neighborhood guide for your Airbnb listing",
-        "amount": 1499,  # $14.99 (launch price, normal $29.99)
-        "mode": "payment",
-        "guides": 1,
-    },
-    "starter": {
-        "name": "HostGuide - Host Pack (10 listings)",
-        "description": "10 personalized neighborhood guides - $4.90 per listing",
-        "amount": 4900,  # $49 (launch price, normal $99)
-        "mode": "payment",
-        "guides": 10,
-    },
-    "agency": {
-        "name": "HostGuide - Agency Pack (50 listings)",
-        "description": "50 personalized neighborhood guides for property managers - $2.98 per listing",
-        "amount": 14900,  # $149 (launch price, normal $299)
-        "mode": "payment",
-        "guides": 50,
-    },
-}
-
-
 @app.route("/use-credit", methods=["POST"])
 def use_credit():
-    """Use an existing credit to generate a guide (skips Stripe)."""
+    """Use an existing credit to generate a guide."""
     token = request.form.get("token", "").strip()
     if not token:
         return redirect("/")
@@ -2513,78 +2312,6 @@ def use_credit():
     return redirect(f"/preview/{token}")
 
 
-@app.route("/checkout", methods=["POST"])
-def checkout():
-    """Create Stripe Checkout session for any tier."""
-    token = request.form.get("token", "").strip()
-    tier = request.form.get("tier", "single").strip()
-    # Email may come from the post-preview lead-capture field; prefer that over
-    # the original order email if both exist (user may correct it post-preview).
-    form_email = request.form.get("email", "").strip().lower()
-
-    if tier not in TIERS:
-        tier = "single"
-
-    if token:
-        order = _get_order(token)
-        if not order:
-            return redirect("/")
-        email = form_email or order["email"]
-        if form_email and form_email != order.get("email", "").lower():
-            _update_order(token, email=form_email)
-    else:
-        airbnb_url = request.form.get("airbnb_url", "").strip()
-        email = form_email
-        city = request.form.get("city", "").strip()
-        if not airbnb_url or not re.search(r'airbnb\.\w+/(rooms|h)/', airbnb_url):
-            return redirect("/")
-        token = _create_order(airbnb_url, email, city=city)
-
-    # Capture lead BEFORE Stripe redirect so abandoned checkouts are still
-    # marketable (retargeting, drip emails, future product launches).
-    if email:
-        _log_lead(email, token, tier)
-
-    # Store tier on order
-    _update_order(token, tier=tier)
-
-    if not STRIPE_SECRET:
-        _update_order(token, status="paid", tier=tier)
-        tier_credits = TIERS[tier]["guides"]
-        _add_credits(email, tier_credits, tier, dedup_key=f"dev-{token}")
-        if tier in ("starter", "pro", "agency"):
-            return redirect(_dashboard_url(email))
-        return redirect(f"/generating/{token}")
-
-    tier_config = TIERS[tier]
-
-    try:
-        # Build price_data based on tier
-        price_data = {
-            "currency": "usd",
-            "product_data": {
-                "name": tier_config["name"],
-                "description": tier_config["description"],
-            },
-            "unit_amount": tier_config["amount"],
-        }
-        session_kwargs = dict(
-            payment_method_types=["card"],
-            line_items=[{"price_data": price_data, "quantity": 1}],
-            mode="payment",
-            customer_email=email,
-            success_url=f"{DOMAIN}{_dashboard_url(email, welcome='1')}" if tier in ("starter", "pro", "agency") else f"{DOMAIN}/generating/{token}",
-            cancel_url=f"{DOMAIN}/preview/{token}",
-            metadata={"order_token": token, "tier": tier},
-        )
-        session = stripe.checkout.Session.create(**session_kwargs)
-        _update_order(token, stripe_session_id=session.id)
-        return redirect(session.url, code=303)
-    except Exception as e:
-        print(f"Stripe error: {e}")
-        return redirect("/?error=payment")
-
-
 @app.route("/generating/<token>")
 def generating(token: str):
     """Show 'generating your guide' page — polls for completion."""
@@ -2592,29 +2319,12 @@ def generating(token: str):
     if not order:
         abort(404)
 
-    # If Stripe redirected here, payment succeeded even if webhook hasn't fired yet.
     # Accept "pending" status — the page polls /api/status until generation completes.
     if order["status"] not in ("pending", "paid", "generating", "generated"):
         abort(404)
 
     if order["status"] == "generated" and order.get("guide_path"):
         return redirect(f"/download/{token}")
-
-    # If user arrives from Stripe success redirect and webhook hasn't fired yet,
-    # verify payment via Stripe API and mark as paid immediately.
-    if order["status"] == "pending" and order.get("stripe_session_id") and STRIPE_SECRET:
-        try:
-            session = stripe.checkout.Session.retrieve(order["stripe_session_id"])
-            if session.payment_status == "paid":
-                tier = order.get("tier", "single")
-                _update_order(token, status="paid", tier=tier)
-                tier_config = TIERS.get(tier, TIERS["single"])
-                _add_credits(order["email"], tier_config["guides"], tier,
-                             stripe_customer_id=session.get("customer"),
-                             dedup_key=order["stripe_session_id"])
-                order["status"] = "paid"
-        except Exception as e:
-            print(f"Stripe session check failed: {e}")
 
     # Kick off background generation if paid
     if order["status"] == "paid":
@@ -2643,25 +2353,6 @@ def order_status(token: str):
         if guide_glob:
             return jsonify({"status": "generated", "ready": True, "recovered": True})
         return jsonify({"status": "not_found", "ready": False, "failed": False}), 404
-
-    # If still pending, try to verify payment and kick off generation
-    if order["status"] == "pending" and order.get("stripe_session_id") and STRIPE_SECRET:
-        try:
-            session = stripe.checkout.Session.retrieve(order["stripe_session_id"])
-            if session.payment_status == "paid":
-                tier = order.get("tier", "single")
-                _update_order(token, status="paid", tier=tier)
-                tier_config = TIERS.get(tier, TIERS["single"])
-                _add_credits(order["email"], tier_config["guides"], tier,
-                             stripe_customer_id=session.get("customer"),
-                             dedup_key=order["stripe_session_id"])
-                # Start generation immediately
-                _update_order(token, status="generating")
-                t = threading.Thread(target=_generate_in_background, args=(token,), daemon=True)
-                t.start()
-                return jsonify({"status": "generating", "ready": False})
-        except Exception as e:
-            print(f"Stripe status check failed: {e}")
 
     return jsonify({
         "status": order["status"],
@@ -2879,36 +2570,6 @@ def download_pdf(token: str):
     return send_file(pdf_path, mimetype="application/pdf",
                     as_attachment=True,
                     download_name="HostGuide_Guest_Guide.pdf")
-
-
-@app.route("/webhook/stripe", methods=["POST"])
-def stripe_webhook():
-    """Handle Stripe webhook events."""
-    payload = request.get_data(as_text=True)
-    sig = request.headers.get("Stripe-Signature")
-
-    try:
-        event = stripe.Webhook.construct_event(payload, sig, STRIPE_WEBHOOK_SECRET)
-    except Exception:
-        abort(400)
-
-    if event["type"] == "checkout.session.completed":
-        session = event["data"]["object"]
-        token = session.get("metadata", {}).get("order_token")
-        tier = session.get("metadata", {}).get("tier", "single")
-        customer_id = session.get("customer")  # Stripe customer ID
-        if token:
-            _update_order(token, status="paid", tier=tier)
-            # Add credits based on tier
-            order = _get_order(token)
-            if order:
-                tier_config = TIERS.get(tier, TIERS["single"])
-                _add_credits(order["email"], tier_config["guides"], tier,
-                             stripe_customer_id=customer_id,
-                             dedup_key=session.get("id", token))
-            # Generation triggers from the /generating page when user lands there
-
-    return jsonify({"received": True})
 
 
 @app.route("/admin/complete/<token>", methods=["POST"])
@@ -3972,7 +3633,6 @@ def api_ical_booking(token: str):
 
 if __name__ == "__main__":
     print(f"\n  HostGuide App starting...")
-    print(f"  Stripe: {'configured' if STRIPE_SECRET else 'DEV MODE (skipping payment)'}")
     print(f"  Domain: {DOMAIN}")
     print(f"  Open: http://localhost:5555\n")
     app.run(host="0.0.0.0", port=5555, debug=True)

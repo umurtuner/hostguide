@@ -37,7 +37,7 @@ What's yours?""",
 
 The premise: every Airbnb host writes a welcome book in Canva. It's outdated in 6 weeks and nobody reads it. So I built a generator that pulls real nearby places from each listing's exact lat/lng and writes a printable PDF in 60 seconds.
 
-Stack: Flask + Stripe + WeasyPrint + OpenStreetMap + Google Places + Claude. Hosted on Render.
+Stack: Flask + WeasyPrint + OpenStreetMap + Google Places + Claude. Hosted on Render.
 
 Tech learnings I'd write a longer post about:
 - The Airbnb scraper is HTTP-only (no Playwright in the hot path) - 800ms per listing
